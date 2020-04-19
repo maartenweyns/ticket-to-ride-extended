@@ -1,12 +1,10 @@
 var indexRouter = require('./routes/index');
 
-var createError = require('http-errors');
 var express = require('express');
 var websocket = require("ws");
 var messages = require("./public/javascripts/messages");
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
 var http = require("http");
 var Player = require('./player');
 var Game = require("./game");
@@ -60,13 +58,22 @@ wss.on("connection", function connection(ws) {
     console.log("message from " + con.id + ": " + oMsg.data);
 
     if (oMsg.type === messages.T_PLAYER_TOOK_OPEN_TRAIN) {
-      console.log("A player took " + oMsg.data);
-      var color = game.getRandomColor();
-      game.openCards[oMsg.data] = color;
+      console.log("Player " + oMsg.data.pid + " took " + oMsg.data.card);
+      let color = game.getRandomColor();
+      game.openCards[oMsg.data.card] = color;
 
       let msg = messages.O_NEW_OPEN_CARD;
-      msg.data = {repCard: oMsg.data, newColor: color};
+      msg.data = {repCard: oMsg.data.card, newColor: color};
       game.sendToAll(msg);
+    }
+
+    if (oMsg.type === messages.T_REQUEST_TRAIN) {
+      console.log("Player " + oMsg.data + " requested a closed train.");
+      let color = game.getRandomColor();
+
+      let msg = messages.O_REQUEST_TRAIN;
+      msg.data = color;
+      game["player" + oMsg.data].sendMessage(msg);
     }
 
   });

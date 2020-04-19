@@ -56,4 +56,15 @@
     };
     exports.S_NEW_OPEN_CARD = JSON.stringify(exports.O_NEW_OPEN_CARD);
 
+    /**
+     * Player to server: Player requests closed train card
+     * @type {string}
+     */
+    exports.T_REQUEST_TRAIN = "REQUEST-TRAIN";
+    exports.O_REQUEST_TRAIN = {
+        type: exports.T_REQUEST_TRAIN,
+        data: null
+    };
+    exports.S_REQUEST_TRAIN = JSON.stringify(exports.O_REQUEST_TRAIN);
+
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);

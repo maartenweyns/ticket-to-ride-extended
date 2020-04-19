@@ -32,11 +32,15 @@ function replaceCard(cardId, newColor) {
 
 function takeCard(cardID) {
     let msg = Messages.O_PLAYER_TOOK_OPEN_TRAIN;
-    msg.data = cardID;
+    msg.data = {card: cardID, pid: playerID};
     socket.send(JSON.stringify(msg));
 
     var color = document.getElementById(cardID).classList[1];
 
+    addCardToCollection(color);
+}
+
+function addCardToCollection(color) {
     var ownCardContainer = document.getElementById("ownCardContainer");
     var card = document.createElement('img');
     card.src = "images/trainCards/us_WagonCard_" + color + ".png";
@@ -44,4 +48,10 @@ function takeCard(cardID) {
     card.classList.add(color);
     card.setAttribute('style','transform:rotate(90deg)');
     ownCardContainer.appendChild(card);
+}
+
+function requestClosedCard() {
+    let msg = Messages.O_REQUEST_TRAIN;
+    msg.data = playerID;
+    socket.send(JSON.stringify(msg));
 }
