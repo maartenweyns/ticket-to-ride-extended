@@ -26,10 +26,11 @@ game.prototype.getOpenCards = function() {
 game.prototype.checkNeedForShuffle = function() {
     let amountOfLocos = 0;
     for(let i = 0; i < 5; i++){
-        if (this.openCards["card"+i] === "loco") {
+        if (this.openCards["Card"+i] === "loco") {
             amountOfLocos++;
         }
     }
+    console.log("The deck has been checked to 3 locomotives. The amount of locomotives is " + amountOfLocos);
     return amountOfLocos >= 3;
 };
 

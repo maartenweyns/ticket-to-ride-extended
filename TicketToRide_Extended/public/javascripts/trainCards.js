@@ -1,6 +1,5 @@
 function setOpenTickets(openTickets) {
     var openCardsBox = document.getElementById("openCardsBox");
-
     for(let i = 0; i < 5; i++){
         let card = document.createElement('img');
         let color = openTickets["Card" + i];
@@ -30,13 +29,27 @@ function replaceCard(cardId, newColor) {
     oldcard.parentNode.replaceChild(card, oldcard);
 }
 
+function shuffle(openTickets) {
+    var openCardsBox = document.getElementById("openCardsBox");
+    for (let i = 0; i < 5; i++){
+        let card = document.getElementById("Card" + i);
+        if (card.classList.contains("loco")) {
+            card.classList.add("alertShadow");
+        }
+    }
+    setTimeout(function() {
+        openCardsBox.innerHTML = '';
+        setOpenTickets(openTickets);
+        let audio = new Audio("sounds/card_shuffling3.ogg");
+        audio.play();
+    }, 1000);
+}
+
 function takeCard(cardID) {
     let msg = Messages.O_PLAYER_TOOK_OPEN_TRAIN;
     msg.data = {card: cardID, pid: playerID};
     socket.send(JSON.stringify(msg));
-
     var color = document.getElementById(cardID).classList[1];
-
     addCardToCollection(color);
 }
 

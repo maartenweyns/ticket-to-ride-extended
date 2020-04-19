@@ -50,7 +50,7 @@ wss.on("connection", function connection(ws) {
 
   // Send the open cards to the player that just connected.
   let msg2 = messages.O_OPEN_CARDS;
-  msg2.data = game.getOpenCards();
+  msg2.data = {cards: game.getOpenCards(), shuffle: false};
   con.send(JSON.stringify(msg2));
 
   con.on("message", function incoming(message) {
@@ -65,6 +65,13 @@ wss.on("connection", function connection(ws) {
       let msg = messages.O_NEW_OPEN_CARD;
       msg.data = {repCard: oMsg.data.card, newColor: color};
       game.sendToAll(msg);
+
+      if (game.checkNeedForShuffle()) {
+        let msg = messages.O_OPEN_CARDS;
+        game.setOpenCards();
+        msg.data = {cards: game.getOpenCards(), shuffle: true};
+        game.sendToAll(msg);
+      }
     }
 
     if (oMsg.type === messages.T_REQUEST_TRAIN) {
