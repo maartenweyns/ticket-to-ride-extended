@@ -1,8 +1,117 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+.map {
+  width: 60vw;
+}
+
+.cards {
+  position: fixed;
+  display: table;
+  height: 100vh;
+  width: 150px;
+  padding: 25px;
+  top: 10px;
+  right: 0;
+}
+
+.routeCards {
+  display: table-row;
+}
+
+.maps {
+  display: inline-block;
+}
+
+.card {
+  height: calc(100vh / 9);
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+.card:hover {
+  box-shadow: 0 0 20px 2px rgba(255,255,255,0.5);
+}
+
+.ownCard {
+  height: 50px;
+}
+
+.ownCards {
+  position: fixed;
+  bottom: 0;
+  right: 200px;
+  left: 200px;
+  height: 100px;
+}
+
+.alertShadow {
+  box-shadow: 0 0 46px 2px rgba(255,0,0,1);
+}
+
+.dockDecoration {
+  z-index: -99;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+}
+
+.cardsBackground {
+  z-index: -98;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+}
+
+.cardGauge {
+  position: fixed;
+  display: inline;
+  height: calc(100vh / 9);
 }
