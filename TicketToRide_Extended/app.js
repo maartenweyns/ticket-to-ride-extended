@@ -48,6 +48,7 @@ wss.on("connection", function connection(ws) {
   let msg1 = messages.O_PLAYER_NAME;
   msg1.data = con.id;
   con.send(JSON.stringify(msg1));
+  game["player" + con.id] = new Player("A name", "black", con);
 
   // Send the open cards to the player that just connected.
   let msg2 = messages.O_OPEN_CARDS;
@@ -57,6 +58,17 @@ wss.on("connection", function connection(ws) {
   con.on("message", function incoming(message) {
     let oMsg = JSON.parse(message);
     console.log("message from " + con.id + ": " + oMsg.data);
+
+    if (oMsg.type === messages.T_PLAYER_TOOK_OPEN_TRAIN) {
+      console.log("A player took " + oMsg.data);
+      var color = game.getRandomColor();
+      game.openCards[oMsg.data] = color;
+
+      let msg = messages.O_NEW_OPEN_CARD;
+      msg.data = {repCard: oMsg.data, newColor: color};
+      game.sendToAll(msg);
+    }
+
   });
 
   con.on("close", function (code) {

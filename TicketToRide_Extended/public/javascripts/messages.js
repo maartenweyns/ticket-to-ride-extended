@@ -4,12 +4,12 @@
      * Player to server: The card the player took.
      * @type {string}
      */
-    exports.T_PLAYER_TOOK_TRAIN = "PLAYER-TOOK-TRAIN";
-    exports.O_PLAYER_TOOK_TRAIN = {
-        type: exports.T_PLAYER_TOOK_TRAIN,
+    exports.T_PLAYER_TOOK_OPEN_TRAIN = "PLAYER-TOOK-OPEN-TRAIN";
+    exports.O_PLAYER_TOOK_OPEN_TRAIN = {
+        type: exports.T_PLAYER_TOOK_OPEN_TRAIN,
         data: null
     };
-    exports.S_PLAYER_TOOK_TRAIN = JSON.stringify(exports.O_PLAYER_TOOK_TRAIN);
+    exports.S_PLAYER_TOOK_OPEN_TRAIN = JSON.stringify(exports.O_PLAYER_TOOK_OPEN_TRAIN);
 
     /**
      * Player to server: The name of the player.
@@ -44,5 +44,16 @@
         data: null
     };
     exports.S_OPEN_CARDS = JSON.stringify(exports.O_OPEN_CARDS);
+
+    /**
+     * Server to players: Send a new open card.
+     * @type {string}
+     */
+    exports.T_NEW_OPEN_CARD = "NEW-OPEN-CARD";
+    exports.O_NEW_OPEN_CARD = {
+        type: exports.T_NEW_OPEN_CARD,
+        data: null
+    };
+    exports.S_NEW_OPEN_CARD = JSON.stringify(exports.O_NEW_OPEN_CARD);
 
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);

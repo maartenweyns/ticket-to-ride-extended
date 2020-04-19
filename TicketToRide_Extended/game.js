@@ -12,15 +12,25 @@ const game = function (gameID) {
 };
 
 game.prototype.setOpenCards = function () {
-    this.openCards.card0 = this.getRandomColor();
-    this.openCards.card1 = this.getRandomColor();
-    this.openCards.card2 = this.getRandomColor();
-    this.openCards.card3 = this.getRandomColor();
-    this.openCards.card4 = this.getRandomColor();
+    this.openCards.Card0 = this.getRandomColor();
+    this.openCards.Card1 = this.getRandomColor();
+    this.openCards.Card2 = this.getRandomColor();
+    this.openCards.Card3 = this.getRandomColor();
+    this.openCards.Card4 = this.getRandomColor();
 };
 
 game.prototype.getOpenCards = function() {
     return this.openCards;
+};
+
+game.prototype.checkNeedForShuffle = function() {
+    let amountOfLocos = 0;
+    for(let i = 0; i < 5; i++){
+        if (this.openCards["card"+i] === "loco") {
+            amountOfLocos++;
+        }
+    }
+    return amountOfLocos >= 3;
 };
 
 game.prototype.getRandomColor = function () {
@@ -46,6 +56,14 @@ game.prototype.getRandomColor = function () {
         }
     } else {
         return "loco";
+    }
+};
+
+game.prototype.sendToAll = function(msg) {
+    for (let i = 0; i < 8; i++) {
+        if(this["player" + i] !== null) {
+            this["player" + i].sendMessage(msg);
+        }
     }
 };
 

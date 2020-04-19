@@ -23,5 +23,9 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         if (incomingMsg.type === Messages.T_OPEN_CARDS) {
             setOpenTickets(incomingMsg.data);
         }
+
+        if (incomingMsg.type === Messages.T_NEW_OPEN_CARD) {
+            replaceCard(incomingMsg.data.repCard, incomingMsg.data.newColor);
+        }
     };
 })();
