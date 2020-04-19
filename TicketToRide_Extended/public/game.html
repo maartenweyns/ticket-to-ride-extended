@@ -7,6 +7,8 @@
 </head>
 <body>
 
+<div class="userPanes"></div>
+
 <div class="maps"><!-- Tab links -->
     <div class="tab">
         <button class="tablinks" onclick="openCity(event, 'Europe')" id="defaultOpen">Europe</button>
@@ -26,12 +28,10 @@
 <div class="cards">
     <div class="routeCards">
         <img class="card" src="images/routeCards/ticketBack.png"/>
-        <img class="cardGauge" src="images/decorations/gauge-destiLevel-mesureliquid.png"/>
     </div>
     <div class="openWagonCards" id="openCardsBox"></div>
     <div class="closedWagonCards">
         <img class="card" src="images/trainCards/us_WagonCard_back.png"/>
-        <img class="cardGauge" src="images/decorations/gauge-cardLevel-mesureliquid.png"/>
     </div>
 </div>
 <img class="cardsBackground" src="images/decorations/cards-support-Blue.png">
@@ -41,10 +41,9 @@
 <img class="dockDecoration" src="images/decorations/dock-Green.png"/>
 
 <script src="javascripts/maps.js"></script>
+<script src="javascripts/messages.js"></script>
 <script src="javascripts/trainCards.js"></script>
-<script>
-    document.getElementById("defaultOpen").click();
-    getOpenTickets();
-</script>
+
+<script src="javascripts/client_game.js"></script>
 </body>
 </html>
