@@ -9,6 +9,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var http = require("http");
 var Player = require('./player');
+var Game = require("./game");
 
 var port = process.argv[2];
 var app = express();
@@ -32,28 +33,30 @@ var playerList = {};
 
 var playerColors = ["yellow", "red", "purple", "green", "blue"];
 
+var game = new Game();
+
 wss.on("connection", function connection(ws) {
+  if (connectionID === 0){
+    game.setOpenCards();
+  }
   let con = ws;
   con.id = connectionID++;
 
   console.log("A player has joined the game");
 
-  con.send(messages.S_PLAYER_NAME);
+  // Send the player number to the player.
+  let msg1 = messages.O_PLAYER_NAME;
+  msg1.data = con.id;
+  con.send(JSON.stringify(msg1));
+
+  // Send the open cards to the player that just connected.
+  let msg2 = messages.O_OPEN_CARDS;
+  msg2.data = game.getOpenCards();
+  con.send(JSON.stringify(msg2));
 
   con.on("message", function incoming(message) {
-    console.log("message from " + con.id);
     let oMsg = JSON.parse(message);
-
-    if (oMsg.type === messages.T_PLAYER_NAME) {
-      console.log("player with the name " + oMsg.data + " has joined!");
-      playerList[con.id] = new Player(oMsg.data, playerColors.pop(), con);
-
-      for (let i = 0; i < connectionID; i++) {
-        playerList[i].sendMessage(msg);
-      }
-
-    }
-
+    console.log("message from " + con.id + ": " + oMsg.data);
   });
 
   con.on("close", function (code) {

@@ -24,7 +24,7 @@
     exports.S_PLAYER_NAME = JSON.stringify(exports.O_PLAYER_NAME);
 
     /**
-     * Server to player: Send a list of all players in the game.
+     * Server to players: Send a list of all players in the game.
      * @type {string}
      */
     exports.T_PLAYER_OVERVIEW = "PLAYER-OVERVIEW";
@@ -33,5 +33,16 @@
         data: null
     };
     exports.S_PLAYER_OVERVIEW = JSON.stringify(exports.O_PLAYER_OVERVIEW);
+
+    /**
+     * Server to players: Send a list of all players in the game.
+     * @type {string}
+     */
+    exports.T_OPEN_CARDS = "OPEN-CARDS";
+    exports.O_OPEN_CARDS = {
+        type: exports.T_OPEN_CARDS,
+        data: null
+    };
+    exports.S_OPEN_CARDS = JSON.stringify(exports.O_OPEN_CARDS);
 
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);

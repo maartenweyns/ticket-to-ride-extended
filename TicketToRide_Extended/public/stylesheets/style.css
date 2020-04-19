@@ -61,6 +61,8 @@ a {
 }
 
 .maps {
+  position: fixed;
+  top: 0;
   display: inline-block;
 }
 
@@ -107,6 +109,7 @@ a {
 }
 
 .userPanes {
+  display: inline-block;
   height: 100vh;
   width: 150px;
 }
