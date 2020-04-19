@@ -1,41 +1,95 @@
-var createError = require('http-errors');
+var indexRouter = require('./routes/index');
+
 var express = require('express');
+var websocket = require("ws");
+var messages = require("./public/javascripts/messages");
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+var http = require("http");
+var Player = require('./player');
+var Game = require("./game");
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
+var port = process.argv[2];
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + "/public"));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+var server = http.createServer(app);
+const wss = new websocket.Server({server});
+
+var connectionID = 0;
+var playerList = {};
+
+var playerColors = ["yellow", "red", "purple", "green", "blue"];
+
+var game = new Game();
+
+wss.on("connection", function connection(ws) {
+  if (connectionID === 0){
+    game.setOpenCards();
+  }
+  let con = ws;
+  con.id = connectionID++;
+
+  console.log("A player has joined the game");
+
+  // Send the player number to the player.
+  let msg1 = messages.O_PLAYER_NAME;
+  msg1.data = con.id;
+  con.send(JSON.stringify(msg1));
+  game["player" + con.id] = new Player("A name", "black", con);
+
+  // Send the open cards to the player that just connected.
+  let msg2 = messages.O_OPEN_CARDS;
+  msg2.data = {cards: game.getOpenCards(), shuffle: false};
+  con.send(JSON.stringify(msg2));
+
+  con.on("message", function incoming(message) {
+    let oMsg = JSON.parse(message);
+    console.log("message from " + con.id + ": " + oMsg.data);
+
+    if (oMsg.type === messages.T_PLAYER_TOOK_OPEN_TRAIN) {
+      console.log("Player " + oMsg.data.pid + " took " + oMsg.data.card);
+      let color = game.getRandomColor();
+      game.openCards[oMsg.data.card] = color;
+
+      let msg = messages.O_NEW_OPEN_CARD;
+      msg.data = {repCard: oMsg.data.card, newColor: color};
+      game.sendToAll(msg);
+
+      if (game.checkNeedForShuffle()) {
+        let msg = messages.O_OPEN_CARDS;
+        game.setOpenCards();
+        msg.data = {cards: game.getOpenCards(), shuffle: true};
+        game.sendToAll(msg);
+      }
+    }
+
+    if (oMsg.type === messages.T_REQUEST_TRAIN) {
+      console.log("Player " + oMsg.data + " requested a closed train.");
+      let color = game.getRandomColor();
+
+      let msg = messages.O_REQUEST_TRAIN;
+      msg.data = color;
+      game["player" + oMsg.data].sendMessage(msg);
+    }
+
+  });
+
+  con.on("close", function (code) {
+
+  });
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+server.listen(port);
 
 module.exports = app;
