@@ -75,17 +75,27 @@ function addUser(users) {
         let numberOfTrainCards = document.createElement('div');
         numberOfTrainCards.classList.add("numberOfTrainCards");
         let numberOfTrainCardsImg = document.createElement('img');
-        numberOfTrainCardsImg.src = "images/playerInformation/smallCards/icon-card-wagon-medium.png";
+        numberOfTrainCardsImg.src = "images/playerInformation/smallCards/wagons.png";
         let numberOfTrainCardsText = document.createElement('p');
         numberOfTrainCardsText.classList.add("numberOfTrainCardsText");
         numberOfTrainCardsText.innerText = user.numberOfTrainCards;
 
+        let numberOfRoutes = document.createElement('div');
+        numberOfRoutes.classList.add("numberOfRouteCards");
+        let numberOfRoutesImg = document.createElement('img');
+        numberOfRoutesImg.src = "images/playerInformation/smallCards/routes.png";
+        let numberOfRoutesText = document.createElement('p');
+        numberOfRoutesText.classList.add("numberOfRouteCardsText");
+        numberOfRoutesText.innerText = user.numberOfRoutes;
+
         numberOfCarts.append(numberOfCartsBg, numberOfCartsText);
         numberOfTrainCards.append(numberOfTrainCardsImg, numberOfTrainCardsText);
+        numberOfRoutes.append(numberOfRoutesImg, numberOfRoutesText);
         userEntry.append(userBackdrop);
         userEntry.append(playerName);
         userEntry.append(numberOfCarts);
         userEntry.append(numberOfTrainCards);
+        userEntry.append(numberOfRoutes);
         userBox.prepend(userEntry);
     }
 }

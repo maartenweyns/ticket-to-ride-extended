@@ -48,11 +48,19 @@
     left: 20px;
 }
 
-.numberOfTrainCardsText {
+.numberOfTrainCardsText, .numberOfRouteCardsText {
     color: white;
     font-family: 'Arapey', serif;
     font-size: 14px;
     position: absolute;
     bottom: -2px;
     left: 45px;
+}
+
+.numberOfRouteCards {
+    height: fit-content;
+    width: fit-content;
+    position: absolute;
+    bottom: 15px;
+    left: 90px;
 }
