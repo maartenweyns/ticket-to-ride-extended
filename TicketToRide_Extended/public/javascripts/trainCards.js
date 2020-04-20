@@ -1,5 +1,5 @@
 function setOpenTickets(openTickets) {
-    var openCardsBox = document.getElementById("openCardsBox");
+    let openCardsBox = document.getElementById("openCardsBox");
     for(let i = 0; i < 5; i++){
         let card = document.createElement('img');
         let color = openTickets["Card" + i];
@@ -15,9 +15,9 @@ function setOpenTickets(openTickets) {
 }
 
 function replaceCard(cardId, newColor) {
-    var audio = new Audio("sounds/card_dealt3.ogg");
-    var oldcard = document.getElementById(cardId);
-    var card = document.createElement('img');
+    let audio = new Audio("sounds/card_dealt3.ogg");
+    let oldcard = document.getElementById(cardId);
+    let card = document.createElement('img');
     card.src = "images/trainCards/us_WagonCard_" + newColor + ".png";
     card.classList.add("card");
     card.classList.add(newColor);
@@ -30,7 +30,7 @@ function replaceCard(cardId, newColor) {
 }
 
 function shuffle(openTickets) {
-    var openCardsBox = document.getElementById("openCardsBox");
+    let openCardsBox = document.getElementById("openCardsBox");
     for (let i = 0; i < 5; i++){
         let card = document.getElementById("Card" + i);
         if (card.classList.contains("loco")) {
@@ -49,17 +49,42 @@ function takeCard(cardID) {
     let msg = Messages.O_PLAYER_TOOK_OPEN_TRAIN;
     msg.data = {card: cardID, pid: playerID};
     socket.send(JSON.stringify(msg));
-    var color = document.getElementById(cardID).classList[1];
+    let color = document.getElementById(cardID).classList[1];
     addCardToCollection(color);
 }
 
 function addCardToCollection(color) {
-    var ownCardContainer = document.getElementById("ownCardContainer");
-    var card = document.createElement('img');
+    let ownCardContainer = document.getElementById("ownCardContainer");
+
+    let cardsAlreadyOwned = ownCardContainer.children;
+    for (let i = 0; i < cardsAlreadyOwned.length; i++) {
+        console.log(cardsAlreadyOwned[i].id);
+        if (cardsAlreadyOwned[i].id === color) {
+            let number = parseInt(cardsAlreadyOwned[i].children[1].innerHTML) + 1;
+            cardsAlreadyOwned[i].children[1].innerHTML = number + "";
+            cardsAlreadyOwned[i].children[1].style.visibility = "visible";
+            return;
+        }
+    }
+
+    let cardContainer = document.createElement('div');
+    cardContainer.id = color;
+    cardContainer.classList.add("cardContainer");
+
+    let card = document.createElement('img');
     card.src = "images/trainCards/us_WagonCard_" + color + ".png";
     card.classList.add("ownCard");
     card.classList.add(color);
-    ownCardContainer.appendChild(card);
+
+    let amountOf = document.createElement('p');
+    amountOf.classList.add("cardCounter");
+    amountOf.id = "counter";
+    amountOf.innerHTML = "1";
+    amountOf.style.visibility = "hidden";
+
+
+    cardContainer.append(card, amountOf);
+    ownCardContainer.appendChild(cardContainer);
 }
 
 function requestClosedCard() {

@@ -1,0 +1,58 @@
+.userPanes {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 10px;
+    float: left;
+    height: calc(100vh - 20px);
+    width: 200px;
+}
+
+.playerBackdrop {
+    position: relative;
+    width: 100%;
+}
+
+.playerBackdropImage {
+    width: 100%;
+}
+
+.playerName {
+    margin: 5px;
+    color: white;
+    font-size: 18px;
+    position: absolute;
+    top: 9px;
+    left: 16px;
+    font-family: 'Arapey', serif;
+}
+
+.numberOfCarts {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+
+.numberOfCartsText {
+    color: black;
+    font-family: 'Arapey', serif;
+    position: absolute;
+    font-size: 20px;
+    top: 16px;
+    right: 25px;
+}
+
+.numberOfTrainCards {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+}
+
+.numberOfTrainCardsText {
+    color: white;
+    font-family: 'Arapey', serif;
+    font-size: 14px;
+    position: absolute;
+    bottom: -2px;
+    left: 45px;
+}

@@ -80,15 +80,27 @@ wss.on("connection", function connection(ws) {
         msg.data = {cards: game.getOpenCards(), shuffle: true};
         game.sendToAll(msg);
       }
+
+      game["player"  + oMsg.data.pid].numberOfTrainCards++;
+
+      let msgPlayers = messages.O_PLAYER_OVERVIEW;
+      msgPlayers.data = game.getUserProperties();
+      game.sendToAll(msgPlayers);
     }
 
     if (oMsg.type === messages.T_REQUEST_TRAIN) {
       console.log("Player " + oMsg.data + " requested a closed train.");
       let color = game.getRandomColor();
 
-      let msg = messages.O_REQUEST_TRAIN;
-      msg.data = color;
-      game["player" + oMsg.data].sendMessage(msg);
+      let msgCard = messages.O_REQUEST_TRAIN;
+      msgCard.data = color;
+      game["player" + oMsg.data].sendMessage(msgCard);
+
+      game["player"  + oMsg.data].numberOfTrainCards++;
+
+      let msgPlayers = messages.O_PLAYER_OVERVIEW;
+      msgPlayers.data = game.getUserProperties();
+      game.sendToAll(msgPlayers);
     }
   });
 

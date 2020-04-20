@@ -4,6 +4,8 @@ const player = function (playerName, playerColor, playerWebsocket) {
     this.score = 0;
     this.numberOfTrains = 60;
     this.websocket = playerWebsocket;
+    this.numberOfTrainCards = 0;
+    this.numberOfRoutes = 0;
 };
 
 player.prototype.sendMessage = function (msg) {
