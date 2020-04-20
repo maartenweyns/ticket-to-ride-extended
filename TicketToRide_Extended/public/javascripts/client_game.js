@@ -57,7 +57,7 @@ function addUser(users) {
         userEntry.classList.add("playerBackdrop");
 
         let userBackdrop = document.createElement('img');
-        userBackdrop.src = 'images/playerinformation/playerBackdrop/support-opponent-Human-Horizontal-' + user.color + '.png';
+        userBackdrop.src = 'images/playerInformation/playerBackdrop/support-opponent-Human-Horizontal-' + user.color + '.png';
         userBackdrop.classList.add("playerBackdropImage");
 
         let playerName = document.createElement('p');
