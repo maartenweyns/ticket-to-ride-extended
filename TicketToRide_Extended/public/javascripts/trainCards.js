@@ -59,7 +59,6 @@ function addCardToCollection(color) {
     card.src = "images/trainCards/us_WagonCard_" + color + ".png";
     card.classList.add("ownCard");
     card.classList.add(color);
-    card.setAttribute('style','transform:rotate(90deg)');
     ownCardContainer.appendChild(card);
 }
 

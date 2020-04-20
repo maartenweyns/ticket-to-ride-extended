@@ -16,10 +16,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 
         if (incomingMsg.type === Messages.T_PLAYER_NAME) {
             playerID = incomingMsg.data;
-            // var name = prompt("Please enter your name:");
-            // let msg = Messages.O_PLAYER_NAME;
-            // msg.data = name;
-            // socket.send(JSON.stringify(msg));
+            promptName();
         }
 
         if (incomingMsg.type === Messages.T_OPEN_CARDS) {
@@ -37,5 +34,37 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         if (incomingMsg.type === Messages.T_REQUEST_TRAIN) {
             addCardToCollection(incomingMsg.data);
         }
+
+        if (incomingMsg.type === Messages.T_PLAYER_OVERVIEW) {
+            addUser(incomingMsg.data);
+        }
     };
 })();
+
+function promptName() {
+    let name = prompt("Please enter your name:");
+    let msg = Messages.O_PLAYER_NAME;
+    msg.data = {pName: name, pID: playerID};
+    socket.send(JSON.stringify(msg));
+}
+
+function addUser(users) {
+    let userBox = document.getElementById("userBox");
+    userBox.innerHTML = '';
+    while(users.length !== 0) {
+        let user = users.pop();
+        let userEntry = document.createElement('div');
+        let userBackdrop = document.createElement('img');
+        userBackdrop.src = 'images/playerinformation/playerBackdrop/support-opponent-Human-Horizontal-' + user.color + '.png';
+        userBackdrop.classList.add("playerBackdropImage");
+        userEntry.classList.add("playerBackdrop");
+
+        let playerName = document.createElement('p');
+        playerName.innerText = user.name;
+        playerName.classList.add("playerName");
+
+        userEntry.append(userBackdrop);
+        userEntry.append(playerName);
+        userBox.prepend(userEntry);
+    }
+}

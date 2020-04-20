@@ -27,9 +27,8 @@ var server = http.createServer(app);
 const wss = new websocket.Server({server});
 
 var connectionID = 0;
-var playerList = {};
-
-var playerColors = ["yellow", "red", "purple", "green", "blue"];
+var websockets = {};
+var playerColors = ["yellow", "red", "purple", "green", "blue", "yellow", "red", "purple", "green", "blue"];
 
 var game = new Game();
 
@@ -39,6 +38,7 @@ wss.on("connection", function connection(ws) {
   }
   let con = ws;
   con.id = connectionID++;
+  websockets[con.id] = ws;
 
   console.log("A player has joined the game");
 
@@ -46,7 +46,6 @@ wss.on("connection", function connection(ws) {
   let msg1 = messages.O_PLAYER_NAME;
   msg1.data = con.id;
   con.send(JSON.stringify(msg1));
-  game["player" + con.id] = new Player("A name", "black", con);
 
   // Send the open cards to the player that just connected.
   let msg2 = messages.O_OPEN_CARDS;
@@ -56,6 +55,15 @@ wss.on("connection", function connection(ws) {
   con.on("message", function incoming(message) {
     let oMsg = JSON.parse(message);
     console.log("message from " + con.id + ": " + oMsg.data);
+
+    if (oMsg.type === messages.T_PLAYER_NAME) {
+      let pid = oMsg.data.pID;
+      game["player" + pid] = new Player(oMsg.data.pName, playerColors.pop(), websockets[pid]);
+
+      let msg = messages.O_PLAYER_OVERVIEW;
+      msg.data = game.getUserProperties();
+      game.sendToAll(msg);
+    }
 
     if (oMsg.type === messages.T_PLAYER_TOOK_OPEN_TRAIN) {
       console.log("Player " + oMsg.data.pid + " took " + oMsg.data.card);
@@ -82,7 +90,6 @@ wss.on("connection", function connection(ws) {
       msg.data = color;
       game["player" + oMsg.data].sendMessage(msg);
     }
-
   });
 
   con.on("close", function (code) {

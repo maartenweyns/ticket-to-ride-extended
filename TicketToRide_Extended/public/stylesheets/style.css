@@ -5,6 +5,15 @@ html {
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+  background-image: url("../images/decorations/bg-pattern.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.playarea {
+
 }
 
 a {
@@ -16,17 +25,18 @@ a {
   overflow: hidden;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
+  height: 100%;
 }
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
   background-color: inherit;
-  float: left;
   border: none;
   outline: none;
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
+  display: block;
 }
 
 /* Change background color of buttons on hover */
@@ -42,34 +52,38 @@ a {
 /* Style the tab content */
 .tabcontent {
   display: none;
+  float: left;
   border: 1px solid #ccc;
   border-top: none;
+  height: 100%;
 }
 
 .map {
-  width: 60vw;
+  height: 100%;
 }
 
 .cards {
-  position: fixed;
+  position: absolute;
+  clear: both;
   display: table;
-  height: 100vh;
+  height: calc(100vh - 10px);
   width: 150px;
-  padding: 20px;
+  padding: 5px;
   top: 0;
   right: 0;
 }
 
 .maps {
-  position: fixed;
   top: 0;
   display: inline-block;
+  height: 600px;
 }
 
 .card {
-  height: calc(100vh / 8.3);
-  max-width: 100%;
-  margin-bottom: 10px;
+  height: calc(100vh / 9);
+  float: right;
+  margin-bottom: 2px;
+  cursor: pointer;
 }
 
 .card:hover {
@@ -77,11 +91,16 @@ a {
 }
 
 .ownCard {
-  height: 50px;
+  height: 100px;
+  transform:rotate(90deg);
+  margin-left: -50px;
 }
 
 .ownCards {
   position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   bottom: 0;
   right: 200px;
   left: 200px;
@@ -100,16 +119,39 @@ a {
   width: 100vw;
 }
 
-.cardsBackground {
-  z-index: -98;
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100vh;
-}
+/*.cardsBackground {*/
+/*  z-index: -98;*/
+/*  position: fixed;*/
+/*  top: 0;*/
+/*  right: 0;*/
+/*  height: 100vh;*/
+/*}*/
 
 .userPanes {
-  display: inline-block;
-  height: 100vh;
-  width: 150px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 10px;
+  float: left;
+  height: calc(100vh - 20px);
+  width: 200px;
+}
+
+.playerBackdrop {
+  position: relative;
+  width: 100%;
+}
+
+.playerBackdropImage {
+  width: 100%;
+}
+
+.playerName {
+  margin: 5px;
+  color: white;
+  font-size: 18px;
+  position: absolute;
+  top: 9px;
+  left: 16px;
+  font-family: 'Arapey', serif;
 }

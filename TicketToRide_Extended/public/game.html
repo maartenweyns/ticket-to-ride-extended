@@ -4,41 +4,42 @@
     <meta charset="UTF-8">
     <title>Ticket To Ride XTended</title>
     <link href="stylesheets/style.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Arapey&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="playarea">
+    <div class="userPanes" id="userBox"></div>
 
-<div class="userPanes"></div>
+    <div class="maps">
+        <!-- Tab content -->
+        <div id="Europe" class="tabcontent">
+            <img class="map" src="images/maps/euMap.jpg">
+        </div>
 
-<div class="maps"><!-- Tab links -->
-    <div class="tab">
-        <button class="tablinks" onclick="openCity(event, 'Europe')" id="defaultOpen">Europe</button>
-        <button class="tablinks" onclick="openCity(event, 'UnitedStates')">United States</button>
+        <div id="UnitedStates" class="tabcontent">
+            <img class="map" src="images/maps/usMap.jpg"/>
+        </div>
+
+        <div class="tab">
+            <button class="tablinks" onclick="openCity(event, 'Europe')" id="defaultOpen">Europe</button>
+            <button class="tablinks" onclick="openCity(event, 'UnitedStates')">United States</button>
+        </div>
     </div>
 
-    <!-- Tab content -->
-    <div id="Europe" class="tabcontent">
-        <img class="map" src="images/maps/euMap.jpg">
+    <div class="cards">
+        <div class="routeCards">
+            <img class="card" src="images/routeCards/ticketBack.png"/>
+        </div>
+        <div class="openWagonCards" id="openCardsBox"></div>
+        <div class="closedWagonCards">
+            <img class="card" src="images/trainCards/us_WagonCard_back.png" onclick="requestClosedCard()"/>
+        </div>
     </div>
+<!--    <img class="cardsBackground" src="images/decorations/cards-support-Blue.png">-->
 
-    <div id="UnitedStates" class="tabcontent">
-        <img class="map" src="images/maps/usMap.jpg"/>
-    </div>
-</div>
+    <div class="ownCards" id="ownCardContainer"></div>
 
-<div class="cards">
-    <div class="routeCards">
-        <img class="card" src="images/routeCards/ticketBack.png"/>
-    </div>
-    <div class="openWagonCards" id="openCardsBox"></div>
-    <div class="closedWagonCards">
-        <img class="card" src="images/trainCards/us_WagonCard_back.png" onclick="requestClosedCard()"/>
-    </div>
-</div>
-<img class="cardsBackground" src="images/decorations/cards-support-Blue.png">
-
-<div class="ownCards" id="ownCardContainer"></div>
-
-<img class="dockDecoration" src="images/decorations/dock-Green.png"/>
+    <img class="dockDecoration" src="images/decorations/dock-Green.png"/></div>
 
 <script src="javascripts/maps.js"></script>
 <script src="javascripts/messages.js"></script>
