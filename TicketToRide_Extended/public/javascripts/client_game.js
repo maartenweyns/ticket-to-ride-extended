@@ -16,10 +16,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 
         if (incomingMsg.type === Messages.T_PLAYER_NAME) {
             playerID = incomingMsg.data;
-            // var name = prompt("Please enter your name:");
-            // let msg = Messages.O_PLAYER_NAME;
-            // msg.data = name;
-            // socket.send(JSON.stringify(msg));
+            promptName();
         }
 
         if (incomingMsg.type === Messages.T_OPEN_CARDS) {
@@ -37,5 +34,58 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         if (incomingMsg.type === Messages.T_REQUEST_TRAIN) {
             addCardToCollection(incomingMsg.data);
         }
+
+        if (incomingMsg.type === Messages.T_PLAYER_OVERVIEW) {
+            addUser(incomingMsg.data);
+        }
     };
 })();
+
+function promptName() {
+    let name = prompt("Please enter your name:");
+    let msg = Messages.O_PLAYER_NAME;
+    msg.data = {pName: name, pID: playerID};
+    socket.send(JSON.stringify(msg));
+}
+
+function addUser(users) {
+    let userBox = document.getElementById("userBox");
+    userBox.innerHTML = '';
+    while(users.length !== 0) {
+        let user = users.pop();
+        let userEntry = document.createElement('div');
+        userEntry.classList.add("playerBackdrop");
+
+        let userBackdrop = document.createElement('img');
+        userBackdrop.src = 'images/playerinformation/playerBackdrop/support-opponent-Human-Horizontal-' + user.color + '.png';
+        userBackdrop.classList.add("playerBackdropImage");
+
+        let playerName = document.createElement('p');
+        playerName.innerText = user.name;
+        playerName.classList.add("playerName");
+
+        let numberOfCarts = document.createElement('div');
+        numberOfCarts.classList.add("numberOfCarts");
+        let numberOfCartsBg = document.createElement('img');
+        numberOfCartsBg.src = "images/playerInformation/wagons/player-train-number-Off.png";
+        let numberOfCartsText = document.createElement('p');
+        numberOfCartsText.classList.add("numberOfCartsText");
+        numberOfCartsText.innerText = user.numberOfTrains;
+
+        let numberOfTrainCards = document.createElement('div');
+        numberOfTrainCards.classList.add("numberOfTrainCards");
+        let numberOfTrainCardsImg = document.createElement('img');
+        numberOfTrainCardsImg.src = "images/playerInformation/smallCards/icon-card-wagon-medium.png";
+        let numberOfTrainCardsText = document.createElement('p');
+        numberOfTrainCardsText.classList.add("numberOfTrainCardsText");
+        numberOfTrainCardsText.innerText = user.numberOfTrainCards;
+
+        numberOfCarts.append(numberOfCartsBg, numberOfCartsText);
+        numberOfTrainCards.append(numberOfTrainCardsImg, numberOfTrainCardsText);
+        userEntry.append(userBackdrop);
+        userEntry.append(playerName);
+        userEntry.append(numberOfCarts);
+        userEntry.append(numberOfTrainCards);
+        userBox.prepend(userEntry);
+    }
+}

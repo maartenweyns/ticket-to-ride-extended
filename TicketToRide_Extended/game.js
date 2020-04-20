@@ -68,4 +68,18 @@ game.prototype.sendToAll = function(msg) {
     }
 };
 
+game.prototype.getUserProperties = function() {
+    let returnObject = [];
+    for (let i = 0; i < 8; i++) {
+        if (this["player" + i] !== null) {
+            let player =  {name: this["player"+i].name, score: this["player"+i].score,
+                color: this["player"+i].color, numberOfTrains: this["player"+i].numberOfTrains,
+                numberOfTrainCards: this["player" + i].numberOfTrainCards,
+                numberOfRoutes: this["player" + i].numberOfRoutes};
+            returnObject.push(player);
+        }
+    }
+    return returnObject;
+};
+
 module.exports = game;
