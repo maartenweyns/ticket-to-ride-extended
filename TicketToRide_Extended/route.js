@@ -1,24 +1,14 @@
-const route = function (begin, end, variant, blackReq, blueReq,
-                        brownReq, greenReq, locoReq, purpleReq, redReq, whiteReq, yellowReq) {
-
-    this.begin = begin;
-    this.end = end;
+const route = function (stationA, stationB, variant, color, length, locoReq) {
+    this.stationA = stationA;
+    this.stationB = stationB;
     this.variant = variant;
-    this.blackReq = blackReq;
-    this.blueReq = blueReq;
-    this.brownReq = brownReq;
-    this.greenReq = greenReq;
+    this.color = color;
+    this.length = length;
     this.locoReq = locoReq;
-    this.purpleReq = purpleReq;
-    this.redReq = redReq;
-    this.whiteReq = whiteReq;
-    this.yellowReq = yellowReq;
 };
 
-route.prototype.checkAvailability = function () {
+function checkEligibility(game, pid, color, routeID, color) {
 
-};
+}
 
-route.prototype.checkEligibility = function (route, player) {
-
-};
+module.exports = route;

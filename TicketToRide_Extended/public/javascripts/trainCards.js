@@ -47,7 +47,7 @@ function shuffle(openTickets) {
 
 function takeCard(cardID) {
     let msg = Messages.O_PLAYER_TOOK_OPEN_TRAIN;
-    msg.data = {card: cardID, pid: playerID};
+    msg.data = {card: cardID, pid: playerID, color: document.getElementById(cardID).classList[1]};
     socket.send(JSON.stringify(msg));
     let color = document.getElementById(cardID).classList[1];
     addCardToCollection(color);
@@ -70,9 +70,11 @@ function addCardToCollection(color) {
     let cardContainer = document.createElement('div');
     cardContainer.id = color;
     cardContainer.classList.add("cardContainer");
+    cardContainer.onclick = function() {activateTrainCards(color)};
 
     let card = document.createElement('img');
     card.src = "images/trainCards/us_WagonCard_" + color + ".png";
+    card.id = color;
     card.classList.add("ownCard");
     card.classList.add(color);
 

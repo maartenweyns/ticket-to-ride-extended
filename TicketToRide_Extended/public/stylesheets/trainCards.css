@@ -12,3 +12,7 @@
     color: white;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
+
+.activatedCard {
+    box-shadow: 0 0 10px 4px rgba(0, 255, 0, 1);
+}

@@ -36,7 +36,28 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         }
 
         if (incomingMsg.type === Messages.T_PLAYER_OVERVIEW) {
-            addUser(incomingMsg.data);
+            addUsers(incomingMsg.data);
+        }
+
+        if (incomingMsg.type === Messages.T_ROUTE_REQ) {
+            alert(incomingMsg.data);
+        }
+
+        if (incomingMsg.type === Messages.T_ROUTE_CLAIM) {
+            if (incomingMsg.data.status === true) {
+                let imageLocation = document.getElementById("Europe");
+                let linkToTrainsToAdd = "images/trainsOnMap/eu/" + incomingMsg.data.pcol + "/" + incomingMsg.data.route + ".png";
+
+                let carts = document.createElement('img');
+                carts.src = linkToTrainsToAdd;
+                carts.classList.add("carts");
+                imageLocation.append(carts);
+            } else {
+                if (incomingMsg.data.pid === playerID) {
+                    let audio = new Audio("sounds/buzz4.ogg");
+                    audio.play();
+                }
+            }
         }
     };
 })();
@@ -48,7 +69,7 @@ function promptName() {
     socket.send(JSON.stringify(msg));
 }
 
-function addUser(users) {
+function addUsers(users) {
     let userBox = document.getElementById("userBox");
     userBox.innerHTML = '';
     while(users.length !== 0) {
@@ -97,5 +118,35 @@ function addUser(users) {
         userEntry.append(numberOfTrainCards);
         userEntry.append(numberOfRoutes);
         userBox.prepend(userEntry);
+    }
+}
+
+function requestRouteRequirements(segmentTitle) {
+    let msg = Messages.O_ROUTE_REQ;
+    msg.data = {pid: playerID, route: segmentTitle};
+    socket.send(JSON.stringify(msg));
+}
+
+function activateTrainCards(color) {
+    let cardItem = document.getElementById(color);
+    if (cardItem.children[0].classList.contains("activatedCard")) {
+        cardItem.children[0].classList.remove("activatedCard");
+    } else {
+        let cardPile = document.getElementById("ownCardContainer");
+        for (let i = 0; i < cardPile.children.length; i++) {
+            cardPile.children[i].children[0].classList.remove("activatedCard");
+        }
+        cardItem.children[0].classList.add("activatedCard");
+    }
+}
+
+function claimEuRoute(routeID) {
+    if (document.getElementsByClassName("activatedCard")[0] !== undefined) {
+        let color = document.getElementsByClassName("activatedCard")[0].id;
+        let msg = Messages.O_ROUTE_CLAIM;
+        msg.data = {pid: playerID, color: color, route: routeID, continent: "eu"};
+        socket.send(JSON.stringify(msg));
+    } else {
+        alert("Select cards from your collection first!");
     }
 }

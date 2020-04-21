@@ -51,18 +51,34 @@ a {
 
 /* Style the tab content */
 .tabcontent {
+    position: relative;
+    top: 0;
+    left: 0;
     display: none;
     float: left;
     border: 1px solid #ccc;
     border-top: none;
     height: 100%;
+    width: calc(100% - 120px);
     max-width: 100%;
     max-height: 100%;
 }
 
 .map {
+    position: absolute;
+    top: 0;
+    left: 0;
     max-height: 100%;
     max-width: 100%;
+}
+
+.carts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-height: 100%;
+    max-width: 100%;
+    pointer-events: none;
 }
 
 .cards {
@@ -79,7 +95,8 @@ a {
 .maps {
     top: 0;
     display: inline-block;
-    height: 82vh;
+    height: 80vh;
+    width: 70vw;
     max-width: calc(100vw - 350px);
 }
 

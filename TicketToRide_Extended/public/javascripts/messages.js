@@ -67,4 +67,28 @@
     };
     exports.S_REQUEST_TRAIN = JSON.stringify(exports.O_REQUEST_TRAIN);
 
+    /**
+     * Player to server: Player requests route requirements
+     * Server to player: Server sends route requirements
+     * @type {string}
+     */
+    exports.T_ROUTE_REQ = "ROUTE-REQUIREMENTS";
+    exports.O_ROUTE_REQ = {
+        type: exports.T_ROUTE_REQ,
+        data: null
+    };
+    exports.S_ROUTE_REQ = JSON.stringify(exports.O_ROUTE_REQ);
+
+    /**
+     * Player to server: Request a route claim with a provided color.
+     * Server to player: Notify all players of the claimed route.
+     * @type {string}
+     */
+    exports.T_ROUTE_CLAIM = "ROUTE-CLAIM";
+    exports.O_ROUTE_CLAIM = {
+        type: exports.T_ROUTE_CLAIM,
+        data: null
+    };
+    exports.S_ROUTE_CLAIM = JSON.stringify(exports.O_ROUTE_CLAIM);
+
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);
