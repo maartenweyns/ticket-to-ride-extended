@@ -29,7 +29,7 @@ const wss = new websocket.Server({server});
 
 var connectionID = 0;
 var websockets = {};
-var playerColors = ["yellow", "red", "purple", "green", "blue", "yellow", "red", "purple", "green", "blue"];
+var playerColors = ["yellow", "red", "purple", "green", "blue", "grey", "lightblue", "brightyellow"];
 
 var game = new Game();
 game.setupEuRoutes();
