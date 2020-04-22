@@ -67,7 +67,7 @@ li {
     justify-content: center;
     align-items: center;
     margin: 10px;
-    width: 200px;
+    min-width: 200px;
     border-radius: 50px;
     border: 2px solid #e9ebec;
     color: white;
