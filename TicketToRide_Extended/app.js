@@ -29,7 +29,7 @@ const wss = new websocket.Server({server});
 
 var connectionID = 0;
 var websockets = {};
-var playerColors = ["yellow", "red", "purple", "green", "blue", "yellow", "red", "purple", "green", "blue"];
+var playerColors = ["yellow", "red", "purple", "green", "blue", "grey", "lightblue", "brightyellow"];
 
 var game = new Game();
 game.setupEuRoutes();
@@ -117,13 +117,15 @@ wss.on("connection", function connection(ws) {
 
         if (oMsg.type === messages.T_ROUTE_CLAIM) {
             console.log("A user requested a route");
-            let allowed = game.checkEligibility(oMsg.data.pid, oMsg.data.color, oMsg.data.route);
+            let ret = game.checkEligibility(oMsg.data.pid, oMsg.data.color, oMsg.data.route);
             let msg = messages.O_ROUTE_CLAIM;
 
-            if (allowed) {
-                msg.data = {status: true, pid: oMsg.data.pid, route: oMsg.data.route, pcol: game["player" + oMsg.data.pid].color};
+            if (ret.status) {
+                msg.data = {status: true, pid: oMsg.data.pid, route: oMsg.data.route, pcol: game["player" + oMsg.data.pid].color,
+                color: ret.color, amount: ret.amount, locos: ret.locos};
                 game.sendToAll(msg);
-                game["player" + oMsg.data.pid][oMsg.data.color] -= game.getRouteRequirements(oMsg.data.route).length;
+                game["player" + oMsg.data.pid][oMsg.data.color] -= ret.amount;
+                game["player" + oMsg.data.pid].loco -= ret.locos;
                 game["player" + oMsg.data.pid].numberOfTrains -= game.getRouteRequirements(oMsg.data.route).length;
                 game["player" + oMsg.data.pid].numberOfTrainCards -= game.getRouteRequirements(oMsg.data.route).length;
                 let msgPlayers = messages.O_PLAYER_OVERVIEW;

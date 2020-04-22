@@ -156,6 +156,39 @@ game.prototype.setupEuRoutes = function () {
     this.euRoutes.set("palermo-smyrna-1", new route("palermo","smyrna",1,"any",6,2));
     this.euRoutes.set("athina-smyrna-1", new route("athina","smyrna",1,"any",2,1));
     this.euRoutes.set("athina-sofia-1", new route("athina","sofia",1,"purple",3,0));
+    this.euRoutes.set("sarajevo-sofia-1", new route("sarajevo","sofia",1,"any",2,0));
+    this.euRoutes.set("petrograd-stockholm-1", new route("petrograd","stockholm",1,"any",8,0));
+    this.euRoutes.set("petrograd-riga-1", new route("petrograd","riga",1,"any",4,0));
+    this.euRoutes.set("danzig-riga-1", new route("danzig","riga",1,"black",3,0));
+    this.euRoutes.set("riga-wilno-1", new route("riga","wilno",1,"green",4,0));
+    this.euRoutes.set("warsaw-wilno-1", new route("warsaw","wilno",1,"red",3,0));
+    this.euRoutes.set("kyiv-warsaw-1", new route("kyiv","warsaw",1,"any",4,0));
+    this.euRoutes.set("budapest-kyiv-1", new route("budapest","kyiv",1,"any",6,0));
+    this.euRoutes.set("kyiv-wilno-1", new route("kyiv","wilno",1,"any",2,0));
+    this.euRoutes.set("petrograd-wilno-1", new route("petrograd","wilno",1,"blue",4,0));
+    this.euRoutes.set("smolensk-wilno-1", new route("smolensk","wilno",1,"yellow",3,0));
+    this.euRoutes.set("bucuresti-budapest-1", new route("bucuresti","budapest",1,"any",4,0));
+    this.euRoutes.set("bucuresti-sofia-1", new route("bucuresti","sofia",1,"any",2,0));
+    this.euRoutes.set("constantinople-sofia-1", new route("constantinople","sofia",1,"blue",3,0));
+    this.euRoutes.set("constantinople-smyrna-1", new route("constantinople","smyrna",1,"any",2,0));
+    this.euRoutes.set("bucuresti-constantinople-1", new route("bucuresti","constantinople",1,"yellow",3,0));
+    this.euRoutes.set("angora-smyrna-1", new route("angora","smyrna",1,"brown",3,0));
+    this.euRoutes.set("angora-constantinople-1", new route("angora","constantinople",1,"any",2,0));
+    this.euRoutes.set("constantinople-sevastopol-1", new route("constantinople","sevastopol",1,"any",4,2));
+    this.euRoutes.set("bucuresti-sevastopol-1", new route("bucuresti","sevastopol",1,"white",4,0));
+    this.euRoutes.set("bucuresti-kyiv-1", new route("bucuresti","kyiv",1,"any",4,0));
+    this.euRoutes.set("kyiv-smolensk-1", new route("kyiv","smolensk",1,"red",3,0));
+    this.euRoutes.set("moskva-smolensk-1", new route("moskva","smolensk",1,"brown",2,0));
+    this.euRoutes.set("moskva-petrograd-1", new route("moskva","petrograd",1,"white",4,0));
+    this.euRoutes.set("kharkov-moskva-1", new route("kharkov","moskva",1,"any",4,0));
+    this.euRoutes.set("kharkov-kyiv-1", new route("kharkov","kyiv",1,"any",4,0));
+    this.euRoutes.set("kharkov-rostov-1", new route("kharkov","rostov",1,"green",2,0));
+    this.euRoutes.set("rostov-sevastopol-1", new route("rostov","sevastopol","any",4,0));
+    this.euRoutes.set("rostov-sochi-1", new route("rostov","sochi",1,"any",2,0));
+    this.euRoutes.set("sevastopol-sochi-1", new route("sevastopol","sochi","any",2,1));
+    this.euRoutes.set("erzurum-sevastopol-1", new route("erzurum","sevastopol",1,"any",4,2));
+    this.euRoutes.set("erzurum-sochi-1", new route("erzurum","sochi",1,"red",3,0));
+    this.euRoutes.set("angora-erzurum-1", new route("angora","erzurum",1,"black",3,0));
 };
 
 game.prototype.getRouteRequirements = function (routeID) {
@@ -171,18 +204,26 @@ game.prototype.checkEligibility = function (pid, color, routeID) {
 
     if (this["player" + pid][color] >= routeRequirements.length) {
         if (routeRequirements.color === "any") {
-            return true;
+            return {status: true, color: color, amount: routeRequirements.length, locos: 0};
         } else {
-            return color === routeRequirements.color;
+            if (color === routeRequirements.color){
+                return {status: true, color: color, amount: routeRequirements.length, locos: 0};
+            } else {
+                return {status: false};
+            }
         }
     } else if ((this["player" + pid][color] + this["player" + pid].loco) >= routeRequirements.length) {
         if (routeRequirements.color === "any") {
-            return true;
+            return {status: true, color: color, amount: this["player" + pid][color], locos: (routeRequirements.length - this["player" + pid][color])};
         } else {
-            return color === routeRequirements.color
+            if (color === routeRequirements.color) {
+                return {status: true, color: color, amount: this["player" + pid][color], locos: (routeRequirements.length - this["player" + pid][color])};
+            } else {
+                return {status: false};
+            }
         }
     } else {
-        return false;
+        return {status: false};
     }
 };
 
