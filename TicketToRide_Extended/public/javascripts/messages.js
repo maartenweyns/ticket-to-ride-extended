@@ -91,4 +91,16 @@
     };
     exports.S_ROUTE_CLAIM = JSON.stringify(exports.O_ROUTE_CLAIM);
 
+    /**
+     * Player to server: Done with the round.
+     * Server to player: Notify all players of the player having it's round
+     * @type {string}
+     */
+    exports.T_PLAYER_ROUND = "PLAYER-ROUND";
+    exports.O_PLAYER_ROUND = {
+        type: exports.T_PLAYER_ROUND,
+        data: null
+    };
+    exports.S_PLAYER_ROUND = JSON.stringify(exports.O_PLAYER_ROUND);
+
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);

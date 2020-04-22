@@ -1,4 +1,5 @@
-const player = function (playerName, playerColor, playerWebsocket) {
+const player = function (id, playerName, playerColor, playerWebsocket) {
+    this.id = id;
     this.name = playerName;
     this.color = playerColor;
     this.score = 0;

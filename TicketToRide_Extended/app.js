@@ -29,7 +29,7 @@ const wss = new websocket.Server({server});
 
 var connectionID = 0;
 var websockets = {};
-var playerColors = ["yellow", "red", "purple", "green", "blue", "grey", "lightblue", "brightyellow"];
+var playerColors = ["brightyellow", "red", "purple", "green", "blue", "grey", "lightblue", "yellow"];
 
 var game = new Game();
 game.setupEuRoutes();
@@ -60,11 +60,15 @@ wss.on("connection", function connection(ws) {
 
         if (oMsg.type === messages.T_PLAYER_NAME) {
             let pid = oMsg.data.pID;
-            game["player" + pid] = new Player(oMsg.data.pName, playerColors.pop(), websockets[pid]);
+            game["player" + pid] = new Player(pid, oMsg.data.pName, playerColors.pop(), websockets[pid]);
 
-            let msg = messages.O_PLAYER_OVERVIEW;
-            msg.data = game.getUserProperties();
-            game.sendToAll(msg);
+            let msg1 = messages.O_PLAYER_OVERVIEW;
+            msg1.data = game.getUserProperties();
+            game.sendToAll(msg1);
+
+            let msg2 = messages.O_PLAYER_ROUND;
+            msg2.data = {pid: game.currentRound, thing: game.thingsDone};
+            game.sendToAll(msg2);
         }
 
         if (oMsg.type === messages.T_PLAYER_TOOK_OPEN_TRAIN) {
@@ -89,6 +93,12 @@ wss.on("connection", function connection(ws) {
             let msgPlayers = messages.O_PLAYER_OVERVIEW;
             msgPlayers.data = game.getUserProperties();
             game.sendToAll(msgPlayers);
+
+            game.playerDidSomething();
+
+            let msg2 = messages.O_PLAYER_ROUND;
+            msg2.data = {pid: game.currentRound, thing: game.thingsDone};
+            game.sendToAll(msg2);
         }
 
         if (oMsg.type === messages.T_REQUEST_TRAIN) {
@@ -105,6 +115,12 @@ wss.on("connection", function connection(ws) {
             let msgPlayers = messages.O_PLAYER_OVERVIEW;
             msgPlayers.data = game.getUserProperties();
             game.sendToAll(msgPlayers);
+
+            game.playerDidSomething();
+
+            let msg2 = messages.O_PLAYER_ROUND;
+            msg2.data = {pid: game.currentRound, thing: game.thingsDone};
+            game.sendToAll(msg2);
         }
 
         if (oMsg.type === messages.T_ROUTE_REQ) {
@@ -131,6 +147,12 @@ wss.on("connection", function connection(ws) {
                 let msgPlayers = messages.O_PLAYER_OVERVIEW;
                 msgPlayers.data = game.getUserProperties();
                 game.sendToAll(msgPlayers);
+
+                game.playerDidSomething();
+
+                let msg2 = messages.O_PLAYER_ROUND;
+                msg2.data = {pid: game.currentRound, thing: game.thingsDone};
+                game.sendToAll(msg2);
             } else {
                 msg.data = {pid: oMsg.data.pid, status: false};
                 game["player" + oMsg.data.pid].sendMessage(msg);
