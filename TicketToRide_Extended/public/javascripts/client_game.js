@@ -10,13 +10,24 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 (function setup() {
     document.getElementById("defaultOpen").click();
 
+    let startGameSound = new Audio("sounds/startGame.ogg");
+    let music = new Audio("sounds/america.ogg");
+    music.loop = true;
+    startGameSound.play().then(function() {music.play()});
+
     socket.onmessage = function (event) {
         let incomingMsg = JSON.parse(event.data);
         console.log("incomingMsg: " + JSON.stringify(incomingMsg));
 
         if (incomingMsg.type === Messages.T_PLAYER_NAME) {
-            playerID = incomingMsg.data;
-            promptName();
+            let cookie =  document.cookie.split("=");
+            playerID = parseInt(cookie[1]);
+
+            let conid = incomingMsg.data;
+
+            let msg = Messages.O_PLAYER_EXISTING_ID;
+            msg.data = {pid: playerID, conId: conid};
+            socket.send(JSON.stringify(msg));
         }
 
         if (incomingMsg.type === Messages.T_OPEN_CARDS) {
@@ -83,13 +94,6 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         }
     };
 })();
-
-function promptName() {
-    let name = prompt("Please enter your name:");
-    let msg = Messages.O_PLAYER_NAME;
-    msg.data = {pName: name, pID: playerID};
-    socket.send(JSON.stringify(msg));
-}
 
 function addUsers(users) {
     let userBox = document.getElementById("userBox");

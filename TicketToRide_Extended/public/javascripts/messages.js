@@ -103,4 +103,27 @@
     };
     exports.S_PLAYER_ROUND = JSON.stringify(exports.O_PLAYER_ROUND);
 
+    /**
+     * Player to server: I already was in the lobby! This is my player ID:
+     * @type {string}
+     */
+    exports.T_PLAYER_EXISTING_ID = "PLAYER-EXISTING-ID";
+    exports.O_PLAYER_EXISTING_ID = {
+        type: exports.T_PLAYER_EXISTING_ID,
+        data: null
+    };
+    exports.S_PLAYER_EXISTING_ID = JSON.stringify(exports.O_PLAYER_EXISTING_ID);
+
+    /**
+     * Player to server: Let's start the game!
+     * Server to players: Let's get this game started!
+     * @type {string}
+     */
+    exports.T_GAME_START = "START-GAME";
+    exports.O_GAME_START = {
+        type: exports.T_GAME_START,
+        data: null
+    };
+    exports.S_GAME_START = JSON.stringify(exports.O_GAME_START);
+
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);

@@ -24,6 +24,10 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         if (incomingMsg.type === Messages.T_PLAYER_OVERVIEW) {
             addUsers(incomingMsg.data);
         }
+
+        if (incomingMsg.type === Messages.T_GAME_START) {
+            window.location.pathname = '/play'
+        }
     };
 })();
 
@@ -43,4 +47,9 @@ function addUsers(users) {
         userEntry.innerText = user.name;
         userBox.prepend(userEntry);
     }
+}
+
+function startGame() {
+    let msg = Messages.O_GAME_START;
+    socket.send(JSON.stringify(msg));
 }

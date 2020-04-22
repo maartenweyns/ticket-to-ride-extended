@@ -22,4 +22,8 @@ player.prototype.sendMessage = function (msg) {
     this.websocket.send(JSON.stringify(msg));
 };
 
+player.prototype.updatewebsocket = function (socket) {
+    this.websocket = socket;
+};
+
 module.exports = player;
