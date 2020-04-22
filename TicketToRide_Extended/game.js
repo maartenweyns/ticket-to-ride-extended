@@ -1,6 +1,8 @@
 var route = require("./route");
+var messages = require("./public/javascripts/messages");
 
 const game = function (gameID) {
+    this.gameID = gameID;
     this.amountOfPlayers = 0;
     this.player0 = null;
     this.player1 = null;
@@ -12,6 +14,8 @@ const game = function (gameID) {
     this.player7 = null;
     this.openCards = {};
     this.euRoutes = new Map();
+    this.currentRound = 0;
+    this.thingsDone = 0;
 };
 
 game.prototype.setOpenCards = function () {
@@ -76,6 +80,7 @@ game.prototype.getUserProperties = function () {
     for (let i = 0; i < 8; i++) {
         if (this["player" + i] !== null) {
             let player = {
+                id: i,
                 name: this["player" + i].name, score: this["player" + i].score,
                 color: this["player" + i].color, numberOfTrains: this["player" + i].numberOfTrains,
                 numberOfTrainCards: this["player" + i].numberOfTrainCards,
@@ -224,6 +229,30 @@ game.prototype.checkEligibility = function (pid, color, routeID) {
         }
     } else {
         return {status: false};
+    }
+};
+
+game.prototype.playerDidSomething = function () {
+    this.thingsDone++;
+    if (this.thingsDone > 2) {
+        this.nextPlayerRound();
+    }
+};
+
+game.prototype.nextPlayerRound = function () {
+    this.thingsDone = 0;
+    let nextPlayer = this.currentRound + 1;
+    if (this["player" + nextPlayer] !== null) {
+        console.log("the next player does exist");
+        let msg = messages.O_PLAYER_ROUND;
+        msg.data = ++this.currentRound;
+        this.sendToAll(msg);
+    } else {
+        console.log("the next player does not exist");
+        let msg = messages.O_PLAYER_ROUND;
+        msg.data = 0;
+        this.sendToAll(msg);
+        this.currentRound = 0;
     }
 };
 

@@ -64,6 +64,15 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                 }
             }
         }
+
+        if (incomingMsg.type === Messages.T_PLAYER_ROUND) {
+            markCurrentPlayer(incomingMsg.data);
+
+            if (incomingMsg.data === playerID) {
+                let audio = new Audio("sounds/train_horn2.ogg");
+                audio.play();
+            }
+        }
     };
 })();
 
@@ -77,7 +86,7 @@ function promptName() {
 function addUsers(users) {
     let userBox = document.getElementById("userBox");
     userBox.innerHTML = '';
-    while(users.length !== 0) {
+    while (users.length !== 0) {
         let user = users.pop();
         let userEntry = document.createElement('div');
         userEntry.classList.add("playerBackdrop");
@@ -85,6 +94,7 @@ function addUsers(users) {
         let userBackdrop = document.createElement('img');
         userBackdrop.src = 'images/playerInformation/playerBackdrop/support-opponent-Human-Horizontal-' + user.color + '.png';
         userBackdrop.classList.add("playerBackdropImage");
+        userBackdrop.id = "p" + user.id;
 
         let playerName = document.createElement('p');
         playerName.innerText = user.name;
@@ -148,4 +158,13 @@ function claimEuRoute(routeID) {
     } else {
         alert("Select cards from your collection first!");
     }
+}
+
+function markCurrentPlayer(pid) {
+    for (let i = 0; i < 8; i++) {
+        if (document.getElementById("p" + pid) !== null) {
+            document.getElementById("p" + pid).classList.remove("currentPlayer");
+        }
+    }
+    document.getElementById("p" + pid).classList.add("currentPlayer");
 }
