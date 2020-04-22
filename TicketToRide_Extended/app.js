@@ -65,10 +65,25 @@ wss.on("connection", function connection(ws) {
             let msg1 = messages.O_PLAYER_OVERVIEW;
             msg1.data = game.getUserProperties();
             game.sendToAll(msg1);
+        }
+
+        if (oMsg.type === messages.T_PLAYER_EXISTING_ID) {
+            let pid = oMsg.data.pid;
+            game["player" + pid].updatewebsocket(websockets[oMsg.data.conId]);
+            console.log("User " + pid + " updated his websocket connection.");
+
+            let msg1 = messages.O_PLAYER_OVERVIEW;
+            msg1.data = game.getUserProperties();
+            game.sendToAll(msg1);
 
             let msg2 = messages.O_PLAYER_ROUND;
             msg2.data = {pid: game.currentRound, thing: game.thingsDone};
             game.sendToAll(msg2);
+        }
+
+        if (oMsg.type === messages.T_GAME_START) {
+            let msg = messages.O_GAME_START;
+            game.sendToAll(msg);
         }
 
         if (oMsg.type === messages.T_PLAYER_TOOK_OPEN_TRAIN) {
