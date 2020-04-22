@@ -39,10 +39,6 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
             addUsers(incomingMsg.data);
         }
 
-        if (incomingMsg.type === Messages.T_ROUTE_REQ) {
-            alert(incomingMsg.data);
-        }
-
         if (incomingMsg.type === Messages.T_ROUTE_CLAIM) {
             if (incomingMsg.data.status === true) {
                 let imageLocation = document.getElementById("Europe");
@@ -66,11 +62,23 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         }
 
         if (incomingMsg.type === Messages.T_PLAYER_ROUND) {
-            markCurrentPlayer(incomingMsg.data);
+            markCurrentPlayer(incomingMsg.data.pid);
 
-            if (incomingMsg.data === playerID) {
+            if (incomingMsg.data.pid === playerID && incomingMsg.data.thing === 0) {
                 let audio = new Audio("sounds/train_horn2.ogg");
                 audio.play();
+            }
+            if (incomingMsg.data.pid !== playerID) {
+                document.getElementById("ownCardContainer").classList.add("disabled");
+                document.getElementById("cardContainer").classList.add("disabled");
+                document.getElementsByClassName("tabcontent")[0].classList.add("disabled");
+                document.getElementsByClassName("tabcontent")[1].classList.add("disabled");
+            }
+            if (incomingMsg.data.pid === playerID) {
+                document.getElementById("ownCardContainer").classList.remove("disabled");
+                document.getElementById("cardContainer").classList.remove("disabled");
+                document.getElementsByClassName("tabcontent")[0].classList.remove("disabled");
+                document.getElementsByClassName("tabcontent")[1].classList.remove("disabled");
             }
         }
     };

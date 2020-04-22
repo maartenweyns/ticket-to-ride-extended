@@ -67,7 +67,7 @@ wss.on("connection", function connection(ws) {
             game.sendToAll(msg1);
 
             let msg2 = messages.O_PLAYER_ROUND;
-            msg2.data = game.currentRound;
+            msg2.data = {pid: game.currentRound, thing: game.thingsDone};
             game.sendToAll(msg2);
         }
 
@@ -97,7 +97,7 @@ wss.on("connection", function connection(ws) {
             game.playerDidSomething();
 
             let msg2 = messages.O_PLAYER_ROUND;
-            msg2.data = game.currentRound;
+            msg2.data = {pid: game.currentRound, thing: game.thingsDone};
             game.sendToAll(msg2);
         }
 
@@ -119,7 +119,7 @@ wss.on("connection", function connection(ws) {
             game.playerDidSomething();
 
             let msg2 = messages.O_PLAYER_ROUND;
-            msg2.data = game.currentRound;
+            msg2.data = {pid: game.currentRound, thing: game.thingsDone};
             game.sendToAll(msg2);
         }
 
@@ -151,7 +151,7 @@ wss.on("connection", function connection(ws) {
                 game.playerDidSomething();
 
                 let msg2 = messages.O_PLAYER_ROUND;
-                msg2.data = game.currentRound;
+                msg2.data = {pid: game.currentRound, thing: game.thingsDone};
                 game.sendToAll(msg2);
             } else {
                 msg.data = {pid: oMsg.data.pid, status: false};
