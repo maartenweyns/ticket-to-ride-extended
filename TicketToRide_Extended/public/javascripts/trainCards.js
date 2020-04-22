@@ -84,9 +84,26 @@ function addCardToCollection(color) {
     amountOf.innerHTML = "1";
     amountOf.style.visibility = "hidden";
 
-
     cardContainer.append(card, amountOf);
     ownCardContainer.appendChild(cardContainer);
+}
+
+function removeCardFromCollection(color, amount) {
+    let ownCardContainer = document.getElementById("ownCardContainer");
+
+    let cardsAlreadyOwned = ownCardContainer.children;
+    for (let i = 0; i < cardsAlreadyOwned.length; i++) {
+        if (cardsAlreadyOwned[i].id === color) {
+            let number = parseInt(cardsAlreadyOwned[i].children[1].innerHTML) - amount;
+            cardsAlreadyOwned[i].children[1].innerHTML = number + "";
+            if (number === 1) {
+                cardsAlreadyOwned[i].children[1].style.visibility = "hidden";
+            } else if (number < 1) {
+                ownCardContainer.removeChild(cardsAlreadyOwned[i]);
+            }
+            return;
+        }
+    }
 }
 
 function requestClosedCard() {

@@ -52,6 +52,11 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                 carts.src = linkToTrainsToAdd;
                 carts.classList.add("carts");
                 imageLocation.append(carts);
+
+                if (incomingMsg.data.pid === playerID) {
+                    removeCardFromCollection(incomingMsg.data.color, incomingMsg.data.amount);
+                    removeCardFromCollection("loco", incomingMsg.data.locos);
+                }
             } else {
                 if (incomingMsg.data.pid === playerID) {
                     let audio = new Audio("sounds/buzz4.ogg");
@@ -119,12 +124,6 @@ function addUsers(users) {
         userEntry.append(numberOfRoutes);
         userBox.prepend(userEntry);
     }
-}
-
-function requestRouteRequirements(segmentTitle) {
-    let msg = Messages.O_ROUTE_REQ;
-    msg.data = {pid: playerID, route: segmentTitle};
-    socket.send(JSON.stringify(msg));
 }
 
 function activateTrainCards(color) {
