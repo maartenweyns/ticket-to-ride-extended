@@ -287,11 +287,11 @@
 
     <div class="cards" id="cardContainer">
         <div class="routeCards">
-            <img class="card" src="images/routeCards/ticketBack.png"/>
+            <img class="card" src="images/routeCards/ticketBack.png" id="routeCard" onclick="requestDestination()"/>
         </div>
         <div class="openWagonCards" id="openCardsBox"></div>
         <div class="closedWagonCards">
-            <img class="card" src="images/trainCards/us_WagonCard_back.png" onclick="requestClosedCard()"/>
+            <img class="card" src="images/trainCards/us_WagonCard_back.png" id="closedCard" onclick="requestClosedCard()"/>
         </div>
     </div>
     <!--    <img class="cardsBackground" src="images/decorations/cards-support-Blue.png">-->
@@ -301,6 +301,7 @@
 <script src="javascripts/maps.js"></script>
 <script src="javascripts/messages.js"></script>
 <script src="javascripts/trainCards.js"></script>
+<script src="javascripts/destinations.js"></script>
 <script src="javascripts/client_game.js"></script>
 <script src="javascripts/imageMapResizer.min.js"></script>
 <script>

@@ -29,10 +29,9 @@ const wss = new websocket.Server({server});
 
 var connectionID = 0;
 var websockets = {};
-var playerColors = ["brightyellow", "red", "purple", "green", "blue", "grey", "lightblue", "yellow"];
+var playerColors = ["yellow", "lightblue", "grey", "purple", "red", "green", "brightyellow", "blue"];
 
 var game = new Game();
-game.setupEuRoutes();
 
 wss.on("connection", function connection(ws) {
     if (connectionID === 0) {
@@ -131,6 +130,10 @@ wss.on("connection", function connection(ws) {
             msgPlayers.data = game.getUserProperties();
             game.sendToAll(msgPlayers);
 
+            let msgMove = messages.O_PLAYER_CLOSED_MOVE;
+            msgMove.data = {pid: oMsg.data, move: "TRAIN-CARD"}
+            game.sendToAll(msgMove);
+
             game.playerDidSomething();
 
             let msg2 = messages.O_PLAYER_ROUND;
@@ -144,6 +147,10 @@ wss.on("connection", function connection(ws) {
             let msg = messages.O_ROUTE_REQ;
             msg.data = ret;
             game["player" + oMsg.data.pid].sendMessage(msg);
+
+            let msgMove = messages.O_PLAYER_CLOSED_MOVE;
+            msgMove.data = {pid: oMsg.data, move: "ROUTE-CARD"}
+            game.sendToAll(msgMove);
         }
 
         if (oMsg.type === messages.T_ROUTE_CLAIM) {
@@ -172,6 +179,12 @@ wss.on("connection", function connection(ws) {
                 msg.data = {pid: oMsg.data.pid, status: false};
                 game["player" + oMsg.data.pid].sendMessage(msg);
             }
+        }
+
+        if (oMsg.type === messages.T_PLAYER_TOOK_DESTINATION) {
+            let msg = messages.O_PLAYER_TOOK_DESTINATION;
+            msg.data = game.getEuDestination();
+            game.sendToAll(msg);
         }
     });
 

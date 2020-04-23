@@ -1,13 +1,13 @@
 function setOpenTickets(openTickets) {
     let openCardsBox = document.getElementById("openCardsBox");
-    for(let i = 0; i < 5; i++){
+    for (let i = 0; i < 5; i++) {
         let card = document.createElement('img');
         let color = openTickets["Card" + i];
         card.src = "images/trainCards/us_WagonCard_" + color + ".png";
         card.classList.add("card");
         card.classList.add(color);
         card.id = "Card" + i;
-        card.onclick = function() {
+        card.onclick = function () {
             takeCard("Card" + i);
         };
         openCardsBox.appendChild(card);
@@ -15,29 +15,33 @@ function setOpenTickets(openTickets) {
 }
 
 function replaceCard(cardId, newColor) {
-    let audio = new Audio("sounds/card_dealt3.ogg");
     let oldcard = document.getElementById(cardId);
-    let card = document.createElement('img');
-    card.src = "images/trainCards/us_WagonCard_" + newColor + ".png";
-    card.classList.add("card");
-    card.classList.add(newColor);
-    card.id = cardId;
-    card.onclick = function() {
-        takeCard(cardId);
-    };
-    audio.play();
-    oldcard.parentNode.replaceChild(card, oldcard);
+    if (!oldcard.classList.contains("cardTakenSelf")) {
+        oldcard.classList.add("cardTaken", "disabled");
+    }
+    new Audio("sounds/card_dealt3.ogg").play();
+    setTimeout(function () {
+        let card = document.createElement('img');
+        card.src = "images/trainCards/us_WagonCard_" + newColor + ".png";
+        card.classList.add("card");
+        card.classList.add(newColor);
+        card.id = cardId;
+        card.onclick = function () {
+            takeCard(cardId);
+        };
+        oldcard.parentNode.replaceChild(card, oldcard);
+    }, 1000)
 }
 
 function shuffle(openTickets) {
     let openCardsBox = document.getElementById("openCardsBox");
-    for (let i = 0; i < 5; i++){
+    for (let i = 0; i < 5; i++) {
         let card = document.getElementById("Card" + i);
         if (card.classList.contains("loco")) {
             card.classList.add("alertShadow");
         }
     }
-    setTimeout(function() {
+    setTimeout(function () {
         openCardsBox.innerHTML = '';
         setOpenTickets(openTickets);
         let audio = new Audio("sounds/card_shuffling3.ogg");
@@ -51,6 +55,9 @@ function takeCard(cardID) {
     socket.send(JSON.stringify(msg));
     let color = document.getElementById(cardID).classList[1];
     addCardToCollection(color);
+
+    document.getElementById(cardID).classList.add("cardTakenSelf", "disabled");
+    setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTaken", "disabled")}, 1000);
 }
 
 function addCardToCollection(color) {
@@ -70,7 +77,9 @@ function addCardToCollection(color) {
     let cardContainer = document.createElement('div');
     cardContainer.id = color;
     cardContainer.classList.add("cardContainer");
-    cardContainer.onclick = function() {activateTrainCards(color)};
+    cardContainer.onclick = function () {
+        activateTrainCards(color)
+    };
 
     let card = document.createElement('img');
     card.src = "images/trainCards/rotated/us_WagonCard_" + color + ".png";
@@ -107,7 +116,11 @@ function removeCardFromCollection(color, amount) {
 }
 
 function requestClosedCard() {
-    let msg = Messages.O_REQUEST_TRAIN;
-    msg.data = playerID;
-    socket.send(JSON.stringify(msg));
+    let msg1 = Messages.O_REQUEST_TRAIN;
+    msg1.data = playerID;
+    socket.send(JSON.stringify(msg1));
+
+    new Audio("sounds/card_dealt3.ogg").play();
+    document.getElementById("closedCard").classList.add("cardTakenSelf", "disabled");
+    setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTakenSelf", "disabled")}, 1000);
 }

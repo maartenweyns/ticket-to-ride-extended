@@ -126,4 +126,28 @@
     };
     exports.S_GAME_START = JSON.stringify(exports.O_GAME_START);
 
+    /**
+     * Player to server: Request a destination
+     * Server to players: Here is your destination!
+     * @type {string}
+     */
+    exports.T_PLAYER_TOOK_DESTINATION = "REQUEST-DESTINATION";
+    exports.O_PLAYER_TOOK_DESTINATION = {
+        type: exports.T_PLAYER_TOOK_DESTINATION,
+        data: null
+    };
+    exports.S_PLAYER_TOOK_DESTINATION = JSON.stringify(exports.O_PLAYER_TOOK_DESTINATION);
+
+    /**
+     * Server to players: Someone did something but you shouldn't know the details!
+     * @type {string}
+     */
+    exports.T_PLAYER_CLOSED_MOVE = "PLAYER-CLOSED-MOVE";
+    exports.O_PLAYER_CLOSED_MOVE = {
+        type: exports.T_PLAYER_CLOSED_MOVE,
+        data: null
+    };
+    exports.S_PLAYER_CLOSED_MOVE = JSON.stringify(exports.O_PLAYER_CLOSED_MOVE);
+
+
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);

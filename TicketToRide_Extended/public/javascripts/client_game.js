@@ -92,6 +92,26 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                 document.getElementsByClassName("tabcontent")[1].classList.remove("disabled");
             }
         }
+
+        if (incomingMsg.type === Messages.T_PLAYER_TOOK_DESTINATION) {
+            receivedDestinations(incomingMsg.data);
+        }
+
+        if (incomingMsg.type === Messages.T_PLAYER_CLOSED_MOVE) {
+            if (incomingMsg.data.pid !== playerID) {
+                console.log("Someone did something and I am not allowed to know what :(");
+                if (incomingMsg.data.move === "TRAIN-CARD") {
+                    new Audio("sounds/card_dealt3.ogg").play();
+                    document.getElementById("closedCard").classList.add("cardTaken", "disabled");
+                    setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTaken", "disabled")}, 1000);
+                }
+                if (incomingMsg.data.move === "ROUTE-CARD") {
+                    new Audio("sounds/card_dealt3.ogg").play();
+                    document.getElementById("routeCard").classList.add("cardTaken", "disabled");
+                    setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTaken", "disabled")}, 1000);
+                }
+            }
+        }
     };
 })();
 

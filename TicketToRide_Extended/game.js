@@ -1,9 +1,10 @@
 var route = require("./route");
+var destination = require("./destination");
 var messages = require("./public/javascripts/messages");
 
 const game = function (gameID) {
     this.gameID = gameID;
-    this.amountOfPlayers = 0;
+
     this.player0 = null;
     this.player1 = null;
     this.player2 = null;
@@ -12,10 +13,17 @@ const game = function (gameID) {
     this.player5 = null;
     this.player6 = null;
     this.player7 = null;
+
     this.openCards = {};
     this.euRoutes = new Map();
+    this.euDesti = new Map();
+    this.euStack = [];
+
     this.currentRound = 0;
     this.thingsDone = 0;
+
+    this.setupEuDestinations();
+    this.setupEuRoutes();
 };
 
 game.prototype.setOpenCards = function () {
@@ -196,6 +204,57 @@ game.prototype.setupEuRoutes = function () {
     this.euRoutes.set("angora-erzurum-1", new route("angora","erzurum",1,"black",3,0));
 };
 
+game.prototype.setupEuDestinations = function() {
+    this.euDesti.set("amsterdam-pamplona", new destination("eu","amsterdam","pamplona",7));
+    this.euDesti.set("amsterdam-wilno", new destination("eu","amsterdam","wilno",12));
+    this.euDesti.set("angora-kharkov", new destination("eu","angora","kharkov",10));
+    this.euDesti.set("athina-angora", new destination("eu","athina","angora",5));
+    this.euDesti.set("athina-wilno", new destination("eu","athina","wilno",11));
+    this.euDesti.set("barcelona-brussels", new destination("eu","barcelona","brussels",8));
+    this.euDesti.set("barcelona-munchen", new destination("eu","barcelona","munchen",8));
+    this.euDesti.set("berlin-bucuresti", new destination("eu","berlin","bucuresti",8));
+    this.euDesti.set("berlin-moskva", new destination("eu","berlin","moskva",12));
+    this.euDesti.set("berlin-roma", new destination("eu","berlin","roma",9));
+    this.euDesti.set("brest-marseille", new destination("eu","brest","marseille",7));
+    this.euDesti.set("brest-petrograd", new destination("eu","brest","petrograd",20));
+    this.euDesti.set("brest-venice", new destination("eu","brest","venice",8));
+    this.euDesti.set("brussels-danzig", new destination("eu","brussels","danzig",9));
+    this.euDesti.set("budapest-sofia", new destination("eu","budapest","sofia",5));
+    this.euDesti.set("cadiz-stockholm", new destination("eu","cadiz","stockholm",21));
+    this.euDesti.set("edinburgh-athina", new destination("eu","edinburgh","athina",21));
+    this.euDesti.set("edinburgh-paris", new destination("eu","edinburgh","paris",7));
+    this.euDesti.set("essen-kyiv", new destination("eu","essen","kyiv",10));
+    this.euDesti.set("frankfurt-kopenhagen", new destination("eu","frankfurt","kopenhagen",5));
+    this.euDesti.set("frankfurt-smolensk", new destination("eu","frankfurt","smolensk",13));
+    this.euDesti.set("kopenhagen-erzurum", new destination("eu","kopenhagen","erzurum",21));
+    this.euDesti.set("kyiv-petrograd", new destination("eu","kyiv","petrograd",6));
+    this.euDesti.set("kyiv-sochi", new destination("eu","kyiv","sochi",8));
+    this.euDesti.set("lissabon-danzig", new destination("eu","lissabon","danzig",20));
+    this.euDesti.set("londen-berlin", new destination("eu","londen","berlin",7));
+    this.euDesti.set("londen-wein", new destination("eu","londen","wein",10));
+    this.euDesti.set("madrid-dieppe", new destination("eu","madrid","dieppe",8));
+    this.euDesti.set("madrid-zurich", new destination("eu","madrid","zurich",8));
+    this.euDesti.set("marseille-essen", new destination("eu","marseille","essen",8));
+    this.euDesti.set("palermo-constantinople", new destination("eu","palermo","constantinople",8));
+    this.euDesti.set("palermo-moskva", new destination("eu","palermo","moskva",20));
+    this.euDesti.set("paris-wein", new destination("eu","paris","wein",8));
+    this.euDesti.set("paris-zagreb", new destination("eu","paris","zagreb",7));
+    this.euDesti.set("riga-bucuresti", new destination("eu","riga","bucuresti",10));
+    this.euDesti.set("rome-smyrna", new destination("eu","rome","smyrna",8));
+    this.euDesti.set("rostov-erzurum", new destination("eu","rostov","erzurum",5));
+    this.euDesti.set("sarajevo-sevastopol", new destination("eu","sarajevo","sevastopol",8));
+    this.euDesti.set("smolensk-rostov", new destination("eu","smolensk","rostov",8));
+    this.euDesti.set("sofia-smyrna", new destination("eu","sofia","smyrna",5));
+    this.euDesti.set("stockholm-wein", new destination("eu","stockholm","wein",11));
+    this.euDesti.set("venice-constantinople", new destination("eu","venice","constantinople",10));
+    this.euDesti.set("warsaw-smolensk", new destination("eu","warsaw","smolensk",6));
+    this.euDesti.set("zagreb-brindisi", new destination("eu","zagreb","brindisi",6));
+    this.euDesti.set("zurich-brindisi", new destination("eu","zurich","brindisi",6));
+    this.euDesti.set("zurich-budapest", new destination("eu","zurich","budapest",6));
+
+    this.euStack = shuffleArray(Array.from(this.euDesti));
+}
+
 game.prototype.getRouteRequirements = function (routeID) {
     let route = this.euRoutes.get(routeID);
     if (route !== undefined) {
@@ -255,5 +314,27 @@ game.prototype.nextPlayerRound = function () {
         this.currentRound = 0;
     }
 };
+
+game.prototype.getEuDestination = function () {
+    return this.euStack.pop();
+}
+
+function shuffleArray(array) {
+    var m = array.length, t, i;
+
+    // While there remain elements to shuffle…
+    while (m) {
+
+        // Pick a remaining element…
+        i = Math.floor(Math.random() * m--);
+
+        // And swap it with the current element.
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
+    }
+
+    return array;
+}
 
 module.exports = game;
