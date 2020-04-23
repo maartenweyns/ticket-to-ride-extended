@@ -36,6 +36,10 @@ function promptName() {
     let msg = Messages.O_PLAYER_NAME;
     msg.data = {pName: name, pID: playerID};
     socket.send(JSON.stringify(msg));
+
+    let audio = new Audio("sounds/MenuMusic.ogg");
+    audio.loop = true;
+    audio.play();
 }
 
 function addUsers(users) {

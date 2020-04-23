@@ -12,10 +12,6 @@ body {
     align-items: center;
 }
 
-.playarea {
-
-}
-
 a {
     color: #00B7FF;
 }
@@ -28,40 +24,18 @@ a {
     height: 100%;
 }
 
-/* Style the buttons that are used to open the tab content */
-.tab button {
-    background-color: inherit;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
-    display: block;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-    background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-    background-color: #ccc;
-}
-
 /* Style the tab content */
 .tabcontent {
     position: relative;
-    top: 0;
-    left: 0;
-    display: none;
-    float: left;
-    border: 1px solid #ccc;
-    border-top: none;
     height: 100%;
-    width: calc(100% - 120px);
+    width: calc(100% - 50px);
     max-width: 100%;
     max-height: 100%;
+}
+
+.tablinks {
+    display: block;
+    width: 50px;
 }
 
 .map {
@@ -92,7 +66,8 @@ a {
 
 .maps {
     top: 0;
-    display: inline-block;
+    display: flex;
+    float: right;
     height: 80vh;
     width: 70vw;
     max-width: calc(100vw - 350px);

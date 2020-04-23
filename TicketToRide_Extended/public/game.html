@@ -14,7 +14,11 @@
     <div class="userPanes" id="userBox"></div>
 
     <div class="maps">
-        <!-- Tab content -->
+        <div class="tab">
+            <img src="images/maps/eu_flag.png" class="tablinks" onclick="openCity(event, 'Europe')" id="defaultOpen">
+            <img src="images/maps/us_flag.png" class="tablinks" onclick="openCity(event, 'UnitedStates')">
+        </div>
+
         <div id="Europe" class="tabcontent">
             <img class="map" src="images/maps/euMap.jpg" usemap="#europe-image-map" id="europeCardImg">
             <map name="europe-image-map">
@@ -267,11 +271,6 @@
 
         <div id="UnitedStates" class="tabcontent">
             <img class="map" src="images/maps/usMap.jpg"/>
-        </div>
-
-        <div class="tab">
-            <button class="tablinks" onclick="openCity(event, 'Europe')" id="defaultOpen">Europe</button>
-            <button class="tablinks" onclick="openCity(event, 'UnitedStates')">United States</button>
         </div>
     </div>
 
