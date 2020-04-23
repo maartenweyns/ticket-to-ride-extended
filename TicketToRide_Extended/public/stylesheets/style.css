@@ -67,7 +67,7 @@ body {
 .maps {
     top: 0;
     height: 100%;
-    max-width: calc(100vw - 350px);
+    display: flex;
 }
 
 .card {
