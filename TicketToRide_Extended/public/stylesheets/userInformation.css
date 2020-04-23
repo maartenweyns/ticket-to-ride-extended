@@ -1,9 +1,5 @@
 .userPanes {
-    position: absolute;
-    left: 0;
-    top: 0;
     padding: 10px;
-    float: left;
     height: calc(100vh - 20px);
     width: 200px;
 }

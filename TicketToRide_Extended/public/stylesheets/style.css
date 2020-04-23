@@ -12,8 +12,11 @@ body {
     align-items: center;
 }
 
-a {
-    color: #00B7FF;
+.playarea {
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    height: 100vh;
 }
 
 /* Style the tab */
@@ -42,21 +45,18 @@ a {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    height: 100%;
 }
 
 .carts {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    height: 100%;
     pointer-events: none;
 }
 
 .cards {
-    position: absolute;
-    clear: both;
-    display: table;
     height: calc(100vh - 10px);
     width: 150px;
     padding: 5px;
@@ -66,15 +66,13 @@ a {
 
 .maps {
     top: 0;
-    display: flex;
-    float: right;
-    height: 80vh;
-    width: 70vw;
+    height: 100%;
     max-width: calc(100vw - 350px);
 }
 
 .card {
-    height: calc(100vh / 9);
+    max-height: calc(100vh / 9);
+    max-width: 100%;
     float: right;
     margin-bottom: 2px;
     cursor: pointer;
@@ -87,21 +85,18 @@ a {
     box-shadow: 0 0 20px 2px rgba(255, 255, 255, 0.5);
 }
 
-.ownCard {
-    height: 100px;
-    transform: rotate(90deg);
-    margin-left: -50px;
+.centerContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
 }
 
 .ownCards {
-    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
-    bottom: 0;
-    right: 200px;
-    left: 200px;
-    height: 100px;
+    height: 15%;
 }
 
 .alertShadow {

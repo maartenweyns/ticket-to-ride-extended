@@ -73,7 +73,7 @@ function addCardToCollection(color) {
     cardContainer.onclick = function() {activateTrainCards(color)};
 
     let card = document.createElement('img');
-    card.src = "images/trainCards/us_WagonCard_" + color + ".png";
+    card.src = "images/trainCards/rotated/us_WagonCard_" + color + ".png";
     card.id = color;
     card.classList.add("ownCard");
     card.classList.add(color);
