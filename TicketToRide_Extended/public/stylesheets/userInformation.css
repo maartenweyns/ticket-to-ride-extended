@@ -1,7 +1,8 @@
 .userPanes {
     padding: 10px;
-    height: calc(100vh - 20px);
-    width: 200px;
+    width: calc(100vw / 8);
+    display: flex;
+    flex-direction: column;
 }
 
 .playerBackdrop {
