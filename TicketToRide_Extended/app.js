@@ -154,7 +154,7 @@ wss.on("connection", function connection(ws) {
         }
 
         if (oMsg.type === messages.T_ROUTE_CLAIM) {
-            console.log("A user requested a route");
+            console.log("A user requested a route: " + oMsg.data.route);
             let ret = game.checkEligibility(oMsg.data.pid, oMsg.data.color, oMsg.data.route);
             let msg = messages.O_ROUTE_CLAIM;
 
@@ -170,7 +170,9 @@ wss.on("connection", function connection(ws) {
                 msgPlayers.data = game.getUserProperties();
                 game.sendToAll(msgPlayers);
 
-                game.playerDidSomething();
+                game.userClaimedRoute(oMsg.data.pid, game.euRoutes.get(oMsg.data.route));
+
+                game.nextPlayerRound();
 
                 let msg2 = messages.O_PLAYER_ROUND;
                 msg2.data = {pid: game.currentRound, thing: game.thingsDone};
