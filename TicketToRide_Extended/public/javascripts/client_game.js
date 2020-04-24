@@ -170,14 +170,14 @@ function addUsers(users) {
 
 function activateTrainCards(color) {
     let cardItem = document.getElementById(color);
-    if (cardItem.children[0].classList.contains("activatedCard")) {
-        cardItem.children[0].classList.remove("activatedCard");
+    if (cardItem.classList.contains("activatedCard")) {
+        cardItem.classList.remove("activatedCard");
     } else {
         let cardPile = document.getElementById("ownCardContainer");
         for (let i = 0; i < cardPile.children.length; i++) {
-            cardPile.children[i].children[0].classList.remove("activatedCard");
+            cardPile.children[i].classList.remove("activatedCard");
         }
-        cardItem.children[0].classList.add("activatedCard");
+        cardItem.classList.add("activatedCard");
     }
 }
 

@@ -18,6 +18,7 @@ const player = function (id, playerName, playerColor, playerWebsocket) {
     this.yellow = 0;
 
     this.routes = new Map();
+    this.destinations = [];
 };
 
 player.prototype.sendMessage = function (msg) {

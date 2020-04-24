@@ -380,15 +380,18 @@ function checkContinuity(player, stationA, stationB) {
                         return true;
                     } else {
                         if (stationList[i].stationA === startingStation) {
-                            return recursion(stationList[i].stationB, endingStation);
+                            if (recursion(stationList[i].stationB, endingStation)) {
+                                return true;
+                            }
                         } else {
-                            return recursion(stationList[i].stationA, endingStation);
+                            if (recursion(stationList[i].stationA, endingStation)) {
+                                return true;
+                            }
                         }
                     }
                 }
             }
         }
-        return false;
     }
     return recursion(stationA, stationB);
 
