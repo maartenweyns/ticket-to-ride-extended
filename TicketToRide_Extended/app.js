@@ -82,9 +82,19 @@ wss.on("connection", function connection(ws) {
             msg2.data = {pid: game.currentRound, thing: game.thingsDone};
             game.sendToAll(msg2);
 
+            let color1 = game.getRandomColor();
+            let color2 = game.getRandomColor();
+            let color3 = game.getRandomColor();
+            let color4 = game.getRandomColor();
+
             let msg3 = messages.O_INITIAL_CARDS;
-            msg3.data = {desti: {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getEuDestination()}, cards: [game.getRandomColor(),game.getRandomColor(),game.getRandomColor(),game.getRandomColor()]}
+            msg3.data = {desti: {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getEuDestination()}, cards: [color1, color2, color3, color4]}
             game["player" + pid].sendMessage(msg3);
+            game["player" + pid][color1]++;
+            game["player" + pid][color2]++;
+            game["player" + pid][color3]++;
+            game["player" + pid][color4]++;
+            game["player" + pid].numberOfTrainCards += 4;
         }
 
         if (oMsg.type === messages.T_GAME_START) {
@@ -139,7 +149,7 @@ wss.on("connection", function connection(ws) {
             game["player" + oMsg.data].sendMessage(msgCard);
 
             game["player" + oMsg.data].numberOfTrainCards++;
-            game["player" + oMsg.data][color] += 1;
+            game["player" + oMsg.data][color]++;
 
             let msgPlayers = messages.O_PLAYER_OVERVIEW;
             msgPlayers.data = game.getUserProperties();
