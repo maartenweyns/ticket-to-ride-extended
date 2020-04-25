@@ -21,6 +21,7 @@ const game = function (gameID) {
 
     this.currentRound = 0;
     this.thingsDone = 0;
+    this.amountOfPlayers = 0;
 
     this.setupEuDestinations();
     this.setupEuRoutes();

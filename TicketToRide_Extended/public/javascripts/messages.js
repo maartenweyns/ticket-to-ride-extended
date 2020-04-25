@@ -182,4 +182,26 @@
     };
     exports.S_ACCEPTED_DESTI = JSON.stringify(exports.O_ACCEPTED_DESTI);
 
+    /**
+     * Player to server: I finished doing what I was doing!
+     * @type {string}
+     */
+    exports.T_PLAYER_FINISHED = "PLAYER-FINISHED";
+    exports.O_PLAYER_FINISHED = {
+        type: exports.T_PLAYER_FINISHED,
+        data: null
+    };
+    exports.S_PLAYER_FINISHED = JSON.stringify(exports.O_PLAYER_FINISHED);
+
+    /**
+     * Server to player: Here are your initial cards!
+     * @type {string}
+     */
+    exports.T_INITIAL_CARDS = "INITIAL-CARDS";
+    exports.O_INITIAL_CARDS = {
+        type: exports.T_INITIAL_CARDS,
+        data: null
+    };
+    exports.S_INITIAL_CARDS = JSON.stringify(exports.O_INITIAL_CARDS);
+
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);

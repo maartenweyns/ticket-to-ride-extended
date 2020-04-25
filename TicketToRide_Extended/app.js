@@ -61,6 +61,9 @@ wss.on("connection", function connection(ws) {
             let pid = oMsg.data.pID;
             game["player" + pid] = new Player(pid, oMsg.data.pName, playerColors.pop(), websockets[pid]);
 
+            game.amountOfPlayers++;
+            game.currentRound = Math.ceil(Math.random() * game.amountOfPlayers) - 1;
+
             let msg1 = messages.O_PLAYER_OVERVIEW;
             msg1.data = game.getUserProperties();
             game.sendToAll(msg1);
@@ -78,6 +81,10 @@ wss.on("connection", function connection(ws) {
             let msg2 = messages.O_PLAYER_ROUND;
             msg2.data = {pid: game.currentRound, thing: game.thingsDone};
             game.sendToAll(msg2);
+
+            let msg3 = messages.O_INITIAL_CARDS;
+            msg3.data = {desti: {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getEuDestination()}, cards: [game.getRandomColor(),game.getRandomColor(),game.getRandomColor(),game.getRandomColor()]}
+            game["player" + pid].sendMessage(msg3);
         }
 
         if (oMsg.type === messages.T_GAME_START) {
@@ -201,6 +208,11 @@ wss.on("connection", function connection(ws) {
             let pid = oMsg.data.pid;
             let routeID = oMsg.data.rid;
             game["player" + pid].destinations.push(game.euDesti.get(routeID));
+            game["player" + pid].numberOfRoutes++;
+
+            let msgPlayers = messages.O_PLAYER_OVERVIEW;
+            msgPlayers.data = game.getUserProperties();
+            game.sendToAll(msgPlayers);
         }
 
         if (oMsg.type === messages.T_REJECTED_DESTI) {
@@ -209,6 +221,14 @@ wss.on("connection", function connection(ws) {
             game.shuffleDestis();
 
             console.log("A player rejected " + destID + " and the deck has been shuffled");
+        }
+
+        if (oMsg.type === messages.T_PLAYER_FINISHED) {
+            game.nextPlayerRound();
+
+            let msg2 = messages.O_PLAYER_ROUND;
+            msg2.data = {pid: game.currentRound, thing: game.thingsDone};
+            game.sendToAll(msg2);
         }
     });
 

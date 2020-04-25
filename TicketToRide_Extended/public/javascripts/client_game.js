@@ -100,7 +100,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 
         if (incomingMsg.type === Messages.T_PLAYER_TOOK_DESTINATION) {
             new Audio("sounds/card_dealt3.ogg").play();
-            receivedDestinations(incomingMsg.data);
+            receivedDestinations(incomingMsg.data, 1);
         }
 
         if (incomingMsg.type === Messages.T_PLAYER_CLOSED_MOVE) {
@@ -122,6 +122,17 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         if (incomingMsg.type === Messages.T_PLAYER_COMPLETED_ROUTE) {
             new Audio("sounds/ticketCompletedVictory.ogg").play();
             completedRoute(incomingMsg.data);
+        }
+
+        if (incomingMsg.type === Messages.T_INITIAL_CARDS) {
+            let destinations = incomingMsg.data.desti;
+            let colors = incomingMsg.data.cards;
+
+            receivedDestinations(destinations, 1);
+
+            for (let i = 0; i < colors.length; i++) {
+                addCardToCollection(colors[i]);
+            }
         }
     };
 })();

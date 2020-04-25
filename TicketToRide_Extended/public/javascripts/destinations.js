@@ -4,7 +4,7 @@ function requestDestination() {
     socket.send(JSON.stringify(msg1));
 }
 
-function receivedDestinations(data) {
+function receivedDestinations(data, minimalAmount) {
     let cardsContainer = document.getElementById("ownCardContainer");
     let deckContainer = document.getElementById("destiCardsChoosingPanel");
     cardsContainer.style.display = "none";
@@ -23,7 +23,7 @@ function receivedDestinations(data) {
     let confirmButton = document.createElement('button');
     confirmButton.innerHTML = "CHOOSE";
     confirmButton.onclick = function () {
-        confirmDestis();
+        confirmDestis(minimalAmount);
     }
     deckContainer.append(confirmButton);
 }
@@ -37,9 +37,15 @@ function toggleActivationDestiCard(cardID) {
     }
 }
 
-function confirmDestis() {
+function confirmDestis(minimalAmount) {
     let destinations = document.getElementById("destiCardsChoosingPanel").children;
     let container = document.getElementsByClassName("destiCards")[0];
+
+    let chosenDestinaions = document.getElementsByClassName("activatedDestiCard");
+    if (!(chosenDestinaions.length >= minimalAmount)) {
+        alert("You should pick at least " + minimalAmount + " destination(s)!");
+        return;
+    }
 
     for (let i = 0; i < destinations.length - 1; i++) {
         if (destinations[i].classList.contains("activatedDestiCard")) {
@@ -68,6 +74,10 @@ function confirmDestis() {
             socket.send(JSON.stringify(msg));
         }
     }
+
+    let msg = Messages.O_PLAYER_FINISHED;
+    socket.send(JSON.stringify(msg));
+
     document.getElementById("destiCardsChoosingPanel").innerHTML = '';
     document.getElementById("destiCardsChoosingPanel").style.display = "none";
     document.getElementById("ownCardContainer").style.display = "flex";
