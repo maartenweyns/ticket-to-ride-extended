@@ -24,6 +24,8 @@ const game = function (gameID) {
 
     this.setupEuDestinations();
     this.setupEuRoutes();
+
+    this.claimedEuRoutes = [];
 };
 
 game.prototype.setOpenCards = function () {
@@ -266,18 +268,30 @@ game.prototype.getRouteRequirements = function (routeID) {
 game.prototype.checkEligibility = function (pid, color, routeID) {
     let routeRequirements = this.getRouteRequirements(routeID);
 
+    if (this.claimedEuRoutes.includes(routeID)) {
+        return false;
+    }
+
     if (this["player" + pid][color] >= routeRequirements.length) {
         if (routeRequirements.color === "any") {
+            this.claimedEuRoutes.push(routeID);
             return {status: true, color: color, amount: routeRequirements.length, locos: 0};
         } else {
             if (color === routeRequirements.color) {
+                this.claimedEuRoutes.push(routeID);
                 return {status: true, color: color, amount: routeRequirements.length, locos: 0};
             } else {
-                return {status: false};
+                if (color === "loco") {
+                    this.claimedEuRoutes.push(routeID);
+                    return {status: true, color: color, amount: 0, locos: routeRequirements.length};
+                } else {
+                    return {status: false}
+                }
             }
         }
     } else if ((this["player" + pid][color] + this["player" + pid].loco) >= routeRequirements.length) {
         if (routeRequirements.color === "any") {
+            this.claimedEuRoutes.push(routeID);
             return {
                 status: true,
                 color: color,
@@ -286,6 +300,7 @@ game.prototype.checkEligibility = function (pid, color, routeID) {
             };
         } else {
             if (color === routeRequirements.color) {
+                this.claimedEuRoutes.push(routeID);
                 return {
                     status: true,
                     color: color,

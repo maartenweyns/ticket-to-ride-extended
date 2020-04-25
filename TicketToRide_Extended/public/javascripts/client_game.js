@@ -43,6 +43,9 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         }
 
         if (incomingMsg.type === Messages.T_REQUEST_TRAIN) {
+            new Audio("sounds/card_dealt3.ogg").play();
+            document.getElementById("closedCard").classList.add("cardTakenSelf", "disabled");
+            setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTakenSelf", "disabled")}, 1000);
             addCardToCollection(incomingMsg.data);
         }
 
@@ -94,6 +97,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         }
 
         if (incomingMsg.type === Messages.T_PLAYER_TOOK_DESTINATION) {
+            new Audio("sounds/card_dealt3.ogg").play();
             receivedDestinations(incomingMsg.data);
         }
 

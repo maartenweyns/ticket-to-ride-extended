@@ -87,7 +87,9 @@ wss.on("connection", function connection(ws) {
 
         if (oMsg.type === messages.T_PLAYER_TOOK_OPEN_TRAIN) {
             console.log("Player " + oMsg.data.pid + " took " + oMsg.data.card);
+
             let color = game.getRandomColor();
+            let oldColor = game.openCards[oMsg.data.card];
             game.openCards[oMsg.data.card] = color;
 
             let msg = messages.O_NEW_OPEN_CARD;
@@ -108,8 +110,14 @@ wss.on("connection", function connection(ws) {
             msgPlayers.data = game.getUserProperties();
             game.sendToAll(msgPlayers);
 
-            game.playerDidSomething();
-
+            if (oldColor === "loco") {
+                let msg = messages.O_REQUEST_TRAIN;
+                msg.data = game.getRandomColor();
+                game["player" + oMsg.data.pid].sendMessage(msg);
+                game.nextPlayerRound();
+            } else {
+                game.playerDidSomething();
+            }
             let msg2 = messages.O_PLAYER_ROUND;
             msg2.data = {pid: game.currentRound, thing: game.thingsDone};
             game.sendToAll(msg2);
