@@ -201,6 +201,7 @@ function activateTrainCards(color) {
         }
         cardItem.classList.add("activatedCard");
     }
+    imageMapResize();
 }
 
 function claimEuRoute(routeID) {
