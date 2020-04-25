@@ -146,7 +146,7 @@ function addUsers(users) {
         userEntry.classList.add("playerBackdrop");
 
         let userBackdrop = document.createElement('img');
-        userBackdrop.src = 'images/playerInformation/playerBackdrop/support-opponent-Human-Horizontal-' + user.color + '.png';
+        userBackdrop.src = 'images/playerInformation/playerBackdrop/support-opponent-' + user.color + '.png';
         userBackdrop.classList.add("playerBackdropImage");
         userBackdrop.id = "p" + user.id;
 
@@ -154,38 +154,23 @@ function addUsers(users) {
         playerName.innerText = user.name;
         playerName.classList.add("playerName");
 
-        let numberOfCarts = document.createElement('div');
-        numberOfCarts.classList.add("numberOfCarts");
-        let numberOfCartsBg = document.createElement('img');
-        numberOfCartsBg.src = "images/playerInformation/wagons/player-train-number-Off.png";
         let numberOfCartsText = document.createElement('p');
         numberOfCartsText.classList.add("numberOfCartsText");
         numberOfCartsText.innerText = user.numberOfTrains;
 
-        let numberOfTrainCards = document.createElement('div');
-        numberOfTrainCards.classList.add("numberOfTrainCards");
-        let numberOfTrainCardsImg = document.createElement('img');
-        numberOfTrainCardsImg.src = "images/playerInformation/smallCards/wagons.png";
         let numberOfTrainCardsText = document.createElement('p');
         numberOfTrainCardsText.classList.add("numberOfTrainCardsText");
         numberOfTrainCardsText.innerText = user.numberOfTrainCards;
 
-        let numberOfRoutes = document.createElement('div');
-        numberOfRoutes.classList.add("numberOfRouteCards");
-        let numberOfRoutesImg = document.createElement('img');
-        numberOfRoutesImg.src = "images/playerInformation/smallCards/routes.png";
         let numberOfRoutesText = document.createElement('p');
         numberOfRoutesText.classList.add("numberOfRouteCardsText");
         numberOfRoutesText.innerText = user.numberOfRoutes;
 
-        numberOfCarts.append(numberOfCartsBg, numberOfCartsText);
-        numberOfTrainCards.append(numberOfTrainCardsImg, numberOfTrainCardsText);
-        numberOfRoutes.append(numberOfRoutesImg, numberOfRoutesText);
         userEntry.append(userBackdrop);
         userEntry.append(playerName);
-        userEntry.append(numberOfCarts);
-        userEntry.append(numberOfTrainCards);
-        userEntry.append(numberOfRoutes);
+        userEntry.append(numberOfCartsText);
+        userEntry.append(numberOfTrainCardsText);
+        userEntry.append(numberOfRoutesText);
         userBox.prepend(userEntry);
     }
 }

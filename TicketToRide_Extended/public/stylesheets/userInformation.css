@@ -17,49 +17,39 @@
 .playerName {
     margin: 5px;
     color: white;
-    font-size: 18px;
+    font-size: 2em;
     position: absolute;
     top: 9px;
     left: 16px;
     font-family: 'Arapey', serif;
 }
 
-.numberOfCarts {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    width: 20%;
-    height: 20%;
-}
-
 .numberOfCartsText {
     color: black;
     font-family: 'Arapey', serif;
     position: absolute;
-    font-size: 20px;
-    top: 16px;
-    right: 25px;
+    font-size: 1.4em;
+    top: 26%;
+    right: 10%;
+    margin: 0;
 }
 
-.numberOfTrainCards {
-    position: absolute;
-    bottom: 15px;
-    left: 20px;
-}
-
-.numberOfTrainCardsText, .numberOfRouteCardsText {
+.numberOfTrainCardsText {
     color: white;
     font-family: 'Arapey', serif;
-    font-size: 14px;
+    font-size: 2em;
     position: absolute;
-    bottom: -2px;
-    left: 45px;
+    top: 48%;
+    left: 35%;
+    margin: 0;
 }
 
-.numberOfRouteCards {
-    height: fit-content;
-    width: fit-content;
+.numberOfRouteCardsText {
+    color: white;
+    font-family: 'Arapey', serif;
+    font-size: 2em;
     position: absolute;
-    bottom: 15px;
-    left: 90px;
+    top: 48%;
+    left: 73%;
+    margin: 0;
 }
