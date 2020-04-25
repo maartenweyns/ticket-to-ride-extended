@@ -43,6 +43,9 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         }
 
         if (incomingMsg.type === Messages.T_REQUEST_TRAIN) {
+            new Audio("sounds/card_dealt3.ogg").play();
+            document.getElementById("closedCard").classList.add("cardTakenSelf", "disabled");
+            setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTakenSelf", "disabled")}, 1000);
             addCardToCollection(incomingMsg.data);
         }
 
@@ -59,6 +62,8 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                 carts.src = linkToTrainsToAdd;
                 carts.classList.add("carts");
                 imageLocation.append(carts);
+
+                new Audio("sounds/cash_register3.ogg").play();
 
                 if (incomingMsg.data.pid === playerID) {
                     removeCardFromCollection(incomingMsg.data.color, incomingMsg.data.amount);
@@ -94,7 +99,8 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         }
 
         if (incomingMsg.type === Messages.T_PLAYER_TOOK_DESTINATION) {
-            receivedDestinations(incomingMsg.data);
+            new Audio("sounds/card_dealt3.ogg").play();
+            receivedDestinations(incomingMsg.data, 1);
         }
 
         if (incomingMsg.type === Messages.T_PLAYER_CLOSED_MOVE) {
@@ -110,6 +116,22 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                     document.getElementById("routeCard").classList.add("cardTaken", "disabled");
                     setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTaken", "disabled")}, 1000);
                 }
+            }
+        }
+
+        if (incomingMsg.type === Messages.T_PLAYER_COMPLETED_ROUTE) {
+            new Audio("sounds/ticketCompletedVictory.ogg").play();
+            completedRoute(incomingMsg.data);
+        }
+
+        if (incomingMsg.type === Messages.T_INITIAL_CARDS) {
+            let destinations = incomingMsg.data.desti;
+            let colors = incomingMsg.data.cards;
+
+            receivedDestinations(destinations, 1);
+
+            for (let i = 0; i < colors.length; i++) {
+                addCardToCollection(colors[i]);
             }
         }
     };
@@ -170,15 +192,16 @@ function addUsers(users) {
 
 function activateTrainCards(color) {
     let cardItem = document.getElementById(color);
-    if (cardItem.children[0].classList.contains("activatedCard")) {
-        cardItem.children[0].classList.remove("activatedCard");
+    if (cardItem.classList.contains("activatedCard")) {
+        cardItem.classList.remove("activatedCard");
     } else {
         let cardPile = document.getElementById("ownCardContainer");
         for (let i = 0; i < cardPile.children.length; i++) {
-            cardPile.children[i].children[0].classList.remove("activatedCard");
+            cardPile.children[i].classList.remove("activatedCard");
         }
-        cardItem.children[0].classList.add("activatedCard");
+        cardItem.classList.add("activatedCard");
     }
+    imageMapResize();
 }
 
 function claimEuRoute(routeID) {

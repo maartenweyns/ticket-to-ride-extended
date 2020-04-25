@@ -20,8 +20,9 @@
     overflow-x: visible;
 }
 
-.activatedCard {
-    filter: drop-shadow(0px 0px 15px rgb(0,255,0));
+.activatedCard, .activatedDestiCard {
+    filter: drop-shadow(0px -10px 15px rgb(0,255,0));
+    z-index: 100;
 }
 
 .cardTaken {
@@ -34,10 +35,4 @@
     transition: 1000ms;
     transform: translate(-50vw, 50vh);
     opacity: 0;
-}
-
-.ownCard {
-    margin-top: 20px;
-    margin-left: 10px;
-    margin-right: 10px;
 }

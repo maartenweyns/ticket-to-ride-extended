@@ -119,8 +119,4 @@ function requestClosedCard() {
     let msg1 = Messages.O_REQUEST_TRAIN;
     msg1.data = playerID;
     socket.send(JSON.stringify(msg1));
-
-    new Audio("sounds/card_dealt3.ogg").play();
-    document.getElementById("closedCard").classList.add("cardTakenSelf", "disabled");
-    setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTakenSelf", "disabled")}, 1000);
 }

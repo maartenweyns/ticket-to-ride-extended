@@ -283,15 +283,21 @@
             </div>
         </div>
         <div class="ownCards" id="ownCardContainer"></div>
+        <div class="destiDeck" id="destiCardsChoosingPanel" style="display: none"></div>
     </div>
 
     <div class="cards" id="cardContainer">
-        <div class="routeCards">
-            <img class="card" src="images/routeCards/ticketBack.png" id="routeCard" onclick="requestDestination()"/>
+        <div class="generalCards">
+            <div class="routeCards">
+                <img class="card" src="images/routeCards/ticketBack.png" id="routeCard" onclick="requestDestination()"/>
+            </div>
+            <div class="openWagonCards" id="openCardsBox"></div>
+            <div class="closedWagonCards">
+                <img class="card" src="images/trainCards/us_WagonCard_back.png" id="closedCard"
+                     onclick="requestClosedCard()"/>
+            </div>
         </div>
-        <div class="openWagonCards" id="openCardsBox"></div>
-        <div class="closedWagonCards">
-            <img class="card" src="images/trainCards/us_WagonCard_back.png" id="closedCard" onclick="requestClosedCard()"/>
+        <div class="destiCards">
         </div>
     </div>
     <!--    <img class="cardsBackground" src="images/decorations/cards-support-Blue.png">-->

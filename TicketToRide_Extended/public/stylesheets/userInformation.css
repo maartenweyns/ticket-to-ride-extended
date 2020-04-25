@@ -26,8 +26,10 @@
 
 .numberOfCarts {
     position: absolute;
-    top: -5px;
-    right: -5px;
+    top: 0px;
+    right: 0px;
+    width: 20%;
+    height: 20%;
 }
 
 .numberOfCartsText {
