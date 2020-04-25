@@ -115,11 +115,16 @@ body {
     flex-grow: 1;
 }
 
-.ownCards {
+.ownCards, .destiDeck {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     height: 15%;
+}
+
+.destiDeckCard {
+    height: 100%;
 }
 
 .alertShadow {

@@ -160,5 +160,26 @@
     };
     exports.S_PLAYER_COMPLETED_ROUTE = JSON.stringify(exports.O_PLAYER_COMPLETED_ROUTE);
 
+    /**
+     * Player to server: I do not want this destination!
+     * @type {string}
+     */
+    exports.T_REJECTED_DESTI = "PLAYER-REJECTED-DESTINATION";
+    exports.O_REJECTED_DESTI = {
+        type: exports.T_REJECTED_DESTI,
+        data: null
+    };
+    exports.S_REJECTED_DESTI = JSON.stringify(exports.O_REJECTED_DESTI);
+
+    /**
+     * Player to server: I do not want this destination!
+     * @type {string}
+     */
+    exports.T_ACCEPTED_DESTI = "PLAYER-ACCEPTED-DESTINATION";
+    exports.O_ACCEPTED_DESTI = {
+        type: exports.T_ACCEPTED_DESTI,
+        data: null
+    };
+    exports.S_ACCEPTED_DESTI = JSON.stringify(exports.O_ACCEPTED_DESTI);
 
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);

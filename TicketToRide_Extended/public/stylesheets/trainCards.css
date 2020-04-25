@@ -20,7 +20,7 @@
     overflow-x: visible;
 }
 
-.activatedCard {
+.activatedCard, .activatedDestiCard {
     filter: drop-shadow(0px -10px 15px rgb(0,255,0));
     z-index: 100;
 }

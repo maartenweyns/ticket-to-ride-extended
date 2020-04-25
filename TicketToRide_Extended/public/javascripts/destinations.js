@@ -5,23 +5,72 @@ function requestDestination() {
 }
 
 function receivedDestinations(data) {
+    let cardsContainer = document.getElementById("ownCardContainer");
+    let deckContainer = document.getElementById("destiCardsChoosingPanel");
+    cardsContainer.style.display = "none";
+    deckContainer.style.display = "flex";
+
+    for (let i = 0; i < 3; i++) {
+        let card = document.createElement('img');
+        card.src = "images/routeCards/euRoutes/eu-" + data[i][0] + ".png";
+        card.classList.add("destiDeckCard");
+        card.id = data[i][0];
+        card.onclick = function() {
+            toggleActivationDestiCard(card.id);
+        }
+        deckContainer.append(card);
+    }
+    let confirmButton = document.createElement('button');
+    confirmButton.innerHTML = "CHOOSE";
+    confirmButton.onclick = function () {
+        confirmDestis();
+    }
+    deckContainer.append(confirmButton);
+}
+
+function toggleActivationDestiCard(cardID) {
+    let card = document.getElementById(cardID);
+    if (card.classList.contains("activatedDestiCard")) {
+        card.classList.remove("activatedDestiCard");
+    } else {
+        card.classList.add("activatedDestiCard");
+    }
+}
+
+function confirmDestis() {
+    let destinations = document.getElementById("destiCardsChoosingPanel").children;
     let container = document.getElementsByClassName("destiCards")[0];
 
-    let routeCardContainer = document.createElement('div');
-    routeCardContainer.id = data[0];
+    for (let i = 0; i < destinations.length - 1; i++) {
+        if (destinations[i].classList.contains("activatedDestiCard")) {
+            let routeCardContainer = document.createElement('div');
+            routeCardContainer.id = destinations[i].id;
 
-    let routeCard = document.createElement('img');
-    routeCard.src = "images/routeCards/euRoutes/eu-" + data[0] + ".png";
-    routeCard.onclick = function () {
-        cycleBetweenRouteCards();
+            let routeCard = document.createElement('img');
+            routeCard.src = "images/routeCards/euRoutes/eu-" + destinations[i].id + ".png";
+            routeCard.onclick = function () {
+                cycleBetweenRouteCards();
+            }
+            routeCard.classList.add("destiCard");
+
+            routeCardContainer.append(routeCard);
+
+            hideExistingRouteCards();
+
+            container.append(routeCardContainer);
+
+            let msg = Messages.O_ACCEPTED_DESTI;
+            msg.data = {pid: playerID, rid: destinations[i].id}
+            socket.send(JSON.stringify(msg));
+        } else {
+            let msg = Messages.O_REJECTED_DESTI;
+            msg.data = destinations[i].id;
+            socket.send(JSON.stringify(msg));
+        }
     }
-    routeCard.classList.add("destiCard");
-
-    routeCardContainer.append(routeCard);
-
-    hideExistingRouteCards();
-
-    container.append(routeCardContainer);
+    document.getElementById("destiCardsChoosingPanel").innerHTML = '';
+    document.getElementById("destiCardsChoosingPanel").style.display = "none";
+    document.getElementById("ownCardContainer").style.display = "flex";
 }
 
 function hideExistingRouteCards() {

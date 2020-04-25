@@ -193,9 +193,22 @@ wss.on("connection", function connection(ws) {
 
         if (oMsg.type === messages.T_PLAYER_TOOK_DESTINATION) {
             let msg = messages.O_PLAYER_TOOK_DESTINATION;
-            msg.data = game.getEuDestination();
+            msg.data = {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getEuDestination()};
             game["player" + oMsg.data].sendMessage(msg);
-            game["player" + oMsg.data].destinations.push(msg.data[1]);
+        }
+
+        if (oMsg.type === messages.T_ACCEPTED_DESTI) {
+            let pid = oMsg.data.pid;
+            let routeID = oMsg.data.rid;
+            game["player" + pid].destinations.push(game.euDesti.get(routeID));
+        }
+
+        if (oMsg.type === messages.T_REJECTED_DESTI) {
+            let destID = oMsg.data;
+            game.euStack.push([destID, game.euDesti.get(destID)]);
+            game.shuffleDestis();
+
+            console.log("A player rejected " + destID + " and the deck has been shuffled");
         }
     });
 
