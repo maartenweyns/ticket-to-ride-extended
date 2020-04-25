@@ -63,6 +63,8 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                 carts.classList.add("carts");
                 imageLocation.append(carts);
 
+                new Audio("sounds/cash_register3.ogg").play();
+
                 if (incomingMsg.data.pid === playerID) {
                     removeCardFromCollection(incomingMsg.data.color, incomingMsg.data.amount);
                     removeCardFromCollection("loco", incomingMsg.data.locos);
@@ -115,6 +117,11 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                     setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTaken", "disabled")}, 1000);
                 }
             }
+        }
+
+        if (incomingMsg.type === Messages.T_PLAYER_COMPLETED_ROUTE) {
+            new Audio("sounds/ticketCompletedVictory.ogg").play();
+            completedRoute(incomingMsg.data);
         }
     };
 })();

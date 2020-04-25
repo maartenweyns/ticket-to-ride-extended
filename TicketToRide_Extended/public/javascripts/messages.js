@@ -149,5 +149,16 @@
     };
     exports.S_PLAYER_CLOSED_MOVE = JSON.stringify(exports.O_PLAYER_CLOSED_MOVE);
 
+    /**
+     * Server to player: You completed a route!
+     * @type {string}
+     */
+    exports.T_PLAYER_COMPLETED_ROUTE = "PLAYER-COMPLETED-ROUTE";
+    exports.O_PLAYER_COMPLETED_ROUTE = {
+        type: exports.T_PLAYER_COMPLETED_ROUTE,
+        data: null
+    };
+    exports.S_PLAYER_COMPLETED_ROUTE = JSON.stringify(exports.O_PLAYER_COMPLETED_ROUTE);
+
 
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);

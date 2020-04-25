@@ -216,7 +216,7 @@ game.prototype.setupEuDestinations = function () {
     this.euDesti.set("barcelona-munchen", new destination("eu", "barcelona", "munchen", 8));
     this.euDesti.set("berlin-bucuresti", new destination("eu", "berlin", "bucuresti", 8));
     this.euDesti.set("berlin-moskva", new destination("eu", "berlin", "moskva", 12));
-    this.euDesti.set("berlin-roma", new destination("eu", "berlin", "roma", 9));
+    this.euDesti.set("berlin-rome", new destination("eu", "berlin", "rome", 9));
     this.euDesti.set("brest-marseille", new destination("eu", "brest", "marseille", 7));
     this.euDesti.set("brest-petrograd", new destination("eu", "brest", "petrograd", 20));
     this.euDesti.set("brest-venice", new destination("eu", "brest", "venice", 8));
@@ -374,8 +374,16 @@ game.prototype.userClaimedRoute = function (playerID, route) {
     } else {
         this["player" + playerID].routes.get(route.stationB).push(route);
     }
-    console.log("A player claimed a route. We'll check if it is from Londen to Barcelona now!");
-    console.log(checkContinuity(this["player" + playerID], "londen", "barcelona"));
+    console.log("A player claimed a route. We'll check if the player got one of it's routes completed!");
+    let destis = this["player" + playerID].destinations;
+    for (let i = 0; i < destis.length; i++) {
+        let desti = destis[i];
+        if (checkContinuity(this["player" + playerID], desti.stationA, desti.stationB)){
+            let msg = messages.O_PLAYER_COMPLETED_ROUTE;
+            msg.data = desti.stationA + "-" + desti.stationB;
+            this["player" + playerID].sendMessage(msg);
+        }
+    }
 }
 
 function checkContinuity(player, stationA, stationB) {

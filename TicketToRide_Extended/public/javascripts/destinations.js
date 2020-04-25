@@ -48,3 +48,14 @@ function cycleBetweenRouteCards() {
         }
     }
 }
+
+function completedRoute(routeID) {
+    let routeDiv = document.getElementById(routeID);
+
+    let completedOVerlay = document.createElement('img');
+    completedOVerlay.src = "images/decorations/ticket-DoneFrame.png";
+    completedOVerlay.classList.add("destiCard");
+    completedOVerlay.style.pointerEvents = "none";
+
+    routeDiv.append(completedOVerlay);
+}

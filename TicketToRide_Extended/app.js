@@ -194,7 +194,8 @@ wss.on("connection", function connection(ws) {
         if (oMsg.type === messages.T_PLAYER_TOOK_DESTINATION) {
             let msg = messages.O_PLAYER_TOOK_DESTINATION;
             msg.data = game.getEuDestination();
-            game.sendToAll(msg);
+            game["player" + oMsg.data].sendMessage(msg);
+            game["player" + oMsg.data].destinations.push(msg.data[1]);
         }
     });
 
