@@ -56,6 +56,10 @@ function takeCard(cardID) {
     let color = document.getElementById(cardID).classList[1];
     addCardToCollection(color);
 
+    if (msg.data.color !== "loco") {
+        disableLocomotive();
+    }
+
     document.getElementById(cardID).classList.add("cardTakenSelf", "disabled");
     setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTaken", "disabled")}, 1000);
 }
@@ -116,7 +120,28 @@ function removeCardFromCollection(color, amount) {
 }
 
 function requestClosedCard() {
+    disableLocomotive();
     let msg1 = Messages.O_REQUEST_TRAIN;
     msg1.data = playerID;
     socket.send(JSON.stringify(msg1));
+}
+
+function disableLocomotive() {
+    let openCards = document.getElementById("openCardsBox").children;
+
+    for (let i = 0; i < openCards.length; i++) {
+        if (openCards[i].classList.contains("loco")) {
+            openCards[i].classList.add("disabledLoco");
+        }
+    }
+}
+
+function enableLocomotive() {
+    let openCards = document.getElementById("openCardsBox").children;
+
+    for (let i = 0; i < openCards.length; i++) {
+        if (openCards[i].classList.contains("loco")) {
+            openCards[i].classList.remove("disabledLoco");
+        }
+    }
 }

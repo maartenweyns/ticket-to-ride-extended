@@ -1,5 +1,6 @@
 var socket;
 var playerID;
+var currentMove;
 
 if (document.location.protocol === "https:" || document.location.protocol === "https:") {
     socket = new WebSocket("wss://" + location.host);
@@ -80,7 +81,13 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         if (incomingMsg.type === Messages.T_PLAYER_ROUND) {
             markCurrentPlayer(incomingMsg.data.pid);
 
-            if (incomingMsg.data.pid === playerID && incomingMsg.data.thing === 0) {
+            currentMove = incomingMsg.data.thing;
+
+            if (currentMove === 0) {
+                enableLocomotive();
+            }
+
+            if (incomingMsg.data.pid === playerID && currentMove === 0) {
                 let audio = new Audio("sounds/train_horn2.ogg");
                 audio.play();
             }

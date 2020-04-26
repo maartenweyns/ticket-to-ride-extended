@@ -21,7 +21,9 @@
 }
 
 .activatedCard, .activatedDestiCard {
-    filter: drop-shadow(0px -10px 15px rgb(0,255,0));
+    -webkit-appearance: none;
+    -webkit-box-shadow: 0 -10px 15px rgb(0,255,0);
+    box-shadow: 0 -10px 15px rgb(0,255,0);
     z-index: 100;
 }
 
@@ -35,4 +37,10 @@
     transition: 1000ms;
     transform: translate(-50vw, 50vh);
     opacity: 0;
+}
+
+.disabledLoco {
+    transition: 100ms;
+    transform: translateX(50px);
+    pointer-events: none;
 }
