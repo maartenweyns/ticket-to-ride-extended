@@ -1,3 +1,5 @@
+![alt text](https://i.imgur.com/Yiq44zH.png "Ticket To Ride Logo")
+
 # Ticket to Ride Xtended
 ![alt text](https://www.code-inspector.com/project/7050/score/svg "Code Quality Score")
 
