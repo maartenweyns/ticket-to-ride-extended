@@ -33,11 +33,26 @@ function receivedDestinations(data, minimalAmount) {
 }
 
 function toggleActivationDestiCard(cardID) {
+    let imageLocation = document.getElementById("Europe");
     let card = document.getElementById(cardID);
+    let cities = card.id.split("-");
     if (card.classList.contains("activatedDestiCard")) {
         card.classList.remove("activatedDestiCard");
+        let city1 = document.getElementById(cities[0] + "Highlight");
+        let city2 = document.getElementById(cities[1] + "Highlight");
+        city1.parentNode.removeChild(city1);
+        city2.parentNode.removeChild(city2);
     } else {
         card.classList.add("activatedDestiCard");
+        let city1 = document.createElement('img');
+        let city2 = document.createElement('img');
+        city1.src = "images/cityHighlights/eu/" + cities[0] + ".png";
+        city2.src = "images/cityHighlights/eu/" + cities[1] + ".png";
+        city1.id = cities[0] + "Highlight";
+        city2.id = cities[1] + "Highlight";
+        city1.classList.add("carts");
+        city2.classList.add("carts");
+        imageLocation.append(city1, city2);
     }
 }
 
