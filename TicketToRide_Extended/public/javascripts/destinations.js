@@ -1,7 +1,11 @@
 function requestDestination() {
-    let msg1 = Messages.O_PLAYER_TOOK_DESTINATION;
-    msg1.data = playerID;
-    socket.send(JSON.stringify(msg1));
+    let confirmed;
+    confirmed = confirm("Do you really want to pick new destinations?");
+    if (confirmed) {
+        let msg1 = Messages.O_PLAYER_TOOK_DESTINATION;
+        msg1.data = playerID;
+        socket.send(JSON.stringify(msg1));
+    }
 }
 
 function receivedDestinations(data, minimalAmount) {
