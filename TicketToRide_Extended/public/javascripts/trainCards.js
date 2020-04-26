@@ -57,27 +57,32 @@ function takeCard(cardID) {
     msg.data = {card: cardID, pid: playerID, color: document.getElementById(cardID).classList[1]};
     socket.send(JSON.stringify(msg));
     let color = document.getElementById(cardID).classList[1];
-    addCardToCollection(color);
+    // addCardToCollection(color);
 
     if (msg.data.color !== "loco") {
         disableOtherPlayerActions();
     }
 
     document.getElementById(cardID).classList.add("cardTakenSelf", "disabled");
-    setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTaken", "disabled")}, 1000);
+    setTimeout(function () {
+        document.getElementById("closedCard").classList.remove("cardTaken", "disabled")
+    }, 1000);
 }
 
-function addCardToCollection(color) {
+function addCardToCollection(color, amount) {
+    if (amount === 0) {
+        return;
+    }
+
     let ownCardContainer = document.getElementById("ownCardContainer");
 
     let cardsAlreadyOwned = ownCardContainer.children;
     for (let i = 0; i < cardsAlreadyOwned.length; i++) {
         console.log(cardsAlreadyOwned[i].id);
         if (cardsAlreadyOwned[i].id === color) {
-            let number = parseInt(cardsAlreadyOwned[i].children[1].innerHTML) + 1;
+            let number = parseInt(cardsAlreadyOwned[i].children[1].innerHTML) + amount;
             cardsAlreadyOwned[i].children[1].innerHTML = number + "";
             cardsAlreadyOwned[i].children[1].style.visibility = "visible";
-            return;
         }
     }
 
@@ -97,29 +102,13 @@ function addCardToCollection(color) {
     let amountOf = document.createElement('p');
     amountOf.classList.add("cardCounter");
     amountOf.id = "counter";
-    amountOf.innerHTML = "1";
-    amountOf.style.visibility = "hidden";
+    amountOf.innerHTML = amount + "";
+    if (amount === 1) {
+        amountOf.style.visibility = "hidden";
+    }
 
     cardContainer.append(card, amountOf);
     ownCardContainer.appendChild(cardContainer);
-}
-
-function removeCardFromCollection(color, amount) {
-    let ownCardContainer = document.getElementById("ownCardContainer");
-
-    let cardsAlreadyOwned = ownCardContainer.children;
-    for (let i = 0; i < cardsAlreadyOwned.length; i++) {
-        if (cardsAlreadyOwned[i].id === color) {
-            let number = parseInt(cardsAlreadyOwned[i].children[1].innerHTML) - amount;
-            cardsAlreadyOwned[i].children[1].innerHTML = number + "";
-            if (number === 1) {
-                cardsAlreadyOwned[i].children[1].style.visibility = "hidden";
-            } else if (number < 1) {
-                ownCardContainer.removeChild(cardsAlreadyOwned[i]);
-            }
-            return;
-        }
-    }
 }
 
 function requestClosedCard() {

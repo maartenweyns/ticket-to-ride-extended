@@ -204,4 +204,15 @@
     };
     exports.S_INITIAL_CARDS = JSON.stringify(exports.O_INITIAL_CARDS);
 
+    /**
+     * Server to player: These are your personal train cards!
+     * @type {string}
+     */
+    exports.T_PERSONAL_TRAINS = "PERSONAL-TRAINS";
+    exports.O_PERSONAL_TRAINS = {
+        type: exports.T_PERSONAL_TRAINS,
+        data: null
+    };
+    exports.S_PERSONAL_TRAINS = JSON.stringify(exports.O_PERSONAL_TRAINS);
+
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);
