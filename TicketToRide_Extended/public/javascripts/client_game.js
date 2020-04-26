@@ -87,17 +87,15 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                 enableLocomotive();
             }
 
-            if (incomingMsg.data.pid === playerID && currentMove === 0) {
-                let audio = new Audio("sounds/train_horn2.ogg");
-                audio.play();
-            }
             if (incomingMsg.data.pid !== playerID) {
                 document.getElementById("ownCardContainer").classList.add("disabled");
                 document.getElementById("generalCards").classList.add("disabled");
                 document.getElementsByClassName("tabcontent")[0].classList.add("disabled");
                 document.getElementsByClassName("tabcontent")[1].classList.add("disabled");
             }
-            if (incomingMsg.data.pid === playerID) {
+            if (incomingMsg.data.pid === playerID && currentMove === 0) {
+                let audio = new Audio("sounds/train_horn2.ogg");
+                audio.play();
                 document.getElementById("ownCardContainer").classList.remove("disabled");
                 document.getElementById("generalCards").classList.remove("disabled");
                 document.getElementsByClassName("tabcontent")[0].classList.remove("disabled");
