@@ -86,13 +86,13 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
             }
             if (incomingMsg.data.pid !== playerID) {
                 document.getElementById("ownCardContainer").classList.add("disabled");
-                document.getElementById("cardContainer").classList.add("disabled");
+                document.getElementById("generalCards").classList.add("disabled");
                 document.getElementsByClassName("tabcontent")[0].classList.add("disabled");
                 document.getElementsByClassName("tabcontent")[1].classList.add("disabled");
             }
             if (incomingMsg.data.pid === playerID) {
                 document.getElementById("ownCardContainer").classList.remove("disabled");
-                document.getElementById("cardContainer").classList.remove("disabled");
+                document.getElementById("generalCards").classList.remove("disabled");
                 document.getElementsByClassName("tabcontent")[0].classList.remove("disabled");
                 document.getElementsByClassName("tabcontent")[1].classList.remove("disabled");
             }
