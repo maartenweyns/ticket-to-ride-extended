@@ -43,6 +43,9 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         }
 
         if (incomingMsg.type === Messages.T_REQUEST_TRAIN) {
+            new Audio("sounds/card_dealt3.ogg").play();
+            document.getElementById("closedCard").classList.add("cardTakenSelf", "disabled");
+            setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTakenSelf", "disabled")}, 1000);
             addCardToCollection(incomingMsg.data);
         }
 
@@ -59,6 +62,8 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                 carts.src = linkToTrainsToAdd;
                 carts.classList.add("carts");
                 imageLocation.append(carts);
+
+                new Audio("sounds/cash_register3.ogg").play();
 
                 if (incomingMsg.data.pid === playerID) {
                     removeCardFromCollection(incomingMsg.data.color, incomingMsg.data.amount);
@@ -94,7 +99,8 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         }
 
         if (incomingMsg.type === Messages.T_PLAYER_TOOK_DESTINATION) {
-            receivedDestinations(incomingMsg.data);
+            new Audio("sounds/card_dealt3.ogg").play();
+            receivedDestinations(incomingMsg.data, 1);
         }
 
         if (incomingMsg.type === Messages.T_PLAYER_CLOSED_MOVE) {
@@ -112,6 +118,22 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                 }
             }
         }
+
+        if (incomingMsg.type === Messages.T_PLAYER_COMPLETED_ROUTE) {
+            new Audio("sounds/ticketCompletedVictory.ogg").play();
+            completedRoute(incomingMsg.data);
+        }
+
+        if (incomingMsg.type === Messages.T_INITIAL_CARDS) {
+            let destinations = incomingMsg.data.desti;
+            let colors = incomingMsg.data.cards;
+
+            receivedDestinations(destinations, 1);
+
+            for (let i = 0; i < colors.length; i++) {
+                addCardToCollection(colors[i]);
+            }
+        }
     };
 })();
 
@@ -124,7 +146,7 @@ function addUsers(users) {
         userEntry.classList.add("playerBackdrop");
 
         let userBackdrop = document.createElement('img');
-        userBackdrop.src = 'images/playerInformation/playerBackdrop/support-opponent-Human-Horizontal-' + user.color + '.png';
+        userBackdrop.src = 'images/playerInformation/playerBackdrop/support-opponent-' + user.color + '.png';
         userBackdrop.classList.add("playerBackdropImage");
         userBackdrop.id = "p" + user.id;
 
@@ -132,53 +154,39 @@ function addUsers(users) {
         playerName.innerText = user.name;
         playerName.classList.add("playerName");
 
-        let numberOfCarts = document.createElement('div');
-        numberOfCarts.classList.add("numberOfCarts");
-        let numberOfCartsBg = document.createElement('img');
-        numberOfCartsBg.src = "images/playerInformation/wagons/player-train-number-Off.png";
         let numberOfCartsText = document.createElement('p');
         numberOfCartsText.classList.add("numberOfCartsText");
         numberOfCartsText.innerText = user.numberOfTrains;
 
-        let numberOfTrainCards = document.createElement('div');
-        numberOfTrainCards.classList.add("numberOfTrainCards");
-        let numberOfTrainCardsImg = document.createElement('img');
-        numberOfTrainCardsImg.src = "images/playerInformation/smallCards/wagons.png";
         let numberOfTrainCardsText = document.createElement('p');
         numberOfTrainCardsText.classList.add("numberOfTrainCardsText");
         numberOfTrainCardsText.innerText = user.numberOfTrainCards;
 
-        let numberOfRoutes = document.createElement('div');
-        numberOfRoutes.classList.add("numberOfRouteCards");
-        let numberOfRoutesImg = document.createElement('img');
-        numberOfRoutesImg.src = "images/playerInformation/smallCards/routes.png";
         let numberOfRoutesText = document.createElement('p');
         numberOfRoutesText.classList.add("numberOfRouteCardsText");
         numberOfRoutesText.innerText = user.numberOfRoutes;
 
-        numberOfCarts.append(numberOfCartsBg, numberOfCartsText);
-        numberOfTrainCards.append(numberOfTrainCardsImg, numberOfTrainCardsText);
-        numberOfRoutes.append(numberOfRoutesImg, numberOfRoutesText);
         userEntry.append(userBackdrop);
         userEntry.append(playerName);
-        userEntry.append(numberOfCarts);
-        userEntry.append(numberOfTrainCards);
-        userEntry.append(numberOfRoutes);
+        userEntry.append(numberOfCartsText);
+        userEntry.append(numberOfTrainCardsText);
+        userEntry.append(numberOfRoutesText);
         userBox.prepend(userEntry);
     }
 }
 
 function activateTrainCards(color) {
     let cardItem = document.getElementById(color);
-    if (cardItem.children[0].classList.contains("activatedCard")) {
-        cardItem.children[0].classList.remove("activatedCard");
+    if (cardItem.classList.contains("activatedCard")) {
+        cardItem.classList.remove("activatedCard");
     } else {
         let cardPile = document.getElementById("ownCardContainer");
         for (let i = 0; i < cardPile.children.length; i++) {
-            cardPile.children[i].children[0].classList.remove("activatedCard");
+            cardPile.children[i].classList.remove("activatedCard");
         }
-        cardItem.children[0].classList.add("activatedCard");
+        cardItem.classList.add("activatedCard");
     }
+    imageMapResize();
 }
 
 function claimEuRoute(routeID) {

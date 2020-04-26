@@ -62,6 +62,30 @@ body {
     padding: 5px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+}
+
+.destiCards {
+    position: relative;
+    background-image: url("../images/decorations/TicketSupport_RH.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.destiCard {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    cursor: pointer;
+}
+
+.destiSupport {
+    width: 100%;
 }
 
 .maps {
@@ -92,11 +116,16 @@ body {
     flex-grow: 1;
 }
 
-.ownCards {
+.ownCards, .destiDeck {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     height: 15%;
+}
+
+.destiDeckCard {
+    height: 100%;
 }
 
 .alertShadow {
