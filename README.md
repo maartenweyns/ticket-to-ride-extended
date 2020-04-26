@@ -1,4 +1,4 @@
-![alt text](https://i.imgur.com/Yiq44zH.png "Ticket To Ride Logo")
+![alt text](https://i.imgur.com/Yiq44zH.png "Ticket To Ride Logo" =250x)
 
 # Ticket to Ride Xtended
 ![alt text](https://www.code-inspector.com/project/7050/score/svg "Code Quality Score")
