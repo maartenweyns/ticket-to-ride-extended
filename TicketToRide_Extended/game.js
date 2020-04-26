@@ -396,14 +396,19 @@ game.prototype.userClaimedRoute = function (playerID, route) {
     }
     console.log("A player claimed a route. We'll check if the player got one of it's routes completed!");
     let destis = this["player" + playerID].destinations;
+    let unfinished = [];
     for (let i = 0; i < destis.length; i++) {
         let desti = destis[i];
         if (checkContinuity(this["player" + playerID], desti.stationA, desti.stationB)){
+            this["player" + playerID].completedDestinations.push(desti);
             let msg = messages.O_PLAYER_COMPLETED_ROUTE;
             msg.data = desti.stationA + "-" + desti.stationB;
             this["player" + playerID].sendMessage(msg);
+        } else {
+            unfinished.push(desti);
         }
     }
+    this["player" + playerID].destinations = unfinished;
 }
 
 function checkContinuity(player, stationA, stationB) {
