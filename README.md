@@ -1,4 +1,4 @@
-![alt text](https://i.imgur.com/Yiq44zH.png "Ticket To Ride Logo" =250x246)
+<img src="https://i.imgur.com/Yiq44zH.png" alt="drawing" width="200"/>
 
 # Ticket to Ride Xtended
 ![alt text](https://www.code-inspector.com/project/7050/score/svg "Code Quality Score")
