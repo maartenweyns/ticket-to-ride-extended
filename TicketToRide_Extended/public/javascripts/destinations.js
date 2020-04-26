@@ -50,8 +50,8 @@ function toggleActivationDestiCard(cardID) {
         city2.src = "images/cityHighlights/eu/" + cities[1] + ".png";
         city1.id = cities[0] + "Highlight";
         city2.id = cities[1] + "Highlight";
-        city1.classList.add("carts");
-        city2.classList.add("carts");
+        city1.classList.add("dots");
+        city2.classList.add("dots");
         imageLocation.append(city1, city2);
     }
 }

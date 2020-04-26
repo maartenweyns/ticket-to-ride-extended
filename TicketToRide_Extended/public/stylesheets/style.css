@@ -54,6 +54,16 @@ body {
     max-height: 100%;
     max-width: 100%;
     pointer-events: none;
+    animation: showCarts 4s;
+}
+
+.dots {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-height: 100%;
+    max-width: 100%;
+    pointer-events: none;
 }
 
 .cards {
@@ -146,4 +156,13 @@ body {
 
 .disabled {
     pointer-events: none;
+}
+
+@keyframes showCarts {
+    0% {filter: brightness(2) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
+    20% {filter:  brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
+    40% {filter: brightness(2) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
+    60% {filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
+    80% {filter: brightness(2) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
+    100% {filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
 }
