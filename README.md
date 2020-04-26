@@ -1,4 +1,4 @@
-# ticket-to-ride-extended
+# Ticket to Ride Xtended
 ![alt text](https://www.code-inspector.com/project/7050/score/svg "Code Quality Score")
 
 This is an online version of the well-known Ticket To Ride game, made for up to 8 players!
