@@ -88,13 +88,27 @@ wss.on("connection", function connection(ws) {
             let color4 = game.getRandomColor();
 
             let msg3 = messages.O_INITIAL_CARDS;
-            msg3.data = {desti: {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getEuDestination()}, cards: [color1, color2, color3, color4]}
+            msg3.data = {desti: {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getEuDestination()}}
             game["player" + pid].sendMessage(msg3);
             game["player" + pid][color1]++;
             game["player" + pid][color2]++;
             game["player" + pid][color3]++;
             game["player" + pid][color4]++;
             game["player" + pid].numberOfTrainCards += 4;
+
+            let personalTrainsMessage = messages.O_PERSONAL_TRAINS;
+            personalTrainsMessage.data = {
+                black: game["player" + pid].black,
+                blue: game["player" + pid].blue,
+                brown: game["player" + pid].brown,
+                green: game["player" + pid].green,
+                purple: game["player" + pid].purple,
+                red: game["player" + pid].red,
+                white: game["player" + pid].white,
+                yellow: game["player" + pid].yellow,
+                loco: game["player" + pid].loco
+            };
+            game["player" + pid].sendMessage(personalTrainsMessage);
         }
 
         if (oMsg.type === messages.T_GAME_START) {
@@ -103,7 +117,8 @@ wss.on("connection", function connection(ws) {
         }
 
         if (oMsg.type === messages.T_PLAYER_TOOK_OPEN_TRAIN) {
-            console.log("Player " + oMsg.data.pid + " took " + oMsg.data.card);
+            let pid = oMsg.data.pid;
+            console.log("Player " + pid + " took " + oMsg.data.card);
 
             let color = game.getRandomColor();
             let oldColor = game.openCards[oMsg.data.card];
@@ -120,46 +135,74 @@ wss.on("connection", function connection(ws) {
                 game.sendToAll(msg);
             }
 
-            game["player" + oMsg.data.pid].numberOfTrainCards++;
-            game["player" + oMsg.data.pid][oMsg.data.color]++;
+            game["player" + pid].numberOfTrainCards++;
+            game["player" + pid][oMsg.data.color]++;
 
             let msgPlayers = messages.O_PLAYER_OVERVIEW;
             msgPlayers.data = game.getUserProperties();
             game.sendToAll(msgPlayers);
 
             if (oldColor === "loco") {
-                let msg = messages.O_REQUEST_TRAIN;
-                msg.data = game.getRandomColor();
-                game["player" + oMsg.data.pid].sendMessage(msg);
+                game["player" + pid][game.getRandomColor()]++;
                 game.nextPlayerRound();
             } else {
                 game.playerDidSomething();
             }
+
+            let personalTrainsMessage = messages.O_PERSONAL_TRAINS;
+            personalTrainsMessage.data = {
+                black: game["player" + pid].black,
+                blue: game["player" + pid].blue,
+                brown: game["player" + pid].brown,
+                green: game["player" + pid].green,
+                purple: game["player" + pid].purple,
+                red: game["player" + pid].red,
+                white: game["player" + pid].white,
+                yellow: game["player" + pid].yellow,
+                loco: game["player" + pid].loco
+            };
+            game["player" + pid].sendMessage(personalTrainsMessage);
+
             let msg2 = messages.O_PLAYER_ROUND;
             msg2.data = {pid: game.currentRound, thing: game.thingsDone};
             game.sendToAll(msg2);
         }
 
         if (oMsg.type === messages.T_REQUEST_TRAIN) {
+            let pid = oMsg.data;
             console.log("Player " + oMsg.data + " requested a closed train.");
             let color = game.getRandomColor();
 
             let msgCard = messages.O_REQUEST_TRAIN;
             msgCard.data = color;
-            game["player" + oMsg.data].sendMessage(msgCard);
+            game["player" + pid].sendMessage(msgCard);
 
-            game["player" + oMsg.data].numberOfTrainCards++;
-            game["player" + oMsg.data][color]++;
+            game["player" + pid].numberOfTrainCards++;
+            game["player" + pid][color]++;
 
             let msgPlayers = messages.O_PLAYER_OVERVIEW;
             msgPlayers.data = game.getUserProperties();
             game.sendToAll(msgPlayers);
 
             let msgMove = messages.O_PLAYER_CLOSED_MOVE;
-            msgMove.data = {pid: oMsg.data, move: "TRAIN-CARD"}
+            msgMove.data = {pid: pid, move: "TRAIN-CARD"}
             game.sendToAll(msgMove);
 
             game.playerDidSomething();
+
+            let personalTrainsMessage = messages.O_PERSONAL_TRAINS;
+            personalTrainsMessage.data = {
+                black: game["player" + pid].black,
+                blue: game["player" + pid].blue,
+                brown: game["player" + pid].brown,
+                green: game["player" + pid].green,
+                purple: game["player" + pid].purple,
+                red: game["player" + pid].red,
+                white: game["player" + pid].white,
+                yellow: game["player" + pid].yellow,
+                loco: game["player" + pid].loco
+            };
+            game["player" + pid].sendMessage(personalTrainsMessage);
 
             let msg2 = messages.O_PLAYER_ROUND;
             msg2.data = {pid: game.currentRound, thing: game.thingsDone};
@@ -179,6 +222,7 @@ wss.on("connection", function connection(ws) {
         }
 
         if (oMsg.type === messages.T_ROUTE_CLAIM) {
+            let pid = oMsg.data.pid;
             console.log("A user requested a route: " + oMsg.data.route);
             let ret = game.checkEligibility(oMsg.data.pid, oMsg.data.color, oMsg.data.route);
             let msg = messages.O_ROUTE_CLAIM;
@@ -196,6 +240,20 @@ wss.on("connection", function connection(ws) {
                 game.sendToAll(msgPlayers);
 
                 game.userClaimedRoute(oMsg.data.pid, game.euRoutes.get(oMsg.data.route));
+
+                let personalTrainsMessage = messages.O_PERSONAL_TRAINS;
+                personalTrainsMessage.data = {
+                    black: game["player" + pid].black,
+                    blue: game["player" + pid].blue,
+                    brown: game["player" + pid].brown,
+                    green: game["player" + pid].green,
+                    purple: game["player" + pid].purple,
+                    red: game["player" + pid].red,
+                    white: game["player" + pid].white,
+                    yellow: game["player" + pid].yellow,
+                    loco: game["player" + pid].loco
+                };
+                game["player" + pid].sendMessage(personalTrainsMessage);
 
                 game.nextPlayerRound();
 

@@ -47,7 +47,6 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
             new Audio("sounds/card_dealt3.ogg").play();
             document.getElementById("closedCard").classList.add("cardTakenSelf", "disabled");
             setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTakenSelf", "disabled")}, 1000);
-            addCardToCollection(incomingMsg.data);
         }
 
         if (incomingMsg.type === Messages.T_PLAYER_OVERVIEW) {
@@ -65,11 +64,6 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                 imageLocation.append(carts);
 
                 new Audio("sounds/cash_register3.ogg").play();
-
-                if (incomingMsg.data.pid === playerID) {
-                    removeCardFromCollection(incomingMsg.data.color, incomingMsg.data.amount);
-                    removeCardFromCollection("loco", incomingMsg.data.locos);
-                }
             } else {
                 if (incomingMsg.data.pid === playerID) {
                     let audio = new Audio("sounds/buzz4.ogg");
@@ -131,13 +125,22 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 
         if (incomingMsg.type === Messages.T_INITIAL_CARDS) {
             let destinations = incomingMsg.data.desti;
-            let colors = incomingMsg.data.cards;
-
             receivedDestinations(destinations, 1);
+        }
 
-            for (let i = 0; i < colors.length; i++) {
-                addCardToCollection(colors[i]);
-            }
+        if (incomingMsg.type === Messages.T_PERSONAL_TRAINS) {
+            let data = incomingMsg.data;
+            let ownCardContainer = document.getElementById("ownCardContainer");
+            ownCardContainer.innerHTML = "";
+            addCardToCollection("black", data.black);
+            addCardToCollection("blue", data.blue);
+            addCardToCollection("brown", data.brown);
+            addCardToCollection("green", data.green);
+            addCardToCollection("purple", data.purple);
+            addCardToCollection("red", data.red);
+            addCardToCollection("white", data.white);
+            addCardToCollection("yellow", data.yellow);
+            addCardToCollection("loco", data.loco);
         }
     };
 })();
