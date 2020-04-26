@@ -343,7 +343,7 @@ game.prototype.nextPlayerRound = function () {
 
 game.prototype.getEuDestination = function () {
     return this.euStack.pop();
-}
+};
 
 function shuffleArray(array) {
     var m = array.length, t, i;
@@ -361,9 +361,9 @@ function shuffleArray(array) {
     }
 
     return array;
-}
+};
 
-game.prototype.shuffleDestis = function() {
+game.prototype.shuffleDestis = function () {
     array = this.euStack;
     var m = array.length, t, i;
 
@@ -380,7 +380,23 @@ game.prototype.shuffleDestis = function() {
     }
 
     return array;
-}
+};
+
+game.prototype.sendPersonalCardsToUser = function (pid) {
+    let personalTrainsMessage = messages.O_PERSONAL_TRAINS;
+    personalTrainsMessage.data = {
+        black: this["player" + pid].black,
+        blue: this["player" + pid].blue,
+        brown: this["player" + pid].brown,
+        green: this["player" + pid].green,
+        purple: this["player" + pid].purple,
+        red: this["player" + pid].red,
+        white: this["player" + pid].white,
+        yellow: this["player" + pid].yellow,
+        loco: this["player" + pid].loco
+    };
+    this["player" + pid].sendMessage(personalTrainsMessage);
+};
 
 game.prototype.userClaimedRoute = function (playerID, route) {
     if (this["player" + playerID].routes.get(route.stationA) === undefined) {
@@ -399,7 +415,7 @@ game.prototype.userClaimedRoute = function (playerID, route) {
     let unfinished = [];
     for (let i = 0; i < destis.length; i++) {
         let desti = destis[i];
-        if (checkContinuity(this["player" + playerID], desti.stationA, desti.stationB)){
+        if (checkContinuity(this["player" + playerID], desti.stationA, desti.stationB)) {
             this["player" + playerID].completedDestinations.push(desti);
             let msg = messages.O_PLAYER_COMPLETED_ROUTE;
             msg.data = desti.stationA + "-" + desti.stationB;
@@ -416,7 +432,7 @@ function checkContinuity(player, stationA, stationB) {
     let visited = [];
 
     let recursion = function (startingStation, endingStation) {
-        console.log("Recursion evoked from " + startingStation  +" to " + endingStation);
+        console.log("Recursion evoked from " + startingStation + " to " + endingStation);
         let stationList = map.get(startingStation);
         if (stationList !== undefined) {
             console.log("All routes from " + startingStation + ": " + stationList.length);

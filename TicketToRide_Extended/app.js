@@ -96,19 +96,7 @@ wss.on("connection", function connection(ws) {
             game["player" + pid][color4]++;
             game["player" + pid].numberOfTrainCards += 4;
 
-            let personalTrainsMessage = messages.O_PERSONAL_TRAINS;
-            personalTrainsMessage.data = {
-                black: game["player" + pid].black,
-                blue: game["player" + pid].blue,
-                brown: game["player" + pid].brown,
-                green: game["player" + pid].green,
-                purple: game["player" + pid].purple,
-                red: game["player" + pid].red,
-                white: game["player" + pid].white,
-                yellow: game["player" + pid].yellow,
-                loco: game["player" + pid].loco
-            };
-            game["player" + pid].sendMessage(personalTrainsMessage);
+            game.sendPersonalCardsToUser(pid);
         }
 
         if (oMsg.type === messages.T_GAME_START) {
@@ -149,19 +137,7 @@ wss.on("connection", function connection(ws) {
                 game.playerDidSomething();
             }
 
-            let personalTrainsMessage = messages.O_PERSONAL_TRAINS;
-            personalTrainsMessage.data = {
-                black: game["player" + pid].black,
-                blue: game["player" + pid].blue,
-                brown: game["player" + pid].brown,
-                green: game["player" + pid].green,
-                purple: game["player" + pid].purple,
-                red: game["player" + pid].red,
-                white: game["player" + pid].white,
-                yellow: game["player" + pid].yellow,
-                loco: game["player" + pid].loco
-            };
-            game["player" + pid].sendMessage(personalTrainsMessage);
+            game.sendPersonalCardsToUser(pid);
 
             let msg2 = messages.O_PLAYER_ROUND;
             msg2.data = {pid: game.currentRound, thing: game.thingsDone};
@@ -190,19 +166,7 @@ wss.on("connection", function connection(ws) {
 
             game.playerDidSomething();
 
-            let personalTrainsMessage = messages.O_PERSONAL_TRAINS;
-            personalTrainsMessage.data = {
-                black: game["player" + pid].black,
-                blue: game["player" + pid].blue,
-                brown: game["player" + pid].brown,
-                green: game["player" + pid].green,
-                purple: game["player" + pid].purple,
-                red: game["player" + pid].red,
-                white: game["player" + pid].white,
-                yellow: game["player" + pid].yellow,
-                loco: game["player" + pid].loco
-            };
-            game["player" + pid].sendMessage(personalTrainsMessage);
+            game.sendPersonalCardsToUser(pid);
 
             let msg2 = messages.O_PLAYER_ROUND;
             msg2.data = {pid: game.currentRound, thing: game.thingsDone};
@@ -241,19 +205,7 @@ wss.on("connection", function connection(ws) {
 
                 game.userClaimedRoute(oMsg.data.pid, game.euRoutes.get(oMsg.data.route));
 
-                let personalTrainsMessage = messages.O_PERSONAL_TRAINS;
-                personalTrainsMessage.data = {
-                    black: game["player" + pid].black,
-                    blue: game["player" + pid].blue,
-                    brown: game["player" + pid].brown,
-                    green: game["player" + pid].green,
-                    purple: game["player" + pid].purple,
-                    red: game["player" + pid].red,
-                    white: game["player" + pid].white,
-                    yellow: game["player" + pid].yellow,
-                    loco: game["player" + pid].loco
-                };
-                game["player" + pid].sendMessage(personalTrainsMessage);
+                game.sendPersonalCardsToUser(pid);
 
                 game.nextPlayerRound();
 
