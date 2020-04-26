@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/Yiq44zH.png" alt="drawing" width="200"/>
+<img src="https://i.imgur.com/Yiq44zH.png" alt="drawing" width="200" style="text-align: center;"/>
 
 # Ticket to Ride Xtended
 ![alt text](https://www.code-inspector.com/project/7050/score/svg "Code Quality Score")
