@@ -19,7 +19,7 @@ function replaceCard(cardId, newColor) {
     if (!oldcard.classList.contains("cardTakenSelf")) {
         oldcard.classList.add("cardTaken", "disabled");
     }
-    new Audio("sounds/card_dealt3.ogg").play();
+    cardDeal.play();
     setTimeout(function () {
         let card = document.createElement('img');
         card.src = "images/trainCards/us_WagonCard_" + newColor + ".png";
@@ -47,8 +47,7 @@ function shuffle(openTickets) {
     setTimeout(function () {
         openCardsBox.innerHTML = '';
         setOpenTickets(openTickets);
-        let audio = new Audio("sounds/card_shuffling3.ogg");
-        audio.play();
+        cardShuffle.play();
     }, 1000);
 }
 

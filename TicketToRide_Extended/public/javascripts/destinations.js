@@ -117,10 +117,10 @@ function cycleBetweenRouteCards() {
             cards[i].style.display = "none";
             if (i < cards.length - 1) {
                 cards[i + 1].style.display = "block";
-                new Audio("sounds/card_dealt3.ogg").play();
+                cardDeal.play();
             } else {
                 cards[0].style.display = "block";
-                new Audio("sounds/card_dealt3.ogg").play();
+                cardDeal.play();
             }
             break;
         }

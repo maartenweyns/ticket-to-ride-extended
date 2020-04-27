@@ -2,6 +2,18 @@ var socket;
 var playerID;
 var currentMove;
 
+var music = new Audio("sounds/america.mp3");
+var startsound = new Audio("sounds/startGame.mp3");
+var buzz = new Audio("sounds/buzz4.mp3");
+var cardDeal = new Audio("sounds/card_dealt3.mp3");
+var cardShuffle = new Audio("sounds/card_shuffling3.mp3");
+var cashRegister = new Audio("sounds/cash_register3.mp3");
+var ticketCompleted = new Audio("sounds/ticketCompletedVictory.mp3");
+var trainHorn = new Audio("sounds/train_horn2.mp3");
+var allAudio = [music, startsound, buzz, cardDeal, cardShuffle, cashRegister, ticketCompleted, trainHorn];
+
+var audioUnlocked = false;
+
 if (document.location.protocol === "https:" || document.location.protocol === "https:") {
     socket = new WebSocket("wss://" + location.host);
 } else {
@@ -11,17 +23,20 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 (function setup() {
     document.getElementById("defaultOpen").click();
 
-    let startGameSound = new Audio("sounds/startGame.mp3");
-    let music = new Audio("sounds/america.mp3");
     music.loop = true;
-    startGameSound.play().then(function() {music.play()});
+    startsound.play().then(function () {
+        music.play();
+        audioUnlocked = true;
+    }).catch(function (){
+        alert("To unlock your audio, please press your own player on the left side of the screen!");
+    });
 
     socket.onmessage = function (event) {
         let incomingMsg = JSON.parse(event.data);
         console.log("incomingMsg: " + JSON.stringify(incomingMsg));
 
         if (incomingMsg.type === Messages.T_PLAYER_NAME) {
-            let cookie =  document.cookie.split("=");
+            let cookie = document.cookie.split("=");
             playerID = parseInt(cookie[1]);
 
             let conid = incomingMsg.data;
@@ -41,15 +56,17 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 
         if (incomingMsg.type === Messages.T_NEW_OPEN_CARD) {
             replaceCard(incomingMsg.data.repCard, incomingMsg.data.newColor);
-            if (! document.getElementById(incomingMsg.data.repCard).classList.contains("loco")) {
+            if (!document.getElementById(incomingMsg.data.repCard).classList.contains("loco")) {
                 disableLocomotive();
             }
         }
 
         if (incomingMsg.type === Messages.T_REQUEST_TRAIN) {
-            new Audio("sounds/card_dealt3.mp3").play();
+            cardDeal.play();
             document.getElementById("closedCard").classList.add("cardTakenSelf", "disabled");
-            setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTakenSelf", "disabled")}, 1000);
+            setTimeout(function () {
+                document.getElementById("closedCard").classList.remove("cardTakenSelf", "disabled")
+            }, 1000);
         }
 
         if (incomingMsg.type === Messages.T_PLAYER_OVERVIEW) {
@@ -66,11 +83,10 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                 carts.classList.add("carts");
                 imageLocation.append(carts);
 
-                new Audio("sounds/cash_register3.mp3").play();
+                cashRegister.play();
             } else {
                 if (incomingMsg.data.pid === playerID) {
-                    let audio = new Audio("sounds/buzz4.mp3");
-                    audio.play();
+                    buzz.play();
                 }
             }
         }
@@ -91,8 +107,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                 document.getElementsByClassName("tabcontent")[1].classList.add("disabled");
             }
             if (incomingMsg.data.pid === playerID && currentMove === 0) {
-                let audio = new Audio("sounds/train_horn2.mp3");
-                audio.play();
+                trainHorn.play();
                 document.getElementById("ownCardContainer").classList.remove("disabled");
                 document.getElementById("generalCards").classList.remove("disabled");
                 document.getElementsByClassName("tabcontent")[0].classList.remove("disabled");
@@ -102,7 +117,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         }
 
         if (incomingMsg.type === Messages.T_PLAYER_TOOK_DESTINATION) {
-            new Audio("sounds/card_dealt3.mp3").play();
+            cardDeal.play();
             receivedDestinations(incomingMsg.data, 1);
         }
 
@@ -110,20 +125,24 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
             if (incomingMsg.data.pid !== playerID) {
                 console.log("Someone did something and I am not allowed to know what :(");
                 if (incomingMsg.data.move === "TRAIN-CARD") {
-                    new Audio("sounds/card_dealt3.ogg").play();
+                    cardDeal.play();
                     document.getElementById("closedCard").classList.add("cardTaken", "disabled");
-                    setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTaken", "disabled")}, 1000);
+                    setTimeout(function () {
+                        document.getElementById("closedCard").classList.remove("cardTaken", "disabled")
+                    }, 1000);
                 }
                 if (incomingMsg.data.move === "ROUTE-CARD") {
-                    new Audio("sounds/card_dealt3.mp3").play();
+                    cardDeal.play();
                     document.getElementById("routeCard").classList.add("cardTaken", "disabled");
-                    setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTaken", "disabled")}, 1000);
+                    setTimeout(function () {
+                        document.getElementById("closedCard").classList.remove("cardTaken", "disabled")
+                    }, 1000);
                 }
             }
         }
 
         if (incomingMsg.type === Messages.T_PLAYER_COMPLETED_ROUTE) {
-            new Audio("sounds/ticketCompletedVictory.mp3").play();
+            ticketCompleted.play();
             completedRoute(incomingMsg.data);
         }
 
@@ -183,6 +202,11 @@ function addUsers(users) {
         userEntry.append(numberOfCartsText);
         userEntry.append(numberOfTrainCardsText);
         userEntry.append(numberOfRoutesText);
+        if (user.id === playerID && !audioUnlocked) {
+            userEntry.onclick = function () {
+                unlockaudio();
+            };
+        }
         userBox.prepend(userEntry);
     }
 }
@@ -223,4 +247,20 @@ function markCurrentPlayer(pid) {
         }
     }
     document.getElementById("p" + pid).classList.add("currentPlayer");
+}
+
+function unlockaudio() {
+    for(let audio of allAudio) {
+        audio.play();
+        audio.pause();
+        audio.currentTime = 0;
+    }
+
+    music.loop = true;
+    music.play().then(function() {
+        alert("Audio unlocked!");
+        audioUnlocked = true;
+    }).catch(function(){
+        alert("Audio could not be unlocked. Maybe try again? :)");
+    })
 }
