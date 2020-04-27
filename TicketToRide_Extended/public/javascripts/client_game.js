@@ -11,8 +11,8 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 (function setup() {
     document.getElementById("defaultOpen").click();
 
-    let startGameSound = new Audio("sounds/startGame.ogg");
-    let music = new Audio("sounds/america.ogg");
+    let startGameSound = new Audio("sounds/startGame.mp3");
+    let music = new Audio("sounds/america.mp3");
     music.loop = true;
     startGameSound.play().then(function() {music.play()});
 
@@ -44,7 +44,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         }
 
         if (incomingMsg.type === Messages.T_REQUEST_TRAIN) {
-            new Audio("sounds/card_dealt3.ogg").play();
+            new Audio("sounds/card_dealt3.mp3").play();
             document.getElementById("closedCard").classList.add("cardTakenSelf", "disabled");
             setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTakenSelf", "disabled")}, 1000);
         }
@@ -63,10 +63,10 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                 carts.classList.add("carts");
                 imageLocation.append(carts);
 
-                new Audio("sounds/cash_register3.ogg").play();
+                new Audio("sounds/cash_register3.mp3").play();
             } else {
                 if (incomingMsg.data.pid === playerID) {
-                    let audio = new Audio("sounds/buzz4.ogg");
+                    let audio = new Audio("sounds/buzz4.mp3");
                     audio.play();
                 }
             }
@@ -88,7 +88,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                 document.getElementsByClassName("tabcontent")[1].classList.add("disabled");
             }
             if (incomingMsg.data.pid === playerID && currentMove === 0) {
-                let audio = new Audio("sounds/train_horn2.ogg");
+                let audio = new Audio("sounds/train_horn2.mp3");
                 audio.play();
                 document.getElementById("ownCardContainer").classList.remove("disabled");
                 document.getElementById("generalCards").classList.remove("disabled");
@@ -98,7 +98,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         }
 
         if (incomingMsg.type === Messages.T_PLAYER_TOOK_DESTINATION) {
-            new Audio("sounds/card_dealt3.ogg").play();
+            new Audio("sounds/card_dealt3.mp3").play();
             receivedDestinations(incomingMsg.data, 1);
         }
 
@@ -111,7 +111,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                     setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTaken", "disabled")}, 1000);
                 }
                 if (incomingMsg.data.move === "ROUTE-CARD") {
-                    new Audio("sounds/card_dealt3.ogg").play();
+                    new Audio("sounds/card_dealt3.mp3").play();
                     document.getElementById("routeCard").classList.add("cardTaken", "disabled");
                     setTimeout(function() {document.getElementById("closedCard").classList.remove("cardTaken", "disabled")}, 1000);
                 }
@@ -119,7 +119,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         }
 
         if (incomingMsg.type === Messages.T_PLAYER_COMPLETED_ROUTE) {
-            new Audio("sounds/ticketCompletedVictory.ogg").play();
+            new Audio("sounds/ticketCompletedVictory.mp3").play();
             completedRoute(incomingMsg.data);
         }
 
@@ -159,7 +159,7 @@ function addUsers(users) {
         userBackdrop.id = "p" + user.id;
 
         let playerName = document.createElement('p');
-        playerName.innerText = user.name;
+        playerName.innerText = user.name + "(" + user.score + ")";
         playerName.classList.add("playerName");
 
         let numberOfCartsText = document.createElement('p');

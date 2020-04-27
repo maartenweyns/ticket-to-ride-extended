@@ -268,22 +268,39 @@ game.prototype.getRouteRequirements = function (routeID) {
 
 game.prototype.checkEligibility = function (pid, color, routeID) {
     let routeRequirements = this.getRouteRequirements(routeID);
+    let points;
 
     if (this.claimedEuRoutes.includes(routeID)) {
         return false;
     }
 
+    if (routeRequirements.length < 3) {
+        points = routeRequirements.length;
+    } else if (routeRequirements.length === 3) {
+        points = 4;
+    } else if (routeRequirements.length === 4) {
+        points = 7;
+    } else if (routeRequirements.length === 6) {
+        points = 15;
+    } else {
+        points = 21;
+    }
+
+
     if (this["player" + pid][color] >= routeRequirements.length) {
         if (routeRequirements.color === "any") {
             this.claimedEuRoutes.push(routeID);
+            this["player" + pid].score += points;
             return {status: true, color: color, amount: routeRequirements.length, locos: 0};
         } else {
             if (color === routeRequirements.color) {
                 this.claimedEuRoutes.push(routeID);
+                this["player" + pid].score += points;
                 return {status: true, color: color, amount: routeRequirements.length, locos: 0};
             } else {
                 if (color === "loco") {
                     this.claimedEuRoutes.push(routeID);
+                    this["player" + pid].score += points;
                     return {status: true, color: color, amount: 0, locos: routeRequirements.length};
                 } else {
                     return {status: false}
@@ -293,6 +310,7 @@ game.prototype.checkEligibility = function (pid, color, routeID) {
     } else if ((this["player" + pid][color] + this["player" + pid].loco) >= routeRequirements.length) {
         if (routeRequirements.color === "any") {
             this.claimedEuRoutes.push(routeID);
+            this["player" + pid].score += points;
             return {
                 status: true,
                 color: color,
@@ -302,6 +320,7 @@ game.prototype.checkEligibility = function (pid, color, routeID) {
         } else {
             if (color === routeRequirements.color) {
                 this.claimedEuRoutes.push(routeID);
+                this["player" + pid].score += points;
                 return {
                     status: true,
                     color: color,
@@ -425,7 +444,7 @@ game.prototype.userClaimedRoute = function (playerID, route) {
         }
     }
     this["player" + playerID].destinations = unfinished;
-}
+};
 
 function checkContinuity(player, stationA, stationB) {
     let map = player.routes;
@@ -456,9 +475,8 @@ function checkContinuity(player, stationA, stationB) {
                 }
             }
         }
-    }
+    };
     return recursion(stationA, stationB);
-
 }
 
 module.exports = game;

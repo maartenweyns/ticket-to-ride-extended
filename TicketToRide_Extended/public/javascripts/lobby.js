@@ -37,7 +37,7 @@ function promptName() {
     msg.data = {pName: name, pID: playerID};
     socket.send(JSON.stringify(msg));
 
-    let audio = new Audio("sounds/MenuMusic.ogg");
+    let audio = new Audio("sounds/MenuMusic.mp3");
     audio.loop = true;
     audio.play();
 }
