@@ -208,6 +208,10 @@ function claimEuRoute(routeID) {
     }
 }
 
+function claimUsRoute(routeID) {
+    alert(routeID);
+}
+
 function markCurrentPlayer(pid) {
     for (let i = 0; i < 8; i++) {
         if (document.getElementById("p" + pid) !== null) {
