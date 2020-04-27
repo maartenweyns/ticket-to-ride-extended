@@ -41,6 +41,9 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 
         if (incomingMsg.type === Messages.T_NEW_OPEN_CARD) {
             replaceCard(incomingMsg.data.repCard, incomingMsg.data.newColor);
+            if (! document.getElementById(incomingMsg.data.repCard).classList.contains("loco")) {
+                disableLocomotive();
+            }
         }
 
         if (incomingMsg.type === Messages.T_REQUEST_TRAIN) {
