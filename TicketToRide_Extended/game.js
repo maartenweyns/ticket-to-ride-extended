@@ -199,7 +199,7 @@ game.prototype.setupEuRoutes = function () {
     this.euRoutes.set("kharkov-moskva-1", new route("kharkov", "moskva", 1, "any", 4, 0));
     this.euRoutes.set("kharkov-kyiv-1", new route("kharkov", "kyiv", 1, "any", 4, 0));
     this.euRoutes.set("kharkov-rostov-1", new route("kharkov", "rostov", 1, "green", 2, 0));
-    this.euRoutes.set("rostov-sevastopol-1", new route("rostov", "sevastopol", "any", 4, 0));
+    this.euRoutes.set("rostov-sevastopol-1", new route("rostov", "sevastopol", 1, "any", 4, 0));
     this.euRoutes.set("rostov-sochi-1", new route("rostov", "sochi", 1, "any", 2, 0));
     this.euRoutes.set("sevastopol-sochi-1", new route("sevastopol", "sochi", "any", 2, 1));
     this.euRoutes.set("erzurum-sevastopol-1", new route("erzurum", "sevastopol", 1, "any", 4, 2));

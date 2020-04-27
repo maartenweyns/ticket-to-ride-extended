@@ -126,16 +126,17 @@ wss.on("connection", function connection(ws) {
             game["player" + pid].numberOfTrainCards++;
             game["player" + pid][oMsg.data.color]++;
 
-            let msgPlayers = messages.O_PLAYER_OVERVIEW;
-            msgPlayers.data = game.getUserProperties();
-            game.sendToAll(msgPlayers);
-
             if (oldColor === "loco") {
                 game["player" + pid][game.getRandomColor()]++;
+                game["player" + pid].numberOfTrainCards++;
                 game.nextPlayerRound();
             } else {
                 game.playerDidSomething();
             }
+
+            let msgPlayers = messages.O_PLAYER_OVERVIEW;
+            msgPlayers.data = game.getUserProperties();
+            game.sendToAll(msgPlayers);
 
             game.sendPersonalCardsToUser(pid);
 

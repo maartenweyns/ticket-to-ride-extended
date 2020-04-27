@@ -131,6 +131,16 @@ function disableOtherPlayerActions() {
     }
 }
 
+function disableLocomotive() {
+    let openCards = document.getElementById("openCardsBox").children;
+
+    for (let i = 0; i < openCards.length; i++) {
+        if (openCards[i].classList.contains("loco")) {
+            openCards[i].classList.add("disabledLoco");
+        }
+    }
+}
+
 function enableLocomotive() {
     let openCards = document.getElementById("openCardsBox").children;
 
