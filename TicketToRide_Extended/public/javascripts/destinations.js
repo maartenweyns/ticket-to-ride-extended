@@ -115,12 +115,18 @@ function cycleBetweenRouteCards() {
     for (let i = 0; i < cards.length; i++) {
         if (cards[i].style.display === "block" || cards[i].style.display === "") {
             cards[i].style.display = "none";
+            document.getElementById(cards[i].id.split("-")[0] + "Highlight").classList.remove("pulsatingDots");
+            document.getElementById(cards[i].id.split("-")[1] + "Highlight").classList.remove("pulsatingDots");
             if (i < cards.length - 1) {
                 cards[i + 1].style.display = "block";
                 cardDeal.play();
+                document.getElementById(cards[i + 1].id.split("-")[0] + "Highlight").classList.add("pulsatingDots");
+                document.getElementById(cards[i + 1].id.split("-")[1] + "Highlight").classList.add("pulsatingDots");
             } else {
                 cards[0].style.display = "block";
                 cardDeal.play();
+                document.getElementById(cards[0].id.split("-")[0] + "Highlight").classList.add("pulsatingDots");
+                document.getElementById(cards[0].id.split("-")[1] + "Highlight").classList.add("pulsatingDots");
             }
             break;
         }

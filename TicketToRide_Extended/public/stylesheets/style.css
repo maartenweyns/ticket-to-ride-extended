@@ -66,6 +66,10 @@ body {
     pointer-events: none;
 }
 
+.pulsatingDots {
+    animation: breathingDots 3s infinite linear;
+}
+
 .cards {
     height: calc(100vh - 10px);
     width: calc(100vw / 8);
@@ -160,10 +164,16 @@ body {
 }
 
 @keyframes showCarts {
-    0% {filter: brightness(2) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(2) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
+    0% {filter: brightness(3) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(3) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
     20% {filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
-    40% {filter: brightness(2) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(2) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
+    40% {filter: brightness(3) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(3) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
     60% {filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
-    80% {filter: brightness(2) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(2) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
+    80% {filter: brightness(3) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(3) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
     100% {filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
+}
+
+@keyframes breathingDots {
+    0% {filter: brightness(1) drop-shadow(0px 0px 5px rgba(0,0,255,0)); --webkit-filter: brightness(1) drop-shadow(0px 0px 5px rgba(0,0,255,0));}
+    50% {filter: brightness(3) drop-shadow(0px 0px 5px rgba(0,0,255,1)); --webkit-filter: brightness(3) drop-shadow(0px 0px 5px rgba(0,0,255,1));}
+    100% {filter: brightness(1) drop-shadow(0px 0px 5px rgba(0,0,255,0)); --webkit-filter: brightness(1) drop-shadow(0px 0px 5px rgba(0,0,255,0));}
 }
