@@ -16,6 +16,10 @@ const player = function (id, playerName, playerColor, playerWebsocket) {
     this.red = 0;
     this.white = 0;
     this.yellow = 0;
+
+    this.routes = new Map();
+    this.destinations = [];
+    this.completedDestinations = [];
 };
 
 player.prototype.sendMessage = function (msg) {

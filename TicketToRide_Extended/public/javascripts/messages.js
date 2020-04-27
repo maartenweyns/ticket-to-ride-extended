@@ -149,5 +149,70 @@
     };
     exports.S_PLAYER_CLOSED_MOVE = JSON.stringify(exports.O_PLAYER_CLOSED_MOVE);
 
+    /**
+     * Server to player: You completed a route!
+     * @type {string}
+     */
+    exports.T_PLAYER_COMPLETED_ROUTE = "PLAYER-COMPLETED-ROUTE";
+    exports.O_PLAYER_COMPLETED_ROUTE = {
+        type: exports.T_PLAYER_COMPLETED_ROUTE,
+        data: null
+    };
+    exports.S_PLAYER_COMPLETED_ROUTE = JSON.stringify(exports.O_PLAYER_COMPLETED_ROUTE);
+
+    /**
+     * Player to server: I do not want this destination!
+     * @type {string}
+     */
+    exports.T_REJECTED_DESTI = "PLAYER-REJECTED-DESTINATION";
+    exports.O_REJECTED_DESTI = {
+        type: exports.T_REJECTED_DESTI,
+        data: null
+    };
+    exports.S_REJECTED_DESTI = JSON.stringify(exports.O_REJECTED_DESTI);
+
+    /**
+     * Player to server: I do not want this destination!
+     * @type {string}
+     */
+    exports.T_ACCEPTED_DESTI = "PLAYER-ACCEPTED-DESTINATION";
+    exports.O_ACCEPTED_DESTI = {
+        type: exports.T_ACCEPTED_DESTI,
+        data: null
+    };
+    exports.S_ACCEPTED_DESTI = JSON.stringify(exports.O_ACCEPTED_DESTI);
+
+    /**
+     * Player to server: I finished doing what I was doing!
+     * @type {string}
+     */
+    exports.T_PLAYER_FINISHED = "PLAYER-FINISHED";
+    exports.O_PLAYER_FINISHED = {
+        type: exports.T_PLAYER_FINISHED,
+        data: null
+    };
+    exports.S_PLAYER_FINISHED = JSON.stringify(exports.O_PLAYER_FINISHED);
+
+    /**
+     * Server to player: Here are your initial cards!
+     * @type {string}
+     */
+    exports.T_INITIAL_CARDS = "INITIAL-CARDS";
+    exports.O_INITIAL_CARDS = {
+        type: exports.T_INITIAL_CARDS,
+        data: null
+    };
+    exports.S_INITIAL_CARDS = JSON.stringify(exports.O_INITIAL_CARDS);
+
+    /**
+     * Server to player: These are your personal train cards!
+     * @type {string}
+     */
+    exports.T_PERSONAL_TRAINS = "PERSONAL-TRAINS";
+    exports.O_PERSONAL_TRAINS = {
+        type: exports.T_PERSONAL_TRAINS,
+        data: null
+    };
+    exports.S_PERSONAL_TRAINS = JSON.stringify(exports.O_PERSONAL_TRAINS);
 
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);

@@ -1,4 +1,4 @@
-const destination = function (stationA, stationB, continent, points) {
+const destination = function (continent, stationA, stationB, points) {
     this.stationA = stationA;
     this.stationB = stationB;
     this.continent = continent;

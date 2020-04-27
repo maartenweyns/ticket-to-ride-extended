@@ -23,9 +23,6 @@ body {
 /* Style the tab */
 .tab {
     overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-    height: 100%;
 }
 
 /* Style the tab content */
@@ -46,23 +43,59 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
+    max-height: 100%;
+    max-width: 100%;
 }
 
 .carts {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
+    max-height: 100%;
+    max-width: 100%;
+    pointer-events: none;
+    animation: showCarts 4s;
+}
+
+.dots {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-height: 100%;
+    max-width: 100%;
     pointer-events: none;
 }
 
 .cards {
     height: calc(100vh - 10px);
-    width: 150px;
+    width: calc(100vw / 8);
     padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.destiCards {
+    position: relative;
+    background-image: url("../images/decorations/TicketSupport_RH.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.destiCard {
+    position: absolute;
     top: 0;
-    right: 0;
+    left: 0;
+    width: 100%;
+    cursor: pointer;
+}
+
+.destiSupport {
+    width: 100%;
 }
 
 .maps {
@@ -93,11 +126,16 @@ body {
     flex-grow: 1;
 }
 
-.ownCards {
+.ownCards, .destiDeck {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     height: 15%;
+}
+
+.destiDeckCard {
+    height: 100%;
 }
 
 .alertShadow {
@@ -114,8 +152,18 @@ body {
 
 .currentPlayer {
     filter: drop-shadow(0px 0px 15px #fff);
+    -webkit-filter: drop-shadow(0px 0px 15px #fff);
 }
 
 .disabled {
     pointer-events: none;
+}
+
+@keyframes showCarts {
+    0% {filter: brightness(2) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(2) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
+    20% {filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
+    40% {filter: brightness(2) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(2) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
+    60% {filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
+    80% {filter: brightness(2) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(2) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
+    100% {filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
 }

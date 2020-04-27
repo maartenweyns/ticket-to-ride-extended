@@ -279,19 +279,257 @@
             </div>
 
             <div id="UnitedStates" class="tabcontent">
-                <img class="map" src="images/maps/usMap.jpg"/>
+                <img class="map" src="images/maps/usMap.jpg" usemap="#us-image-map" id="usCardImg"/>
+                <map name="us-image-map">
+                    <area shape="poly"
+                          coords="1348, 721, 1362, 734, 1316, 780, 1277, 822, 1240, 883, 1221, 935, 1199, 931, 1226, 865, 1261, 810, 1301, 763"
+                          title="atlanta-neworleans-2" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="1336, 702, 1344, 720, 1301, 762, 1259, 812, 1224, 871, 1203, 920, 1184, 910, 1206, 845, 1245, 792, 1290, 739"
+                          title="atlanta-neworleans-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="1219, 929, 1233, 951, 1286, 918, 1348, 904, 1403, 902, 1461, 931, 1506, 974, 1548, 1021, 1568, 1004, 1524, 954, 1474, 912, 1414, 880, 1341, 879, 1278, 896"
+                          title="miami-neworleans-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="1518, 738, 1539, 738, 1551, 865, 1599, 974, 1582, 982, 1547, 925, 1530, 868, 1519, 792"
+                          title="charleston-miami-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1509, 721, 1508, 741, 1384, 733, 1384, 716" title="atlanta-charleston-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1495, 609, 1570, 656, 1541, 712, 1517, 701, 1535, 665, 1483, 631"
+                          title="charleston-raleigh-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1375, 729, 1358, 744, 1556, 989, 1575, 977" title="atlanta-miami-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1371, 699, 1388, 718, 1484, 631, 1472, 617" title="atlanta-raleigh-2"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1357, 681, 1451, 599, 1467, 617, 1370, 697" title="atlanta-raleigh-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1275, 669, 1289, 647, 1344, 683, 1326, 704" title="atlanta-nashville-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1075, 756, 1096, 744, 1184, 914, 1164, 925"
+                          title="littlerock-neworleans-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1040, 939, 1043, 969, 1172, 946, 1162, 920" title="houston-neworleans-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="647, 935, 636, 951, 691, 984, 754, 1003, 821, 1013, 890, 1015, 954, 1004, 1011, 981, 1002, 960, 940, 982, 882, 992, 822, 991, 759, 983, 702, 963"
+                          title="elpaso-houston-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="947, 912, 965, 895, 1006, 943, 987, 956" title="dallas-houston-2"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="965, 896, 1005, 941, 1024, 924, 985, 879" title="dallas-houston-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="1091, 723, 1095, 747, 1164, 738, 1225, 709, 1270, 667, 1256, 652, 1209, 694, 1150, 717, 1095, 722"
+                          title="littlerock-nashville-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1115, 596, 1095, 593, 1064, 713, 1085, 716"
+                          title="littlerock-saintlouis-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="924, 870, 945, 868, 931, 745, 909, 748" title="dallas-oklahomacity-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="933, 746, 956, 746, 970, 869, 949, 870" title="dallas-oklahomacity-2"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1044, 744, 1063, 758, 986, 858, 972, 844" title="dallas-littlerock-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1060, 716, 1059, 738, 935, 742, 934, 716" title="littlerock-oklahoma-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="936, 588, 956, 595, 921, 714, 901, 709" title="kansascity-oklahoma-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="957, 596, 976, 601, 940, 719, 922, 713" title="kansascity-oklahoma-2"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="645, 905, 652, 926, 721, 906, 774, 881, 828, 845, 879, 797, 910, 747, 894, 734, 852, 782, 811, 828, 761, 862, 703, 890"
+                          title="elpaso-oklahomacity-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="675, 922, 678, 945, 931, 906, 928, 884" title="dallas-elpaso-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="430, 882, 434, 861, 618, 912, 608, 933" title="elpaso-phoenix-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="216, 873, 270, 910, 329, 939, 398, 954, 460, 964, 530, 959, 587, 946, 583, 927, 522, 937, 461, 944, 402, 936, 343, 918, 287, 892, 231, 855"
+                          title="elpaso-losangeles-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="647, 787, 624, 786, 619, 911, 639, 911" title="elpaso-santafe-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="890, 712, 886, 734, 826, 731, 760, 720, 700, 694, 655, 645, 666, 631, 714, 676, 771, 700, 831, 709"
+                          title="denver-oklahomacity-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="656, 758, 661, 783, 852, 757, 847, 733" title="oklahomacity-santafe-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="623, 751, 651, 754, 655, 624, 632, 628" title="denver-santafe-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="441, 840, 450, 858, 628, 784, 613, 762" title="phoenix-santafe-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="220, 830, 222, 850, 286, 843, 346, 845, 403, 858, 408, 835, 342, 822, 279, 821"
+                          title="phoenix-losangeles-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="53, 699, 79, 687, 108, 755, 145, 799, 185, 840, 165, 857, 110, 803, 84, 758"
+                          title="logangeles-sanfrancisco-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="78, 683, 106, 744, 145, 795, 186, 839, 199, 825, 157, 781, 124, 730, 102, 674"
+                          title="logangeles-sanfrancisco-2" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="411, 841, 433, 850, 460, 791, 487, 744, 529, 694, 578, 652, 635, 625, 624, 607, 562, 623, 502, 673, 468, 733, 434, 792"
+                          title="denver-phoenix-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="332, 735, 349, 750, 394, 705, 422, 640, 430, 574, 407, 574, 400, 635, 374, 689"
+                          title="lasvegas-saltlakecity-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="195, 819, 228, 753, 302, 733, 306, 758, 244, 776, 220, 827"
+                          title="lasvegas-losangeles-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="1275, 623, 1331, 589, 1402, 573, 1465, 578, 1461, 599, 1402, 596, 1346, 611, 1291, 645"
+                          title="nashville-raleigh-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1116, 617, 1123, 595, 1244, 633, 1236, 652"
+                          title="nashville-saintlouis-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1553, 485, 1574, 499, 1491, 596, 1473, 580" title="raleigh-washington-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1572, 499, 1592, 516, 1510, 608, 1492, 593" title="raleigh-washington-2"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="1241, 629, 1260, 638, 1286, 585, 1330, 535, 1385, 498, 1420, 444, 1404, 435, 1367, 482, 1311, 520, 1267, 571"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="678, 639, 678, 614, 744, 623, 806, 616, 869, 605, 928, 582, 932, 603, 871, 626, 809, 641, 744, 647"
+                          title="denver-kansascity-2" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="106, 676, 97, 656, 399, 555, 404, 575"
+                          title="saltlakecity-sanfrancisco-2" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="682, 596, 681, 618, 744, 620, 809, 614, 872, 602, 934, 579, 920, 559, 864, 584, 802, 593, 741, 599"
+                          title="denver-kansascity-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="965, 596, 964, 572, 1090, 570, 1093, 594" title="kansascity-saintlouis-2"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="903, 516, 922, 507, 951, 559, 927, 567" title="kansascity-omaha-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="924, 506, 951, 558, 973, 546, 944, 495" title="kansascity-omaha-2"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1422, 444, 1442, 442, 1467, 565, 1443, 565" title="pittsburgh-raleigh-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="965, 552, 965, 575, 1089, 571, 1088, 548" title="kansascity-saintlouis-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1153, 442, 1165, 453, 1101, 557, 1081, 541" title="chicago-saintlouis-2"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1168, 452, 1102, 557, 1118, 565, 1187, 461" title="chicago-saintlouis-2"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1390, 417, 1118, 571, 1130, 593, 1400, 435"
+                          title="pittsburgh-saintlouis-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1446, 412, 1435, 431, 1544, 487, 1553, 467"
+                          title="pittsburgh-washington-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1554, 343, 1572, 343, 1581, 471, 1558, 473" title="newyork-washington-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1574, 342, 1597, 341, 1605, 469, 1581, 469" title="newyork-washington-2"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="108, 340, 84, 397, 72, 458, 72, 520, 77, 583, 91, 640, 69, 647, 54, 583, 50, 518, 52, 452, 66, 393, 91, 332"
+                          title="portland-sanfrancisco-2" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="433, 575, 436, 552, 628, 589, 620, 608" title="denver-saltlakecity-2"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="90, 635, 97, 657, 400, 555, 391, 536" title="saltlakecity-sanfrancisco-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="436, 553, 437, 527, 627, 570, 625, 588" title="denver-saltlakecity-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="672, 595, 720, 559, 774, 535, 834, 516, 895, 505, 891, 481, 828, 491, 769, 509, 709, 539, 657, 578"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1034, 403, 1170, 420, 1166, 444, 1040, 428, 942, 493, 930, 477"
+                          title="chicago-omaha-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="1208, 438, 1206, 416, 1267, 401, 1331, 390, 1395, 394, 1395, 413, 1331, 412, 1266, 422"
+                          title="chicago-pittsburgh-2" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1539, 329, 1551, 343, 1446, 409, 1435, 392" title="newyork-pittsburgh-2"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1528, 306, 1540, 328, 1433, 389, 1426, 369" title="newyork-pittsburgh-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="1386, 370, 1385, 393, 1323, 389, 1261, 399, 1202, 416, 1198, 394, 1257, 379, 1326, 367"
+                          title="chicago-pittsburgh-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="1179, 408, 1165, 395, 1208, 347, 1262, 310, 1327, 289, 1373, 254, 1387, 269, 1338, 311, 1273, 331, 1224, 364"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="974, 350, 986, 330, 1038, 358, 1099, 380, 1162, 396, 1155, 416, 1089, 400, 1026, 379"
+                          title="chicago-duluth-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="935, 340, 958, 348, 913, 465, 892, 453" title="duluth-omaha-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="959, 348, 983, 356, 936, 471, 915, 462" title="duluth-omaha-2"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="582, 363, 590, 345, 887, 465, 877, 483" title="helena-omaha-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="546, 354, 564, 346, 656, 576, 637, 582" title="denver-helena-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="427, 510, 445, 522, 542, 360, 522, 347" title="helena-saltlakecity-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="117, 309, 113, 329, 171, 342, 225, 364, 282, 397, 330, 439, 372, 485, 401, 539, 426, 526, 394, 469, 348, 416, 297, 379, 241, 339, 178, 317"
+                          title="portland-saltlakecity-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="63, 328, 38, 386, 24, 451, 23, 518, 30, 589, 46, 646, 69, 638, 52, 578, 48, 514, 50, 452, 62, 394, 87, 335"
+                          title="portland-sanfrancisco-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1387, 258, 1409, 256, 1418, 385, 1393, 385" title="pittsburgh-toronto-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="140, 249, 125, 241, 99, 300, 116, 305" title="portland-seattle-2"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="102, 234, 79, 289, 97, 297, 121, 240" title="portland-seattle-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="153, 240, 148, 258, 520, 343, 522, 322" title="helena-seattle-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="568, 320, 567, 341, 948, 335, 946, 311" title="duluth-helena-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1357, 245, 1361, 266, 985, 330, 983, 306" title="duluth-toronto-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1675, 223, 1656, 211, 1586, 316, 1606, 329" title="boston-newyork-2"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1634, 200, 1654, 212, 1587, 315, 1570, 303" title="boston-newyork-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1513, 119, 1536, 116, 1564, 300, 1539, 302" title="montreal-newyork-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="108, 142, 108, 215, 132, 215, 133, 140" title="seattle-vancouver-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="133, 146, 132, 211, 157, 209, 156, 142" title="seattle-vancouver-2"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="353, 115, 374, 124, 342, 183, 283, 225, 216, 235, 151, 234, 152, 210, 220, 209, 277, 202, 327, 167"
+                          title="calgary-seattle-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="390, 109, 553, 302, 534, 316, 372, 122" title="calgary-helena-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="737, 124, 754, 141, 575, 317, 560, 300" title="helena-winnipeg-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="771, 140, 786, 124, 967, 299, 949, 314" title="duluth-winnipeg-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1168, 210, 1175, 227, 1005, 300, 998, 281" title="duluth-saultstmarie-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1344, 222, 1339, 246, 1219, 217, 1223, 198"
+                          title="saultstmarie-toronto-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1535, 117, 1547, 102, 1645, 181, 1629, 197" title="boston-montreal-2"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="1512, 88, 1520, 109, 1460, 135, 1416, 178, 1388, 227, 1366, 216, 1401, 161, 1455, 115"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="1563, 82, 1661, 164, 1649, 179, 1550, 99" title="boston-montreal-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="1202, 179, 1248, 139, 1310, 106, 1372, 83, 1437, 71, 1501, 71, 1502, 92, 1434, 95, 1377, 109, 1321, 127, 1263, 160, 1217, 200"
+                          title="montreal-saultstmarie-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="804, 103, 800, 124, 1172, 203, 1176, 179" title="saultstmarie-winnipeg-1"
+                          onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly"
+                          coords="382, 85, 391, 104, 450, 76, 510, 64, 571, 64, 636, 68, 695, 86, 748, 111, 760, 89, 701, 62, 638, 45, 571, 40, 506, 42, 443, 56"
+                          title="calgary-winnipeg-1" onclick="claimUsRoute(this.title)"/>
+                    <area shape="poly" coords="157, 109, 344, 88, 346, 107, 159, 129" title="calgary-vancouver-1"
+                          onclick="claimUsRoute(this.title)"/>
+                </map>
             </div>
         </div>
         <div class="ownCards" id="ownCardContainer"></div>
+        <div class="destiDeck" id="destiCardsChoosingPanel" style="display: none"></div>
     </div>
 
     <div class="cards" id="cardContainer">
-        <div class="routeCards">
-            <img class="card" src="images/routeCards/ticketBack.png" id="routeCard" onclick="requestDestination()"/>
+        <div class="generalCards" id="generalCards">
+            <div class="routeCards">
+                <img class="card" src="images/routeCards/ticketBack.png" id="routeCard" onclick="requestDestination()"/>
+            </div>
+            <div class="openWagonCards" id="openCardsBox"></div>
+            <div class="closedWagonCards">
+                <img class="card" src="images/trainCards/us_WagonCard_back.png" id="closedCard"
+                     onclick="requestClosedCard()"/>
+            </div>
         </div>
-        <div class="openWagonCards" id="openCardsBox"></div>
-        <div class="closedWagonCards">
-            <img class="card" src="images/trainCards/us_WagonCard_back.png" id="closedCard" onclick="requestClosedCard()"/>
+        <div class="destiCards">
         </div>
     </div>
     <!--    <img class="cardsBackground" src="images/decorations/cards-support-Blue.png">-->

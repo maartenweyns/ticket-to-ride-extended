@@ -1,13 +1,14 @@
 .cardCounter {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     z-index: 99;
-    font-size: 30px;
+    font-size: 4em;
     font-weight: bold;
     color: white;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     margin: 0;
+    padding: 5px;
 }
 
 .cardContainer {
@@ -15,11 +16,15 @@
     display: inline-block;
     position: relative;
     flex-shrink: 1;
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: visible;
 }
 
-.activatedCard {
-    filter: drop-shadow(0px 0px 15px rgb(0,255,0));
+.activatedCard, .activatedDestiCard {
+    -webkit-appearance: none;
+    -webkit-box-shadow: 0 -10px 15px rgb(0,255,0);
+    box-shadow: 0 -10px 15px rgb(0,255,0);
+    z-index: 100;
 }
 
 .cardTaken {
@@ -32,4 +37,10 @@
     transition: 1000ms;
     transform: translate(-50vw, 50vh);
     opacity: 0;
+}
+
+.disabledLoco {
+    transition: 100ms;
+    transform: translateX(50px);
+    pointer-events: none;
 }
