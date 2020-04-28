@@ -19,7 +19,7 @@ const game = function (gameID) {
     this.euDesti = new Map();
     this.euStack = [];
 
-    this.currentRound = 0;
+    this.currentRound = 8;
     this.thingsDone = 0;
     this.amountOfPlayers = 0;
 
@@ -27,6 +27,8 @@ const game = function (gameID) {
     this.setupEuRoutes();
 
     this.claimedEuRoutes = [];
+
+    this.gameState = "lobby";
 };
 
 game.prototype.setOpenCards = function () {
@@ -445,6 +447,18 @@ game.prototype.userClaimedRoute = function (playerID, route) {
     }
     this["player" + playerID].destinations = unfinished;
 };
+
+game.prototype.allPlayersReady = function () {
+    for (let i = 0; i < this.amountOfPlayers; i++) {
+        console.log("Is player " + i + " ready?")
+        if (this["player" + i].ready === null) {
+            console.log("Nope");
+            return false;
+        }
+        console.log("Yes!");
+    }
+    return true;
+}
 
 function checkContinuity(player, stationA, stationB) {
     let map = player.routes;

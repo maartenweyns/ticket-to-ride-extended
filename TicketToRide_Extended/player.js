@@ -17,6 +17,8 @@ const player = function (id, playerName, playerColor, playerWebsocket) {
     this.white = 0;
     this.yellow = 0;
 
+    this.ready = null;
+
     this.routes = new Map();
     this.destinations = [];
     this.completedDestinations = [];
@@ -29,5 +31,9 @@ player.prototype.sendMessage = function (msg) {
 player.prototype.updatewebsocket = function (socket) {
     this.websocket = socket;
 };
+
+player.prototype.isReady = function () {
+    this.ready = true;
+}
 
 module.exports = player;

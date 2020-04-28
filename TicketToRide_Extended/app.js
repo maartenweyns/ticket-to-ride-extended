@@ -62,7 +62,6 @@ wss.on("connection", function connection(ws) {
             game["player" + pid] = new Player(pid, oMsg.data.pName, playerColors.pop(), websockets[pid]);
 
             game.amountOfPlayers++;
-            game.currentRound = Math.ceil(Math.random() * game.amountOfPlayers) - 1;
 
             let msg1 = messages.O_PLAYER_OVERVIEW;
             msg1.data = game.getUserProperties();
@@ -77,10 +76,6 @@ wss.on("connection", function connection(ws) {
             let msg1 = messages.O_PLAYER_OVERVIEW;
             msg1.data = game.getUserProperties();
             game.sendToAll(msg1);
-
-            let msg2 = messages.O_PLAYER_ROUND;
-            msg2.data = {pid: game.currentRound, thing: game.thingsDone};
-            game.sendToAll(msg2);
 
             let color1 = game.getRandomColor();
             let color2 = game.getRandomColor();
@@ -100,6 +95,8 @@ wss.on("connection", function connection(ws) {
         }
 
         if (oMsg.type === messages.T_GAME_START) {
+            game.gameState = "choosing-tickets";
+
             let msg = messages.O_GAME_START;
             game.sendToAll(msg);
         }
@@ -231,6 +228,22 @@ wss.on("connection", function connection(ws) {
             game["player" + pid].destinations.push(game.euDesti.get(routeID));
             game["player" + pid].numberOfRoutes++;
 
+            if (game.gameState === "choosing-tickets") {
+                console.log("A player is now ready.")
+                game["player" + pid].ready = true;
+    
+                if (game.allPlayersReady()) {
+                    game.currentRound = Math.ceil(Math.random() * game.amountOfPlayers) - 1;
+    
+                    let msg2 = messages.O_PLAYER_ROUND;
+                    msg2.data = {pid: game.currentRound, thing: game.thingsDone};
+                    game.sendToAll(msg2);
+
+                    console.log("The game has now started!");
+                    game.gameState = "ongoing";
+                }
+            }
+
             let msgPlayers = messages.O_PLAYER_OVERVIEW;
             msgPlayers.data = game.getUserProperties();
             game.sendToAll(msgPlayers);
@@ -245,11 +258,13 @@ wss.on("connection", function connection(ws) {
         }
 
         if (oMsg.type === messages.T_PLAYER_FINISHED) {
-            game.nextPlayerRound();
+            if (game.gameState === "ongoing") {
+                game.nextPlayerRound();
 
-            let msg2 = messages.O_PLAYER_ROUND;
-            msg2.data = {pid: game.currentRound, thing: game.thingsDone};
-            game.sendToAll(msg2);
+                let msg2 = messages.O_PLAYER_ROUND;
+                msg2.data = {pid: game.currentRound, thing: game.thingsDone};
+                game.sendToAll(msg2);
+            }
         }
     });
 
