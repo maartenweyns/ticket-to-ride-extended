@@ -140,7 +140,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                     cardDeal.play();
                     document.getElementById("routeCard").classList.add("cardTaken", "disabled");
                     setTimeout(function () {
-                        document.getElementById("closedCard").classList.remove("cardTaken", "disabled")
+                        document.getElementById("routeCard").classList.remove("cardTaken", "disabled")
                     }, 1000);
                 }
             }

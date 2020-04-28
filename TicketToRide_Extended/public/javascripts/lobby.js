@@ -57,3 +57,7 @@ function startGame() {
     let msg = Messages.O_GAME_START;
     socket.send(JSON.stringify(msg));
 }
+
+particlesJS.load('particles-js', '../config/particles.json', function() {
+    console.log('callback - particles.js config loaded');
+});
