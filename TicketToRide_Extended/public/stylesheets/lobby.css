@@ -91,3 +91,16 @@ li:nth-child(even) {
     -webkit-animation-name: float-subpixel;
     animation-name: float-subpixel;
 }
+
+#particles-js {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.content {
+    z-index: 0;
+}
