@@ -174,18 +174,6 @@ wss.on("connection", function connection(ws) {
             game.sendToAll(msg2);
         }
 
-        if (oMsg.type === messages.T_ROUTE_REQ) {
-            console.log("Player requests route info on " + oMsg.data.route);
-            let ret = game.getRouteRequirements(oMsg.data.route);
-            let msg = messages.O_ROUTE_REQ;
-            msg.data = ret;
-            game["player" + oMsg.data.pid].sendMessage(msg);
-
-            let msgMove = messages.O_PLAYER_CLOSED_MOVE;
-            msgMove.data = {pid: oMsg.data, move: "ROUTE-CARD"}
-            game.sendToAll(msgMove);
-        }
-
         if (oMsg.type === messages.T_ROUTE_CLAIM) {
             let pid = oMsg.data.pid;
             console.log("A user requested a route: " + oMsg.data.route);
@@ -223,6 +211,10 @@ wss.on("connection", function connection(ws) {
             let msg = messages.O_PLAYER_TOOK_DESTINATION;
             msg.data = {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getEuDestination()};
             game["player" + oMsg.data].sendMessage(msg);
+
+            let msgMove = messages.O_PLAYER_CLOSED_MOVE;
+            msgMove.data = {pid: oMsg.data, move: "ROUTE-CARD"}
+            game.sendToAll(msgMove);
         }
 
         if (oMsg.type === messages.T_ACCEPTED_DESTI) {
