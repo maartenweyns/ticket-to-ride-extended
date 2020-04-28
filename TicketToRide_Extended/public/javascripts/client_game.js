@@ -23,6 +23,11 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 (function setup() {
     document.getElementById("defaultOpen").click();
 
+    document.getElementById("ownCardContainer").classList.add("disabled");
+    document.getElementById("generalCards").classList.add("disabled");
+    document.getElementsByClassName("tabcontent")[0].classList.add("disabled");
+    document.getElementsByClassName("tabcontent")[1].classList.add("disabled");
+
     music.loop = true;
     startsound.play().then(function () {
         music.play();
