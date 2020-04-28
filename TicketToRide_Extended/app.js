@@ -137,9 +137,7 @@ wss.on("connection", function connection(ws) {
 
             game.sendPersonalCardsToUser(pid);
 
-            let msg2 = messages.O_PLAYER_ROUND;
-            msg2.data = {pid: game.currentRound, thing: game.thingsDone};
-            game.sendToAll(msg2);
+            game.sendPlayerRound();
         }
 
         if (oMsg.type === messages.T_REQUEST_TRAIN) {
@@ -166,9 +164,7 @@ wss.on("connection", function connection(ws) {
 
             game.sendPersonalCardsToUser(pid);
 
-            let msg2 = messages.O_PLAYER_ROUND;
-            msg2.data = {pid: game.currentRound, thing: game.thingsDone};
-            game.sendToAll(msg2);
+            game.sendPlayerRound();
         }
 
         if (oMsg.type === messages.T_ROUTE_CLAIM) {
@@ -194,10 +190,7 @@ wss.on("connection", function connection(ws) {
                 game.sendPersonalCardsToUser(pid);
 
                 game.nextPlayerRound();
-
-                let msg2 = messages.O_PLAYER_ROUND;
-                msg2.data = {pid: game.currentRound, thing: game.thingsDone};
-                game.sendToAll(msg2);
+                game.sendPlayerRound();
             } else {
                 msg.data = {pid: oMsg.data.pid, status: false};
                 game["player" + oMsg.data.pid].sendMessage(msg);
@@ -227,9 +220,7 @@ wss.on("connection", function connection(ws) {
                 if (game.allPlayersReady()) {
                     game.currentRound = Math.ceil(Math.random() * game.amountOfPlayers) - 1;
     
-                    let msg2 = messages.O_PLAYER_ROUND;
-                    msg2.data = {pid: game.currentRound, thing: game.thingsDone};
-                    game.sendToAll(msg2);
+                    game.sendPlayerRound();
 
                     console.log("The game has now started!");
                     game.gameState = "ongoing";
@@ -252,10 +243,7 @@ wss.on("connection", function connection(ws) {
         if (oMsg.type === messages.T_PLAYER_FINISHED) {
             if (game.gameState === "ongoing") {
                 game.nextPlayerRound();
-
-                let msg2 = messages.O_PLAYER_ROUND;
-                msg2.data = {pid: game.currentRound, thing: game.thingsDone};
-                game.sendToAll(msg2);
+                game.sendPlayerRound();
             }
         }
     });

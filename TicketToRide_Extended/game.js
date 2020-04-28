@@ -15,11 +15,14 @@ const game = function (gameID) {
     this.player7 = null;
 
     this.openCards = {};
+
     this.euRoutes = new Map();
     this.euDesti = new Map();
     this.euStack = [];
 
-    this.currentRound = 8;
+    this.usRoutes = new Map();
+
+    this.currentRound = null;
     this.thingsDone = 0;
     this.amountOfPlayers = 0;
 
@@ -260,6 +263,27 @@ game.prototype.setupEuDestinations = function () {
     this.euStack = shuffleArray(Array.from(this.euDesti));
 }
 
+// TODO: Add all American routes and Destinations
+game.prototype.setupUsRoutes = function () {
+    this.usRoutes.set("atlanta-neworleans-2", new route("atlanta", "neworleans", 2, "brown", 4, 0));
+    this.usRoutes.set("atlanta-neworleans-1", new route("atlanta", "neworleans", 1, "yellow", 4, 0));
+    this.usRoutes.set("miami-neworleans-1", new route("miami", "neworleans", 1, "red", 6, 0));
+    this.usRoutes.set("charleston-miami-1", new route("charleston", "miami", 1, "pink", 4, 0));
+    this.usRoutes.set("atlanta-charleston-1", new route("atlanta", "charleston", 1, "any", 2, 0));
+    this.usRoutes.set("charleston-raleigh-1", new route("charleston", "raleigh", 1, "any", 2, 0));
+    this.usRoutes.set("atlanta-miami-1", new route("atlanta", "miami", 1, "blue", 5, 0));
+    this.usRoutes.set("atlanta-raleigh-2", new route("atlanta", "raleigh", 2, "any", 2, 0));
+    this.usRoutes.set("atlanta-raleigh-1", new route("atlanta", "raleigh", 1, "any", 2, 0));
+    this.usRoutes.set("atlanta-nashville-1", new route("atlanta", "nashville", 1, "any", 1, 0));
+    this.usRoutes.set("littlerock-neworleans-1", new route("littlerock", "neworleans", 1, "green", 3, 0));
+    this.usRoutes.set("houston-neworleans-1", new route("houston", "neworleans", 1, "any", 2, 0));
+    this.usRoutes.set("elpaso-houston-1", new route("elpaso", "houston", 1, "green", 6,0));
+    this.usRoutes.set("dallas-houston-2", new route("dallas", "houston", 2, "any", 1, 0));
+    this.usRoutes.set("dallas-houston-1", new route("dallas", "houston", 1, "any", 1, 0));
+    this.usRoutes.set("littlerock-nashville-1", new route("littlerock", "nashville", 1, "white", 3, 0));
+    this.usRoutes.set("littlerock-saintlouis-1", new route("littlerock", "saintlouis", 1, "any", 2, 0));
+}
+
 game.prototype.getRouteRequirements = function (routeID) {
     let route = this.euRoutes.get(routeID);
     if (route !== undefined) {
@@ -458,6 +482,19 @@ game.prototype.allPlayersReady = function () {
         console.log("Yes!");
     }
     return true;
+}
+
+game.prototype.sendPlayerRound = function () {
+    let message = messages.O_PLAYER_ROUND;
+    for (let i = 0; i < this.amountOfPlayers; i++) {
+        if (this["player" + i].numberOfTrains <= 2) {
+            message.data = {pid: this.currentRound, thing: this.thingsDone, lastRound: true};
+            this.sendToAll(message);
+            return;
+        }
+    }
+    message.data = {pid: this.currentRound, thing: this.thingsDone, lastRound: false};
+    this.sendToAll(message);
 }
 
 function checkContinuity(player, stationA, stationB) {
