@@ -47,16 +47,6 @@ body {
     max-width: 100%;
 }
 
-.carts {
-    position: absolute;
-    top: 0;
-    left: 0;
-    max-height: 100%;
-    max-width: 100%;
-    pointer-events: none;
-    animation: showCarts 4s;
-}
-
 .dots {
     position: absolute;
     top: 0;
@@ -163,17 +153,19 @@ body {
     pointer-events: none;
 }
 
-@keyframes showCarts {
-    0% {filter: brightness(3) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(3) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
-    20% {filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
-    40% {filter: brightness(3) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(3) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
-    60% {filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
-    80% {filter: brightness(3) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(3) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
-    100% {filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
+.flashingFlag {
+    animation: flash 200ms 4 linear;
+    -webkit-animation: flash 400ms 4 linear;
 }
 
 @keyframes breathingDots {
     0% {filter: brightness(1) drop-shadow(0px 0px 5px rgba(0,0,255,0)); --webkit-filter: brightness(1) drop-shadow(0px 0px 5px rgba(0,0,255,0));}
     50% {filter: brightness(3) drop-shadow(0px 0px 5px rgba(0,0,255,1)); --webkit-filter: brightness(3) drop-shadow(0px 0px 5px rgba(0,0,255,1));}
     100% {filter: brightness(1) drop-shadow(0px 0px 5px rgba(0,0,255,0)); --webkit-filter: brightness(1) drop-shadow(0px 0px 5px rgba(0,0,255,0));}
+}
+
+@keyframes flash {
+    0% {filter: brightness(1); --webkit-filter: brightness(1);}
+    50% {filter: brightness(3); --webkit-filter: brightness(3);}
+    100% {filter: brightness(1); --webkit-filter: brightness(1);}
 }

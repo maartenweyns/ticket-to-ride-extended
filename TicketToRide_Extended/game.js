@@ -15,9 +15,12 @@ const game = function (gameID) {
     this.player7 = null;
 
     this.openCards = {};
+
     this.euRoutes = new Map();
     this.euDesti = new Map();
     this.euStack = [];
+
+    this.usRoutes = new Map();
 
     this.currentRound = 8;
     this.thingsDone = 0;
@@ -25,6 +28,7 @@ const game = function (gameID) {
 
     this.setupEuDestinations();
     this.setupEuRoutes();
+    this.setupUsRoutes();
 
     this.claimedEuRoutes = [];
 
@@ -209,6 +213,78 @@ game.prototype.setupEuRoutes = function () {
     this.euRoutes.set("angora-erzurum-1", new route("angora", "erzurum", 1, "black", 3, 0));
 };
 
+game.prototype.setupUsRoutes = function () {
+    this.usRoutes.set("atlanta-neworleans-2", new route("atlanta", "neworleans", 2, "brown", 4, 0));
+    this.usRoutes.set("atlanta-neworleans-1", new route("atlanta", "neworleans", 1, "yellow", 4, 0));
+    this.usRoutes.set("miami-neworleans-1", new route("miami", "neworleans", 1, "red", 6, 0));
+    this.usRoutes.set("charleston-miami-1", new route("charleston", "miami", 1, "pink", 4, 0));
+    this.usRoutes.set("atlanta-charleston-1", new route("atlanta", "charleston", 1, "any", 2, 0));
+    this.usRoutes.set("charleston-raleigh-1", new route("charleston", "raleigh", 1, "any", 2, 0));
+    this.usRoutes.set("atlanta-miami-1", new route("atlanta", "miami", 1, "blue", 5, 0));
+    this.usRoutes.set("atlanta-raleigh-2", new route("atlanta", "raleigh", 2, "any", 2, 0));
+    this.usRoutes.set("atlanta-raleigh-1", new route("atlanta", "raleigh", 1, "any", 2, 0));
+    this.usRoutes.set("atlanta-nashville-1", new route("atlanta", "nashville", 1, "any", 1, 0));
+    this.usRoutes.set("littlerock-neworleans-1", new route("littlerock", "neworleans", 1, "green", 3, 0));
+    this.usRoutes.set("houston-neworleans-1", new route("houston", "neworleans", 1, "any", 2, 0));
+    this.usRoutes.set("elpaso-houston-1", new route("elpaso", "houston", 1, "green", 6,0));
+    this.usRoutes.set("dallas-houston-2", new route("dallas", "houston", 2, "any", 1, 0));
+    this.usRoutes.set("dallas-houston-1", new route("dallas", "houston", 1, "any", 1, 0));
+    this.usRoutes.set("littlerock-nashville-1", new route("littlerock", "nashville", 1, "white", 3, 0));
+    this.usRoutes.set("littlerock-saintlouis-1", new route("littlerock", "saintlouis", 1, "any", 2, 0));
+    this.usRoutes.set("dallas-oklahomacity-1", new route("dallas","oklahomacity",1,"any",2,0));
+    this.usRoutes.set("dallas-oklahomacity-2", new route("dallas","oklahomacity",2,"any",2,0));
+    this.usRoutes.set("dallas-littlerock-1", new route("dallas","littlerock",1,"any",2,0));
+    this.usRoutes.set("littlerock-oklahomacity-1", new route("littlerock","oklahomacity",1,"any",2,0));
+    this.usRoutes.set("kansascity-oklahomacity-1", new route("kansascity", "oklahomacity", 1,"any",2,0));
+    this.usRoutes.set("kansascity-oklahomacity-2", new route("kansascity","oklahomacity",2,"any",2,0));
+    this.usRoutes.set("elpaso-oklahomacity-1", new route("elpaso","oklahomacity",1,"yellow",5,0));
+    this.usRoutes.set("dallas-elpaso-1", new route("dallas","elpaso",1,"red",4,0));
+    this.usRoutes.set("elpaso-phoenix-1", new route("elpaso","phoenix",1,"any",3,0));
+    this.usRoutes.set("elpaso-losangeles-1", new route("elpaso","losangeles",1,"black",6,0));
+    this.usRoutes.set("elpaso-santafe-1", new route("elpaso","santafe",1,"any",2,0));
+    this.usRoutes.set("denver-oklahomacity-1", new route("denver","oklahomacity",1,"red",4,0));
+    this.usRoutes.set("oklahomacity-santafe-1", new route("oklahomacity","santafe",1,"blue",3,0));
+    this.usRoutes.set("denver-santafe-1", new route("denver","santafe",1,"any",2,0));
+    this.usRoutes.set("phoenix-santafe-1", new route("phoenix","santafe",1,"any",3,0));
+    this.usRoutes.set("phoenix-losangeles-1", new route("phoenix","losangeles",1,"any",3,0));
+    this.usRoutes.set("losangeles-sanfrancisco-1", new route("losangeles","sanfrancisco",1,"yellow",3,0));
+    this.usRoutes.set("losangeles-sanfrancisco-2", new route("losangeles","sanfrancisco",2,"purple",3,0));
+    this.usRoutes.set("denver-phoenix-1", new route("denver","phoenix",1,"white",5,0));
+    this.usRoutes.set("lasvegas-saltlakecity-1", new route("lasvegas","saltlakecity",1,"brown",3,0));
+    this.usRoutes.set("lasvegas-losangeles-1", new route("lasvegas","losangeles",1,"any",2,0));
+    this.usRoutes.set("nashville-raleigh-1", new route("nashville","raleigh",1,"black",3,0));
+    this.usRoutes.set("nashville-saintlouis-1", new route("nashville","saintlouis",1,"any",2,0));
+    this.usRoutes.set("raleigh-washington-1", new route("raleigh","washington",1,"any",2,0));
+    this.usRoutes.set("raleigh-washington-2", new route("raleigh","washington",2,"any",2,0));
+    this.usRoutes.set("nashville-pittsburgh-1", new route("nashville","pittsburgh",1,"yellow",4,0));
+    this.usRoutes.set("denver-kansascity-2", new route("denver","kansascity",2,"brown",4,0));
+    this.usRoutes.set("saltlakecity-sanfrancisco-2", new route("saltlakecity","sanfrancisco",2,"white",5,0));
+    this.usRoutes.set("denver-kansascity-1", new route("denver","kansascity",1,"black",4,0));
+    this.usRoutes.set("kansascity-saintlouis-2", new route("kansascity","saintlouis",2,"purple",2,0));
+    this.usRoutes.set("kansascity-omaha-1", new route("kansascity","omaha",1,"any",1,0));
+    this.usRoutes.set("kansascity-omaha-2", new route("kansascity","omaha",2,"any",1,0));
+    this.usRoutes.set("pittsburgh-raleigh-1", new route("pittsburgh","raleigh",1,"any",2,0));
+    this.usRoutes.set("kansascity-saintlouis-1", new route("kansascity","saintlouis",1,"blue",2,0));
+    this.usRoutes.set("chicago-saintlouis-1", new route("chicago","saintlouis",1,"green",2,0));
+    this.usRoutes.set("chicago-saintlouis-2", new route("chicago","saintlouis",2,"white",2,0));
+    this.usRoutes.set("pittsburgh-saintlouis-1", new route("pittsburgh","saintlouis",1,"green",5,0));
+    this.usRoutes.set("pittsburgh-washington-1", new route("pittsburgh","washington",1,"any",2,0));
+    this.usRoutes.set("newyork-washington-1", new route("newyork","washington",1,"brown",2,0));
+    this.usRoutes.set("newyork-washington-2", new route("newyork","washington",2,"black",2,0));
+    this.usRoutes.set("portland-sanfrancisco-2", new route("portland","sanfrancisco",2,"purple",5,0));
+    this.usRoutes.set("denver-saltlakecity-2", new route("denver","saltlakecity",2,"yellow",3,0));
+    this.usRoutes.set("saltlakecity-sanfrancisco-1", new route("saltlakecity","sanfrancisco",1,"brown",5,0));
+    this.usRoutes.set("denver-saltlakecity-1", new route("denver","saltlakecity",1,"red",3,0));
+    this.usRoutes.set("denver-omaha-1", new route("denver","omaha",1,"purple",4,0));
+    this.usRoutes.set("chicago-omaha-1", new route("chicago","omaha",1,"blue",4,0));
+    this.usRoutes.set("chicago-pittsburgh-2", new route("chicago","pittsburgh",2,"black",3,0));
+    this.usRoutes.set("newyork-pittsburgh-2", new route("newyork","pittsburgh",2,"green",2,0));
+    this.usRoutes.set("newyork-pittsburgh-1", new route("newyork","pittsburgh",1,"white",2,0));
+    this.usRoutes.set("chicago-pittsburgh-1", new route("chicago","pittsburgh",1,"brown",3,0));
+    this.usRoutes.set("chicago-toronto-1", new route("chicago","toronto",1,"white",4,0));
+    this.usRoutes.set("chicago-duluth-1", new route("chicago","duluth",1,"red",3,0));
+}
+
 game.prototype.setupEuDestinations = function () {
     this.euDesti.set("amsterdam-pamplona", new destination("eu", "amsterdam", "pamplona", 7));
     this.euDesti.set("amsterdam-wilno", new destination("eu", "amsterdam", "wilno", 12));
@@ -260,16 +336,19 @@ game.prototype.setupEuDestinations = function () {
     this.euStack = shuffleArray(Array.from(this.euDesti));
 }
 
-game.prototype.getRouteRequirements = function (routeID) {
-    let route = this.euRoutes.get(routeID);
+game.prototype.getRouteRequirements = function (routeID, continent) {
+    let routeMap = continent + "Routes";
+    console.log("Getting route from " + routeMap);
+    let route = this[routeMap].get(routeID);
     if (route !== undefined) {
         return {color: route.color, length: route.length, locos: route.locoReq};
     }
     return undefined;
 };
 
-game.prototype.checkEligibility = function (pid, color, routeID) {
-    let routeRequirements = this.getRouteRequirements(routeID);
+game.prototype.checkEligibility = function (pid, color, routeID, continent) {
+    console.log("Checking if the user can claim " + routeID + " in " + continent);
+    let routeRequirements = this.getRouteRequirements(routeID, continent);
     let points;
 
     if (this.claimedEuRoutes.includes(routeID)) {

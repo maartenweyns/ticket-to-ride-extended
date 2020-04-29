@@ -2,15 +2,16 @@ var socket;
 var playerID;
 var currentMove;
 
-var music = new Audio("sounds/america.mp3");
-var startsound = new Audio("sounds/startGame.mp3");
-var buzz = new Audio("sounds/buzz4.mp3");
-var cardDeal = new Audio("sounds/card_dealt3.mp3");
-var cardShuffle = new Audio("sounds/card_shuffling3.mp3");
-var cashRegister = new Audio("sounds/cash_register3.mp3");
-var ticketCompleted = new Audio("sounds/ticketCompletedVictory.mp3");
-var trainHorn = new Audio("sounds/train_horn2.mp3");
-var allAudio = [music, startsound, buzz, cardDeal, cardShuffle, cashRegister, ticketCompleted, trainHorn];
+var music = new Audio("../sounds/america.mp3");
+var startsound = new Audio("../sounds/startGame.mp3");
+var buzz = new Audio("../sounds/IG_F_Cant.mp3");
+var cardDeal = new Audio("../sounds/card_dealt3.mp3");
+var cardShuffle = new Audio("../sounds/card_shuffling3.mp3");
+var cashRegister = new Audio("../sounds/cash_register3.mp3");
+var ticketCompleted = new Audio("../sounds/ticketCompletedVictory.mp3");
+var trainHorn = new Audio("../sounds/train_horn2.mp3");
+var differentContinent = new Audio("../sounds/differentContinent.mp3")
+var allAudio = [music, startsound, buzz, cardDeal, cardShuffle, cashRegister, ticketCompleted, trainHorn, differentContinent];
 
 var audioUnlocked = false;
 
@@ -21,7 +22,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 }
 
 (function setup() {
-    document.getElementById("defaultOpen").click();
+    document.getElementById("eutab").click();
 
     document.getElementById("ownCardContainer").classList.add("disabled");
     document.getElementById("generalCards").classList.add("disabled");
@@ -80,18 +81,38 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 
         if (incomingMsg.type === Messages.T_ROUTE_CLAIM) {
             if (incomingMsg.data.status === true) {
-                let imageLocation = document.getElementById("Europe");
-                let linkToTrainsToAdd = "images/trainsOnMap/eu/" + incomingMsg.data.pcol + "/" + incomingMsg.data.route + ".png";
+                let imageLocation = document.getElementById(incomingMsg.data.continent);
+                let linkToTrainsToAdd = "images/trainsOnMap/" + incomingMsg.data.continent + "/" + incomingMsg.data.route + ".png";
 
                 let carts = document.createElement('img');
                 carts.src = linkToTrainsToAdd;
                 carts.classList.add("carts");
+                carts.classList.add(incomingMsg.data.pcol + "Wagons");
+                carts.classList.add("cartsBlinking");
+                setTimeout(function() {
+                    carts.classList.remove("cartsBlinking");
+                }, 4000);
                 imageLocation.append(carts);
 
-                cashRegister.play();
+                if (document.getElementById(incomingMsg.data.continent).style.display === "block") {
+                    cashRegister.play();
+                } else {
+                    differentContinent.play();
+                    let tab = document.getElementById(incomingMsg.data.continent + "tab");
+                    tab.classList.add("flashingFlag");
+                    setTimeout(function () {
+                        tab.classList.remove("flashingFlag");
+                    }, 1600)
+                }
             } else {
                 if (incomingMsg.data.pid === playerID) {
                     buzz.play();
+
+                    let card = document.getElementsByClassName("activatedCard")[0];
+                    card.classList.add("cantCard");
+                    setTimeout(function () {
+                        card.classList.remove("cantCard");
+                    }, 400);
                 }
             }
         }
@@ -242,7 +263,14 @@ function claimEuRoute(routeID) {
 }
 
 function claimUsRoute(routeID) {
-    alert(routeID);
+    if (document.getElementsByClassName("activatedCard")[0] !== undefined) {
+        let color = document.getElementsByClassName("activatedCard")[0].id;
+        let msg = Messages.O_ROUTE_CLAIM;
+        msg.data = {pid: playerID, color: color, route: routeID, continent: "us"};
+        socket.send(JSON.stringify(msg));
+    } else {
+        alert("Select cards from your collection first!");
+    }
 }
 
 function markCurrentPlayer(pid) {
