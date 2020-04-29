@@ -77,7 +77,6 @@ function addCardToCollection(color, amount) {
 
     let cardsAlreadyOwned = ownCardContainer.children;
     for (let i = 0; i < cardsAlreadyOwned.length; i++) {
-        console.log(cardsAlreadyOwned[i].id);
         if (cardsAlreadyOwned[i].id === color) {
             let number = parseInt(cardsAlreadyOwned[i].children[1].innerHTML) + amount;
             cardsAlreadyOwned[i].children[1].innerHTML = number + "";

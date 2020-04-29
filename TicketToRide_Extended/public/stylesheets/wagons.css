@@ -1,0 +1,56 @@
+.yellowWagons {
+    filter: hue-rotate(180deg);
+    -webkit-filter: hue-rotate(180deg);
+}
+
+.redWagons {
+    filter: hue-rotate(140deg);
+    -webkit-filter: hue-rotate(140deg);
+}
+
+.greyWagons {
+    filter: saturate(0);
+    -webkit-filter: saturate(0);
+}
+
+.lightblueWagons {
+    filter: hue-rotate(-35deg);
+    -webkit-filter: hue-rotate(-35deg);
+}
+
+.brightyellowWagons {
+    filter: hue-rotate(-168deg) saturate(2) brightness(4);
+    -webkit-filter: hue-rotate(-168deg) saturate(2) brightness(4);
+}
+
+.greenWagons {
+    filter: hue-rotate(-100deg);
+    -webkit-filter: hue-rotate(-100deg);
+}
+
+.purpleWagons {
+    filter: hue-rotate(76deg);
+    -webkit-filter: hue-rotate(76deg);
+}
+
+.carts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-height: 100%;
+    max-width: 100%;
+    pointer-events: none;
+}
+
+.cartsBlinking {
+    animation: showCarts 4s linear;
+}
+
+@keyframes showCarts {
+    0% {filter: brightness(100) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(100) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
+    20% {filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
+    40% {filter: brightness(100) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(100) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
+    60% {filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
+    80% {filter: brightness(100) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(100) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
+    100% {filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
+}

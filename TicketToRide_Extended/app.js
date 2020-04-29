@@ -83,7 +83,7 @@ wss.on("connection", function connection(ws) {
             let color4 = game.getRandomColor();
 
             let msg3 = messages.O_INITIAL_CARDS;
-            msg3.data = {desti: {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getEuDestination()}}
+            msg3.data = {desti: {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getUsDestination(), 3: game.getUsDestination()}}
             game["player" + pid].sendMessage(msg3);
             game["player" + pid][color1]++;
             game["player" + pid][color2]++;
@@ -173,27 +173,28 @@ wss.on("connection", function connection(ws) {
 
         if (oMsg.type === messages.T_ROUTE_CLAIM) {
             let pid = oMsg.data.pid;
-            console.log("A user requested a route: " + oMsg.data.route);
-            let ret = game.checkEligibility(oMsg.data.pid, oMsg.data.color, oMsg.data.route);
+            console.log("A user requested a route: " + oMsg.data.continent + "-" + oMsg.data.route);
+            let ret = game.checkEligibility(oMsg.data.pid, oMsg.data.color, oMsg.data.route, oMsg.data.continent);
             let msg = messages.O_ROUTE_CLAIM;
 
             if (ret.status) {
                 msg.data = {status: true, pid: oMsg.data.pid, route: oMsg.data.route, pcol: game["player" + oMsg.data.pid].color,
-                color: ret.color, amount: ret.amount, locos: ret.locos};
+                color: ret.color, continent: oMsg.data.continent};
                 game.sendToAll(msg);
                 game["player" + oMsg.data.pid][oMsg.data.color] -= ret.amount;
                 game["player" + oMsg.data.pid].loco -= ret.locos;
-                game["player" + oMsg.data.pid].numberOfTrains -= game.getRouteRequirements(oMsg.data.route).length;
-                game["player" + oMsg.data.pid].numberOfTrainCards -= game.getRouteRequirements(oMsg.data.route).length;
+                game["player" + oMsg.data.pid].numberOfTrains -= game.getRouteRequirements(oMsg.data.route, oMsg.data.continent).length;
+                game["player" + oMsg.data.pid].numberOfTrainCards -= game.getRouteRequirements(oMsg.data.route, oMsg.data.continent).length;
                 let msgPlayers = messages.O_PLAYER_OVERVIEW;
                 msgPlayers.data = game.getUserProperties();
                 game.sendToAll(msgPlayers);
-
-                game.userClaimedRoute(oMsg.data.pid, game.euRoutes.get(oMsg.data.route));
+                
+                let routeMap = oMsg.data.continent + "Routes";
+                game.userClaimedRoute(oMsg.data.pid, game[routeMap].get(oMsg.data.route));
 
                 game.sendPersonalCardsToUser(pid);
 
-                game.nextPlayerRound();
+                game.playerPutRoute();
 
                 let msg2 = messages.O_PLAYER_ROUND;
                 msg2.data = {pid: game.currentRound, thing: game.thingsDone};
@@ -206,7 +207,12 @@ wss.on("connection", function connection(ws) {
 
         if (oMsg.type === messages.T_PLAYER_TOOK_DESTINATION) {
             let msg = messages.O_PLAYER_TOOK_DESTINATION;
-            msg.data = {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getEuDestination()};
+            let random = Math.random();
+            if (random < 0.5) {
+                msg.data = {0: game.getEuDestination(), 1: game.getUsDestination(), 2: game.getUsDestination()};
+            } else {
+                msg.data = {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getUsDestination()};
+            }
             game["player" + oMsg.data].sendMessage(msg);
 
             let msgMove = messages.O_PLAYER_CLOSED_MOVE;
@@ -216,8 +222,12 @@ wss.on("connection", function connection(ws) {
 
         if (oMsg.type === messages.T_ACCEPTED_DESTI) {
             let pid = oMsg.data.pid;
-            let routeID = oMsg.data.rid;
-            game["player" + pid].destinations.push(game.euDesti.get(routeID));
+            let routeID = oMsg.data.rid.split("-");
+            continent = routeID[0];
+            destinationMap = continent + "Desti";
+            
+
+            game["player" + pid].destinations.push(game[destinationMap].get(routeID[1] + "-" + routeID[2]));
             game["player" + pid].numberOfRoutes++;
 
             if (game.gameState === "choosing-tickets") {
@@ -242,11 +252,13 @@ wss.on("connection", function connection(ws) {
         }
 
         if (oMsg.type === messages.T_REJECTED_DESTI) {
-            let destID = oMsg.data;
-            game.euStack.push([destID, game.euDesti.get(destID)]);
+            let routeID = oMsg.data.split("-");
+            continent = routeID[0];
+            destinationMap = continent + "Desti";
+            game.euStack.push([routeID[1] + "-" + routeID[2], game[destinationMap].get(routeID[1] + "-" + routeID[2])]);
             game.shuffleDestis();
 
-            console.log("A player rejected " + destID + " and the deck has been shuffled");
+            console.log("A player rejected a route and the deck has been shuffled");
         }
 
         if (oMsg.type === messages.T_PLAYER_FINISHED) {
