@@ -1,6 +1,8 @@
 var socket;
 var playerID;
 
+const swup = new Swup();
+
 if (document.location.protocol === "https:" || document.location.protocol === "https:") {
     socket = new WebSocket("wss://" + location.host);
 } else {

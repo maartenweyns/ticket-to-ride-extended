@@ -24,7 +24,7 @@ const game = function (gameID) {
     this.usDesti = new Map();
     this.usStack = [];
 
-    this.currentRound = 8;
+    this.currentRound = null;
     this.thingsDone = 0;
     this.routesLayed = 0;
     this.amountOfPlayers = 0;
@@ -620,6 +620,19 @@ game.prototype.allPlayersReady = function () {
         console.log("Yes!");
     }
     return true;
+}
+
+game.prototype.sendPlayerRound = function () {
+    let message = messages.O_PLAYER_ROUND;
+    for (let i = 0; i < this.amountOfPlayers; i++) {
+        if (this["player" + i].numberOfTrains <= 2) {
+            message.data = {pid: this.currentRound, thing: this.thingsDone, lastRound: true};
+            this.sendToAll(message);
+            return;
+        }
+    }
+    message.data = {pid: this.currentRound, thing: this.thingsDone, lastRound: false};
+    this.sendToAll(message);
 }
 
 function checkContinuity(player, stationA, stationB) {
