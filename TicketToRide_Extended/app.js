@@ -1,5 +1,4 @@
 var indexRouter = require('./routes/index');
-
 var express = require('express');
 var websocket = require("ws");
 var messages = require("./public/javascripts/messages");
@@ -12,6 +11,11 @@ var Game = require("./game");
 
 var port = process.argv[2];
 var app = express();
+
+const ShortUniqueId = require('short-unique-id').default;
+
+// instantiate uid
+const uid = new ShortUniqueId();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,20 +32,18 @@ var server = http.createServer(app);
 const wss = new websocket.Server({server});
 
 var connectionID = 0;
-var websockets = {};
+var websockets = [];
 var playerColors = ["yellow", "lightblue", "grey", "purple", "red", "green", "brightyellow", "blue"];
 
-var game = new Game();
+var game = new Game(uid.randomUUID(6));
+game.setOpenCards();
 
 wss.on("connection", function connection(ws) {
-    if (connectionID === 0) {
-        game.setOpenCards();
-    }
     let con = ws;
     con.id = connectionID++;
     websockets[con.id] = ws;
 
-    console.log("A player has joined the game");
+    console.log("A player has joined the game.");
 
     // Send the player number to the player.
     let msg1 = messages.O_PLAYER_NAME;
@@ -55,7 +57,6 @@ wss.on("connection", function connection(ws) {
 
     con.on("message", function incoming(message) {
         let oMsg = JSON.parse(message);
-        console.log("message from " + con.id + ": " + oMsg.data);
 
         if (oMsg.type === messages.T_PLAYER_NAME) {
             let pid = oMsg.data.pID;
