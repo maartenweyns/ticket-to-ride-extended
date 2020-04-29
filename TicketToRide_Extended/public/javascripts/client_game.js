@@ -144,7 +144,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 
         if (incomingMsg.type === Messages.T_PLAYER_TOOK_DESTINATION) {
             cardDeal.play();
-            receivedDestinations(incomingMsg.data, 1);
+            receivedDestinations(incomingMsg.data, 3, false);
         }
 
         if (incomingMsg.type === Messages.T_PLAYER_CLOSED_MOVE) {
@@ -174,7 +174,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 
         if (incomingMsg.type === Messages.T_INITIAL_CARDS) {
             let destinations = incomingMsg.data.desti;
-            receivedDestinations(destinations, 1);
+            receivedDestinations(destinations, 4, true);
         }
 
         if (incomingMsg.type === Messages.T_PERSONAL_TRAINS) {

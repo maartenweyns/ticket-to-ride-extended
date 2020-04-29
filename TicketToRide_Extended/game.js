@@ -21,6 +21,8 @@ const game = function (gameID) {
     this.euStack = [];
 
     this.usRoutes = new Map();
+    this.usDesti = new Map();
+    this.usStack = [];
 
     this.currentRound = 8;
     this.thingsDone = 0;
@@ -29,8 +31,9 @@ const game = function (gameID) {
     this.setupEuDestinations();
     this.setupEuRoutes();
     this.setupUsRoutes();
+    this.setupUsDestinations();
 
-    this.claimedEuRoutes = [];
+    this.claimedRoutes = [];
 
     this.gameState = "lobby";
 };
@@ -367,6 +370,41 @@ game.prototype.setupEuDestinations = function () {
     this.euStack = shuffleArray(Array.from(this.euDesti));
 }
 
+game.prototype.setupUsDestinations = function () {
+    this.usDesti.set("boston-miami", new destination("us","boston","miami",12));
+    this.usDesti.set("calgary-phoenix", new destination("us","calgary","phoenix",13));
+    this.usDesti.set("calgary-saltlakecity", new destination("us","calgary","saltlakecity",7));
+    this.usDesti.set("chicago-neworleans", new destination("us","chicago","neworleans",7));
+    this.usDesti.set("chicago-santafe", new destination("us","chicago","santafe",9));
+    this.usDesti.set("dallas-newyork", new destination("us","dallas","newyork",11));
+    this.usDesti.set("denver-elpaso", new destination("us","denver","elpaso",4));
+    this.usDesti.set("denver-pittsburgh", new destination("us","denver","pittsburgh",11));
+    this.usDesti.set("duluth-elpaso", new destination("us","duluth","elpaso",10));
+    this.usDesti.set("duluth-houston", new destination("us","duluth","houston",8));
+    this.usDesti.set("helena-losangeles", new destination("us","helena","losangeles",8));
+    this.usDesti.set("kansascity-houston", new destination("us","kansascity","houston",5));
+    this.usDesti.set("losangeles-chicago", new destination("us","losangeles","chicago",16));
+    this.usDesti.set("losangeles-miami", new destination("us","losangeles","miami",20));
+    this.usDesti.set("losangeles-newyork", new destination("us","losangeles","newyork",21));
+    this.usDesti.set("montreal-atlanta", new destination("us","montreal","atlanta",9));
+    this.usDesti.set("montreal-neworleans", new destination("us","montreal", "neworleans",13));
+    this.usDesti.set("newyork-atlanta", new destination("us","newyork","atlanta",6));
+    this.usDesti.set("portland-nashville", new destination("us","portland","nashville",17));
+    this.usDesti.set("portland-phoenix", new destination("us","portland","phoenix",11));
+    this.usDesti.set("sanfrancisco-atlanta", new destination("us","sanfrancisco","atlanta",17));
+    this.usDesti.set("saultstmarie-nashville", new destination("us","saultstmarie","nashville",8));
+    this.usDesti.set("saultstmarie-oklahomacity", new destination("us","saultstmarie","oklahomacity",9));
+    this.usDesti.set("seattle-losangeles", new destination("us","seattle","losangeles",9));
+    this.usDesti.set("seattle-newyork", new destination("us","seattle","newyork",22));
+    this.usDesti.set("toronto-miami", new destination("us","toronto","miami",10));
+    this.usDesti.set("vancouver-montreal", new destination("us","vancouver","montreal",20));
+    this.usDesti.set("vancouver-santafe", new destination("us","vancouver","santafe",13));
+    this.usDesti.set("winnipeg-houston", new destination("us","winnipeg","houston",12));
+    this.usDesti.set("winnipeg-littlerock", new destination("us","winnipeg","littlerock",11));
+
+    this.usStack = shuffleArray(Array.from(this.usDesti));
+}
+
 game.prototype.getRouteRequirements = function (routeID, continent) {
     let routeMap = continent + "Routes";
     console.log("Getting route from " + routeMap);
@@ -382,7 +420,7 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
     let routeRequirements = this.getRouteRequirements(routeID, continent);
     let points;
 
-    if (this.claimedEuRoutes.includes(routeID)) {
+    if (this.claimedRoutes.includes(routeID)) {
         return false;
     }
 
@@ -401,17 +439,17 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
 
     if (this["player" + pid][color] >= routeRequirements.length) {
         if (routeRequirements.color === "any") {
-            this.claimedEuRoutes.push(routeID);
+            this.claimedRoutes.push(routeID);
             this["player" + pid].score += points;
             return {status: true, color: color, amount: routeRequirements.length, locos: 0};
         } else {
             if (color === routeRequirements.color) {
-                this.claimedEuRoutes.push(routeID);
+                this.claimedRoutes.push(routeID);
                 this["player" + pid].score += points;
                 return {status: true, color: color, amount: routeRequirements.length, locos: 0};
             } else {
                 if (color === "loco") {
-                    this.claimedEuRoutes.push(routeID);
+                    this.claimedRoutes.push(routeID);
                     this["player" + pid].score += points;
                     return {status: true, color: color, amount: 0, locos: routeRequirements.length};
                 } else {
@@ -421,7 +459,7 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
         }
     } else if ((this["player" + pid][color] + this["player" + pid].loco) >= routeRequirements.length) {
         if (routeRequirements.color === "any") {
-            this.claimedEuRoutes.push(routeID);
+            this.claimedRoutes.push(routeID);
             this["player" + pid].score += points;
             return {
                 status: true,
@@ -431,7 +469,7 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
             };
         } else {
             if (color === routeRequirements.color) {
-                this.claimedEuRoutes.push(routeID);
+                this.claimedRoutes.push(routeID);
                 this["player" + pid].score += points;
                 return {
                     status: true,
@@ -474,6 +512,10 @@ game.prototype.nextPlayerRound = function () {
 
 game.prototype.getEuDestination = function () {
     return this.euStack.pop();
+};
+
+game.prototype.getUsDestination = function () {
+    return this.usStack.pop();
 };
 
 function shuffleArray(array) {

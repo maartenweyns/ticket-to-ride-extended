@@ -83,7 +83,7 @@ wss.on("connection", function connection(ws) {
             let color4 = game.getRandomColor();
 
             let msg3 = messages.O_INITIAL_CARDS;
-            msg3.data = {desti: {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getEuDestination()}}
+            msg3.data = {desti: {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getUsDestination(), 3: game.getUsDestination()}}
             game["player" + pid].sendMessage(msg3);
             game["player" + pid][color1]++;
             game["player" + pid][color2]++;
@@ -207,7 +207,12 @@ wss.on("connection", function connection(ws) {
 
         if (oMsg.type === messages.T_PLAYER_TOOK_DESTINATION) {
             let msg = messages.O_PLAYER_TOOK_DESTINATION;
-            msg.data = {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getEuDestination()};
+            let random = Math.random();
+            if (random < 0.5) {
+                msg.data = {0: game.getEuDestination(), 1: game.getUsDestination(), 2: game.getUsDestination()};
+            } else {
+                msg.data = {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getUsDestination()};
+            }
             game["player" + oMsg.data].sendMessage(msg);
 
             let msgMove = messages.O_PLAYER_CLOSED_MOVE;

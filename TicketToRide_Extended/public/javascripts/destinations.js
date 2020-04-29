@@ -8,13 +8,13 @@ function requestDestination() {
     }
 }
 
-function receivedDestinations(data, minimalAmount) {
+function receivedDestinations(data, amountOfCards, initialRound) {
     let cardsContainer = document.getElementById("ownCardContainer");
     let deckContainer = document.getElementById("destiCardsChoosingPanel");
     cardsContainer.style.display = "none";
     deckContainer.style.display = "flex";
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < amountOfCards; i++) {
         let card = document.createElement('img');
         card.src = "images/routeCards/" + data[i][1].continent + "-" + data[i][0] + ".png";
         card.classList.add("destiDeckCard");
@@ -27,7 +27,7 @@ function receivedDestinations(data, minimalAmount) {
     let confirmButton = document.createElement('button');
     confirmButton.innerHTML = "CHOOSE";
     confirmButton.onclick = function () {
-        confirmDestis(minimalAmount);
+        confirmDestis(initialRound);
     }
     deckContainer.append(confirmButton);
 }
@@ -56,11 +56,35 @@ function toggleActivationDestiCard(cardID) {
     }
 }
 
-function confirmDestis(minimalAmount) {
+function confirmDestis(initialRound) {
+    let minimalAmount = 1;
+
     let destinations = document.getElementById("destiCardsChoosingPanel").children;
     let container = document.getElementsByClassName("destiCards")[0];
 
     let chosenDestinaions = document.getElementsByClassName("activatedDestiCard");
+
+    if (initialRound) {
+        let us = false;
+        let eu = false;
+
+        minimalAmount = 2;
+
+        for (let i = 0; i < chosenDestinaions.length; i++) {
+            if (chosenDestinaions[i].id.includes("us")) {
+                us = true;
+            }
+            if (chosenDestinaions[i].id.includes("eu")) {
+                eu = true;
+            }
+        }
+    
+        if (! (eu && us)) {
+            alert("You must choose two routes, at least one from Europe and one from America!");
+            return;
+        }
+    }
+
     if (!(chosenDestinaions.length >= minimalAmount)) {
         alert("You should pick at least " + minimalAmount + " destination(s)!");
         return;
