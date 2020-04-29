@@ -283,6 +283,37 @@ game.prototype.setupUsRoutes = function () {
     this.usRoutes.set("chicago-pittsburgh-1", new route("chicago","pittsburgh",1,"brown",3,0));
     this.usRoutes.set("chicago-toronto-1", new route("chicago","toronto",1,"white",4,0));
     this.usRoutes.set("chicago-duluth-1", new route("chicago","duluth",1,"red",3,0));
+    this.usRoutes.set("duluth-omaha-1", new route("duluth","omaha",1,"any",2,0));
+    this.usRoutes.set("duluth-omaha-2", new route("duluth","omaha",2,"any",2,0));
+    this.usRoutes.set("helena-omaha-1", new route("helena","omaha",1,"red",5,0));
+    this.usRoutes.set("denver-helena-1", new route("denver","helena",1,"green",4,0));
+    this.usRoutes.set("helena-saltlakecity-1", new route("helena","saltlakecity",1,"purple",3,0));
+    this.usRoutes.set("portland-saltlakecity-1", new route("portland","saltlakecity",1,"blue",6,0));
+    this.usRoutes.set("portland-sanfrancisco-1", new route("portland","sanfrancisco",1,"green",5,0));
+    this.usRoutes.set("pittsburgh-toronto-1", new route("pittsburgh","toronto",1,"any",2,0));
+    this.usRoutes.set("portland-seattle-2", new route("portland","seattle",2,"any",1,0));
+    this.usRoutes.set("portland-seattle-1", new route("portland","seattle",1,"any",1,0));
+    this.usRoutes.set("helena-seattle-1", new route("helena","seattle",1,"yellow",6,0));
+    this.usRoutes.set("duluth-helena-1", new route("duluth","helena",1,"brown",6,0));
+    this.usRoutes.set("duluth-toronto-1", new route("duluth","toronto",1,"purple",6,0));
+    this.usRoutes.set("boston-newyork-2", new route("boston","newyork",2,"red",2,0));
+    this.usRoutes.set("boston-newyork-1", new route("boston","newyork",1,"yellow",2,0));
+    this.usRoutes.set("montreal-newyork-1", new route("montreal","newyork",1,"blue",3,0));
+    this.usRoutes.set("seattle-vancouver-1", new route("seattle","vancouver",1,"any",1,0));
+    this.usRoutes.set("seattle-vancouver-2", new route("seattle","vancouver",2,"any",1,0));
+    this.usRoutes.set("calgary-seattle-1", new route("calgary","seattle",1,"any",4,0));
+    this.usRoutes.set("calgary-helena-1", new route("calgary","helena",1,"any",4,0));
+    this.usRoutes.set("helena-winnipeg-1", new route("helena","winnipeg",1,"blue",4,0));
+    this.usRoutes.set("duluth-winnipeg-1", new route("duluth","winnipeg",1,"black",4,0));
+    this.usRoutes.set("duluth-saultstmarie-1", new route("duluth","saultstmarie",1,"any",3,0));
+    this.usRoutes.set("saultstmarie-toronto-1", new route("saultstmarie","toronto",1,"any",2,0));
+    this.usRoutes.set("boston-montreal-2", new route("boston","montreal",2,"any",2,0));
+    this.usRoutes.set("toronto-montreal-1", new route("toronto","montreal",1,"any",3,0));
+    this.usRoutes.set("boston-montreal-1", new route("boston","montreal",1,"any",2,0));
+    this.usRoutes.set("montreal-saultstmarie-1", new route("montreal","saultstmarie",1,"black",5,0));
+    this.usRoutes.set("saultstmarie-winnipeg-1", new route("saultstmarie","winnipeg",1,"any",6,0));
+    this.usRoutes.set("calgary-winnipeg-1", new route("calgary","winnipeg",1,"white",6,0));
+    this.usRoutes.set("calgary-vancouver-1", new route("calgary","vancouver",1,"any",3,0));
 }
 
 game.prototype.setupEuDestinations = function () {
