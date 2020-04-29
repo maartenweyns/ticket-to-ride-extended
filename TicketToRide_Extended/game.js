@@ -33,6 +33,7 @@ const game = function (gameID) {
     this.setupEuRoutes();
     this.setupUsRoutes();
     this.setupUsDestinations();
+    this.setOpenCards();
 
     this.claimedRoutes = [];
 
@@ -601,7 +602,7 @@ game.prototype.userClaimedRoute = function (playerID, route) {
         if (checkContinuity(this["player" + playerID], desti.stationA, desti.stationB)) {
             this["player" + playerID].completedDestinations.push(desti);
             let msg = messages.O_PLAYER_COMPLETED_ROUTE;
-            msg.data = desti.stationA + "-" + desti.stationB;
+            msg.data = desti.continent + "-" + desti.stationA + "-" + desti.stationB;
             this["player" + playerID].sendMessage(msg);
         } else {
             unfinished.push(desti);

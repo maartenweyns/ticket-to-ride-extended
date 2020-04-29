@@ -12,10 +12,10 @@ var Game = require("./game");
 var port = process.argv[2];
 var app = express();
 
-const ShortUniqueId = require('short-unique-id').default;
+// const ShortUniqueId = require('short-unique-id').default;
 
 // instantiate uid
-const uid = new ShortUniqueId();
+// const uid = new ShortUniqueId();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,8 +35,7 @@ var connectionID = 0;
 var websockets = [];
 var playerColors = ["yellow", "lightblue", "grey", "purple", "red", "green", "brightyellow", "blue"];
 
-var game = new Game(uid.randomUUID(6));
-game.setOpenCards();
+var game = new Game();
 
 wss.on("connection", function connection(ws) {
     let con = ws;

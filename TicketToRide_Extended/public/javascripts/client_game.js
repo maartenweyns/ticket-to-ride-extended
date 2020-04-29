@@ -106,6 +106,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                 }
 
                 if (incomingMsg.data.pid === playerID) {
+                    document.getElementById(incomingMsg.data.continent).classList.add("disabled");
                     document.getElementById("endTurn").style.display = "block";
                 }
             } else {
@@ -269,7 +270,6 @@ function claimEuRoute(routeID) {
     } else {
         alert("Select cards from your collection first!");
     }
-    document.getElementById("eu").classList.add("disabled");
 }
 
 function claimUsRoute(routeID) {
@@ -281,7 +281,6 @@ function claimUsRoute(routeID) {
     } else {
         alert("Select cards from your collection first!");
     }
-    document.getElementById("us").classList.add("disabled");
 }
 
 function markCurrentPlayer(pid) {
