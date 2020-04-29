@@ -104,6 +104,10 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
                         tab.classList.remove("flashingFlag");
                     }, 1600)
                 }
+
+                if (incomingMsg.data.pid === playerID) {
+                    document.getElementById("endTurn").style.display = "block";
+                }
             } else {
                 if (incomingMsg.data.pid === playerID) {
                     buzz.play();
@@ -262,7 +266,6 @@ function claimEuRoute(routeID) {
         alert("Select cards from your collection first!");
     }
     document.getElementById("eu").classList.add("disabled");
-    document.getElementById("endTurn").style.display = "block";
 }
 
 function claimUsRoute(routeID) {
@@ -275,7 +278,6 @@ function claimUsRoute(routeID) {
         alert("Select cards from your collection first!");
     }
     document.getElementById("us").classList.add("disabled");
-    document.getElementById("endTurn").style.display = "block";
 }
 
 function markCurrentPlayer(pid) {
