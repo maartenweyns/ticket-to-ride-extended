@@ -194,7 +194,7 @@ wss.on("connection", function connection(ws) {
 
                 game.sendPersonalCardsToUser(pid);
 
-                game.nextPlayerRound();
+                game.playerPutRoute();
 
                 let msg2 = messages.O_PLAYER_ROUND;
                 msg2.data = {pid: game.currentRound, thing: game.thingsDone};

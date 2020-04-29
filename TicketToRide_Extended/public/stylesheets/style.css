@@ -158,6 +158,13 @@ body {
     -webkit-animation: flash 400ms 4 linear;
 }
 
+.endTurn {
+    margin-top: 20px;
+    height: 50px;
+    background-color: green;
+    display: none;
+}
+
 @keyframes breathingDots {
     0% {filter: brightness(1) drop-shadow(0px 0px 5px rgba(0,0,255,0)); --webkit-filter: brightness(1) drop-shadow(0px 0px 5px rgba(0,0,255,0));}
     50% {filter: brightness(3) drop-shadow(0px 0px 5px rgba(0,0,255,1)); --webkit-filter: brightness(3) drop-shadow(0px 0px 5px rgba(0,0,255,1));}

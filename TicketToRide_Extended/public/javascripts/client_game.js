@@ -124,6 +124,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 
             if (currentMove === 0) {
                 enableLocomotive();
+                document.getElementById("endTurn").style.display = "none";
             }
 
             if (incomingMsg.data.pid !== playerID) {
@@ -260,6 +261,8 @@ function claimEuRoute(routeID) {
     } else {
         alert("Select cards from your collection first!");
     }
+    document.getElementById("eu").classList.add("disabled");
+    document.getElementById("endTurn").style.display = "block";
 }
 
 function claimUsRoute(routeID) {
@@ -271,6 +274,8 @@ function claimUsRoute(routeID) {
     } else {
         alert("Select cards from your collection first!");
     }
+    document.getElementById("us").classList.add("disabled");
+    document.getElementById("endTurn").style.display = "block";
 }
 
 function markCurrentPlayer(pid) {
@@ -296,4 +301,11 @@ function unlockaudio() {
     }).catch(function(){
         alert("Audio could not be unlocked. Maybe try again? :)");
     })
+}
+
+function endTurn() {
+    if (confirm("Do you want to end your turn?")) {
+        let msg = Messages.O_PLAYER_FINISHED;
+        socket.send(JSON.stringify(msg));
+    }
 }

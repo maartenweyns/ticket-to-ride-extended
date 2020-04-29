@@ -26,6 +26,7 @@ const game = function (gameID) {
 
     this.currentRound = 8;
     this.thingsDone = 0;
+    this.routesLayed = 0;
     this.amountOfPlayers = 0;
 
     this.setupEuDestinations();
@@ -493,8 +494,17 @@ game.prototype.playerDidSomething = function () {
     }
 };
 
+game.prototype.playerPutRoute = function () {
+    this.thingsDone++;
+    this.routesLayed++;
+    if (this.routesLayed > 1) {
+        this.nextPlayerRound();
+    }
+}
+
 game.prototype.nextPlayerRound = function () {
     this.thingsDone = 0;
+    this.routesLayed = 0;
     let nextPlayer = this.currentRound + 1;
     if (this["player" + nextPlayer] !== null) {
         console.log("the next player does exist");
