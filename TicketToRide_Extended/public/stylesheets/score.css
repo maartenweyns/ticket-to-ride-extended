@@ -32,4 +32,17 @@ body {
     font-family: 'Permanent Marker', cursive;
     color: white;
     font-size: 50px;
+    margin: 0;
+}
+
+.smallInfo {
+    font-family: 'Arapey', serif;
+    color: white;
+    font-size: 20px;
+    margin: 0;
+}
+
+.infodiv {
+    display: flex;
+    flex-direction: column;
 }

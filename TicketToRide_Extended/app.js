@@ -104,8 +104,14 @@ wss.on("connection", function connection(ws) {
             let color4 = game.getRandomColor();
 
             let msg3 = messages.O_INITIAL_CARDS;
-            msg3.data = {desti: {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getUsDestination(), 3: game.getUsDestination()}}
+            let longdesti = game.longStack.pop();
+            if (longdesti[1].continent === "eu") {
+                msg3.data = {desti: {0: longdesti, 1: game.getEuDestination(), 2: game.getUsDestination(), 3: game.getUsDestination()}}
+            } else {
+                msg3.data = {desti: {0: game.getEuDestination(), 1: game.getEuDestination(), 2: longdesti, 3: game.getUsDestination()}}
+            }
             game["player" + pid].sendMessage(msg3);
+
             game["player" + pid][color1]++;
             game["player" + pid][color2]++;
             game["player" + pid][color3]++;
@@ -239,9 +245,13 @@ wss.on("connection", function connection(ws) {
             let routeID = oMsg.data.rid.split("-");
             continent = routeID[0];
             destinationMap = continent + "Desti";
-            
 
-            game["player" + pid].destinations.push(game[destinationMap].get(routeID[1] + "-" + routeID[2]));
+            if (game[destinationMap].get(routeID[1] + "-" + routeID[2]) !== undefined) {
+                game["player" + pid].destinations.push(game[destinationMap].get(routeID[1] + "-" + routeID[2]));
+            } else {
+                game["player" + pid].destinations.push(game["long" + destinationMap].get(routeID[1] + "-" + routeID[2]));
+            }
+            
             game["player" + pid].numberOfRoutes++;
 
             game.checkContinuity(pid);
@@ -254,6 +264,8 @@ wss.on("connection", function connection(ws) {
                     game.currentRound = Math.ceil(Math.random() * game.amountOfPlayers) - 1;
     
                     game.sendPlayerRound();
+
+                    game.mergeAllDestinations();
 
                     console.log("The game has now started!");
                     game.gameState = "ongoing";
@@ -269,10 +281,15 @@ wss.on("connection", function connection(ws) {
             let routeID = oMsg.data.split("-");
             continent = routeID[0];
             destinationMap = continent + "Desti";
-            game.euStack.push([routeID[1] + "-" + routeID[2], game[destinationMap].get(routeID[1] + "-" + routeID[2])]);
-            game.shuffleDestis();
-
-            console.log("A player rejected a route and the deck has been shuffled");
+            if (game[destinationMap].get(routeID[1] + "-" + routeID[2]) === undefined) {
+                console.log("A player rejected a long route");
+                game[continent + "Stack"].push([routeID[1] + "-" + routeID[2], game["long" + destinationMap].get(routeID[1] + "-" + routeID[2])]);
+                game.shuffleDestis();
+            } else {
+                console.log("A player rejected a short route");
+                game[continent + "Stack"].push([routeID[1] + "-" + routeID[2], game[destinationMap].get(routeID[1] + "-" + routeID[2])]);
+                game.shuffleDestis();
+            }
         }
 
         if (oMsg.type === messages.T_PLAYER_FINISHED) {

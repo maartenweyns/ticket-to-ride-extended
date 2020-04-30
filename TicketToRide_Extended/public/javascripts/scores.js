@@ -42,11 +42,21 @@ function createPlayers(data) {
         playername.innerText = player.name;
         playername.classList.add("text");
 
+        let infodiv = document.createElement('div');
+        let completedRoutes = document.createElement('p');
+        let uncompletedRoutes = document.createElement('p');
+        completedRoutes.innerText = "Routes completed: " + player.numberOfCompletedRoutes;
+        uncompletedRoutes.innerText = "Routes not completed: " + (player.numberOfRoutes - player.numberOfCompletedRoutes);
+        infodiv.classList.add('infodiv');
+        completedRoutes.classList.add('smallInfo');
+        uncompletedRoutes.classList.add('smallInfo');
+        infodiv.append(completedRoutes, uncompletedRoutes);
+
         let score = document.createElement('p');
         score.innerText = "Score: " + player.score;
         score.classList.add("text");
 
-        div.append(playername, score);
+        div.append(playername, infodiv, score);
     }
 
 }
