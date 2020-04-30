@@ -212,7 +212,7 @@ game.prototype.setupEuRoutes = function () {
     this.euRoutes.set("kharkov-rostov-1", new route("kharkov", "rostov", 1, "green", 2, 0));
     this.euRoutes.set("rostov-sevastopol-1", new route("rostov", "sevastopol", 1, "any", 4, 0));
     this.euRoutes.set("rostov-sochi-1", new route("rostov", "sochi", 1, "any", 2, 0));
-    this.euRoutes.set("sevastopol-sochi-1", new route("sevastopol", "sochi", "any", 2, 1));
+    this.euRoutes.set("sevastopol-sochi-1", new route("sevastopol", "sochi", 1, "any", 2, 1));
     this.euRoutes.set("erzurum-sevastopol-1", new route("erzurum", "sevastopol", 1, "any", 4, 2));
     this.euRoutes.set("erzurum-sochi-1", new route("erzurum", "sochi", 1, "red", 3, 0));
     this.euRoutes.set("angora-erzurum-1", new route("angora", "erzurum", 1, "black", 3, 0));
@@ -422,7 +422,15 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
     let routeRequirements = this.getRouteRequirements(routeID, continent);
     let points;
 
+    if (routeRequirements === undefined) {
+        return false;
+    }
+
     if (this.claimedRoutes.includes(routeID)) {
+        return false;
+    }
+
+    if (this["player" + pid].numberOfTrains < routeRequirements.length) {
         return false;
     }
 
@@ -595,6 +603,10 @@ game.prototype.userClaimedRoute = function (playerID, route) {
         this["player" + playerID].routes.get(route.stationB).push(route);
     }
     console.log("A player claimed a route. We'll check if the player got one of it's routes completed!");
+    this.checkContinuity(playerID);
+};
+
+game.prototype.checkContinuity = function (playerID) {
     let destis = this["player" + playerID].destinations;
     let unfinished = [];
     for (let i = 0; i < destis.length; i++) {

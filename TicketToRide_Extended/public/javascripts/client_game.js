@@ -125,14 +125,14 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 
         if (incomingMsg.type === Messages.T_PLAYER_ROUND) {
             if (!lastRoundShown && incomingMsg.data.lastRound) {
+                lastRoundShown = true;
                 alert("A player has less than 3 wagons. This is the last round!");
             }
-
-            markCurrentPlayer(incomingMsg.data.pid);
 
             currentMove = incomingMsg.data.thing;
 
             if (currentMove === 0) {
+                markCurrentPlayer(incomingMsg.data.pid);
                 enableLocomotive();
                 document.getElementById("endTurn").style.display = "none";
             }
