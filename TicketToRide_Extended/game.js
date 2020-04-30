@@ -27,6 +27,10 @@ const game = function (gameID) {
     this.currentRound = null;
     this.thingsDone = 0;
     this.routesLayed = 0;
+
+    this.lastRoundPlayer = null;
+    this.endGameNow = false;
+
     this.amountOfPlayers = 0;
 
     this.setupEuDestinations();
@@ -515,6 +519,17 @@ game.prototype.nextPlayerRound = function () {
     this.thingsDone = 0;
     this.routesLayed = 0;
     let nextPlayer = this.currentRound + 1;
+
+    if (this.endGameNow && nextPlayer === this.lastRoundPlayer + 1) {
+        let msg = messages.O_GAME_END;
+        this.sendToAll(msg);
+        return;
+    }
+
+    if (!this.endGameNow && this.lastRoundPlayer !== null) {
+        this.endGameNow = true;
+    }
+
     if (this["player" + nextPlayer] !== null) {
         console.log("the next player does exist");
         let msg = messages.O_PLAYER_ROUND;
@@ -639,6 +654,7 @@ game.prototype.sendPlayerRound = function () {
     let message = messages.O_PLAYER_ROUND;
     for (let i = 0; i < this.amountOfPlayers; i++) {
         if (this["player" + i].numberOfTrains <= 2) {
+            this.lastRoundPlayer = i;
             message.data = {pid: this.currentRound, thing: this.thingsDone, lastRound: true};
             this.sendToAll(message);
             return;

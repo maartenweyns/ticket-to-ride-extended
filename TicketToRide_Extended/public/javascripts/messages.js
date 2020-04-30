@@ -226,4 +226,15 @@
     };
     exports.S_LOBBY = JSON.stringify(exports.O_LOBBY);
 
+    /**
+     * Server to players: The game has ended!
+     * @type {string}
+     */
+    exports.T_GAME_END = "GAME-END";
+    exports.O_GAME_END = {
+        type: exports.T_GAME_END,
+        data: null
+    };
+    exports.S_GAME_END = JSON.stringify(exports.O_GAME_END);
+
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);

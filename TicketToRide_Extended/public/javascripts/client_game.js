@@ -204,6 +204,10 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
             addCardToCollection("loco", data.loco);
         }
 
+        if (incomingMsg.type === Messages.T_GAME_END) {
+            window.location.pathname = '/score';
+        }
+
         if (incomingMsg.type === Messages.T_LOBBY) {
             window.location.pathname = '/';
         }
