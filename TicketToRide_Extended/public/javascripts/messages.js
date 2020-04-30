@@ -248,4 +248,15 @@
     };
     exports.S_PLAYER_JOIN = JSON.stringify(exports.O_PLAYER_JOIN);
 
+    /**
+     * Server to player: Welcome to the game!
+     * @type {string}
+     */
+    exports.T_PLAYER_WELCOME = "PLAYER-WELCOME";
+    exports.O_PLAYER_WELCOME = {
+        type: exports.T_PLAYER_WELCOME,
+        data: null
+    };
+    exports.S_PLAYER_WELCOME = JSON.stringify(exports.O_PLAYER_WELCOME);
+
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);

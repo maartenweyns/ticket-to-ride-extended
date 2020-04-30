@@ -86,6 +86,9 @@ wss.on("connection", function connection(ws) {
             game["player" + pid].updatewebsocket(websockets[oMsg.data.conId]);
             console.log("User " + pid + " updated his websocket connection.");
 
+            let msg = messages.O_PLAYER_WELCOME;
+            game["player" + pid].sendMessage(msg);
+
             let msg1 = messages.O_PLAYER_OVERVIEW;
             msg1.data = game.getUserProperties();
             game.sendToAll(msg1);
