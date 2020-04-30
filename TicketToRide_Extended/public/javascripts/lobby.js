@@ -4,6 +4,11 @@ var playerID;
 const swup = new Swup();
 
 function setup() {
+    if (document.getElementById('playername').value === "") {
+        document.getElementById('playername').classList.add("warning");
+        return;
+    }
+
     if (document.location.protocol === "https:" || document.location.protocol === "https:") {
         socket = new WebSocket("wss://" + location.host);
     } else {
@@ -14,12 +19,20 @@ function setup() {
         let incomingMsg = JSON.parse(event.data);
         console.log("incomingMsg: " + JSON.stringify(incomingMsg));
 
+        if (incomingMsg.type === Messages.T_LOBBY) {
+            alert("The game has already started!");
+            window.location.pathname = '/';
+            return;
+        }
+
         if (incomingMsg.type === Messages.T_PLAYER_NAME) {
-            playerID = incomingMsg.data;
+            playerID = incomingMsg.data.pid;
 
             let expires = new Date();
-            expires.setDate(expires.getDate() + 1);
+            expires.setDate(expires.getDate() + 8);
             document.cookie = "playerID=" + playerID + "; expires=" + expires;
+            expires.setDate(expires.getDate() + 8);
+            document.cookie = "gameID=" + incomingMsg.data.gid + "; expires=" + expires;
             sendName();
         }
 
@@ -68,3 +81,20 @@ function startGame() {
 particlesJS.load('particles-js', '../config/particles.json', function() {
     console.log('callback - particles.js config loaded');
 });
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+

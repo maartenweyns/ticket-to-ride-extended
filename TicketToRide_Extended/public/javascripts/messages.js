@@ -215,4 +215,15 @@
     };
     exports.S_PERSONAL_TRAINS = JSON.stringify(exports.O_PERSONAL_TRAINS);
 
+    /**
+     * Server to player: You don't belong here! Back to the lobby with you!
+     * @type {string}
+     */
+    exports.T_LOBBY = "LOBBY";
+    exports.O_LOBBY = {
+        type: exports.T_LOBBY,
+        data: null
+    };
+    exports.S_LOBBY = JSON.stringify(exports.O_LOBBY);
+
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);

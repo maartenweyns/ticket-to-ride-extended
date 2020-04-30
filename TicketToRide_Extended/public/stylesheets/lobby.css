@@ -117,6 +117,10 @@ li:nth-child(even) {
     margin-bottom: 20px;
 }
 
+.warning {
+    box-shadow: 0 0 20px red;
+}
+
 .infoText {
     color: lightgrey;
     font-size: 12px;

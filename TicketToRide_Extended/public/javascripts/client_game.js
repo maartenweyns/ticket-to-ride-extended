@@ -45,13 +45,12 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         console.log("incomingMsg: " + JSON.stringify(incomingMsg));
 
         if (incomingMsg.type === Messages.T_PLAYER_NAME) {
-            let cookie = document.cookie.split("=");
-            playerID = parseInt(cookie[1]);
+            playerID = parseInt(getCookie("playerID"));
 
-            let conid = incomingMsg.data;
+            let conid = incomingMsg.data.pid;
 
             let msg = Messages.O_PLAYER_EXISTING_ID;
-            msg.data = {pid: playerID, conId: conid};
+            msg.data = {pid: playerID, conId: conid, gid: getCookie("gameID")};
             socket.send(JSON.stringify(msg));
         }
 
@@ -204,6 +203,10 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
             addCardToCollection("yellow", data.yellow);
             addCardToCollection("loco", data.loco);
         }
+
+        if (incomingMsg.type === Messages.T_LOBBY) {
+            window.location.pathname = '/';
+        }
     };
 })();
 
@@ -316,4 +319,20 @@ function endTurn() {
         let msg = Messages.O_PLAYER_FINISHED;
         socket.send(JSON.stringify(msg));
     }
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }

@@ -12,10 +12,10 @@ var Game = require("./game");
 var port = process.argv[2];
 var app = express();
 
-// const ShortUniqueId = require('short-unique-id').default;
+const ShortUniqueId = require('short-unique-id').default;
 
 // instantiate uid
-// const uid = new ShortUniqueId();
+const uid = new ShortUniqueId();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,7 +35,7 @@ var connectionID = 0;
 var websockets = [];
 var playerColors = ["yellow", "lightblue", "grey", "purple", "red", "green", "brightyellow", "blue"];
 
-var game = new Game();
+var game = new Game(uid.randomUUID(8));
 
 wss.on("connection", function connection(ws) {
     let con = ws;
@@ -46,7 +46,7 @@ wss.on("connection", function connection(ws) {
 
     // Send the player number to the player.
     let msg1 = messages.O_PLAYER_NAME;
-    msg1.data = con.id;
+    msg1.data = {pid: con.id, gid: game.gameID};
     con.send(JSON.stringify(msg1));
 
     // Send the open cards to the player that just connected.
@@ -59,6 +59,13 @@ wss.on("connection", function connection(ws) {
 
         if (oMsg.type === messages.T_PLAYER_NAME) {
             let pid = oMsg.data.pID;
+
+            if (game.gameState !== "lobby") {
+                let msg = messages.O_LOBBY;
+                websockets[pid].send(JSON.stringify(msg));
+                return;
+            }
+
             game["player" + pid] = new Player(pid, oMsg.data.pName, playerColors.pop(), websockets[pid]);
 
             game.amountOfPlayers++;
@@ -69,6 +76,12 @@ wss.on("connection", function connection(ws) {
         }
 
         if (oMsg.type === messages.T_PLAYER_EXISTING_ID) {
+            if (game.gameID !== oMsg.data.gid) {
+                console.log("A player joined the wrong game.");
+                let msg = messages.O_LOBBY;
+                websockets[oMsg.data.conId].send(JSON.stringify(msg));
+                return;
+            }
             let pid = oMsg.data.pid;
             game["player" + pid].updatewebsocket(websockets[oMsg.data.conId]);
             console.log("User " + pid + " updated his websocket connection.");
