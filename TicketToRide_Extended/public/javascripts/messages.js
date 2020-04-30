@@ -237,4 +237,15 @@
     };
     exports.S_GAME_END = JSON.stringify(exports.O_GAME_END);
 
+    /**
+     * Player to server: I am joining the game for the first time
+     * @type {string}
+     */
+    exports.T_PLAYER_JOIN = "PLAYER-JOIN";
+    exports.O_PLAYER_JOIN = {
+        type: exports.T_PLAYER_JOIN,
+        data: null
+    };
+    exports.S_PLAYER_JOIN = JSON.stringify(exports.O_PLAYER_JOIN);
+
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);

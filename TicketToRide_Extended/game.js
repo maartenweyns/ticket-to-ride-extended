@@ -521,6 +521,8 @@ game.prototype.nextPlayerRound = function () {
     let nextPlayer = this.currentRound + 1;
 
     if (this.endGameNow && nextPlayer === this.lastRoundPlayer + 1) {
+        this.calculateScore();
+
         let msg = messages.O_GAME_END;
         this.sendToAll(msg);
         return;
@@ -662,6 +664,17 @@ game.prototype.sendPlayerRound = function () {
     }
     message.data = {pid: this.currentRound, thing: this.thingsDone, lastRound: false};
     this.sendToAll(message);
+}
+
+game.prototype.calculateScore = function () {
+    for (let i = 0; i < this.amountOfPlayers; i++) {
+        for (let completed of this["player" + i].completedDestinations) {
+            this["player" + i].score += completed.points;
+        }
+        for (let notcompleted of this["player" + i].destinations) {
+            this["player" + i].score -= notcompleted.points;
+        }
+    }
 }
 
 function checkContinuity(player, stationA, stationB) {

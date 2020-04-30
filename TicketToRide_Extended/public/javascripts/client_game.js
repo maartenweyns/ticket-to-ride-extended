@@ -52,6 +52,10 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
             let msg = Messages.O_PLAYER_EXISTING_ID;
             msg.data = {pid: playerID, conId: conid, gid: getCookie("gameID")};
             socket.send(JSON.stringify(msg));
+
+            let msg1 = Messages.O_PLAYER_JOIN;
+            msg1.data = {pid: playerID, conId: playerID};
+            socket.send(JSON.stringify(msg1));
         }
 
         if (incomingMsg.type === Messages.T_OPEN_CARDS) {

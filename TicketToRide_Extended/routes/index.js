@@ -10,4 +10,8 @@ router.get('/play', function(req, res, next) {
   res.sendFile("game.html", {root: "./public"})
 });
 
+router.get('/score', function(req, res, next) {
+  res.sendFile("score.html", {root: "./public"})
+});
+
 module.exports = router;

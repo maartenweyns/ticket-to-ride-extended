@@ -89,6 +89,11 @@ wss.on("connection", function connection(ws) {
             let msg1 = messages.O_PLAYER_OVERVIEW;
             msg1.data = game.getUserProperties();
             game.sendToAll(msg1);
+        }
+
+        if (oMsg.type === messages.T_PLAYER_JOIN) {
+            let pid = oMsg.data.pid;
+            console.log("Player " + pid + " got it's initial data!");
 
             let color1 = game.getRandomColor();
             let color2 = game.getRandomColor();
