@@ -37,6 +37,7 @@ body {
 .tablinks {
     display: block;
     width: 50px;
+    margin-bottom: 20px;
 }
 
 .map {
@@ -160,8 +161,6 @@ body {
 
 .endTurn {
     margin-top: 20px;
-    height: 50px;
-    background-color: green;
     display: none;
 }
 

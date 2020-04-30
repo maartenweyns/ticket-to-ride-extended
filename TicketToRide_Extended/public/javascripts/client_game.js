@@ -14,6 +14,7 @@ var differentContinent = new Audio("../sounds/differentContinent.mp3")
 var allAudio = [music, startsound, buzz, cardDeal, cardShuffle, cashRegister, ticketCompleted, trainHorn, differentContinent];
 
 var audioUnlocked = false;
+var lastRoundShown = false;
 
 if (document.location.protocol === "https:" || document.location.protocol === "https:") {
     socket = new WebSocket("wss://" + location.host);
@@ -123,7 +124,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         }
 
         if (incomingMsg.type === Messages.T_PLAYER_ROUND) {
-            if (incomingMsg.data.lastRound) {
+            if (!lastRoundShown && incomingMsg.data.lastRound) {
                 alert("A player has less than 3 wagons. This is the last round!");
             }
 
