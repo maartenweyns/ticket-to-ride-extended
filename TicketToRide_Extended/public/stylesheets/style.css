@@ -22,7 +22,7 @@ body {
 
 /* Style the tab */
 .tab {
-    overflow: hidden;
+    z-index: 10;
 }
 
 /* Style the tab content */
@@ -108,6 +108,7 @@ body {
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
+    z-index: 99;
 }
 
 .card:hover {
@@ -159,9 +160,15 @@ body {
     -webkit-animation: flash 400ms 4 linear;
 }
 
-.endTurn {
-    margin-top: 20px;
-    display: none;
+.donebutton {
+    animation: flashingDone 1s infinite;
+    -webkit-animation: flashingDone 1s infinite;
+}
+
+@keyframes flashingDone {
+    0% {transform: scale(1); -webkit-transform: scale(1);}
+    50% {transform: scale(1.5); -webkit-transform: scale(1.5);}
+    100% {transform: scale(1); -webkit-transform: scale(1);}
 }
 
 @keyframes breathingDots {
@@ -171,7 +178,7 @@ body {
 }
 
 @keyframes flash {
-    0% {filter: brightness(1); --webkit-filter: brightness(1);}
-    50% {filter: brightness(3); --webkit-filter: brightness(3);}
-    100% {filter: brightness(1); --webkit-filter: brightness(1);}
+    0% {filter: brightness(1); --webkit-filter: brightness(1); transform: scale(1); -webkit-transform: scale(1);}
+    50% {filter: brightness(3); --webkit-filter: brightness(3); transform: scale(1.3); -webkit-transform: scale(1.3);}
+    100% {filter: brightness(1); --webkit-filter: brightness(1); transform: scale(1); -webkit-transform: scale(1);}
 }

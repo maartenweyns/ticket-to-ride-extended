@@ -223,6 +223,8 @@ wss.on("connection", function connection(ws) {
             game["player" + pid].destinations.push(game[destinationMap].get(routeID[1] + "-" + routeID[2]));
             game["player" + pid].numberOfRoutes++;
 
+            game.checkContinuity(pid);
+
             if (game.gameState === "choosing-tickets") {
                 console.log("A player is now ready.")
                 game["player" + pid].ready = true;

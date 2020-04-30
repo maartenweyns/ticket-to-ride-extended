@@ -13,6 +13,7 @@ body {
 }
 
 .startButton {
+    text-decoration: none;
     padding: 10px;
     background-color: #68381a;
     color: white;
@@ -102,12 +103,29 @@ li:nth-child(even) {
 
 .content {
     z-index: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .transition-fade {
     transition: 0.4s;
     opacity: 1;
-  }
+}
+
+#playername {
+    margin-bottom: 20px;
+}
+
+.infoText {
+    color: lightgrey;
+    font-size: 12px;
+}
+
+.join {
+    display: flex;
+    flex-direction: column;
+}
   
 html.is-animating .transition-fade {
     opacity: 0;

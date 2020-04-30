@@ -25,6 +25,8 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 (function setup() {
     document.getElementById("eutab").click();
 
+    document.getElementById("endTurn").style.display = "none";
+
     document.getElementById("ownCardContainer").classList.add("disabled");
     document.getElementById("generalCards").classList.add("disabled");
     document.getElementsByClassName("tabcontent")[0].classList.add("disabled");

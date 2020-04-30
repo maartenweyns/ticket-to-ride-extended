@@ -3,13 +3,13 @@ var playerID;
 
 const swup = new Swup();
 
-if (document.location.protocol === "https:" || document.location.protocol === "https:") {
-    socket = new WebSocket("wss://" + location.host);
-} else {
-    socket = new WebSocket("ws://" + location.host);
-}
+function setup() {
+    if (document.location.protocol === "https:" || document.location.protocol === "https:") {
+        socket = new WebSocket("wss://" + location.host);
+    } else {
+        socket = new WebSocket("ws://" + location.host);
+    }
 
-(function setup() {
     socket.onmessage = function (event) {
         let incomingMsg = JSON.parse(event.data);
         console.log("incomingMsg: " + JSON.stringify(incomingMsg));
@@ -20,7 +20,7 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
             let expires = new Date();
             expires.setDate(expires.getDate() + 1);
             document.cookie = "playerID=" + playerID + "; expires=" + expires;
-            promptName();
+            sendName();
         }
 
         if (incomingMsg.type === Messages.T_PLAYER_OVERVIEW) {
@@ -31,10 +31,15 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
             window.location.pathname = '/play'
         }
     };
-})();
+}
 
-function promptName() {
-    let name = prompt("Hi, welcome to Ticket To Ride XTended! For starters, please enter your name below! It will be used to identify you during the game and will be shown to your opponents!");
+function sendName() {
+    let name = document.getElementById('playername').value;
+    document.getElementById('playername').style.display = 'none';
+    document.getElementById('startbutton').innerText = 'START GAME';
+    document.getElementById('startbutton').onclick = function() {
+        startGame();
+    }
     let msg = Messages.O_PLAYER_NAME;
     msg.data = {pName: name, pID: playerID};
     socket.send(JSON.stringify(msg));
