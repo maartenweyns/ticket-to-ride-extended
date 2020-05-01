@@ -28,6 +28,10 @@ body {
     align-items: center;
 }
 
+.winningPlayer {
+    border-color: goldenrod;
+}
+
 .text {
     font-family: 'Permanent Marker', cursive;
     color: white;
