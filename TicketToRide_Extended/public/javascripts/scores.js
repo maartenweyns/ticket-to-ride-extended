@@ -32,10 +32,19 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 })();
 
 function createPlayers(data) {
+    let winningplayer = data[0];
+    for (let player of data) {
+        if (player.score > winningplayer.score) {
+            winningplayer = player;
+        }
+    }
 
     for (let player of data) {
         let div = document.createElement('div');
         div.classList.add('playerDiv');
+        if (player === winningplayer) {
+            div.classList.add('winningPlayer');
+        }
         document.body.append(div);
 
         let playername = document.createElement('p');
@@ -58,7 +67,6 @@ function createPlayers(data) {
 
         div.append(playername, infodiv, score);
     }
-
 }
 
 
