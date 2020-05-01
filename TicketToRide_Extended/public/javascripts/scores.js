@@ -6,6 +6,8 @@ var playersDrawn = false;
 var movingTrain = new Audio("./sounds/movingTrain_1s.mp3");
 var music = new Audio("./sounds/lastTurnMusic.mp3");
 var happymusic = new Audio("./sounds/germanMusic.mp3");
+var winning = new Audio("./sounds/victoryJingle.mp3");
+var vapeur = new Audio("./sounds/Vapeur.mp3");
 
 if (document.location.protocol === "https:" || document.location.protocol === "https:") {
     socket = new WebSocket("wss://" + location.host);
@@ -43,20 +45,10 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
 })();
 
 function createPlayers(data) {
-    let winningplayer = data[0];
-    for (let player of data) {
-        if (player.score > winningplayer.score) {
-            winningplayer = player;
-        }
-    }
-
     for (let player of data) {
         let div = document.createElement('div');
         div.classList.add('playerDiv');
         div.id = "box" + player.id;
-        if (player === winningplayer) {
-            div.classList.add('winningPlayer');
-        }
         document.body.append(div);
 
         let general = document.createElement('div');
@@ -82,6 +74,7 @@ function createPlayers(data) {
         score.innerText = "Score: " + player.score;
         score.id = "score" + player.id;
         score.classList.add("text");
+        score.classList.add("playerscore");
 
         general.append(playername, infodiv, score);
 
@@ -126,6 +119,7 @@ function showScores(data) {
             document.getElementById("completed" + player.id).innerText = "Routes completed: " + player.completedDestinations.length;
             document.getElementById("uncompleted" + player.id).innerText = "Routes  not completed: " + player.destinations.length;
 
+            vapeur.play()
             movingTrain.play();
 
             document.getElementById("box" + player.id).classList.remove("currentlyCalculating");
@@ -134,15 +128,33 @@ function showScores(data) {
                 document.getElementById("box" + (player.id + 1)).classList.add("currentlyCalculating");
             } else {
                 setTimeout(function () {
+                    showWinning();
                     music.pause();
-                    happymusic.loop = true;
-                    happymusic.play();
+                    winning.play();
+                    winning.onended = function() {
+                        happymusic.loop = true;
+                        happymusic.play();
+                    }
                 }, 1000);
             }
-        }, 2000*(i + 1));
+        }, 3500*(i + 1));
     }
 }
 
+function showWinning() {
+    let scores = document.getElementsByClassName('playerscore');
+    let highestscore = 0;
+    let highestpid;
+    for (score of scores) {
+        let actual = parseInt(score.innerText.split("Score: ")[1]);
+        if (actual > highestscore) {
+            highestpid = parseInt(score.id.split("score")[1]);
+            highestscore = actual;
+        }
+    }
+
+    document.getElementById("box" + highestpid).classList.add("winningPlayer");
+}
 
 function getCookie(cname) {
     var name = cname + "=";
