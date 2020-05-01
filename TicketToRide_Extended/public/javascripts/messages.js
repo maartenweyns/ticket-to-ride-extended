@@ -259,4 +259,15 @@
     };
     exports.S_PLAYER_WELCOME = JSON.stringify(exports.O_PLAYER_WELCOME);
 
+    /**
+     * Server to player: Welcome to the game!
+     * @type {string}
+     */
+    exports.T_FINAL_SCORE = "FINAL-SCORE";
+    exports.O_FINAL_SCORE = {
+        type: exports.T_FINAL_SCORE,
+        data: null
+    };
+    exports.S_FINAL_SCORE = JSON.stringify(exports.O_FINAL_SCORE);
+
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);

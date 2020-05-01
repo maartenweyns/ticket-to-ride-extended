@@ -116,8 +116,7 @@ game.prototype.getUserProperties = function () {
                 name: this["player" + i].name, score: this["player" + i].score,
                 color: this["player" + i].color, numberOfTrains: this["player" + i].numberOfTrains,
                 numberOfTrainCards: this["player" + i].numberOfTrainCards,
-                numberOfRoutes: this["player" + i].numberOfRoutes,
-                numberOfCompletedRoutes: this["player" + i].completedDestinations.length
+                numberOfRoutes: this["player" + i].numberOfRoutes
             };
             returnObject.push(player);
         }
@@ -523,34 +522,28 @@ game.prototype.playerPutRoute = function () {
 }
 
 game.prototype.nextPlayerRound = function () {
+    var that = this;
+
     this.thingsDone = 0;
     this.routesLayed = 0;
     let nextPlayer = this.currentRound + 1;
+    if (this["player" + nextPlayer] === null) {
+        nextPlayer = 0;
+    }
 
-    if (this.endGameNow && nextPlayer === this.lastRoundPlayer + 1) {
-        this.calculateScore();
-
+    if (this.endGameNow) {
         let msg = messages.O_GAME_END;
         this.sendToAll(msg);
-        return;
+        
+        setTimeout(function() {
+            that.calculateScore();
+        }, 1000);
     }
 
-    if (!this.endGameNow && this.lastRoundPlayer !== null) {
+    if (this.lastRoundPlayer !== null && nextPlayer === this.lastRoundPlayer) {
         this.endGameNow = true;
     }
-
-    if (this["player" + nextPlayer] !== null) {
-        console.log("the next player does exist");
-        let msg = messages.O_PLAYER_ROUND;
-        msg.data = ++this.currentRound;
-        this.sendToAll(msg);
-    } else {
-        console.log("the next player does not exist");
-        let msg = messages.O_PLAYER_ROUND;
-        msg.data = 0;
-        this.sendToAll(msg);
-        this.currentRound = 0;
-    }
+    this.currentRound = nextPlayer;
 };
 
 game.prototype.getEuDestination = function () {
@@ -663,7 +656,9 @@ game.prototype.sendPlayerRound = function () {
     let message = messages.O_PLAYER_ROUND;
     for (let i = 0; i < this.amountOfPlayers; i++) {
         if (this["player" + i].numberOfTrains <= 2) {
-            this.lastRoundPlayer = i;
+            if (this.lastRoundPlayer === null) {
+                this.lastRoundPlayer = i;
+            }
             message.data = {pid: this.currentRound, thing: this.thingsDone, lastRound: true};
             this.sendToAll(message);
             return;
@@ -674,14 +669,22 @@ game.prototype.sendPlayerRound = function () {
 }
 
 game.prototype.calculateScore = function () {
-    for (let i = 0; i < this.amountOfPlayers; i++) {
-        for (let completed of this["player" + i].completedDestinations) {
-            this["player" + i].score += completed.points;
-        }
-        for (let notcompleted of this["player" + i].destinations) {
-            this["player" + i].score -= notcompleted.points;
+    let msg = messages.O_FINAL_SCORE;
+    let returnObject = [];
+    for (let i = 0; i < 8; i++) {
+        if (this["player" + i] !== null) {
+            let player = {
+                id: i,
+                score: this["player" + i].score,
+                color: this["player" + i].color,
+                destinations: this["player" + i].destinations,
+                completedDestinations: this["player" + i].completedDestinations
+            };
+            returnObject.push(player);
         }
     }
+    msg.data = returnObject;
+    this.sendToAll(msg);
 }
 
 function checkContinuity(player, stationA, stationB) {
