@@ -53,6 +53,7 @@ body {
     color: white;
     font-size: 50px;
     margin: 0;
+    flex-shrink: 0;
 }
 
 .smallInfo {
@@ -64,7 +65,29 @@ body {
 
 .infodiv {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width: 100%;
+    height: max-content;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.routeCard {
+    position: relative;
+    height: 100%;
+}
+
+.routecardimage, .overlay {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .scoreTrain {
