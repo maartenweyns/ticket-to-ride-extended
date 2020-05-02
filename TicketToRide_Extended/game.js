@@ -18,15 +18,23 @@ const game = function (gameID) {
 
     this.euRoutes = new Map();
     this.euDesti = new Map();
+    this.longeuDesti = new Map();
     this.euStack = [];
 
     this.usRoutes = new Map();
     this.usDesti = new Map();
+    this.longusDesti = new Map();
     this.usStack = [];
+
+    this.longStack = [];
 
     this.currentRound = null;
     this.thingsDone = 0;
     this.routesLayed = 0;
+
+    this.lastRoundPlayer = null;
+    this.endGameNow = false;
+
     this.amountOfPlayers = 0;
 
     this.setupEuDestinations();
@@ -34,6 +42,8 @@ const game = function (gameID) {
     this.setupUsRoutes();
     this.setupUsDestinations();
     this.setOpenCards();
+
+    this.longStack = shuffleArray(Array.from(this.longeuDesti).concat(Array.from(this.longusDesti)));
 
     this.claimedRoutes = [];
 
@@ -212,7 +222,7 @@ game.prototype.setupEuRoutes = function () {
     this.euRoutes.set("kharkov-rostov-1", new route("kharkov", "rostov", 1, "green", 2, 0));
     this.euRoutes.set("rostov-sevastopol-1", new route("rostov", "sevastopol", 1, "any", 4, 0));
     this.euRoutes.set("rostov-sochi-1", new route("rostov", "sochi", 1, "any", 2, 0));
-    this.euRoutes.set("sevastopol-sochi-1", new route("sevastopol", "sochi", "any", 2, 1));
+    this.euRoutes.set("sevastopol-sochi-1", new route("sevastopol", "sochi", 1, "any", 2, 1));
     this.euRoutes.set("erzurum-sevastopol-1", new route("erzurum", "sevastopol", 1, "any", 4, 2));
     this.euRoutes.set("erzurum-sochi-1", new route("erzurum", "sochi", 1, "red", 3, 0));
     this.euRoutes.set("angora-erzurum-1", new route("angora", "erzurum", 1, "black", 3, 0));
@@ -333,27 +343,27 @@ game.prototype.setupEuDestinations = function () {
     this.euDesti.set("berlin-moskva", new destination("eu", "berlin", "moskva", 12));
     this.euDesti.set("berlin-rome", new destination("eu", "berlin", "rome", 9));
     this.euDesti.set("brest-marseille", new destination("eu", "brest", "marseille", 7));
-    this.euDesti.set("brest-petrograd", new destination("eu", "brest", "petrograd", 20));
+    this.longeuDesti.set("brest-petrograd", new destination("eu", "brest", "petrograd", 20));
     this.euDesti.set("brest-venice", new destination("eu", "brest", "venice", 8));
     this.euDesti.set("brussels-danzig", new destination("eu", "brussels", "danzig", 9));
     this.euDesti.set("budapest-sofia", new destination("eu", "budapest", "sofia", 5));
-    this.euDesti.set("cadiz-stockholm", new destination("eu", "cadiz", "stockholm", 21));
-    this.euDesti.set("edinburgh-athina", new destination("eu", "edinburgh", "athina", 21));
+    this.longeuDesti.set("cadiz-stockholm", new destination("eu", "cadiz", "stockholm", 21));
+    this.longeuDesti.set("edinburgh-athina", new destination("eu", "edinburgh", "athina", 21));
     this.euDesti.set("edinburgh-paris", new destination("eu", "edinburgh", "paris", 7));
     this.euDesti.set("essen-kyiv", new destination("eu", "essen", "kyiv", 10));
     this.euDesti.set("frankfurt-kopenhagen", new destination("eu", "frankfurt", "kopenhagen", 5));
     this.euDesti.set("frankfurt-smolensk", new destination("eu", "frankfurt", "smolensk", 13));
-    this.euDesti.set("kopenhagen-erzurum", new destination("eu", "kopenhagen", "erzurum", 21));
+    this.longeuDesti.set("kopenhagen-erzurum", new destination("eu", "kopenhagen", "erzurum", 21));
     this.euDesti.set("kyiv-petrograd", new destination("eu", "kyiv", "petrograd", 6));
     this.euDesti.set("kyiv-sochi", new destination("eu", "kyiv", "sochi", 8));
-    this.euDesti.set("lissabon-danzig", new destination("eu", "lissabon", "danzig", 20));
+    this.longeuDesti.set("lissabon-danzig", new destination("eu", "lissabon", "danzig", 20));
     this.euDesti.set("londen-berlin", new destination("eu", "londen", "berlin", 7));
     this.euDesti.set("londen-wein", new destination("eu", "londen", "wein", 10));
     this.euDesti.set("madrid-dieppe", new destination("eu", "madrid", "dieppe", 8));
     this.euDesti.set("madrid-zurich", new destination("eu", "madrid", "zurich", 8));
     this.euDesti.set("marseille-essen", new destination("eu", "marseille", "essen", 8));
     this.euDesti.set("palermo-constantinople", new destination("eu", "palermo", "constantinople", 8));
-    this.euDesti.set("palermo-moskva", new destination("eu", "palermo", "moskva", 20));
+    this.longeuDesti.set("palermo-moskva", new destination("eu", "palermo", "moskva", 20));
     this.euDesti.set("paris-wein", new destination("eu", "paris", "wein", 8));
     this.euDesti.set("paris-zagreb", new destination("eu", "paris", "zagreb", 7));
     this.euDesti.set("riga-bucuresti", new destination("eu", "riga", "bucuresti", 10));
@@ -386,8 +396,8 @@ game.prototype.setupUsDestinations = function () {
     this.usDesti.set("helena-losangeles", new destination("us","helena","losangeles",8));
     this.usDesti.set("kansascity-houston", new destination("us","kansascity","houston",5));
     this.usDesti.set("losangeles-chicago", new destination("us","losangeles","chicago",16));
-    this.usDesti.set("losangeles-miami", new destination("us","losangeles","miami",20));
-    this.usDesti.set("losangeles-newyork", new destination("us","losangeles","newyork",21));
+    this.longusDesti.set("losangeles-miami", new destination("us","losangeles","miami",20));
+    this.longusDesti.set("losangeles-newyork", new destination("us","losangeles","newyork",21));
     this.usDesti.set("montreal-atlanta", new destination("us","montreal","atlanta",9));
     this.usDesti.set("montreal-neworleans", new destination("us","montreal", "neworleans",13));
     this.usDesti.set("newyork-atlanta", new destination("us","newyork","atlanta",6));
@@ -397,9 +407,9 @@ game.prototype.setupUsDestinations = function () {
     this.usDesti.set("saultstmarie-nashville", new destination("us","saultstmarie","nashville",8));
     this.usDesti.set("saultstmarie-oklahomacity", new destination("us","saultstmarie","oklahomacity",9));
     this.usDesti.set("seattle-losangeles", new destination("us","seattle","losangeles",9));
-    this.usDesti.set("seattle-newyork", new destination("us","seattle","newyork",22));
+    this.longusDesti.set("seattle-newyork", new destination("us","seattle","newyork",22));
     this.usDesti.set("toronto-miami", new destination("us","toronto","miami",10));
-    this.usDesti.set("vancouver-montreal", new destination("us","vancouver","montreal",20));
+    this.longusDesti.set("vancouver-montreal", new destination("us","vancouver","montreal",20));
     this.usDesti.set("vancouver-santafe", new destination("us","vancouver","santafe",13));
     this.usDesti.set("winnipeg-houston", new destination("us","winnipeg","houston",12));
     this.usDesti.set("winnipeg-littlerock", new destination("us","winnipeg","littlerock",11));
@@ -422,7 +432,15 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
     let routeRequirements = this.getRouteRequirements(routeID, continent);
     let points;
 
+    if (routeRequirements === undefined) {
+        return false;
+    }
+
     if (this.claimedRoutes.includes(routeID)) {
+        return false;
+    }
+
+    if (this["player" + pid].numberOfTrains < routeRequirements.length) {
         return false;
     }
 
@@ -504,21 +522,28 @@ game.prototype.playerPutRoute = function () {
 }
 
 game.prototype.nextPlayerRound = function () {
+    var that = this;
+
     this.thingsDone = 0;
     this.routesLayed = 0;
     let nextPlayer = this.currentRound + 1;
-    if (this["player" + nextPlayer] !== null) {
-        console.log("the next player does exist");
-        let msg = messages.O_PLAYER_ROUND;
-        msg.data = ++this.currentRound;
-        this.sendToAll(msg);
-    } else {
-        console.log("the next player does not exist");
-        let msg = messages.O_PLAYER_ROUND;
-        msg.data = 0;
-        this.sendToAll(msg);
-        this.currentRound = 0;
+    if (this["player" + nextPlayer] === null) {
+        nextPlayer = 0;
     }
+
+    if (this.endGameNow) {
+        let msg = messages.O_GAME_END;
+        this.sendToAll(msg);
+        
+        setTimeout(function() {
+            that.calculateScore();
+        }, 1000);
+    }
+
+    if (this.lastRoundPlayer !== null && nextPlayer === this.lastRoundPlayer) {
+        this.endGameNow = true;
+    }
+    this.currentRound = nextPlayer;
 };
 
 game.prototype.getEuDestination = function () {
@@ -528,6 +553,21 @@ game.prototype.getEuDestination = function () {
 game.prototype.getUsDestination = function () {
     return this.usStack.pop();
 };
+
+game.prototype.mergeAllDestinations = function () {
+    while (this.longStack.length !== 0) {
+        let desti = this.longStack.pop();
+        if (desti[1].continent === "eu") {
+            console.log("Merging eu destination");
+            this.euStack.push(desti);
+        } else {
+            console.log("Merging us destination");
+            this.usStack.push(desti);
+        }
+    }
+    this.euStack = shuffleArray(this.euStack);
+    this.usStack = shuffleArray(this.usStack);
+}
 
 function shuffleArray(array) {
     var m = array.length, t, i;
@@ -548,22 +588,8 @@ function shuffleArray(array) {
 };
 
 game.prototype.shuffleDestis = function () {
-    array = this.euStack;
-    var m = array.length, t, i;
-
-    // While there remain elements to shuffle…
-    while (m) {
-
-        // Pick a remaining element…
-        i = Math.floor(Math.random() * m--);
-
-        // And swap it with the current element.
-        t = array[m];
-        array[m] = array[i];
-        array[i] = t;
-    }
-
-    return array;
+    this.euStack = shuffleArray(this.euStack);
+    this.usStack = shuffleArray(this.usStack);
 };
 
 game.prototype.sendPersonalCardsToUser = function (pid) {
@@ -595,10 +621,13 @@ game.prototype.userClaimedRoute = function (playerID, route) {
         this["player" + playerID].routes.get(route.stationB).push(route);
     }
     console.log("A player claimed a route. We'll check if the player got one of it's routes completed!");
+    this.checkContinuity(playerID);
+};
+
+game.prototype.checkContinuity = function (playerID) {
     let destis = this["player" + playerID].destinations;
     let unfinished = [];
-    for (let i = 0; i < destis.length; i++) {
-        let desti = destis[i];
+    for (let desti of destis) {
         if (checkContinuity(this["player" + playerID], desti.stationA, desti.stationB)) {
             this["player" + playerID].completedDestinations.push(desti);
             let msg = messages.O_PLAYER_COMPLETED_ROUTE;
@@ -627,6 +656,9 @@ game.prototype.sendPlayerRound = function () {
     let message = messages.O_PLAYER_ROUND;
     for (let i = 0; i < this.amountOfPlayers; i++) {
         if (this["player" + i].numberOfTrains <= 2) {
+            if (this.lastRoundPlayer === null) {
+                this.lastRoundPlayer = i;
+            }
             message.data = {pid: this.currentRound, thing: this.thingsDone, lastRound: true};
             this.sendToAll(message);
             return;
@@ -634,6 +666,25 @@ game.prototype.sendPlayerRound = function () {
     }
     message.data = {pid: this.currentRound, thing: this.thingsDone, lastRound: false};
     this.sendToAll(message);
+}
+
+game.prototype.calculateScore = function () {
+    let msg = messages.O_FINAL_SCORE;
+    let returnObject = [];
+    for (let i = 0; i < 8; i++) {
+        if (this["player" + i] !== null) {
+            let player = {
+                id: i,
+                score: this["player" + i].score,
+                color: this["player" + i].color,
+                destinations: this["player" + i].destinations,
+                completedDestinations: this["player" + i].completedDestinations
+            };
+            returnObject.push(player);
+        }
+    }
+    msg.data = returnObject;
+    this.sendToAll(msg);
 }
 
 function checkContinuity(player, stationA, stationB) {

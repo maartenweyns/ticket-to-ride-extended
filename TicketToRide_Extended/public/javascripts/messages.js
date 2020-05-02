@@ -215,4 +215,59 @@
     };
     exports.S_PERSONAL_TRAINS = JSON.stringify(exports.O_PERSONAL_TRAINS);
 
+    /**
+     * Server to player: You don't belong here! Back to the lobby with you!
+     * @type {string}
+     */
+    exports.T_LOBBY = "LOBBY";
+    exports.O_LOBBY = {
+        type: exports.T_LOBBY,
+        data: null
+    };
+    exports.S_LOBBY = JSON.stringify(exports.O_LOBBY);
+
+    /**
+     * Server to players: The game has ended!
+     * @type {string}
+     */
+    exports.T_GAME_END = "GAME-END";
+    exports.O_GAME_END = {
+        type: exports.T_GAME_END,
+        data: null
+    };
+    exports.S_GAME_END = JSON.stringify(exports.O_GAME_END);
+
+    /**
+     * Player to server: I am joining the game for the first time
+     * @type {string}
+     */
+    exports.T_PLAYER_JOIN = "PLAYER-JOIN";
+    exports.O_PLAYER_JOIN = {
+        type: exports.T_PLAYER_JOIN,
+        data: null
+    };
+    exports.S_PLAYER_JOIN = JSON.stringify(exports.O_PLAYER_JOIN);
+
+    /**
+     * Server to player: Welcome to the game!
+     * @type {string}
+     */
+    exports.T_PLAYER_WELCOME = "PLAYER-WELCOME";
+    exports.O_PLAYER_WELCOME = {
+        type: exports.T_PLAYER_WELCOME,
+        data: null
+    };
+    exports.S_PLAYER_WELCOME = JSON.stringify(exports.O_PLAYER_WELCOME);
+
+    /**
+     * Server to player: Welcome to the game!
+     * @type {string}
+     */
+    exports.T_FINAL_SCORE = "FINAL-SCORE";
+    exports.O_FINAL_SCORE = {
+        type: exports.T_FINAL_SCORE,
+        data: null
+    };
+    exports.S_FINAL_SCORE = JSON.stringify(exports.O_FINAL_SCORE);
+
 })(typeof exports === "undefined" ? (this.Messages = {}) : exports);

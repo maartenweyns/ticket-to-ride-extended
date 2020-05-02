@@ -12,10 +12,10 @@ var Game = require("./game");
 var port = process.argv[2];
 var app = express();
 
-// const ShortUniqueId = require('short-unique-id').default;
+const ShortUniqueId = require('short-unique-id').default;
 
 // instantiate uid
-// const uid = new ShortUniqueId();
+const uid = new ShortUniqueId();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,7 +35,7 @@ var connectionID = 0;
 var websockets = [];
 var playerColors = ["yellow", "lightblue", "grey", "purple", "red", "green", "brightyellow", "blue"];
 
-var game = new Game();
+var game = new Game(uid.randomUUID(8));
 
 wss.on("connection", function connection(ws) {
     let con = ws;
@@ -46,7 +46,7 @@ wss.on("connection", function connection(ws) {
 
     // Send the player number to the player.
     let msg1 = messages.O_PLAYER_NAME;
-    msg1.data = con.id;
+    msg1.data = {pid: con.id, gid: game.gameID};
     con.send(JSON.stringify(msg1));
 
     // Send the open cards to the player that just connected.
@@ -59,6 +59,13 @@ wss.on("connection", function connection(ws) {
 
         if (oMsg.type === messages.T_PLAYER_NAME) {
             let pid = oMsg.data.pID;
+
+            if (game.gameState !== "lobby") {
+                let msg = messages.O_LOBBY;
+                websockets[pid].send(JSON.stringify(msg));
+                return;
+            }
+
             game["player" + pid] = new Player(pid, oMsg.data.pName, playerColors.pop(), websockets[pid]);
 
             game.amountOfPlayers++;
@@ -69,13 +76,27 @@ wss.on("connection", function connection(ws) {
         }
 
         if (oMsg.type === messages.T_PLAYER_EXISTING_ID) {
+            if (game.gameID !== oMsg.data.gid) {
+                console.log("A player joined the wrong game.");
+                let msg = messages.O_LOBBY;
+                websockets[oMsg.data.conId].send(JSON.stringify(msg));
+                return;
+            }
             let pid = oMsg.data.pid;
             game["player" + pid].updatewebsocket(websockets[oMsg.data.conId]);
             console.log("User " + pid + " updated his websocket connection.");
 
+            let msg = messages.O_PLAYER_WELCOME;
+            game["player" + pid].sendMessage(msg);
+
             let msg1 = messages.O_PLAYER_OVERVIEW;
             msg1.data = game.getUserProperties();
             game.sendToAll(msg1);
+        }
+
+        if (oMsg.type === messages.T_PLAYER_JOIN) {
+            let pid = oMsg.data.pid;
+            console.log("Player " + pid + " got it's initial data!");
 
             let color1 = game.getRandomColor();
             let color2 = game.getRandomColor();
@@ -83,8 +104,14 @@ wss.on("connection", function connection(ws) {
             let color4 = game.getRandomColor();
 
             let msg3 = messages.O_INITIAL_CARDS;
-            msg3.data = {desti: {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getUsDestination(), 3: game.getUsDestination()}}
+            let longdesti = game.longStack.pop();
+            if (longdesti[1].continent === "eu") {
+                msg3.data = {desti: {0: longdesti, 1: game.getEuDestination(), 2: game.getUsDestination(), 3: game.getUsDestination()}}
+            } else {
+                msg3.data = {desti: {0: game.getEuDestination(), 1: game.getEuDestination(), 2: longdesti, 3: game.getUsDestination()}}
+            }
             game["player" + pid].sendMessage(msg3);
+
             game["player" + pid][color1]++;
             game["player" + pid][color2]++;
             game["player" + pid][color3]++;
@@ -218,10 +245,16 @@ wss.on("connection", function connection(ws) {
             let routeID = oMsg.data.rid.split("-");
             continent = routeID[0];
             destinationMap = continent + "Desti";
-            
 
-            game["player" + pid].destinations.push(game[destinationMap].get(routeID[1] + "-" + routeID[2]));
+            if (game[destinationMap].get(routeID[1] + "-" + routeID[2]) !== undefined) {
+                game["player" + pid].destinations.push(game[destinationMap].get(routeID[1] + "-" + routeID[2]));
+            } else {
+                game["player" + pid].destinations.push(game["long" + destinationMap].get(routeID[1] + "-" + routeID[2]));
+            }
+            
             game["player" + pid].numberOfRoutes++;
+
+            game.checkContinuity(pid);
 
             if (game.gameState === "choosing-tickets") {
                 console.log("A player is now ready.")
@@ -231,6 +264,8 @@ wss.on("connection", function connection(ws) {
                     game.currentRound = Math.ceil(Math.random() * game.amountOfPlayers) - 1;
     
                     game.sendPlayerRound();
+
+                    game.mergeAllDestinations();
 
                     console.log("The game has now started!");
                     game.gameState = "ongoing";
@@ -246,10 +281,15 @@ wss.on("connection", function connection(ws) {
             let routeID = oMsg.data.split("-");
             continent = routeID[0];
             destinationMap = continent + "Desti";
-            game.euStack.push([routeID[1] + "-" + routeID[2], game[destinationMap].get(routeID[1] + "-" + routeID[2])]);
-            game.shuffleDestis();
-
-            console.log("A player rejected a route and the deck has been shuffled");
+            if (game[destinationMap].get(routeID[1] + "-" + routeID[2]) === undefined) {
+                console.log("A player rejected a long route");
+                game[continent + "Stack"].push([routeID[1] + "-" + routeID[2], game["long" + destinationMap].get(routeID[1] + "-" + routeID[2])]);
+                game.shuffleDestis();
+            } else {
+                console.log("A player rejected a short route");
+                game[continent + "Stack"].push([routeID[1] + "-" + routeID[2], game[destinationMap].get(routeID[1] + "-" + routeID[2])]);
+                game.shuffleDestis();
+            }
         }
 
         if (oMsg.type === messages.T_PLAYER_FINISHED) {
