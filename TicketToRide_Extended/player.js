@@ -1,10 +1,10 @@
-const player = function (id, playerName, playerColor, playerWebsocket) {
+const player = function (id, playerName, playerColor, socketID) {
     this.id = id;
     this.name = playerName;
     this.color = playerColor;
     this.score = 0;
-    this.numberOfTrains = 50;
-    this.websocket = playerWebsocket;
+    this.numberOfTrains = 3;
+    this.socketID = socketID;
     this.numberOfTrainCards = 0;
     this.numberOfRoutes = 0;
     this.black = 0;
@@ -22,10 +22,6 @@ const player = function (id, playerName, playerColor, playerWebsocket) {
     this.routes = new Map();
     this.destinations = [];
     this.completedDestinations = [];
-};
-
-player.prototype.sendMessage = function (msg) {
-    this.websocket.send(JSON.stringify(msg));
 };
 
 player.prototype.updatewebsocket = function (socket) {

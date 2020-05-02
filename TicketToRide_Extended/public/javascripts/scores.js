@@ -1,4 +1,5 @@
 var playerID;
+var gameID;
 var socket;
 
 var playersDrawn = false;
@@ -9,39 +10,33 @@ var happymusic = new Audio("./sounds/germanMusic.mp3");
 var winning = new Audio("./sounds/victoryJingle.mp3");
 var vapeur = new Audio("./sounds/Vapeur.mp3");
 
-if (document.location.protocol === "https:" || document.location.protocol === "https:") {
-    socket = new WebSocket("wss://" + location.host);
-} else {
-    socket = new WebSocket("ws://" + location.host);
-}
+socket = io(location.host);
 
 (function setup() {
 
+    playerID = parseInt(getCookie("playerID"));
+    gameID = getCookie("gameID");
     music.play();
 
-    socket.onmessage = function (event) {
-        let incomingMsg = JSON.parse(event.data);
-        console.log("incomingMsg: " + JSON.stringify(incomingMsg));
+    socket.on('connect', () => {
+        console.log("Connceted to server");
+        socket.emit('player-ingame-join', {playerID: playerID, gameID: gameID});
+    });
 
-        if (incomingMsg.type === Messages.T_PLAYER_NAME) {
-            playerID = parseInt(getCookie("playerID"));
-
-            let conid = incomingMsg.data.pid;
-
-            let msg = Messages.O_PLAYER_EXISTING_ID;
-            msg.data = {pid: playerID, conId: conid, gid: getCookie("gameID")};
-            socket.send(JSON.stringify(msg));
-        }
-
-        if (!playersDrawn && incomingMsg.type === Messages.T_PLAYER_OVERVIEW) {
-            createPlayers(incomingMsg.data);
+    socket.on('player-overview', (players) => {
+        if (!playersDrawn) {
+            createPlayers(players);
             playersDrawn = true;
         }
+    });
 
-        if (incomingMsg.type === Messages.T_FINAL_SCORE){
-            showScores(incomingMsg.data);
-        }
-    };
+    socket.on('final-score', (data) => {
+        showScores(data);
+    });
+
+    socket.on('lobby', () => {
+        window.location.pathname = '/';
+    });
 })();
 
 function createPlayers(data) {
@@ -143,7 +138,7 @@ function showScores(data) {
 
 function showWinning() {
     let scores = document.getElementsByClassName('playerscore');
-    let highestscore = 0;
+    let highestscore = -Infinity;
     let highestpid;
     for (score of scores) {
         let actual = parseInt(score.innerText.split("Score: ")[1]);
