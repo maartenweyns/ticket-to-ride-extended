@@ -137,9 +137,10 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
             }
 
             currentMove = incomingMsg.data.thing;
+            markCurrentPlayer(incomingMsg.data.pid);
+
 
             if (currentMove === 0) {
-                markCurrentPlayer(incomingMsg.data.pid);
                 enableLocomotive();
                 document.getElementById("endTurn").style.display = "none";
             }
