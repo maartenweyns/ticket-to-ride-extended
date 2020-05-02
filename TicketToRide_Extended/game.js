@@ -1,6 +1,5 @@
 var route = require("./route");
 var destination = require("./destination");
-var messages = require("./public/javascripts/messages");
 
 const game = function (gameID) {
     this.gameID = gameID;
@@ -69,7 +68,7 @@ game.prototype.checkNeedForShuffle = function () {
             amountOfLocos++;
         }
     }
-    console.log("The deck has been checked to 3 locomotives. The amount of locomotives is " + amountOfLocos);
+    console.log("[INFO] The amount of open locomotives is " + amountOfLocos);
     return amountOfLocos >= 3;
 };
 
@@ -96,14 +95,6 @@ game.prototype.getRandomColor = function () {
         }
     } else {
         return "loco";
-    }
-};
-
-game.prototype.sendToAll = function (msg) {
-    for (let i = 0; i < 8; i++) {
-        if (this["player" + i] !== null) {
-            this["player" + i].sendMessage(msg);
-        }
     }
 };
 
@@ -519,30 +510,24 @@ game.prototype.playerPutRoute = function () {
     if (this.routesLayed > 1) {
         this.nextPlayerRound();
     }
-}
+};
+
+game.prototype.checkGameEnd = function() {
+    return this.endGameNow;
+};
 
 game.prototype.nextPlayerRound = function () {
-    var that = this;
-
     this.thingsDone = 0;
     this.routesLayed = 0;
     let nextPlayer = this.currentRound + 1;
+
     if (this["player" + nextPlayer] === null) {
         nextPlayer = 0;
     }
-
-    if (this.endGameNow) {
-        let msg = messages.O_GAME_END;
-        this.sendToAll(msg);
-        
-        setTimeout(function() {
-            that.calculateScore();
-        }, 1000);
-    }
-
     if (this.lastRoundPlayer !== null && nextPlayer === this.lastRoundPlayer) {
         this.endGameNow = true;
     }
+
     this.currentRound = nextPlayer;
 };
 
@@ -558,15 +543,15 @@ game.prototype.mergeAllDestinations = function () {
     while (this.longStack.length !== 0) {
         let desti = this.longStack.pop();
         if (desti[1].continent === "eu") {
-            console.log("Merging eu destination");
             this.euStack.push(desti);
         } else {
-            console.log("Merging us destination");
             this.usStack.push(desti);
         }
     }
     this.euStack = shuffleArray(this.euStack);
     this.usStack = shuffleArray(this.usStack);
+
+    console.log('[INFO] Merged Destinations')
 }
 
 function shuffleArray(array) {
@@ -629,9 +614,7 @@ game.prototype.checkContinuity = function (playerID) {
     for (let desti of destis) {
         if (checkContinuity(this["player" + playerID], desti.stationA, desti.stationB)) {
             this["player" + playerID].completedDestinations.push(desti);
-            let msg = messages.O_PLAYER_COMPLETED_ROUTE;
-            msg.data = desti.continent + "-" + desti.stationA + "-" + desti.stationB;
-            this["player" + playerID].sendMessage(msg);
+            socket.emit('player-completed-route', desti.continent + "-" + desti.stationA + "-" + desti.stationB);
         } else {
             unfinished.push(desti);
         }
@@ -641,34 +624,28 @@ game.prototype.checkContinuity = function (playerID) {
 
 game.prototype.allPlayersReady = function () {
     for (let i = 0; i < this.amountOfPlayers; i++) {
-        console.log("Is player " + i + " ready?")
         if (this["player" + i].ready === null) {
             console.log("Nope");
             return false;
         }
-        console.log("Yes!");
     }
     return true;
 }
 
-game.prototype.sendPlayerRound = function () {
-    let message = messages.O_PLAYER_ROUND;
+game.prototype.getPlayerRound = function () {
     for (let i = 0; i < this.amountOfPlayers; i++) {
         if (this["player" + i].numberOfTrains <= 2) {
             if (this.lastRoundPlayer === null) {
                 this.lastRoundPlayer = i;
             }
-            message.data = {pid: this.currentRound, thing: this.thingsDone, lastRound: true};
-            this.sendToAll(message);
-            return;
+
+            return {pid: this.currentRound, thing: this.thingsDone, lastRound: true};
         }
     }
-    message.data = {pid: this.currentRound, thing: this.thingsDone, lastRound: false};
-    this.sendToAll(message);
+    return {pid: this.currentRound, thing: this.thingsDone, lastRound: false};
 }
 
 game.prototype.calculateScore = function () {
-    let msg = messages.O_FINAL_SCORE;
     let returnObject = [];
     for (let i = 0; i < 8; i++) {
         if (this["player" + i] !== null) {
@@ -682,8 +659,7 @@ game.prototype.calculateScore = function () {
             returnObject.push(player);
         }
     }
-    msg.data = returnObject;
-    this.sendToAll(msg);
+    return returnObject;
 }
 
 function checkContinuity(player, stationA, stationB) {
@@ -691,7 +667,7 @@ function checkContinuity(player, stationA, stationB) {
     let visited = [];
 
     let recursion = function (startingStation, endingStation) {
-        console.log("Recursion evoked from " + startingStation + " to " + endingStation);
+        // console.log("Recursion evoked from " + startingStation + " to " + endingStation);
         let stationList = map.get(startingStation);
         if (stationList !== undefined) {
             console.log("All routes from " + startingStation + ": " + stationList.length);

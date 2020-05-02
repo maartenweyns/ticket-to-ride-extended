@@ -2,9 +2,7 @@ function requestDestination() {
     let confirmed;
     confirmed = confirm("Do you really want to pick new destinations?");
     if (confirmed) {
-        let msg1 = Messages.O_PLAYER_TOOK_DESTINATION;
-        msg1.data = playerID;
-        socket.send(JSON.stringify(msg1));
+        socket.emit('player-destination', playerID);
     }
 }
 
@@ -108,18 +106,13 @@ function confirmDestis(initialRound) {
 
             container.append(routeCardContainer);
 
-            let msg = Messages.O_ACCEPTED_DESTI;
-            msg.data = {pid: playerID, rid: destinations[i].id}
-            socket.send(JSON.stringify(msg));
+            socket.emit('accepted-destination', {pid: playerID, rid: destinations[i].id});
         } else {
-            let msg = Messages.O_REJECTED_DESTI;
-            msg.data = destinations[i].id;
-            socket.send(JSON.stringify(msg));
+            socket.emit('rejected-destination', destinations[i].id);
         }
     }
 
-    let msg = Messages.O_PLAYER_FINISHED;
-    socket.send(JSON.stringify(msg));
+    socket.emit('player-finished');
 
     document.getElementById("destiCardsChoosingPanel").innerHTML = '';
     document.getElementById("destiCardsChoosingPanel").style.display = "none";
