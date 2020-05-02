@@ -592,9 +592,8 @@ game.prototype.shuffleDestis = function () {
     this.usStack = shuffleArray(this.usStack);
 };
 
-game.prototype.sendPersonalCardsToUser = function (pid) {
-    let personalTrainsMessage = messages.O_PERSONAL_TRAINS;
-    personalTrainsMessage.data = {
+game.prototype.getPersonalCards = function (pid) {
+    let data = {
         black: this["player" + pid].black,
         blue: this["player" + pid].blue,
         brown: this["player" + pid].brown,
@@ -605,7 +604,7 @@ game.prototype.sendPersonalCardsToUser = function (pid) {
         yellow: this["player" + pid].yellow,
         loco: this["player" + pid].loco
     };
-    this["player" + pid].sendMessage(personalTrainsMessage);
+    return data;
 };
 
 game.prototype.userClaimedRoute = function (playerID, route) {

@@ -1,10 +1,10 @@
-const player = function (id, playerName, playerColor, playerWebsocket) {
+const player = function (id, playerName, playerColor, socketID) {
     this.id = id;
     this.name = playerName;
     this.color = playerColor;
     this.score = 0;
     this.numberOfTrains = 50;
-    this.websocket = playerWebsocket;
+    this.socketID = socketID;
     this.numberOfTrainCards = 0;
     this.numberOfRoutes = 0;
     this.black = 0;

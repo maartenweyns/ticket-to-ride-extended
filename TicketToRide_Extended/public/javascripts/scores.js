@@ -9,11 +9,13 @@ var happymusic = new Audio("./sounds/germanMusic.mp3");
 var winning = new Audio("./sounds/victoryJingle.mp3");
 var vapeur = new Audio("./sounds/Vapeur.mp3");
 
-if (document.location.protocol === "https:" || document.location.protocol === "https:") {
-    socket = new WebSocket("wss://" + location.host);
-} else {
-    socket = new WebSocket("ws://" + location.host);
-}
+socket = io('http://localhost:3200');
+
+// if (document.location.protocol === "https:" || document.location.protocol === "https:") {
+//     socket = new WebSocket("wss://" + location.host);
+// } else {
+//     socket = new WebSocket("ws://" + location.host);
+// }
 
 (function setup() {
 

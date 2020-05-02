@@ -1,5 +1,6 @@
 var socket;
 var playerID;
+var gameID;
 var currentMove;
 
 var music = new Audio("../sounds/america.mp3");
@@ -16,17 +17,16 @@ var allAudio = [music, startsound, buzz, cardDeal, cardShuffle, cashRegister, ti
 var audioUnlocked = false;
 var lastRoundShown = false;
 
-if (document.location.protocol === "https:" || document.location.protocol === "https:") {
-    socket = new WebSocket("wss://" + location.host);
-} else {
-    socket = new WebSocket("ws://" + location.host);
-}
+socket = io(location.host);
 
 (function setup() {
+
+    playerID = getCookie("playerID");
+    gameID = getCookie("gameID");
+
+    // Disable game elements from users
     document.getElementById("eutab").click();
-
     document.getElementById("endTurn").style.display = "none";
-
     document.getElementById("ownCardContainer").classList.add("disabled");
     document.getElementById("generalCards").classList.add("disabled");
     document.getElementsByClassName("tabcontent")[0].classList.add("disabled");
@@ -40,185 +40,194 @@ if (document.location.protocol === "https:" || document.location.protocol === "h
         alert("To unlock your audio, please press your own player on the left side of the screen!");
     });
 
-    socket.onmessage = function (event) {
-        let incomingMsg = JSON.parse(event.data);
-        console.log("incomingMsg: " + JSON.stringify(incomingMsg));
 
-        if (incomingMsg.type === Messages.T_PLAYER_NAME) {
-            playerID = parseInt(getCookie("playerID"));
+    socket.emit('player-ingame-join', {playerID: playerID, gameID: gameID});
 
-            let conid = incomingMsg.data.pid;
-
-            let msg = Messages.O_PLAYER_EXISTING_ID;
-            msg.data = {pid: playerID, conId: conid, gid: getCookie("gameID")};
-            socket.send(JSON.stringify(msg));
+    socket.on('open-cards', (cardData) => {
+        if (!cardData.shuffle) {
+            setOpenTickets(cardData.cards);
+        } else {
+            shuffle(cardData.cards);
         }
+    });
 
-        if (incomingMsg.type === Messages.T_PLAYER_WELCOME) {
-            let msg1 = Messages.O_PLAYER_JOIN;
-            msg1.data = {pid: playerID, conId: playerID};
-            socket.send(JSON.stringify(msg1));
-        }
+    socket.on('own-cards', (cards) => {
+        let ownCardContainer = document.getElementById("ownCardContainer");
+        ownCardContainer.innerHTML = "";
+        addCardToCollection("black", cards.black);
+        addCardToCollection("blue", cards.blue);
+        addCardToCollection("brown", cards.brown);
+        addCardToCollection("green", cards.green);
+        addCardToCollection("purple", cards.purple);
+        addCardToCollection("red", cards.red);
+        addCardToCollection("white", cards.white);
+        addCardToCollection("yellow", cards.yellow);
+        addCardToCollection("loco", cards.loco);
+    });
 
-        if (incomingMsg.type === Messages.T_OPEN_CARDS) {
-            if (!incomingMsg.data.shuffle) {
-                setOpenTickets(incomingMsg.data.cards);
-            } else {
-                shuffle(incomingMsg.data.cards);
-            }
-        }
+    socket.on('initial-routes', (routes) => {
+        receivedDestinations(routes, 4, true);
+    });
 
-        if (incomingMsg.type === Messages.T_NEW_OPEN_CARD) {
-            replaceCard(incomingMsg.data.repCard, incomingMsg.data.newColor);
-            if (!document.getElementById(incomingMsg.data.repCard).classList.contains("loco")) {
-                disableLocomotive();
-            }
-        }
+    socket.on('player-overview', (players) => {
+        addUsers(players);
+    });
 
-        if (incomingMsg.type === Messages.T_REQUEST_TRAIN) {
-            cardDeal.play();
-            document.getElementById("closedCard").classList.add("cardTakenSelf", "disabled");
-            setTimeout(function () {
-                document.getElementById("closedCard").classList.remove("cardTakenSelf", "disabled")
-            }, 1000);
-        }
+    // socket.onmessage = function (event) {
+    //     let incomingMsg = JSON.parse(event.data);
+    //     console.log("incomingMsg: " + JSON.stringify(incomingMsg));
 
-        if (incomingMsg.type === Messages.T_PLAYER_OVERVIEW) {
-            addUsers(incomingMsg.data);
-        }
+    //     if (incomingMsg.type === Messages.T_PLAYER_NAME) {
+    //         playerID = parseInt(getCookie("playerID"));
 
-        if (incomingMsg.type === Messages.T_ROUTE_CLAIM) {
-            if (incomingMsg.data.status === true) {
-                let imageLocation = document.getElementById(incomingMsg.data.continent);
-                let linkToTrainsToAdd = "images/trainsOnMap/" + incomingMsg.data.continent + "/" + incomingMsg.data.route + ".png";
+    //         let conid = incomingMsg.data.pid;
 
-                let carts = document.createElement('img');
-                carts.src = linkToTrainsToAdd;
-                carts.classList.add("carts");
-                carts.classList.add(incomingMsg.data.pcol + "Wagons");
-                carts.classList.add("cartsBlinking");
-                setTimeout(function() {
-                    carts.classList.remove("cartsBlinking");
-                }, 4000);
-                imageLocation.append(carts);
+    //         let msg = Messages.O_PLAYER_EXISTING_ID;
+    //         msg.data = {pid: playerID, conId: conid, gid: getCookie("gameID")};
+    //         socket.send(JSON.stringify(msg));
+    //     }
 
-                if (document.getElementById(incomingMsg.data.continent).style.display === "block") {
-                    cashRegister.play();
-                } else {
-                    differentContinent.play();
-                    let tab = document.getElementById(incomingMsg.data.continent + "tab");
-                    tab.classList.add("flashingFlag");
-                    setTimeout(function () {
-                        tab.classList.remove("flashingFlag");
-                    }, 1600)
-                }
+    //     if (incomingMsg.type === Messages.T_PLAYER_WELCOME) {
+    //         let msg1 = Messages.O_PLAYER_JOIN;
+    //         msg1.data = {pid: playerID, conId: playerID};
+    //         socket.send(JSON.stringify(msg1));
+    //     }
 
-                if (incomingMsg.data.pid === playerID) {
-                    document.getElementById(incomingMsg.data.continent).classList.add("disabled");
-                    document.getElementById("endTurn").style.display = "block";
-                }
-            } else {
-                if (incomingMsg.data.pid === playerID) {
-                    buzz.play();
+    //     if (incomingMsg.type === Messages.T_OPEN_CARDS) {
+    //         if (!incomingMsg.data.shuffle) {
+    //             setOpenTickets(incomingMsg.data.cards);
+    //         } else {
+    //             shuffle(incomingMsg.data.cards);
+    //         }
+    //     }
 
-                    let card = document.getElementsByClassName("activatedCard")[0];
-                    card.classList.add("cantCard");
-                    setTimeout(function () {
-                        card.classList.remove("cantCard");
-                    }, 400);
-                }
-            }
-        }
+    //     if (incomingMsg.type === Messages.T_NEW_OPEN_CARD) {
+    //         replaceCard(incomingMsg.data.repCard, incomingMsg.data.newColor);
+    //         if (!document.getElementById(incomingMsg.data.repCard).classList.contains("loco")) {
+    //             disableLocomotive();
+    //         }
+    //     }
 
-        if (incomingMsg.type === Messages.T_PLAYER_ROUND) {
-            if (!lastRoundShown && incomingMsg.data.lastRound) {
-                lastRoundShown = true;
-                alert("A player has less than 3 wagons. This is the last round!");
-            }
+    //     if (incomingMsg.type === Messages.T_REQUEST_TRAIN) {
+    //         cardDeal.play();
+    //         document.getElementById("closedCard").classList.add("cardTakenSelf", "disabled");
+    //         setTimeout(function () {
+    //             document.getElementById("closedCard").classList.remove("cardTakenSelf", "disabled")
+    //         }, 1000);
+    //     }
 
-            currentMove = incomingMsg.data.thing;
-            markCurrentPlayer(incomingMsg.data.pid);
+    //     if (incomingMsg.type === Messages.T_ROUTE_CLAIM) {
+    //         if (incomingMsg.data.status === true) {
+    //             let imageLocation = document.getElementById(incomingMsg.data.continent);
+    //             let linkToTrainsToAdd = "images/trainsOnMap/" + incomingMsg.data.continent + "/" + incomingMsg.data.route + ".png";
+
+    //             let carts = document.createElement('img');
+    //             carts.src = linkToTrainsToAdd;
+    //             carts.classList.add("carts");
+    //             carts.classList.add(incomingMsg.data.pcol + "Wagons");
+    //             carts.classList.add("cartsBlinking");
+    //             setTimeout(function() {
+    //                 carts.classList.remove("cartsBlinking");
+    //             }, 4000);
+    //             imageLocation.append(carts);
+
+    //             if (document.getElementById(incomingMsg.data.continent).style.display === "block") {
+    //                 cashRegister.play();
+    //             } else {
+    //                 differentContinent.play();
+    //                 let tab = document.getElementById(incomingMsg.data.continent + "tab");
+    //                 tab.classList.add("flashingFlag");
+    //                 setTimeout(function () {
+    //                     tab.classList.remove("flashingFlag");
+    //                 }, 1600)
+    //             }
+
+    //             if (incomingMsg.data.pid === playerID) {
+    //                 document.getElementById(incomingMsg.data.continent).classList.add("disabled");
+    //                 document.getElementById("endTurn").style.display = "block";
+    //             }
+    //         } else {
+    //             if (incomingMsg.data.pid === playerID) {
+    //                 buzz.play();
+
+    //                 let card = document.getElementsByClassName("activatedCard")[0];
+    //                 card.classList.add("cantCard");
+    //                 setTimeout(function () {
+    //                     card.classList.remove("cantCard");
+    //                 }, 400);
+    //             }
+    //         }
+    //     }
+
+    //     if (incomingMsg.type === Messages.T_PLAYER_ROUND) {
+    //         if (!lastRoundShown && incomingMsg.data.lastRound) {
+    //             lastRoundShown = true;
+    //             alert("A player has less than 3 wagons. This is the last round!");
+    //         }
+
+    //         currentMove = incomingMsg.data.thing;
+    //         markCurrentPlayer(incomingMsg.data.pid);
 
 
-            if (currentMove === 0) {
-                enableLocomotive();
-                document.getElementById("endTurn").style.display = "none";
-            }
+    //         if (currentMove === 0) {
+    //             enableLocomotive();
+    //             document.getElementById("endTurn").style.display = "none";
+    //         }
 
-            if (incomingMsg.data.pid !== playerID) {
-                document.getElementById("ownCardContainer").classList.add("disabled");
-                document.getElementById("generalCards").classList.add("disabled");
-                document.getElementsByClassName("tabcontent")[0].classList.add("disabled");
-                document.getElementsByClassName("tabcontent")[1].classList.add("disabled");
-            }
-            if (incomingMsg.data.pid === playerID && currentMove === 0) {
-                trainHorn.play();
-                document.getElementById("ownCardContainer").classList.remove("disabled");
-                document.getElementById("generalCards").classList.remove("disabled");
-                document.getElementsByClassName("tabcontent")[0].classList.remove("disabled");
-                document.getElementsByClassName("tabcontent")[1].classList.remove("disabled");
-                document.getElementById("routeCard").classList.remove("disabled");
-            }
-        }
+    //         if (incomingMsg.data.pid !== playerID) {
+    //             document.getElementById("ownCardContainer").classList.add("disabled");
+    //             document.getElementById("generalCards").classList.add("disabled");
+    //             document.getElementsByClassName("tabcontent")[0].classList.add("disabled");
+    //             document.getElementsByClassName("tabcontent")[1].classList.add("disabled");
+    //         }
+    //         if (incomingMsg.data.pid === playerID && currentMove === 0) {
+    //             trainHorn.play();
+    //             document.getElementById("ownCardContainer").classList.remove("disabled");
+    //             document.getElementById("generalCards").classList.remove("disabled");
+    //             document.getElementsByClassName("tabcontent")[0].classList.remove("disabled");
+    //             document.getElementsByClassName("tabcontent")[1].classList.remove("disabled");
+    //             document.getElementById("routeCard").classList.remove("disabled");
+    //         }
+    //     }
 
-        if (incomingMsg.type === Messages.T_PLAYER_TOOK_DESTINATION) {
-            cardDeal.play();
-            receivedDestinations(incomingMsg.data, 3, false);
-        }
+    //     if (incomingMsg.type === Messages.T_PLAYER_TOOK_DESTINATION) {
+    //         cardDeal.play();
+    //         receivedDestinations(incomingMsg.data, 3, false);
+    //     }
 
-        if (incomingMsg.type === Messages.T_PLAYER_CLOSED_MOVE) {
-            if (incomingMsg.data.pid !== playerID) {
-                console.log("Someone did something and I am not allowed to know what :(");
-                if (incomingMsg.data.move === "TRAIN-CARD") {
-                    cardDeal.play();
-                    document.getElementById("closedCard").classList.add("cardTaken", "disabled");
-                    setTimeout(function () {
-                        document.getElementById("closedCard").classList.remove("cardTaken", "disabled")
-                    }, 1000);
-                }
-                if (incomingMsg.data.move === "ROUTE-CARD") {
-                    cardDeal.play();
-                    document.getElementById("routeCard").classList.add("cardTaken", "disabled");
-                    setTimeout(function () {
-                        document.getElementById("routeCard").classList.remove("cardTaken", "disabled")
-                    }, 1000);
-                }
-            }
-        }
+    //     if (incomingMsg.type === Messages.T_PLAYER_CLOSED_MOVE) {
+    //         if (incomingMsg.data.pid !== playerID) {
+    //             console.log("Someone did something and I am not allowed to know what :(");
+    //             if (incomingMsg.data.move === "TRAIN-CARD") {
+    //                 cardDeal.play();
+    //                 document.getElementById("closedCard").classList.add("cardTaken", "disabled");
+    //                 setTimeout(function () {
+    //                     document.getElementById("closedCard").classList.remove("cardTaken", "disabled")
+    //                 }, 1000);
+    //             }
+    //             if (incomingMsg.data.move === "ROUTE-CARD") {
+    //                 cardDeal.play();
+    //                 document.getElementById("routeCard").classList.add("cardTaken", "disabled");
+    //                 setTimeout(function () {
+    //                     document.getElementById("routeCard").classList.remove("cardTaken", "disabled")
+    //                 }, 1000);
+    //             }
+    //         }
+    //     }
 
-        if (incomingMsg.type === Messages.T_PLAYER_COMPLETED_ROUTE) {
-            ticketCompleted.play();
-            completedRoute(incomingMsg.data);
-        }
+    //     if (incomingMsg.type === Messages.T_PLAYER_COMPLETED_ROUTE) {
+    //         ticketCompleted.play();
+    //         completedRoute(incomingMsg.data);
+    //     }
 
-        if (incomingMsg.type === Messages.T_INITIAL_CARDS) {
-            let destinations = incomingMsg.data.desti;
-            receivedDestinations(destinations, 4, true);
-        }
+    //     if (incomingMsg.type === Messages.T_GAME_END) {
+    //         window.location.pathname = '/score';
+    //     }
 
-        if (incomingMsg.type === Messages.T_PERSONAL_TRAINS) {
-            let data = incomingMsg.data;
-            let ownCardContainer = document.getElementById("ownCardContainer");
-            ownCardContainer.innerHTML = "";
-            addCardToCollection("black", data.black);
-            addCardToCollection("blue", data.blue);
-            addCardToCollection("brown", data.brown);
-            addCardToCollection("green", data.green);
-            addCardToCollection("purple", data.purple);
-            addCardToCollection("red", data.red);
-            addCardToCollection("white", data.white);
-            addCardToCollection("yellow", data.yellow);
-            addCardToCollection("loco", data.loco);
-        }
-
-        if (incomingMsg.type === Messages.T_GAME_END) {
-            window.location.pathname = '/score';
-        }
-
-        if (incomingMsg.type === Messages.T_LOBBY) {
-            window.location.pathname = '/';
-        }
-    };
+    //     if (incomingMsg.type === Messages.T_LOBBY) {
+    //         window.location.pathname = '/';
+    //     }
+    // };
 })();
 
 function addUsers(users) {
