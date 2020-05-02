@@ -13,6 +13,7 @@
 
 .cardContainer {
     height: 100%;
+    width: calc(100% / 9);
     display: inline-block;
     position: relative;
     flex-shrink: 1;
@@ -47,6 +48,10 @@
 
 .cantCard {
     animation: cant 100ms 4 linear;
+}
+
+.ownCard {
+    max-width: 100%;
 }
 
 @keyframes cant {
