@@ -73,12 +73,10 @@ socket = io(location.host);
     });
 
     socket.on('player-overview', (players) => {
-        console.log("Received player overview.");
         addUsers(players);
     });
 
     socket.on('player-round', (round) => {
-        console.log("Received player round.")
         player = parseInt(round.pid);
 
         if (!lastRoundShown && round.lastRound) {
@@ -144,7 +142,6 @@ socket = io(location.host);
     });
 
     socket.on('route-claim', (data) => {
-        console.log("Routeclaim message received.")
         if (JSON.parse(data.status)) {
             let imageLocation = document.getElementById(data.continent);
             let linkToTrainsToAdd = "images/trainsOnMap/" + data.continent + "/" + data.route + ".png";
@@ -201,6 +198,11 @@ socket = io(location.host);
 
     socket.on('lobby', () => {
         window.location.pathname = '/';
+    });
+
+    socket.on('disconnect', () => {
+        console.log('Disconnected from server');
+        alert('You are disconnected. The app will try to reconnect automatically');
     });
 })();
 
@@ -265,6 +267,7 @@ function claimEuRoute(routeID) {
     if (document.getElementsByClassName("activatedCard")[0] !== undefined) {
         let color = document.getElementsByClassName("activatedCard")[0].id;
         socket.emit('route-claim', {pid: playerID, color: color, route: routeID, continent: "eu"});
+        document.getElementById("generalCards").classList.add("disabled");
     } else {
         alert("Select cards from your collection first!");
     }
@@ -274,6 +277,7 @@ function claimUsRoute(routeID) {
     if (document.getElementsByClassName("activatedCard")[0] !== undefined) {
         let color = document.getElementsByClassName("activatedCard")[0].id; 
         socket.emit('route-claim', {pid: playerID, color: color, route: routeID, continent: "us"});
+        document.getElementById("generalCards").classList.add("disabled");
     } else {
         alert("Select cards from your collection first!");
     }
