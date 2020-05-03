@@ -442,6 +442,8 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
         points = 4;
     } else if (routeRequirements.length === 4) {
         points = 7;
+    } else if (routeRequirements.length === 5) {
+        points = 10;
     } else if (routeRequirements.length === 6) {
         points = 15;
     } else {
@@ -610,8 +612,6 @@ game.prototype.userClaimedRoute = function (playerID, route) {
     } else {
         this["player" + playerID].routes.get(route.stationB).push(route);
     }
-    console.log("A player claimed a route. We'll check if the player got one of it's routes completed!");
-    this.checkContinuity(playerID);
 };
 
 game.prototype.checkContinuity = function (playerID) {
@@ -620,12 +620,13 @@ game.prototype.checkContinuity = function (playerID) {
     for (let desti of destis) {
         if (checkContinuity(this["player" + playerID], desti.stationA, desti.stationB)) {
             this["player" + playerID].completedDestinations.push(desti);
-            socket.emit('player-completed-route', desti.continent + "-" + desti.stationA + "-" + desti.stationB);
         } else {
             unfinished.push(desti);
         }
     }
     this["player" + playerID].destinations = unfinished;
+
+    return {uncompleted: this['player' + playerID].destinations, completed: this['player' + playerID].completedDestinations};
 };
 
 game.prototype.allPlayersReady = function () {
@@ -673,7 +674,6 @@ function checkContinuity(player, stationA, stationB) {
     let visited = [];
 
     let recursion = function (startingStation, endingStation) {
-        // console.log("Recursion evoked from " + startingStation + " to " + endingStation);
         let stationList = map.get(startingStation);
         if (stationList !== undefined) {
             console.log("All routes from " + startingStation + ": " + stationList.length);

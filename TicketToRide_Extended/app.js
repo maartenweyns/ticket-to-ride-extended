@@ -241,6 +241,10 @@ io.on('connection', (socket) => {
             } else {
                 io.in(game.gameID).emit('player-round', game.getPlayerRound());
             }
+            let completed = game.checkContinuity().completed;
+            for (let desti of completed) {
+                socket.emit('player-completed-route', desti.continent + "-" + desti.stationA + "-" + desti.stationB);
+            }
         } else {
             socket.emit('route-claim', {pid: data.pid, status: false});
         }
