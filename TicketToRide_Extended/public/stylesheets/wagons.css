@@ -4,8 +4,8 @@
 }
 
 .redWagons {
-    filter: hue-rotate(140deg);
-    -webkit-filter: hue-rotate(140deg);
+    filter: hue-rotate(140deg) brightness(1.4);
+    -webkit-filter: hue-rotate(140deg) brightness(1.4);
 }
 
 .greyWagons {
@@ -14,8 +14,8 @@
 }
 
 .lightblueWagons {
-    filter: hue-rotate(-35deg);
-    -webkit-filter: hue-rotate(-35deg);
+    filter: hue-rotate(-35deg) brightness(1.7);
+    -webkit-filter: hue-rotate(-35deg) brightness(1.7);
 }
 
 .brightyellowWagons {
@@ -24,8 +24,8 @@
 }
 
 .greenWagons {
-    filter: hue-rotate(-100deg);
-    -webkit-filter: hue-rotate(-100deg);
+    filter: hue-rotate(-100deg) brightness(1.6);
+    -webkit-filter: hue-rotate(-100deg) brightness(1.6);
 }
 
 .purpleWagons {
