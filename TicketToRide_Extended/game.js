@@ -33,6 +33,7 @@ const game = function (gameID) {
 
     this.lastRoundPlayer = null;
     this.endGameNow = false;
+    this.endGameInARound = false;
 
     this.amountOfPlayers = 0;
 
@@ -517,6 +518,10 @@ game.prototype.checkGameEnd = function() {
 };
 
 game.prototype.nextPlayerRound = function () {
+    if (this.endGameInARound) {
+        this.endGameNow = true;
+    }
+
     this.thingsDone = 0;
     this.routesLayed = 0;
     let nextPlayer = this.currentRound + 1;
@@ -524,8 +529,9 @@ game.prototype.nextPlayerRound = function () {
     if (this["player" + nextPlayer] === null) {
         nextPlayer = 0;
     }
+
     if (this.lastRoundPlayer !== null && nextPlayer === this.lastRoundPlayer) {
-        this.endGameNow = true;
+        this.endGameInARound = true;
     }
 
     this.currentRound = nextPlayer;
