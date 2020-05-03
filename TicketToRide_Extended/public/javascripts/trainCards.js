@@ -37,7 +37,7 @@ function replaceCard(cardId, newColor) {
     }, 1000)
 }
 
-function shuffle(openTickets) {
+function shufflecards(openTickets) {
     let openCardsBox = document.getElementById("openCardsBox");
     for (let i = 0; i < 5; i++) {
         let card = document.getElementById("Card" + i);

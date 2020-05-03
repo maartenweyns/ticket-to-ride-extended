@@ -50,7 +50,7 @@ socket = io(location.host);
         if (!shuffle) {
             setOpenTickets(cardData.cards);
         } else {
-            shuffle(cardData.cards);
+            shufflecards(cardData.cards);
         }
     });
 
