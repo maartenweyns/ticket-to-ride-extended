@@ -17,10 +17,10 @@
 .playerName {
     margin: 5px;
     color: white;
-    font-size: 2em;
+    font-size: 1.5vw;
     position: absolute;
-    top: 9px;
-    left: 16px;
+    top: 5%;
+    left: 7%;
     font-family: 'Arapey', serif;
 }
 
@@ -28,7 +28,7 @@
     color: black;
     font-family: 'Arapey', serif;
     position: absolute;
-    font-size: 1.4em;
+    font-size: 1.2vw;
     top: 26%;
     right: 10%;
     margin: 0;
@@ -37,7 +37,7 @@
 .numberOfTrainCardsText {
     color: white;
     font-family: 'Arapey', serif;
-    font-size: 2em;
+    font-size: 1.5vw;
     position: absolute;
     top: 48%;
     left: 35%;
@@ -47,7 +47,7 @@
 .numberOfRouteCardsText {
     color: white;
     font-family: 'Arapey', serif;
-    font-size: 2em;
+    font-size: 1.5vw;
     position: absolute;
     top: 48%;
     left: 73%;

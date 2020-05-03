@@ -31,7 +31,7 @@ socket = io(location.host);
     });
 
     socket.on('final-score', (data) => {
-        showScores(data);
+        showScoresNew(data);
     });
 
     socket.on('lobby', () => {
@@ -54,16 +54,9 @@ function createPlayers(data) {
         playername.classList.add("text");
 
         let infodiv = document.createElement('div');
-        let completedRoutes = document.createElement('p');
-        let uncompletedRoutes = document.createElement('p');
-        completedRoutes.innerText = "Routes completed: ";
-        uncompletedRoutes.innerText = "Routes not completed: ";
         infodiv.classList.add('infodiv');
-        completedRoutes.classList.add('smallInfo');
-        uncompletedRoutes.classList.add('smallInfo');
-        completedRoutes.id = "completed" + player.id;
-        uncompletedRoutes.id = "uncompleted" + player.id;
-        infodiv.append(completedRoutes, uncompletedRoutes);
+        infodiv.id = "infodiv" + player.id;
+        // infodiv.append(completedRoutes, uncompletedRoutes);
 
         let score = document.createElement('p');
         score.innerText = "Score: " + player.score;
@@ -87,7 +80,84 @@ function createPlayers(data) {
 
         div.append(general, traindiv);
     }
-    document.getElementById("box0").classList.add("currentlyCalculating");
+    // document.getElementById("box0").classList.add("currentlyCalculating");
+}
+
+function showScoresNew (data) {
+    let wait = 1;
+    for (let i = 0; i < data.length; i++) {
+        let last = false;
+        let player = data[i];
+        if (i === data.length - 1) {
+            last = true;
+        }
+
+        for (let j = 0; j < player.completedDestinations.length; j++) {
+            setTimeout(() => {
+                let score = parseInt(document.getElementById("score" + player.id).innerText.split("Score: ")[1]);
+                let destination = player.completedDestinations[j];
+                score += destination.points;
+
+                let routecard = document.createElement('div');
+                let overlay = document.createElement('img');
+                overlay.src = './images/decorations/ticket-DoneFrame.png';
+                overlay.classList.add('routecardimage');
+                let cardimage = document.createElement('img');
+                cardimage.src = './images/routeCards/' + destination.continent + '-' + destination.stationA + '-' + destination.stationB + '.png';
+                cardimage.classList.add('routecardimage');
+                routecard.classList.add('routeCard');
+                routecard.append(cardimage, overlay);
+
+                document.getElementById("infodiv" + player.id).append(routecard);
+
+                document.getElementById("score" + player.id).innerText = "Score: " + score;
+                document.getElementById("scoreTrain" + player.id).style.transform = "translateX(calc(-100% + " + 0.5*score + "%))";
+
+                vapeur.play();
+                movingTrain.play();
+
+            }, 2000 * wait++); 
+        }
+        
+        for (let j = 0; j < player.destinations.length; j++) {
+            setTimeout(() => {
+                let score = parseInt(document.getElementById("score" + player.id).innerText.split("Score: ")[1]);
+                let destination = player.destinations[j];
+                score -= destination.points;
+
+                let routecard = document.createElement('div');
+                let overlay = document.createElement('img');
+                overlay.src = './images/decorations/ticket-ToDoFrame.png';
+                overlay.classList.add('overlay');
+                let cardimage = document.createElement('img');
+                cardimage.src = './images/routeCards/' + destination.continent + '-' + destination.stationA + '-' + destination.stationB + '.png';
+                cardimage.classList.add('routecardimage');
+                routecard.classList.add('routeCard');
+                routecard.append(cardimage, overlay);
+
+                document.getElementById("infodiv" + player.id).append(routecard);
+
+                document.getElementById("score" + player.id).innerText = "Score: " + score;
+                document.getElementById("scoreTrain" + player.id).style.transform = "translateX(calc(-100% + " + 0.5*score + "%))";
+
+                vapeur.play();
+                movingTrain.play();
+            }, 2000 * wait++); 
+        }
+
+        if (last) {
+            setTimeout(function () {
+                showWinning();
+                music.pause();
+                winning.play();
+                winning.onended = function() {
+                    happymusic.loop = true;
+                    happymusic.play();
+                }
+            }, 2000 * wait);
+        }
+
+    }
 }
 
 function showScores(data) {
