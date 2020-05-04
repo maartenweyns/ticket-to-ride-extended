@@ -617,16 +617,18 @@ game.prototype.userClaimedRoute = function (playerID, route) {
 game.prototype.checkContinuity = function (playerID) {
     let destis = this["player" + playerID].destinations;
     let unfinished = [];
+    let returnobject = [];
     for (let desti of destis) {
         if (checkContinuity(this["player" + playerID], desti.stationA, desti.stationB)) {
             this["player" + playerID].completedDestinations.push(desti);
+            returnobject.push(desti);
         } else {
             unfinished.push(desti);
         }   
     }
     this["player" + playerID].destinations = unfinished;
 
-    return {uncompleted: this['player' + playerID].destinations, completed: this['player' + playerID].completedDestinations};
+    return returnobject;
 };
 
 game.prototype.allPlayersReady = function () {
