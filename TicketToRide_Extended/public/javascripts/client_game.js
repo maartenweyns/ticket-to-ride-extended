@@ -169,6 +169,7 @@ socket = io(location.host);
 
             if (data.pid === playerID) {
                 document.getElementById(data.continent).classList.add("disabled");
+                document.getElementById("generalCards").classList.add("disabled");
                 document.getElementById("endTurn").style.display = "block";
             }
         } else {
@@ -267,7 +268,6 @@ function claimEuRoute(routeID) {
     if (document.getElementsByClassName("activatedCard")[0] !== undefined) {
         let color = document.getElementsByClassName("activatedCard")[0].id;
         socket.emit('route-claim', {pid: playerID, color: color, route: routeID, continent: "eu"});
-        document.getElementById("generalCards").classList.add("disabled");
     } else {
         alert("Select cards from your collection first!");
     }
@@ -277,7 +277,6 @@ function claimUsRoute(routeID) {
     if (document.getElementsByClassName("activatedCard")[0] !== undefined) {
         let color = document.getElementsByClassName("activatedCard")[0].id; 
         socket.emit('route-claim', {pid: playerID, color: color, route: routeID, continent: "us"});
-        document.getElementById("generalCards").classList.add("disabled");
     } else {
         alert("Select cards from your collection first!");
     }
