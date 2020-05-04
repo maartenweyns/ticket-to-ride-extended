@@ -1,36 +1,41 @@
+.blueWagons {
+    filter: drop-shadow(0 0 1px black);
+    -webkit-filter: drop-shadow(0 0 1px black);
+}
+
 .yellowWagons {
-    filter: hue-rotate(180deg);
-    -webkit-filter: hue-rotate(180deg);
+    filter: hue-rotate(180deg) drop-shadow(0 0 1px black);
+    -webkit-filter: hue-rotate(180deg) drop-shadow(0 0 1px black);
 }
 
 .redWagons {
-    filter: hue-rotate(140deg) brightness(1.4);
-    -webkit-filter: hue-rotate(140deg) brightness(1.4);
+    filter: hue-rotate(140deg) brightness(1.4) drop-shadow(0 0 1px black);
+    -webkit-filter: hue-rotate(140deg) brightness(1.4) drop-shadow(0 0 1px black);
 }
 
 .greyWagons {
-    filter: saturate(0);
-    -webkit-filter: saturate(0);
+    filter: saturate(0) drop-shadow(0 0 1px black) brightness(1.4);
+    -webkit-filter: saturate(0) drop-shadow(0 0 1px black) brightness(1.4);
 }
 
 .lightblueWagons {
-    filter: hue-rotate(-35deg) brightness(1.7);
-    -webkit-filter: hue-rotate(-35deg) brightness(1.7);
+    filter: hue-rotate(-35deg) brightness(1.7) drop-shadow(0 0 1px black);
+    -webkit-filter: hue-rotate(-35deg) brightness(1.7) drop-shadow(0 0 1px black);
 }
 
 .brightyellowWagons {
-    filter: hue-rotate(-168deg) saturate(2) brightness(4);
-    -webkit-filter: hue-rotate(-168deg) saturate(2) brightness(4);
+    filter: hue-rotate(-168deg) saturate(2) brightness(4) drop-shadow(0 0 1px black);
+    -webkit-filter: hue-rotate(-168deg) saturate(2) brightness(4) drop-shadow(0 0 1px black);
 }
 
 .greenWagons {
-    filter: hue-rotate(-100deg) brightness(1.6);
-    -webkit-filter: hue-rotate(-100deg) brightness(1.6);
+    filter: hue-rotate(-100deg) brightness(1.6) drop-shadow(0 0 1px black);
+    -webkit-filter: hue-rotate(-100deg) brightness(1.6) drop-shadow(0 0 1px black);
 }
 
 .purpleWagons {
-    filter: hue-rotate(76deg);
-    -webkit-filter: hue-rotate(76deg);
+    filter: hue-rotate(76deg) drop-shadow(0 0 1px black);
+    -webkit-filter: hue-rotate(76deg) drop-shadow(0 0 1px black);
 }
 
 .carts {
@@ -47,10 +52,10 @@
 }
 
 @keyframes showCarts {
-    0% {filter: brightness(8) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(8) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
-    20% {filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
-    40% {filter: brightness(8) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(8) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
-    60% {filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
-    80% {filter: brightness(8) drop-shadow(0px 0px 10px rgba(255,0,0,1)); -webkit-filter: brightness(8) drop-shadow(0px 0px 10px rgba(255,0,0,1));}
-    100% {filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 10px rgba(255,0,0,0));}
+    0% {filter: brightness(8) drop-shadow(0px 0px 5px rgba(255,0,0,1)); -webkit-filter: brightness(8) drop-shadow(0px 0px 5px rgba(255,0,0,1));}
+    20% {filter: brightness(1) drop-shadow(0px 0px 5px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 5px rgba(255,0,0,0));}
+    40% {filter: brightness(8) drop-shadow(0px 0px 5px rgba(255,0,0,1)); -webkit-filter: brightness(8) drop-shadow(0px 0px 5px rgba(255,0,0,1));}
+    60% {filter: brightness(1) drop-shadow(0px 0px 5px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 5px rgba(255,0,0,0));}
+    80% {filter: brightness(8) drop-shadow(0px 0px 5px rgba(255,0,0,1)); -webkit-filter: brightness(8) drop-shadow(0px 0px 5px rgba(255,0,0,1));}
+    50% {filter: brightness(1) drop-shadow(0px 0px 5px rgba(255,0,0,0)); -webkit-filter: brightness(1) drop-shadow(0px 0px 5px rgba(255,0,0,0));}
 }

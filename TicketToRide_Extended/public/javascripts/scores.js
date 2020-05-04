@@ -101,7 +101,7 @@ function showScoresNew (data) {
                 let routecard = document.createElement('div');
                 let overlay = document.createElement('img');
                 overlay.src = './images/decorations/ticket-DoneFrame.png';
-                overlay.classList.add('routecardimage');
+                overlay.classList.add('overlay');
                 let cardimage = document.createElement('img');
                 cardimage.src = './images/routeCards/' + destination.continent + '-' + destination.stationA + '-' + destination.stationB + '.png';
                 cardimage.classList.add('routecardimage');

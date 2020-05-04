@@ -224,7 +224,7 @@ game.prototype.setupUsRoutes = function () {
     this.usRoutes.set("atlanta-neworleans-2", new route("atlanta", "neworleans", 2, "brown", 4, 0));
     this.usRoutes.set("atlanta-neworleans-1", new route("atlanta", "neworleans", 1, "yellow", 4, 0));
     this.usRoutes.set("miami-neworleans-1", new route("miami", "neworleans", 1, "red", 6, 0));
-    this.usRoutes.set("charleston-miami-1", new route("charleston", "miami", 1, "pink", 4, 0));
+    this.usRoutes.set("charleston-miami-1", new route("charleston", "miami", 1, "purple", 4, 0));
     this.usRoutes.set("atlanta-charleston-1", new route("atlanta", "charleston", 1, "any", 2, 0));
     this.usRoutes.set("charleston-raleigh-1", new route("charleston", "raleigh", 1, "any", 2, 0));
     this.usRoutes.set("atlanta-miami-1", new route("atlanta", "miami", 1, "blue", 5, 0));
@@ -622,7 +622,7 @@ game.prototype.checkContinuity = function (playerID) {
             this["player" + playerID].completedDestinations.push(desti);
         } else {
             unfinished.push(desti);
-        }
+        }   
     }
     this["player" + playerID].destinations = unfinished;
 
