@@ -323,7 +323,7 @@ function endTurn() {
 }
 
 function drawExistingTrains(trains) {
-    for (array of trains) {
+    for (let array of trains) {
         let imageLocation = document.getElementById(array[1][0]);
         let linkToTrainsToAdd = "images/trainsOnMap/" + array[1][0] + "/" + array[1][1] + ".png";
 
