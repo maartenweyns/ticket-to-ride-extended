@@ -150,9 +150,9 @@ socket = io(location.host);
             carts.src = linkToTrainsToAdd;
             carts.classList.add("carts");
             carts.classList.add(data.pcol + "Wagons");
-            carts.classList.add("cartsBlinking");
+            carts.classList.add(data.pcol + "CartsBlinking");
             setTimeout(function() {
-                carts.classList.remove("cartsBlinking");
+                carts.classList.remove(data.pcol + "cartsBlinking");
             }, 4000);
             imageLocation.append(carts);
 
