@@ -22,6 +22,8 @@ const player = function (id, playerName, playerColor, socketID) {
     this.routes = new Map();
     this.destinations = [];
     this.completedDestinations = [];
+
+    this.routeIDs = [];
 };
 
 player.prototype.updatewebsocket = function (socket) {

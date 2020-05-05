@@ -150,9 +150,9 @@ socket = io(location.host);
             carts.src = linkToTrainsToAdd;
             carts.classList.add("carts");
             carts.classList.add(data.pcol + "Wagons");
-            carts.classList.add("cartsBlinking");
+            carts.classList.add(data.pcol + "CartsBlinking");
             setTimeout(function() {
-                carts.classList.remove("cartsBlinking");
+                carts.classList.remove(data.pcol + "CartsBlinking");
             }, 4000);
             imageLocation.append(carts);
 
@@ -169,6 +169,7 @@ socket = io(location.host);
 
             if (data.pid === playerID) {
                 document.getElementById(data.continent).classList.add("disabled");
+                document.getElementById("generalCards").classList.add("disabled");
                 document.getElementById("endTurn").style.display = "block";
             }
         } else {
@@ -180,6 +181,15 @@ socket = io(location.host);
                 card.classList.remove("cantCard");
             }, 400);
         }
+    });
+
+    socket.on('own-destinations', (data) => {
+        drawOwnDestinations(data.uncompleted, false);
+        drawOwnDestinations(data.completed, true);
+    });
+
+    socket.on('existing-trains', (data) => {
+        drawExistingTrains(data);
     });
 
     socket.on('player-destination', (data) => {
@@ -267,7 +277,6 @@ function claimEuRoute(routeID) {
     if (document.getElementsByClassName("activatedCard")[0] !== undefined) {
         let color = document.getElementsByClassName("activatedCard")[0].id;
         socket.emit('route-claim', {pid: playerID, color: color, route: routeID, continent: "eu"});
-        document.getElementById("generalCards").classList.add("disabled");
     } else {
         alert("Select cards from your collection first!");
     }
@@ -277,7 +286,6 @@ function claimUsRoute(routeID) {
     if (document.getElementsByClassName("activatedCard")[0] !== undefined) {
         let color = document.getElementsByClassName("activatedCard")[0].id; 
         socket.emit('route-claim', {pid: playerID, color: color, route: routeID, continent: "us"});
-        document.getElementById("generalCards").classList.add("disabled");
     } else {
         alert("Select cards from your collection first!");
     }
@@ -311,6 +319,19 @@ function unlockaudio() {
 function endTurn() {
     if (confirm("Do you want to end your turn?")) {
         socket.emit('player-finished');
+    }
+}
+
+function drawExistingTrains(trains) {
+    for (array of trains) {
+        let imageLocation = document.getElementById(array[1][0]);
+        let linkToTrainsToAdd = "images/trainsOnMap/" + array[1][0] + "/" + array[1][1] + ".png";
+
+        let carts = document.createElement('img');
+        carts.src = linkToTrainsToAdd;
+        carts.classList.add("carts");
+        carts.classList.add(array[0] + "Wagons");
+        imageLocation.append(carts);
     }
 }
 
