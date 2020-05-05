@@ -113,10 +113,6 @@ li:nth-child(even) {
     opacity: 1;
 }
 
-#playername {
-    margin-bottom: 20px;
-}
-
 .warning {
     box-shadow: 0 0 20px red;
 }
@@ -134,3 +130,26 @@ li:nth-child(even) {
 html.is-animating .transition-fade {
     opacity: 0;
 }  
+
+#playername {
+    font-size: 2em;
+    padding: 10px;
+    background: #846742;
+    margin-bottom: 20px;
+    border-radius: 50px;
+    border: 2px solid #e9ebec;
+    color: white;
+    font-family: 'Permanent Marker', cursive;
+    -webkit-box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.75);
+}
+
+.versioninfo {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    font-size: 1em;
+    font-family: 'Permanent Marker', cursive;
+    color: rgba(255, 255, 255, 0.75);
+}
