@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var http = require("http");
 var Player = require('./player');
-var Route = require('./route');
 var Game = require("./game");
 
 var port = process.argv[2];

@@ -7,8 +7,4 @@ const route = function (stationA, stationB, variant, color, length, locoReq) {
     this.locoReq = locoReq;
 };
 
-function checkEligibility(game, pid, color, routeID, color) {
-
-}
-
 module.exports = route;
