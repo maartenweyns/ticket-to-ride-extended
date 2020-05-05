@@ -75,6 +75,16 @@ io.on('connection', (socket) => {
 
         if (game.gameState === 'ongoing') {
             io.in(game.gameID).emit('player-round', game.getPlayerRound());
+            socket.emit('own-cards', game.getPersonalCards(pid));
+            socket.emit('own-destinations', {uncompleted: game["player" + pid].destinations, completed: game["player" + pid].completedDestinations});
+
+            let trains = [];
+            for(let i = 0; i < 8; i++) {
+                if (game["player" + i] !== null) {
+                    game["player" + i].routeIDs.forEach(element => trains.push([game["player" + i].color, element]));
+                }
+            }
+            socket.emit('existing-trains', trains);
         }
 
         if (game.gameState === 'routes') {
@@ -220,6 +230,7 @@ io.on('connection', (socket) => {
             io.in(game.gameID).emit('route-claim', {status: true, pid: data.pid, route: data.route, pcol: game["player" + data.pid].color, 
             color: ret.color, continent: data.continent});
 
+            game["player" + data.pid].routeIDs.push([data.continent, data.route]);
             game["player" + data.pid][data.color] -= ret.amount;
             game["player" + data.pid].loco -= ret.locos;
             game["player" + data.pid].numberOfTrains -= game.getRouteRequirements(data.route, data.continent).length;

@@ -420,7 +420,7 @@ game.prototype.getRouteRequirements = function (routeID, continent) {
 };
 
 game.prototype.checkEligibility = function (pid, color, routeID, continent) {
-    console.log("Checking if the user can claim " + routeID + " in " + continent);
+    console.log("[INFO] Checking if the user can claim " + routeID + " in " + continent);
     let routeRequirements = this.getRouteRequirements(routeID, continent);
     let points;
 
