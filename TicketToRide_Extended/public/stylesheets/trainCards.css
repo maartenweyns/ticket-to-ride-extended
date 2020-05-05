@@ -13,6 +13,7 @@
 
 .cardContainer {
     height: 100%;
+    width: calc(100% / 9);
     display: inline-block;
     position: relative;
     flex-shrink: 1;
@@ -43,4 +44,21 @@
     transition: 100ms;
     transform: translateX(50px);
     pointer-events: none;
+}
+
+.cantCard {
+    animation: cant 100ms 4 linear;
+}
+
+.ownCard {
+    max-width: 100%;
+}
+
+@keyframes cant {
+    0% {transform: translateX(0) translateY(0);}
+    20% {transform: translateX(-5px) translateY(5px);}
+    40% {transform: translateX(5px) translateY(-5px);}
+    60% {transform: translateX(5px) translateY(5px);}
+    80% {transform: translateX(-5px) translateY(-5px);}
+    100% {transform: translateX(0) translateY(0);}
 }

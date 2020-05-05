@@ -1,5 +1,6 @@
 function setOpenTickets(openTickets) {
     let openCardsBox = document.getElementById("openCardsBox");
+    openCardsBox.innerHTML = '';
     for (let i = 0; i < 5; i++) {
         let card = document.createElement('img');
         let color = openTickets["Card" + i];
@@ -36,7 +37,7 @@ function replaceCard(cardId, newColor) {
     }, 1000)
 }
 
-function shuffle(openTickets) {
+function shufflecards(openTickets) {
     let openCardsBox = document.getElementById("openCardsBox");
     for (let i = 0; i < 5; i++) {
         let card = document.getElementById("Card" + i);
@@ -52,13 +53,9 @@ function shuffle(openTickets) {
 }
 
 function takeCard(cardID) {
-    let msg = Messages.O_PLAYER_TOOK_OPEN_TRAIN;
-    msg.data = {card: cardID, pid: playerID, color: document.getElementById(cardID).classList[1]};
-    socket.send(JSON.stringify(msg));
-    let color = document.getElementById(cardID).classList[1];
-    // addCardToCollection(color);
+    socket.emit('open-train', {card: cardID, pid: playerID, color: document.getElementById(cardID).classList[1]});
 
-    if (msg.data.color !== "loco") {
+    if (document.getElementById(cardID).classList[1] !== "loco") {
         disableOtherPlayerActions();
     }
 
@@ -77,7 +74,6 @@ function addCardToCollection(color, amount) {
 
     let cardsAlreadyOwned = ownCardContainer.children;
     for (let i = 0; i < cardsAlreadyOwned.length; i++) {
-        console.log(cardsAlreadyOwned[i].id);
         if (cardsAlreadyOwned[i].id === color) {
             let number = parseInt(cardsAlreadyOwned[i].children[1].innerHTML) + amount;
             cardsAlreadyOwned[i].children[1].innerHTML = number + "";
@@ -112,9 +108,7 @@ function addCardToCollection(color, amount) {
 
 function requestClosedCard() {
     disableOtherPlayerActions();
-    let msg1 = Messages.O_REQUEST_TRAIN;
-    msg1.data = playerID;
-    socket.send(JSON.stringify(msg1));
+    socket.emit('closed-train', playerID);
 }
 
 function disableOtherPlayerActions() {

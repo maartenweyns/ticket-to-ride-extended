@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node app.js 3200",
+    "test": "jest"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -12,6 +13,12 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
+    "particles.js": "^2.0.0",
+    "short-unique-id": "^2.0.7",
+    "socket.io": "^2.3.0",
     "ws": "^7.2.3"
+  },
+  "devDependencies": {
+    "jest": "^25.4.0"
   }
 }
