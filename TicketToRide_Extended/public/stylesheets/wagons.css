@@ -1,41 +1,36 @@
-.blueWagons {
-    filter: drop-shadow(0 0 1px black);
-    -webkit-filter: drop-shadow(0 0 1px black);
-}
-
 .yellowWagons {
-    filter: hue-rotate(180deg) drop-shadow(0 0 1px black);
-    -webkit-filter: hue-rotate(180deg) drop-shadow(0 0 1px black);
+    filter: hue-rotate(180deg);
+    -webkit-filter: hue-rotate(180deg);
 }
 
 .redWagons {
-    filter: hue-rotate(140deg) brightness(1.4) drop-shadow(0 0 1px black);
-    -webkit-filter: hue-rotate(140deg) brightness(1.4) drop-shadow(0 0 1px black);
+    filter: hue-rotate(140deg) brightness(1.4);
+    -webkit-filter: hue-rotate(140deg) brightness(1.4);
 }
 
 .greyWagons {
-    filter: saturate(0) drop-shadow(0 0 1px black) brightness(1.4);
-    -webkit-filter: saturate(0) drop-shadow(0 0 1px black) brightness(1.4);
+    filter: saturate(0) brightness(1.4);
+    -webkit-filter: saturate(0) brightness(1.4);
 }
 
 .lightblueWagons {
-    filter: hue-rotate(-35deg) brightness(1.7) drop-shadow(0 0 1px black);
-    -webkit-filter: hue-rotate(-35deg) brightness(1.7) drop-shadow(0 0 1px black);
+    filter: hue-rotate(-35deg) brightness(1.7);
+    -webkit-filter: hue-rotate(-35deg) brightness(1.7);
 }
 
 .brightyellowWagons {
-    filter: hue-rotate(-168deg) saturate(2) brightness(4) drop-shadow(0 0 1px black);
-    -webkit-filter: hue-rotate(-168deg) saturate(2) brightness(4) drop-shadow(0 0 1px black);
+    filter: hue-rotate(-168deg) saturate(2) brightness(4);
+    -webkit-filter: hue-rotate(-168deg) saturate(2) brightness(4);
 }
 
 .greenWagons {
-    filter: hue-rotate(-100deg) brightness(1.6) drop-shadow(0 0 1px black);
-    -webkit-filter: hue-rotate(-100deg) brightness(1.6) drop-shadow(0 0 1px black);
+    filter: hue-rotate(-100deg) brightness(1.6);
+    -webkit-filter: hue-rotate(-100deg) brightness(1.6);
 }
 
 .purpleWagons {
-    filter: hue-rotate(76deg) drop-shadow(0 0 1px black);
-    -webkit-filter: hue-rotate(76deg) drop-shadow(0 0 1px black);
+    filter: hue-rotate(76deg);
+    -webkit-filter: hue-rotate(76deg);
 }
 
 .carts {
