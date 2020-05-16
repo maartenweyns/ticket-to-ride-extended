@@ -3,6 +3,8 @@ var playerID;
 var gameID;
 var currentMove;
 
+const swup = new Swup();
+
 var music = new Audio("../sounds/america.mp3");
 var startsound = new Audio("../sounds/startGame.mp3");
 var buzz = new Audio("../sounds/IG_F_Cant.mp3");
@@ -223,11 +225,11 @@ function addUsers(users) {
         let user = users.pop();
         let userEntry = document.createElement('div');
         userEntry.classList.add("playerBackdrop");
+        userEntry.id = "p" + user.id;
 
         let userBackdrop = document.createElement('img');
         userBackdrop.src = 'images/playerInformation/playerBackdrop/support-opponent-' + user.color + '.png';
         userBackdrop.classList.add("playerBackdropImage");
-        userBackdrop.id = "p" + user.id;
 
         let playerName = document.createElement('p');
         playerName.innerText = user.name + "(" + user.score + ")";
@@ -293,8 +295,8 @@ function claimUsRoute(routeID) {
 
 function markCurrentPlayer(pid) {
     for (let i = 0; i < 8; i++) {
-        if (document.getElementById("p" + pid) !== null) {
-            document.getElementById("p" + pid).classList.remove("currentPlayer");
+        if (document.getElementById("p" + i) !== null) {
+            document.getElementById("p" + i).classList.remove("currentPlayer");
         }
     }
     document.getElementById("p" + pid).classList.add("currentPlayer");
