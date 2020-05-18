@@ -169,6 +169,14 @@ socket = io(location.host);
                 }, 1600)
             }
 
+            if (document.getElementsByClassName('carts').length > 1) {
+                mergeImages([document.getElementsByClassName('carts')[0].src, document.getElementsByClassName('carts')[1].src])
+                    .then(b64 => document.getElementsByClassName('carts')[0].src = b64);
+                setTimeout(function() {
+                    imageLocation.removeChild(carts);
+                }, 4000);
+            }
+
             if (data.pid === playerID) {
                 document.getElementById(data.continent).classList.add("disabled");
                 document.getElementById("generalCards").classList.add("disabled");

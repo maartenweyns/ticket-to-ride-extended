@@ -3,6 +3,7 @@ var gameID;
 var socket;
 
 var playersDrawn = false;
+var scoresDrawn = false;
 
 var movingTrain = new Audio("./sounds/movingTrain_1s.mp3");
 var music = new Audio("./sounds/lastTurnMusic.mp3");
@@ -31,7 +32,10 @@ socket = io(location.host);
     });
 
     socket.on('final-score', (data) => {
-        showScoresNew(data);
+        if (!scoresDrawn) {
+            showScoresNew(data);
+            scoresDrawn = true;
+        }
     });
 
     socket.on('lobby', () => {
