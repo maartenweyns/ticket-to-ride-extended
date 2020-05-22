@@ -6,6 +6,7 @@ var http = require("http");
 var Player = require('./player');
 var Route = require('./route');
 var Game = require("./game");
+var Imagery = require('./imagery');
 
 var port = process.argv[2];
 var app = express();
@@ -33,6 +34,7 @@ var connectionID = 0;
 var playerColors = ["yellow", "lightblue", "grey", "purple", "red", "green", "brightyellow", "blue"];
 
 var game = new Game(uid.randomUUID(8));
+var imagery = new Imagery(game.gameID);
 console.log('[START] Game started with ID ' + game.gameID);
 
 io.on('connection', (socket) => {
@@ -227,6 +229,8 @@ io.on('connection', (socket) => {
         let ret = game.checkEligibility(data.pid, data.color, data.route, data.continent);
 
         if (ret.status) {
+            imagery.computeWagons(data.continent, data.route, game["player" + data.pid].color, io, game.gameID);
+
             io.in(game.gameID).emit('route-claim', {status: true, pid: data.pid, route: data.route, pcol: game["player" + data.pid].color, 
             color: ret.color, continent: data.continent});
 

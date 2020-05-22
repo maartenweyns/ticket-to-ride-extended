@@ -212,6 +212,10 @@ socket = io(location.host);
         completedRoute(data);
     });
 
+    socket.on('wagonimage', (data) => {
+        console.log(data);
+    });
+
     socket.on('game-end', () => {
         window.location.pathname = '/score';
     });
