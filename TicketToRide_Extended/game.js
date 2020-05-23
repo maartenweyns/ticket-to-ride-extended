@@ -411,7 +411,7 @@ game.prototype.setupUsDestinations = function () {
 
 game.prototype.getRouteRequirements = function (routeID, continent) {
     let routeMap = continent + "Routes";
-    console.log("Getting route from " + routeMap);
+    // console.log("Getting route from " + routeMap);
     let route = this[routeMap].get(routeID);
     if (route !== undefined) {
         return {color: route.color, length: route.length, locos: route.locoReq};
@@ -634,7 +634,6 @@ game.prototype.checkContinuity = function (playerID) {
 game.prototype.allPlayersReady = function () {
     for (let i = 0; i < this.amountOfPlayers; i++) {
         if (this["player" + i].ready === null) {
-            console.log("Nope");
             return false;
         }
     }

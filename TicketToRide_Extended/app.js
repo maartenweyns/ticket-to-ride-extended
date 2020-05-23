@@ -80,13 +80,7 @@ io.on('connection', (socket) => {
             socket.emit('own-cards', game.getPersonalCards(pid));
             socket.emit('own-destinations', {uncompleted: game["player" + pid].destinations, completed: game["player" + pid].completedDestinations});
 
-            let trains = [];
-            for(let i = 0; i < 8; i++) {
-                if (game["player" + i] !== null) {
-                    game["player" + i].routeIDs.forEach(element => trains.push([game["player" + i].color, element]));
-                }
-            }
-            socket.emit('existing-trains', trains);
+            socket.emit('existing-trains', {eu: imagery.euWagonImage, us: imagery.usWagonImage});
         }
 
         if (game.gameState === 'routes') {
@@ -231,9 +225,6 @@ io.on('connection', (socket) => {
         if (ret.status) {
             imagery.computeWagons(data.continent, data.route, game["player" + data.pid].color, io, game.gameID);
 
-            io.in(game.gameID).emit('route-claim', {status: true, pid: data.pid, route: data.route, pcol: game["player" + data.pid].color, 
-            color: ret.color, continent: data.continent});
-
             game["player" + data.pid].routeIDs.push([data.continent, data.route]);
             game["player" + data.pid][data.color] -= ret.amount;
             game["player" + data.pid].loco -= ret.locos;
@@ -241,6 +232,7 @@ io.on('connection', (socket) => {
             game["player" + data.pid].numberOfTrainCards -= game.getRouteRequirements(data.route, data.continent).length;
             
             io.in(game.gameID).emit('player-overview', game.getUserProperties());
+            socket.emit('route-claim', {status: true, continent: data.continent});
             
             let routeMap = data.continent + "Routes";
             game.userClaimedRoute(data.pid, game[routeMap].get(data.route));
@@ -260,7 +252,7 @@ io.on('connection', (socket) => {
                 socket.emit('player-completed-route', desti.continent + "-" + desti.stationA + "-" + desti.stationB);
             }
         } else {
-            socket.emit('route-claim', {pid: data.pid, status: false});
+            socket.emit('route-claim', {status: false});
         }
     });
 
