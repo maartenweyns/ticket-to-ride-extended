@@ -12,6 +12,19 @@ var port = process.argv[2];
 var app = express();
 
 const ShortUniqueId = require('short-unique-id').default;
+const {auth} = require('express-openid-connect');
+
+// Auth0 authentication details
+const authConfig = {
+    required: false,
+    auth0Logout: true,
+    appSession: {
+      secret: 'ddfed8c9943958ab4d14e63fa780e3c2d168c9c8496219701f9910d759510483'
+    },
+    baseURL: 'https://tickettoride.mawey.be',
+    clientID: '6536rh17o9VD1KkqEvz02Rz4vECMnwR5',
+    issuerBaseURL: 'https://dev-osfslp4f.eu.auth0.com'
+};
 
 // instantiate uid
 const uid = new ShortUniqueId();
@@ -20,6 +33,7 @@ const uid = new ShortUniqueId();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(auth(authConfig));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
