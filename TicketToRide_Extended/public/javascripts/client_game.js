@@ -3,8 +3,6 @@ var playerID;
 var gameID;
 var currentMove;
 
-const swup = new Swup();
-
 var music = new Audio("../sounds/america.mp3");
 var startsound = new Audio("../sounds/startGame.mp3");
 var buzz = new Audio("../sounds/IG_F_Cant.mp3");
@@ -33,14 +31,6 @@ socket = io(location.host);
     document.getElementById("generalCards").classList.add("disabled");
     document.getElementsByClassName("tabcontent")[0].classList.add("disabled");
     document.getElementsByClassName("tabcontent")[1].classList.add("disabled");
-
-    music.loop = true;
-    startsound.play().then(function () {
-        music.play();
-        audioUnlocked = true;
-    }).catch(function (){
-        showAlert('To unlock your audio, please press your own player on the left side of the screen!');
-    });
 
     socket.on('connect', () => {
         console.log("Connceted to server");
@@ -369,4 +359,21 @@ function showAlert(message) {
             document.body.removeChild(div);
         }, 4000);
     }
+}
+
+function hideLoadingScreen() {
+    document.getElementById('loadingScreen').children[2].innerText = "Loaded!";
+    setTimeout(() => {
+        document.getElementById('loadingScreen').style.opacity = 0;
+        music.loop = true;
+        startsound.play().then(function () {
+            music.play();
+            audioUnlocked = true;
+        }).catch(function (){
+            showAlert('To unlock your audio, please press your own player on the left side of the screen!');
+        });
+        setTimeout(() => {
+            document.body.removeChild(document.getElementById('loadingScreen'));
+        }, 1000);
+    }, 1000);
 }

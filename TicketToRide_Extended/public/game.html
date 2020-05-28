@@ -10,7 +10,8 @@
       <link href="stylesheets/wagons.css" rel="stylesheet" type="text/css" />
       <link href="stylesheets/transitions.css" rel="stylesheet" type="text/css" />
       <link href="https://fonts.googleapis.com/css2?family=Arapey&display=swap" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@400&display=swap" rel="stylesheet"> 
+      <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@400&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
       <link href="images/logos/game-icon.png" rel="icon">
 
       <!-- Matomo -->
@@ -27,12 +28,15 @@
                   g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
             })();
       </script>
-      <!-- End Matomo Code -->
-      <script src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>
 </head>
 
 <body>
-      <div id="swup" class="playarea transition-fade">
+      <div id="loadingScreen">
+            <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_rjtT66.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop  autoplay></lottie-player>
+            <p>Loading Game...</p>
+      </div>
+      <div class="playarea">
             <div class="userPanes" id="userBox"></div>
 
             <div class="centerContent">
@@ -596,6 +600,9 @@
       <script src="javascripts/client_game.js"></script>
       <script>
             imageMapResize();
+            window.onload = function() {
+                  hideLoadingScreen();
+            }
       </script>
 </body>
 </html>
