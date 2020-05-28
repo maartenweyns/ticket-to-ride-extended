@@ -199,7 +199,8 @@ socket = io(location.host);
     });
 
     socket.on('existing-trains', (data) => {
-        drawExistingTrains(data);
+        drawExistingTrains(data.eu, 'eu');
+        drawExistingTrains(data.us, 'us');
     });
 
     socket.on('player-destination', (data) => {
@@ -332,17 +333,14 @@ function endTurn() {
     }
 }
 
-function drawExistingTrains(trains) {
-    for (array of trains) {
-        let imageLocation = document.getElementById(array[1][0]);
-        let linkToTrainsToAdd = "images/trainsOnMap/" + array[1][0] + "/" + array[1][1] + ".png";
+function drawExistingTrains(trains, continent) {
+    let imageLocation = document.getElementById(continent);
 
-        let carts = document.createElement('img');
-        carts.src = linkToTrainsToAdd;
-        carts.classList.add("carts");
-        carts.classList.add(array[0] + "Wagons");
-        imageLocation.append(carts);
-    }
+    // Construct HTML elements
+    let carts = document.createElement('img');
+    carts.src = `data:image/png;base64,${trains}`;
+    carts.classList.add(`${continent}Wagons`);
+    imageLocation.append(carts);
 }
 
 function getCookie(cname) {
