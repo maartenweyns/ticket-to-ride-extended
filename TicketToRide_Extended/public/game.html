@@ -1,600 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-      <meta charset="UTF-8">
-      <title>Ticket To Ride XTended</title>
-      <link href="stylesheets/style.css" rel="stylesheet" type="text/css" />
-      <link href="stylesheets/userInformation.css" rel="stylesheet" type="text/css" />
-      <link href="stylesheets/trainCards.css" rel="stylesheet" type="text/css" />
-      <link href="stylesheets/wagons.css" rel="stylesheet" type="text/css" />
-      <link href="stylesheets/transitions.css" rel="stylesheet" type="text/css" />
-      <link href="https://fonts.googleapis.com/css2?family=Arapey&display=swap" rel="stylesheet">
-      <link href="images/logos/game-icon.png" rel="icon">
-
-      <!-- Matomo -->
-      <script type="text/javascript">
-            var _paq = window._paq || [];
-            /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-            _paq.push(['trackPageView']);
-            _paq.push(['enableLinkTracking']);
-            (function () {
-                  var u = "https://matomo.mawey.be/";
-                  _paq.push(['setTrackerUrl', u + 'matomo.php']);
-                  _paq.push(['setSiteId', '2']);
-                  var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-                  g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
-            })();
-      </script>
-      <!-- End Matomo Code -->
-      <script src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Ticket To Ride XTended</title>
+    <link href="stylesheets/style.css" rel="stylesheet" type="text/css"/>
+    <link href="stylesheets/userInformation.css" rel="stylesheet" type="text/css"/>
+    <link href="stylesheets/trainCards.css" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Arapey&display=swap" rel="stylesheet">
+    <link href="images/favicon/game-icon.png" rel="icon">
 </head>
-
 <body>
-      <div id="swup" class="playarea transition-fade">
-            <div class="userPanes" id="userBox"></div>
+<div class="playarea">
+    <div class="userPanes" id="userBox"></div>
 
-            <div class="centerContent">
-                  <div class="maps">
-                        <div class="tab">
-                              <img src="./images/maps/eu_flag.png" id="eutab" class="tablinks"
-                                    onclick="openCity(event, 'eu')">
-                              <img src="./images/maps/us_flag.png" id="ustab" class="tablinks"
-                                    onclick="openCity(event, 'us')">
-                              <img src="./images/maps/done.png" id="endTurn" class="tablinks donebutton"
-                                    onclick="endTurn()"></img>
-                        </div>
+    <div class="maps">
+        <!-- Tab content -->
+        <div id="Europe" class="tabcontent">
+            <img class="map" src="images/maps/euMap.jpg" usemap="#europe-image-map" id="europeCardImg">
+            <map name="europe-image-map">
+                <area title="edinburgh-londen-1" coords="463,164,656,617,698,596,512,142" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="edinburgh-londen-2" coords="700,601,745,582,550,122,509,144" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="amsterdam-londen-1" coords="753,607,753,646,996,646,998,609" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="amsterdam-essen-1"
+                      coords="1026,603,1049,480,1233,533,1317,635,1282,664,1206,566,1086,539,1066,617" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="amsterdam-brussels-1" coords="1017,662,969,762,1005,777,1056,674" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="dieppe-londen-1" coords="659,650,634,900,674,903,702,653" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="dieppe-londen-2" coords="680,901,725,910,744,660,705,657" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="brussels-dieppe-1" coords="920,765,945,802,739,950,712,913" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="brest-dieppe-1" coords="386,982,410,1018,513,954,637,947,638,903,508,906" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="brest-paris-1" coords="781,1055,774,1101,407,1062,416,1011" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="dieppe-paris-1" coords="695,972,786,1059,816,1024,733,934" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="brussels-paris-1" coords="939,803,972,825,860,1056,814,1032" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="brussels-paris-2" coords="861,1060,897,1075,1015,853,978,829" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="brussels-frankfurt-1" coords="995,799,1138,767,1239,866,1212,893,1123,815,1005,840"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="amsterdam-frankfurt-1" coords="1065,695,1098,662,1270,835,1244,870" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="essen-frankfurt-1" coords="1345,699,1390,683,1438,795,1293,864,1274,826,1384,772"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="frankfurt-paris-1"
+                      coords="903,1060,1020,1027,1116,967,1221,889,1242,922,1152,994,1041,1066,918,1102" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="frankfurt-paris-2"
+                      coords="1251,931,1275,966,1176,1040,1065,1107,939,1152,927,1105,1041,1071,1152,1001" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="essen-kopenhagen-1" coords="1298,612,1513,295,1552,316,1339,636" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="essen-kopenhagen-2" coords="1549,319,1588,346,1372,665,1343,636" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="berlin-essen-1" coords="1390,677,1395,633,1645,662,1635,705" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="berlin-frankfurt-1" coords="1290,868,1622,711,1643,751,1309,909" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="berlin-frankfurt-2" coords="1309,911,1330,946,1659,790,1643,755" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="brest-pamplona-1"
+                      coords="398,1099,410,1057,530,1105,621,1236,635,1360,638,1484,596,1490,596,1372,575,1243,515,1147"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="pamplona-paris-1"
+                      coords="765,1093,745,1231,710,1331,668,1451,593,1556,629,1589,707,1487,747,1367,792,1235,804,1111"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="pamplona-paris-2"
+                      coords="810,1113,849,1122,837,1251,798,1374,741,1497,668,1606,638,1578,706,1484,750,1371,791,1240"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="madrid-pamplona-1"
+                      coords="561,1573,455,1646,359,1736,282,1835,318,1872,398,1778,496,1681,594,1612" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="madrid-pamplona-2"
+                      coords="629,1646,606,1604,497,1680,407,1770,322,1871,353,1901,434,1797,521,1716" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="lissabon-madrid-1"
+                      coords="34,1767,173,1773,287,1845,260,1884,165,1815,88,1818,84,1938,33,1942" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="cadiz-madrid-1"
+                      coords="314,1922,343,1895,439,1982,485,2105,325,2164,315,2124,428,2081,407,2009" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="cadiz-lissabon-1" coords="57,2007,100,1988,150,2092,266,2119,255,2164,117,2128"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="barcelona-madrid-1" coords="389,1881,638,1895,633,1938,389,1934" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="barcelona-pamplona-1" coords="641,1890,692,1887,664,1646,618,1656" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="barcelona-marseille-1"
+                      coords="719,1907,683,1883,771,1792,873,1702,984,1630,1098,1591,1113,1627,999,1672,891,1732,798,1817"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="marseille-pamplona-1"
+                      coords="665,1637,783,1682,843,1526,969,1529,1077,1586,1095,1547,975,1487,849,1484,801,1508,759,1628,683,1598"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="marseille-paris-1"
+                      coords="888,1155,846,1155,852,1285,939,1408,1053,1471,1122,1567,1161,1549,1077,1435,966,1375,897,1276"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="marseille-zurich-1" coords="1230,1302,1269,1317,1200,1551,1164,1539" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="paris-zurich-1"
+                      coords="885,1146,927,1122,990,1218,1095,1266,1206,1266,1209,1320,1083,1320,951,1254" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="frankfurt-munchen-1" coords="1309,931,1269,943,1315,1102,1432,1069,1420,1030,1345,1048"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="munchen-zurich-1" coords="1465,1104,1438,1074,1254,1239,1287,1272" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="kopenhagen-stockholm-1"
+                      coords="1858,20,1880,56,1771,116,1678,197,1591,287,1558,257,1648,161,1747,80" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="kopenhagen-stockholm-2"
+                      coords="1591,292,1621,322,1708,231,1798,153,1910,99,1889,51,1774,114,1678,201" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="munchen-venice-1" coords="1453,1117,1495,1111,1543,1351,1501,1360" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="venice-zurich-1" coords="1287,1271,1269,1307,1483,1419,1501,1383" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="marseille-rome-1" coords="1179,1568,1200,1601,1369,1487,1510,1676,1549,1646,1381,1423"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="palermo-rome-1"
+                      coords="1570,1723,1591,1687,1702,1744,1786,1865,1786,2018,1705,2120,1672,2099,1750,1997,1747,1880,1675,1780"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="brindisi-palermo-1"
+                      coords="1711,2123,1786,2024,1874,1937,1828,1826,1870,1804,1925,1946,1819,2051,1741,2147"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="brindisi-rome-1" coords="1606,1649,1612,1691,1729,1679,1810,1772,1840,1745,1750,1634"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="rome-venice-1" coords="1510,1423,1555,1417,1597,1658,1558,1664" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="venice-zagreb-1" coords="1552,1357,1561,1396,1681,1366,1777,1432,1801,1396,1690,1318"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="sarajevo-zagreb-1"
+                      coords="1795,1459,1843,1453,1858,1574,1949,1643,2066,1604,2081,1649,1952,1691,1816,1598"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="munchen-wein-1"
+                      coords="1486,1090,1519,1060,1591,1156,1708,1165,1804,1090,1834,1123,1729,1210,1564,1204"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="wein-zagreb-1" coords="1816,1145,1861,1148,1840,1392,1801,1389" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="berlin-wein-1"
+                      coords="1699,753,1657,765,1693,888,1756,1002,1831,1101,1867,1074,1789,978,1732,873" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="berlin-danzig-1"
+                      coords="1657,667,1675,538,1762,424,1907,385,2039,415,2033,451,1907,427,1786,457,1714,553,1696,673"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="berlin-warsaw-1"
+                      coords="1684,680,1807,635,1940,623,2069,620,2198,638,2192,689,2069,671,1940,671,1819,683,1696,723"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="berlin-warsaw-2"
+                      coords="1684,729,1702,768,1819,732,1943,717,2063,717,2183,735,2189,686,2063,668,1940,668,1810,680"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="danzig-warsaw-1" coords="2072,480,2099,444,2213,513,2240,649,2201,658,2174,540"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="warsaw-wein-1"
+                      coords="1870,1074,1892,1107,2000,1044,2096,956,2174,851,2240,743,2201,719,2138,827,2063,929,1973,1007"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="budapest-wein-1" coords="1904,1106,2009,1169,1985,1205,1883,1142" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="budapest-wein-2" coords="1861,1180,1880,1147,1985,1204,1964,1243" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="budapest-zagreb-1" coords="1991,1214,1928,1316,1834,1400,1864,1430,1961,1340,2024,1235"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="budapest-sarajevo-1" coords="2069,1227,2024,1233,2075,1603,2120,1597" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="athina-sarajevo-1" coords="2087,1652,2129,1655,2114,1982,2231,1994,2234,2034,2063,2027"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="athina-brindisi-1"
+                      coords="2243,2042,2252,2084,2123,2099,1973,2054,1919,1925,1870,1804,1910,1789,1961,1904,2009,2021,2123,2060"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="palermo-smyrna-1" coords="1780,2157,1777,2115,2532,2118,2535,2160" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="athina-smyrna-1" coords="2300,2024,2429,2024,2550,2076,2532,2115,2420,2064,2300,2064"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="athina-sofia-1"
+                      coords="2297,1659,2210,1761,2195,1908,2258,2029,2294,2005,2234,1896,2246,1779,2327,1689"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="sarajevo-sofia-1" coords="2153,1629,2135,1590,2282,1524,2327,1620,2294,1638,2258,1575"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="petrograd-stockholm-1"
+                      coords="1925,78,1967,50,2015,108,2126,32,2264,29,2387,26,2514,29,2640,23,2775,26,2892,81,2874,123,2766,78,2141,84,2042,153,2006,183"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="petrograd-riga-1" coords="2372,126,2372,171,2874,162,2871,120" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="danzig-riga-1"
+                      coords="2042,411,2084,423,2120,312,2192,219,2309,171,2294,129,2168,177,2081,288" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="riga-wilno-1"
+                      coords="2327,170,2363,179,2342,299,2393,408,2496,474,2601,543,2577,582,2472,516,2360,441,2303,302"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="warsaw-wilno-1"
+                      coords="2243,663,2282,684,2333,576,2451,552,2550,618,2577,582,2460,507,2303,537" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="kyiv-warsaw-1"
+                      coords="2231,724,2264,694,2342,775,2457,820,2583,817,2703,826,2706,871,2583,865,2451,871,2318,817"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="budapest-kyiv-1"
+                      coords="2705,877,2456,874,2332,919,2215,976,2107,1054,2020,1156,2065,1171,2137,1090,2236,1018,2350,964,2465,922,2585,913,2699,913"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="kyiv-wilno-1" coords="2625,641,2649,605,2769,692,2766,834,2724,834,2724,714" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="petrograd-wilno-1" coords="2892,152,2931,179,2637,582,2598,558" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="smolensk-wilno-1" coords="2673,609,2637,582,2736,447,2937,591,2913,624,2742,510"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="bucuresti-budapest-1" coords="2078,1184,2508,1406,2484,1448,2060,1220" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="bucuresti-sofia-1" coords="2357,1613,2369,1649,2508,1613,2529,1469,2487,1460,2472,1577"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="constantinople-sofia-1" coords="2700,1833,2369,1656,2348,1689,2676,1869" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="constantinople-smyrna-1" coords="2670,1879,2559,2089,2598,2107,2709,1903" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="bucuresti-constantinople-1" coords="2535,1482,2577,1467,2721,1809,2685,1824" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="angora-smyrna-1"
+                      coords="2601,2115,2598,2166,2859,2163,2976,2094,2946,2058,2838,2112,2718,2121" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="angora-constantinople-1" coords="2742,1900,2760,1867,2952,2008,2937,2038" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="constantinople-sevastopol-1"
+                      coords="2718,1824,2754,1854,2826,1755,2892,1800,2994,1668,3000,1641,3000,1521,2961,1518,2958,1641,2886,1743,2820,1695"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="bucuresti-sevastopol-1"
+                      coords="2559,1408,2589,1438,2676,1354,2793,1324,2904,1375,2982,1471,3016,1444,2931,1339,2796,1273,2652,1312"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="bucuresti-kyiv-1" coords="2514,1393,2670,918,2715,933,2559,1405" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="kyiv-smolensk-1"
+                      coords="2775,858,2895,861,2976,777,2943,656,2988,647,3028,780,2916,909,2772,900" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="moskva-smolensk-1" coords="2991,642,2991,597,3115,603,3211,531,3238,567,3127,657"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="moskva-petrograd-1"
+                      coords="2940,158,2952,110,3079,155,3187,245,3250,374,3262,504,3220,507,3208,387,3151,278,3058,197"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="kharkov-moskva-1"
+                      coords="3241,573,3283,552,3343,667,3364,808,3325,943,3232,1036,3205,1009,3286,925,3322,808,3301,685"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="kharkov-kyiv-1"
+                      coords="2727,914,2772,896,2814,1007,2919,1071,3043,1071,3163,1037,3178,1080,3049,1119,2904,1113,2778,1037"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="kharkov-rostov-1" coords="3241,1034,3244,1077,3319,1080,3319,1200,3370,1206,3364,1034"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="rostov-sevastopol-1" coords="3310,1206,3301,1248,3103,1221,3061,1461,3019,1455,3064,1164"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="rostov-sochi-1" coords="3319,1263,3367,1266,3346,1506,3304,1506" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="sevastopol-sochi-1" coords="3049,1476,3295,1515,3289,1554,3043,1518" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="erzurum-sevastopol-1"
+                      coords="3003,1518,3003,1647,3025,1776,3106,1893,3217,1972,3238,1933,3133,1863,3067,1758,3052,1644,3046,1515"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+                <area title="erzurum-sochi-1" coords="3295,1573,3340,1576,3286,1952,3244,1949" shape="poly"
+                      onclick="claimEuRoute(this.title)">
+                <area title="angora-erzurum-1"
+                      coords="3241,2002,3250,2077,3133,2095,3028,2041,3003,2077,3121,2147,3307,2116,3280,1993"
+                      shape="poly" onclick="claimEuRoute(this.title)">
+            </map>
+        </div>
 
-                        <div id="eu" class="tabcontent">
-                              <img class="map" src="images/maps/euMap.jpg" usemap="#europe-image-map"
-                                    id="europeCardImg">
-                              <map name="europe-image-map">
-                                    <area title="edinburgh-londen-1" coords="463,164,656,617,698,596,512,142"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="edinburgh-londen-2" coords="700,601,745,582,550,122,509,144"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="amsterdam-londen-1" coords="753,607,753,646,996,646,998,609"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="amsterdam-essen-1"
-                                          coords="1026,603,1049,480,1233,533,1317,635,1282,664,1206,566,1086,539,1066,617"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="amsterdam-brussels-1" coords="1017,662,969,762,1005,777,1056,674"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="dieppe-londen-1" coords="659,650,634,900,674,903,702,653" shape="poly"
-                                          onclick="claimEuRoute(this.title)">
-                                    <area title="dieppe-londen-2" coords="680,901,725,910,744,660,705,657" shape="poly"
-                                          onclick="claimEuRoute(this.title)">
-                                    <area title="brussels-dieppe-1" coords="920,765,945,802,739,950,712,913"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="brest-dieppe-1"
-                                          coords="386,982,410,1018,513,954,637,947,638,903,508,906" shape="poly"
-                                          onclick="claimEuRoute(this.title)">
-                                    <area title="brest-paris-1" coords="781,1055,774,1101,407,1062,416,1011"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="dieppe-paris-1" coords="695,972,786,1059,816,1024,733,934" shape="poly"
-                                          onclick="claimEuRoute(this.title)">
-                                    <area title="brussels-paris-1" coords="939,803,972,825,860,1056,814,1032"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="brussels-paris-2" coords="861,1060,897,1075,1015,853,978,829"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="brussels-frankfurt-1"
-                                          coords="995,799,1138,767,1239,866,1212,893,1123,815,1005,840" shape="poly"
-                                          onclick="claimEuRoute(this.title)">
-                                    <area title="amsterdam-frankfurt-1" coords="1065,695,1098,662,1270,835,1244,870"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="essen-frankfurt-1"
-                                          coords="1345,699,1390,683,1438,795,1293,864,1274,826,1384,772" shape="poly"
-                                          onclick="claimEuRoute(this.title)">
-                                    <area title="frankfurt-paris-1"
-                                          coords="903,1060,1020,1027,1116,967,1221,889,1242,922,1152,994,1041,1066,918,1102"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="frankfurt-paris-2"
-                                          coords="1251,931,1275,966,1176,1040,1065,1107,939,1152,927,1105,1041,1071,1152,1001"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="essen-kopenhagen-1" coords="1298,612,1513,295,1552,316,1339,636"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="essen-kopenhagen-2" coords="1549,319,1588,346,1372,665,1343,636"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="berlin-essen-1" coords="1390,677,1395,633,1645,662,1635,705"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="berlin-frankfurt-1" coords="1290,868,1622,711,1643,751,1309,909"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="berlin-frankfurt-2" coords="1309,911,1330,946,1659,790,1643,755"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="brest-pamplona-1"
-                                          coords="398,1099,410,1057,530,1105,621,1236,635,1360,638,1484,596,1490,596,1372,575,1243,515,1147"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="pamplona-paris-1"
-                                          coords="765,1093,745,1231,710,1331,668,1451,593,1556,629,1589,707,1487,747,1367,792,1235,804,1111"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="pamplona-paris-2"
-                                          coords="810,1113,849,1122,837,1251,798,1374,741,1497,668,1606,638,1578,706,1484,750,1371,791,1240"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="madrid-pamplona-1"
-                                          coords="561,1573,455,1646,359,1736,282,1835,318,1872,398,1778,496,1681,594,1612"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="madrid-pamplona-2"
-                                          coords="629,1646,606,1604,497,1680,407,1770,322,1871,353,1901,434,1797,521,1716"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="lissabon-madrid-1"
-                                          coords="34,1767,173,1773,287,1845,260,1884,165,1815,88,1818,84,1938,33,1942"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="cadiz-madrid-1"
-                                          coords="314,1922,343,1895,439,1982,485,2105,325,2164,315,2124,428,2081,407,2009"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="cadiz-lissabon-1"
-                                          coords="57,2007,100,1988,150,2092,266,2119,255,2164,117,2128" shape="poly"
-                                          onclick="claimEuRoute(this.title)">
-                                    <area title="barcelona-madrid-1" coords="389,1881,638,1895,633,1938,389,1934"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="barcelona-pamplona-1" coords="641,1890,692,1887,664,1646,618,1656"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="barcelona-marseille-1"
-                                          coords="719,1907,683,1883,771,1792,873,1702,984,1630,1098,1591,1113,1627,999,1672,891,1732,798,1817"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="marseille-pamplona-1"
-                                          coords="665,1637,783,1682,843,1526,969,1529,1077,1586,1095,1547,975,1487,849,1484,801,1508,759,1628,683,1598"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="marseille-paris-1"
-                                          coords="888,1155,846,1155,852,1285,939,1408,1053,1471,1122,1567,1161,1549,1077,1435,966,1375,897,1276"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="marseille-zurich-1" coords="1230,1302,1269,1317,1200,1551,1164,1539"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="paris-zurich-1"
-                                          coords="885,1146,927,1122,990,1218,1095,1266,1206,1266,1209,1320,1083,1320,951,1254"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="frankfurt-munchen-1"
-                                          coords="1309,931,1269,943,1315,1102,1432,1069,1420,1030,1345,1048"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="munchen-zurich-1" coords="1465,1104,1438,1074,1254,1239,1287,1272"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="kopenhagen-stockholm-1"
-                                          coords="1858,20,1880,56,1771,116,1678,197,1591,287,1558,257,1648,161,1747,80"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="kopenhagen-stockholm-2"
-                                          coords="1591,292,1621,322,1708,231,1798,153,1910,99,1889,51,1774,114,1678,201"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="munchen-venice-1" coords="1453,1117,1495,1111,1543,1351,1501,1360"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="venice-zurich-1" coords="1287,1271,1269,1307,1483,1419,1501,1383"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="marseille-rome-1"
-                                          coords="1179,1568,1200,1601,1369,1487,1510,1676,1549,1646,1381,1423"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="palermo-rome-1"
-                                          coords="1570,1723,1591,1687,1702,1744,1786,1865,1786,2018,1705,2120,1672,2099,1750,1997,1747,1880,1675,1780"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="brindisi-palermo-1"
-                                          coords="1711,2123,1786,2024,1874,1937,1828,1826,1870,1804,1925,1946,1819,2051,1741,2147"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="brindisi-rome-1"
-                                          coords="1606,1649,1612,1691,1729,1679,1810,1772,1840,1745,1750,1634"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="rome-venice-1" coords="1510,1423,1555,1417,1597,1658,1558,1664"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="venice-zagreb-1"
-                                          coords="1552,1357,1561,1396,1681,1366,1777,1432,1801,1396,1690,1318"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="sarajevo-zagreb-1"
-                                          coords="1795,1459,1843,1453,1858,1574,1949,1643,2066,1604,2081,1649,1952,1691,1816,1598"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="munchen-wein-1"
-                                          coords="1486,1090,1519,1060,1591,1156,1708,1165,1804,1090,1834,1123,1729,1210,1564,1204"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="wein-zagreb-1" coords="1816,1145,1861,1148,1840,1392,1801,1389"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="berlin-wein-1"
-                                          coords="1699,753,1657,765,1693,888,1756,1002,1831,1101,1867,1074,1789,978,1732,873"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="berlin-danzig-1"
-                                          coords="1657,667,1675,538,1762,424,1907,385,2039,415,2033,451,1907,427,1786,457,1714,553,1696,673"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="berlin-warsaw-1"
-                                          coords="1684,680,1807,635,1940,623,2069,620,2198,638,2192,689,2069,671,1940,671,1819,683,1696,723"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="berlin-warsaw-2"
-                                          coords="1684,729,1702,768,1819,732,1943,717,2063,717,2183,735,2189,686,2063,668,1940,668,1810,680"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="danzig-warsaw-1"
-                                          coords="2072,480,2099,444,2213,513,2240,649,2201,658,2174,540" shape="poly"
-                                          onclick="claimEuRoute(this.title)">
-                                    <area title="warsaw-wein-1"
-                                          coords="1870,1074,1892,1107,2000,1044,2096,956,2174,851,2240,743,2201,719,2138,827,2063,929,1973,1007"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="budapest-wein-1" coords="1904,1106,2009,1169,1985,1205,1883,1142"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="budapest-wein-2" coords="1861,1180,1880,1147,1985,1204,1964,1243"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="budapest-zagreb-1"
-                                          coords="1991,1214,1928,1316,1834,1400,1864,1430,1961,1340,2024,1235"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="budapest-sarajevo-1" coords="2069,1227,2024,1233,2075,1603,2120,1597"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="athina-sarajevo-1"
-                                          coords="2087,1652,2129,1655,2114,1982,2231,1994,2234,2034,2063,2027"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="athina-brindisi-1"
-                                          coords="2243,2042,2252,2084,2123,2099,1973,2054,1919,1925,1870,1804,1910,1789,1961,1904,2009,2021,2123,2060"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="palermo-smyrna-1" coords="1780,2157,1777,2115,2532,2118,2535,2160"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="athina-smyrna-1"
-                                          coords="2300,2024,2429,2024,2550,2076,2532,2115,2420,2064,2300,2064"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="athina-sofia-1"
-                                          coords="2297,1659,2210,1761,2195,1908,2258,2029,2294,2005,2234,1896,2246,1779,2327,1689"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="sarajevo-sofia-1"
-                                          coords="2153,1629,2135,1590,2282,1524,2327,1620,2294,1638,2258,1575"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="petrograd-stockholm-1"
-                                          coords="1925,78,1967,50,2015,108,2126,32,2264,29,2387,26,2514,29,2640,23,2775,26,2892,81,2874,123,2766,78,2141,84,2042,153,2006,183"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="petrograd-riga-1" coords="2372,126,2372,171,2874,162,2871,120"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="danzig-riga-1"
-                                          coords="2042,411,2084,423,2120,312,2192,219,2309,171,2294,129,2168,177,2081,288"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="riga-wilno-1"
-                                          coords="2327,170,2363,179,2342,299,2393,408,2496,474,2601,543,2577,582,2472,516,2360,441,2303,302"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="warsaw-wilno-1"
-                                          coords="2243,663,2282,684,2333,576,2451,552,2550,618,2577,582,2460,507,2303,537"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="kyiv-warsaw-1"
-                                          coords="2231,724,2264,694,2342,775,2457,820,2583,817,2703,826,2706,871,2583,865,2451,871,2318,817"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="budapest-kyiv-1"
-                                          coords="2705,877,2456,874,2332,919,2215,976,2107,1054,2020,1156,2065,1171,2137,1090,2236,1018,2350,964,2465,922,2585,913,2699,913"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="kyiv-wilno-1"
-                                          coords="2625,641,2649,605,2769,692,2766,834,2724,834,2724,714" shape="poly"
-                                          onclick="claimEuRoute(this.title)">
-                                    <area title="petrograd-wilno-1" coords="2892,152,2931,179,2637,582,2598,558"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="smolensk-wilno-1"
-                                          coords="2673,609,2637,582,2736,447,2937,591,2913,624,2742,510" shape="poly"
-                                          onclick="claimEuRoute(this.title)">
-                                    <area title="bucuresti-budapest-1" coords="2078,1184,2508,1406,2484,1448,2060,1220"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="bucuresti-sofia-1"
-                                          coords="2357,1613,2369,1649,2508,1613,2529,1469,2487,1460,2472,1577"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="constantinople-sofia-1"
-                                          coords="2700,1833,2369,1656,2348,1689,2676,1869" shape="poly"
-                                          onclick="claimEuRoute(this.title)">
-                                    <area title="constantinople-smyrna-1"
-                                          coords="2670,1879,2559,2089,2598,2107,2709,1903" shape="poly"
-                                          onclick="claimEuRoute(this.title)">
-                                    <area title="bucuresti-constantinople-1"
-                                          coords="2535,1482,2577,1467,2721,1809,2685,1824" shape="poly"
-                                          onclick="claimEuRoute(this.title)">
-                                    <area title="angora-smyrna-1"
-                                          coords="2601,2115,2598,2166,2859,2163,2976,2094,2946,2058,2838,2112,2718,2121"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="angora-constantinople-1"
-                                          coords="2742,1900,2760,1867,2952,2008,2937,2038" shape="poly"
-                                          onclick="claimEuRoute(this.title)">
-                                    <area title="constantinople-sevastopol-1"
-                                          coords="2718,1824,2754,1854,2826,1755,2892,1800,2994,1668,3000,1641,3000,1521,2961,1518,2958,1641,2886,1743,2820,1695"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="bucuresti-sevastopol-1"
-                                          coords="2559,1408,2589,1438,2676,1354,2793,1324,2904,1375,2982,1471,3016,1444,2931,1339,2796,1273,2652,1312"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="bucuresti-kyiv-1" coords="2514,1393,2670,918,2715,933,2559,1405"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="kyiv-smolensk-1"
-                                          coords="2775,858,2895,861,2976,777,2943,656,2988,647,3028,780,2916,909,2772,900"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="moskva-smolensk-1"
-                                          coords="2991,642,2991,597,3115,603,3211,531,3238,567,3127,657" shape="poly"
-                                          onclick="claimEuRoute(this.title)">
-                                    <area title="moskva-petrograd-1"
-                                          coords="2940,158,2952,110,3079,155,3187,245,3250,374,3262,504,3220,507,3208,387,3151,278,3058,197"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="kharkov-moskva-1"
-                                          coords="3241,573,3283,552,3343,667,3364,808,3325,943,3232,1036,3205,1009,3286,925,3322,808,3301,685"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="kharkov-kyiv-1"
-                                          coords="2727,914,2772,896,2814,1007,2919,1071,3043,1071,3163,1037,3178,1080,3049,1119,2904,1113,2778,1037"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="kharkov-rostov-1"
-                                          coords="3241,1034,3244,1077,3319,1080,3319,1200,3370,1206,3364,1034"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="rostov-sevastopol-1"
-                                          coords="3310,1206,3301,1248,3103,1221,3061,1461,3019,1455,3064,1164"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="rostov-sochi-1" coords="3319,1263,3367,1266,3346,1506,3304,1506"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="sevastopol-sochi-1" coords="3049,1476,3295,1515,3289,1554,3043,1518"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="erzurum-sevastopol-1"
-                                          coords="3003,1518,3003,1647,3025,1776,3106,1893,3217,1972,3238,1933,3133,1863,3067,1758,3052,1644,3046,1515"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="erzurum-sochi-1" coords="3295,1573,3340,1576,3286,1952,3244,1949"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                                    <area title="angora-erzurum-1"
-                                          coords="3241,2002,3250,2077,3133,2095,3028,2041,3003,2077,3121,2147,3307,2116,3280,1993"
-                                          shape="poly" onclick="claimEuRoute(this.title)">
-                              </map>
-                        </div>
+        <div id="UnitedStates" class="tabcontent">
+            <img class="map" src="images/maps/usMap.jpg"/>
+        </div>
 
-                        <div id="us" class="tabcontent">
-                              <img class="map" src="images/maps/usMap.jpg" usemap="#us-image-map" id="usCardImg" />
-                              <map name="us-image-map">
-                                    <area shape="poly"
-                                          coords="1348, 721, 1362, 734, 1316, 780, 1277, 822, 1240, 883, 1221, 935, 1199, 931, 1226, 865, 1261, 810, 1301, 763"
-                                          title="atlanta-neworleans-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="1336, 702, 1344, 720, 1301, 762, 1259, 812, 1224, 871, 1203, 920, 1184, 910, 1206, 845, 1245, 792, 1290, 739"
-                                          title="atlanta-neworleans-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="1219, 929, 1233, 951, 1286, 918, 1348, 904, 1403, 902, 1461, 931, 1506, 974, 1548, 1021, 1568, 1004, 1524, 954, 1474, 912, 1414, 880, 1341, 879, 1278, 896"
-                                          title="miami-neworleans-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="1518, 738, 1539, 738, 1551, 865, 1599, 974, 1582, 982, 1547, 925, 1530, 868, 1519, 792"
-                                          title="charleston-miami-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1509, 721, 1508, 741, 1384, 733, 1384, 716"
-                                          title="atlanta-charleston-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="1495, 609, 1570, 656, 1541, 712, 1517, 701, 1535, 665, 1483, 631"
-                                          title="charleston-raleigh-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1375, 729, 1358, 744, 1556, 989, 1575, 977"
-                                          title="atlanta-miami-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1371, 699, 1388, 718, 1484, 631, 1472, 617"
-                                          title="atlanta-raleigh-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1357, 681, 1451, 599, 1467, 617, 1370, 697"
-                                          title="atlanta-raleigh-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1275, 669, 1289, 647, 1344, 683, 1326, 704"
-                                          title="atlanta-nashville-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1075, 756, 1096, 744, 1184, 914, 1164, 925"
-                                          title="littlerock-neworleans-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1040, 939, 1043, 969, 1172, 946, 1162, 920"
-                                          title="houston-neworleans-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="647, 935, 636, 951, 691, 984, 754, 1003, 821, 1013, 890, 1015, 954, 1004, 1011, 981, 1002, 960, 940, 982, 882, 992, 822, 991, 759, 983, 702, 963"
-                                          title="elpaso-houston-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="947, 912, 965, 895, 1006, 943, 987, 956"
-                                          title="dallas-houston-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="965, 896, 1005, 941, 1024, 924, 985, 879"
-                                          title="dallas-houston-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="1091, 723, 1095, 747, 1164, 738, 1225, 709, 1270, 667, 1256, 652, 1209, 694, 1150, 717, 1095, 722"
-                                          title="littlerock-nashville-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1115, 596, 1095, 593, 1064, 713, 1085, 716"
-                                          title="littlerock-saintlouis-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="924, 870, 945, 868, 931, 745, 909, 748"
-                                          title="dallas-oklahomacity-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="933, 746, 956, 746, 970, 869, 949, 870"
-                                          title="dallas-oklahomacity-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1044, 744, 1063, 758, 986, 858, 972, 844"
-                                          title="dallas-littlerock-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1060, 716, 1059, 738, 935, 742, 934, 716"
-                                          title="littlerock-oklahomacity-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="936, 588, 956, 595, 921, 714, 901, 709"
-                                          title="kansascity-oklahomacity-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="957, 596, 976, 601, 940, 719, 922, 713"
-                                          title="kansascity-oklahomacity-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="645, 905, 652, 926, 721, 906, 774, 881, 828, 845, 879, 797, 910, 747, 894, 734, 852, 782, 811, 828, 761, 862, 703, 890"
-                                          title="elpaso-oklahomacity-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="675, 922, 678, 945, 931, 906, 928, 884"
-                                          title="dallas-elpaso-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="430, 882, 434, 861, 618, 912, 608, 933"
-                                          title="elpaso-phoenix-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="216, 873, 270, 910, 329, 939, 398, 954, 460, 964, 530, 959, 587, 946, 583, 927, 522, 937, 461, 944, 402, 936, 343, 918, 287, 892, 231, 855"
-                                          title="elpaso-losangeles-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="647, 787, 624, 786, 619, 911, 639, 911"
-                                          title="elpaso-santafe-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="890, 712, 886, 734, 826, 731, 760, 720, 700, 694, 655, 645, 666, 631, 714, 676, 771, 700, 831, 709"
-                                          title="denver-oklahomacity-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="656, 758, 661, 783, 852, 757, 847, 733"
-                                          title="oklahomacity-santafe-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="623, 751, 651, 754, 655, 624, 632, 628"
-                                          title="denver-santafe-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="441, 840, 450, 858, 628, 784, 613, 762"
-                                          title="phoenix-santafe-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="220, 830, 222, 850, 286, 843, 346, 845, 403, 858, 408, 835, 342, 822, 279, 821"
-                                          title="phoenix-losangeles-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="53, 699, 79, 687, 108, 755, 145, 799, 185, 840, 165, 857, 110, 803, 84, 758"
-                                          title="losangeles-sanfrancisco-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="78, 683, 106, 744, 145, 795, 186, 839, 199, 825, 157, 781, 124, 730, 102, 674"
-                                          title="losangeles-sanfrancisco-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="411, 841, 433, 850, 460, 791, 487, 744, 529, 694, 578, 652, 635, 625, 624, 607, 562, 623, 502, 673, 468, 733, 434, 792"
-                                          title="denver-phoenix-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="332, 735, 349, 750, 394, 705, 422, 640, 430, 574, 407, 574, 400, 635, 374, 689"
-                                          title="lasvegas-saltlakecity-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="195, 819, 228, 753, 302, 733, 306, 758, 244, 776, 220, 827"
-                                          title="lasvegas-losangeles-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="1275, 623, 1331, 589, 1402, 573, 1465, 578, 1461, 599, 1402, 596, 1346, 611, 1291, 645"
-                                          title="nashville-raleigh-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1116, 617, 1123, 595, 1244, 633, 1236, 652"
-                                          title="nashville-saintlouis-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1553, 485, 1574, 499, 1491, 596, 1473, 580"
-                                          title="raleigh-washington-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1572, 499, 1592, 516, 1510, 608, 1492, 593"
-                                          title="raleigh-washington-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="1241, 629, 1260, 638, 1286, 585, 1330, 535, 1385, 498, 1420, 444, 1404, 435, 1367, 482, 1311, 520, 1267, 571"
-                                          title="nashville-pittsburgh-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="678, 639, 678, 614, 744, 623, 806, 616, 869, 605, 928, 582, 932, 603, 871, 626, 809, 641, 744, 647"
-                                          title="denver-kansascity-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="106, 676, 97, 656, 399, 555, 404, 575"
-                                          title="saltlakecity-sanfrancisco-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="682, 596, 681, 618, 744, 620, 809, 614, 872, 602, 934, 579, 920, 559, 864, 584, 802, 593, 741, 599"
-                                          title="denver-kansascity-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="965, 596, 964, 572, 1090, 570, 1093, 594"
-                                          title="kansascity-saintlouis-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="903, 516, 922, 507, 951, 559, 927, 567"
-                                          title="kansascity-omaha-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="924, 506, 951, 558, 973, 546, 944, 495"
-                                          title="kansascity-omaha-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1422, 444, 1442, 442, 1467, 565, 1443, 565"
-                                          title="pittsburgh-raleigh-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="965, 552, 965, 575, 1089, 571, 1088, 548"
-                                          title="kansascity-saintlouis-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1153, 442, 1165, 453, 1101, 557, 1081, 541"
-                                          title="chicago-saintlouis-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1168, 452, 1102, 557, 1118, 565, 1187, 461"
-                                          title="chicago-saintlouis-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1390, 417, 1118, 571, 1130, 593, 1400, 435"
-                                          title="pittsburgh-saintlouis-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1446, 412, 1435, 431, 1544, 487, 1553, 467"
-                                          title="pittsburgh-washington-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1554, 343, 1572, 343, 1581, 471, 1558, 473"
-                                          title="newyork-washington-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1574, 342, 1597, 341, 1605, 469, 1581, 469"
-                                          title="newyork-washington-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="108, 340, 84, 397, 72, 458, 72, 520, 77, 583, 91, 640, 69, 647, 54, 583, 50, 518, 52, 452, 66, 393, 91, 332"
-                                          title="portland-sanfrancisco-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="433, 575, 436, 552, 628, 589, 620, 608"
-                                          title="denver-saltlakecity-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="90, 635, 97, 657, 400, 555, 391, 536"
-                                          title="saltlakecity-sanfrancisco-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="436, 553, 437, 527, 627, 570, 625, 588"
-                                          title="denver-saltlakecity-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="672, 595, 720, 559, 774, 535, 834, 516, 895, 505, 891, 481, 828, 491, 769, 509, 709, 539, 657, 578"
-                                          title="denver-omaha-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="1034, 403, 1170, 420, 1166, 444, 1040, 428, 942, 493, 930, 477"
-                                          title="chicago-omaha-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="1208, 438, 1206, 416, 1267, 401, 1331, 390, 1395, 394, 1395, 413, 1331, 412, 1266, 422"
-                                          title="chicago-pittsburgh-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1539, 329, 1551, 343, 1446, 409, 1435, 392"
-                                          title="newyork-pittsburgh-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1528, 306, 1540, 328, 1433, 389, 1426, 369"
-                                          title="newyork-pittsburgh-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="1386, 370, 1385, 393, 1323, 389, 1261, 399, 1202, 416, 1198, 394, 1257, 379, 1326, 367"
-                                          title="chicago-pittsburgh-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="1179, 408, 1165, 395, 1208, 347, 1262, 310, 1327, 289, 1373, 254, 1387, 269, 1338, 311, 1273, 331, 1224, 364"
-                                          title="chicago-toronto-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="974, 350, 986, 330, 1038, 358, 1099, 380, 1162, 396, 1155, 416, 1089, 400, 1026, 379"
-                                          title="chicago-duluth-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="935, 340, 958, 348, 913, 465, 892, 453"
-                                          title="duluth-omaha-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="959, 348, 983, 356, 936, 471, 915, 462"
-                                          title="duluth-omaha-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="582, 363, 590, 345, 887, 465, 877, 483"
-                                          title="helena-omaha-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="546, 354, 564, 346, 656, 576, 637, 582"
-                                          title="denver-helena-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="427, 510, 445, 522, 542, 360, 522, 347"
-                                          title="helena-saltlakecity-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="117, 309, 113, 329, 171, 342, 225, 364, 282, 397, 330, 439, 372, 485, 401, 539, 426, 526, 394, 469, 348, 416, 297, 379, 241, 339, 178, 317"
-                                          title="portland-saltlakecity-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="63, 328, 38, 386, 24, 451, 23, 518, 30, 589, 46, 646, 69, 638, 52, 578, 48, 514, 50, 452, 62, 394, 87, 335"
-                                          title="portland-sanfrancisco-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1387, 258, 1409, 256, 1418, 385, 1393, 385"
-                                          title="pittsburgh-toronto-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="140, 249, 125, 241, 99, 300, 116, 305"
-                                          title="portland-seattle-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="102, 234, 79, 289, 97, 297, 121, 240"
-                                          title="portland-seattle-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="153, 240, 148, 258, 520, 343, 522, 322"
-                                          title="helena-seattle-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="568, 320, 567, 341, 948, 335, 946, 311"
-                                          title="duluth-helena-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1357, 245, 1361, 266, 985, 330, 983, 306"
-                                          title="duluth-toronto-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1675, 223, 1656, 211, 1586, 316, 1606, 329"
-                                          title="boston-newyork-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1634, 200, 1654, 212, 1587, 315, 1570, 303"
-                                          title="boston-newyork-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1513, 119, 1536, 116, 1564, 300, 1539, 302"
-                                          title="montreal-newyork-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="108, 142, 108, 215, 132, 215, 133, 140"
-                                          title="seattle-vancouver-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="133, 146, 132, 211, 157, 209, 156, 142"
-                                          title="seattle-vancouver-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="353, 115, 374, 124, 342, 183, 283, 225, 216, 235, 151, 234, 152, 210, 220, 209, 277, 202, 327, 167"
-                                          title="calgary-seattle-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="390, 109, 553, 302, 534, 316, 372, 122"
-                                          title="calgary-helena-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="737, 124, 754, 141, 575, 317, 560, 300"
-                                          title="helena-winnipeg-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="771, 140, 786, 124, 967, 299, 949, 314"
-                                          title="duluth-winnipeg-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1168, 210, 1175, 227, 1005, 300, 998, 281"
-                                          title="duluth-saultstmarie-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1344, 222, 1339, 246, 1219, 217, 1223, 198"
-                                          title="saultstmarie-toronto-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1535, 117, 1547, 102, 1645, 181, 1629, 197"
-                                          title="boston-montreal-2" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="1512, 88, 1520, 109, 1460, 135, 1416, 178, 1388, 227, 1366, 216, 1401, 161, 1455, 115"
-                                          title="toronto-montreal-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="1563, 82, 1661, 164, 1649, 179, 1550, 99"
-                                          title="boston-montreal-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="1202, 179, 1248, 139, 1310, 106, 1372, 83, 1437, 71, 1501, 71, 1502, 92, 1434, 95, 1377, 109, 1321, 127, 1263, 160, 1217, 200"
-                                          title="montreal-saultstmarie-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="804, 103, 800, 124, 1172, 203, 1176, 179"
-                                          title="saultstmarie-winnipeg-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly"
-                                          coords="382, 85, 391, 104, 450, 76, 510, 64, 571, 64, 636, 68, 695, 86, 748, 111, 760, 89, 701, 62, 638, 45, 571, 40, 506, 42, 443, 56"
-                                          title="calgary-winnipeg-1" onclick="claimUsRoute(this.title)" />
-                                    <area shape="poly" coords="157, 109, 344, 88, 346, 107, 159, 129"
-                                          title="calgary-vancouver-1" onclick="claimUsRoute(this.title)" />
-                              </map>
-                        </div>
-                  </div>
-                  <div class="ownCards" id="ownCardContainer"></div>
-                  <div class="destiDeck" id="destiCardsChoosingPanel" style="display: none"></div>
-            </div>
+        <div class="tab">
+            <button class="tablinks" onclick="openCity(event, 'Europe')" id="defaultOpen">Europe</button>
+            <button class="tablinks" onclick="openCity(event, 'UnitedStates')">United States</button>
+        </div>
+    </div>
 
-            <div class="cards" id="cardContainer">
-                  <div class="generalCards" id="generalCards">
-                        <div class="routeCards">
-                              <img class="card" src="images/routeCards/ticketBack.png" id="routeCard"
-                                    onclick="requestDestination()" />
-                        </div>
-                        <div class="openWagonCards" id="openCardsBox"></div>
-                        <div class="closedWagonCards">
-                              <img class="card" src="images/trainCards/us_WagonCard_back.png" id="closedCard"
-                                    onclick="requestClosedCard()" />
-                        </div>
-                  </div>
-                  <div class="destiCards">
-                  </div>
-            </div>
-            <!--    <img class="cardsBackground" src="images/decorations/cards-support-Blue.png">-->
+    <div class="cards" id="cardContainer">
+        <div class="routeCards">
+            <img class="card" src="images/routeCards/ticketBack.png"/>
+        </div>
+        <div class="openWagonCards" id="openCardsBox"></div>
+        <div class="closedWagonCards">
+            <img class="card" src="images/trainCards/us_WagonCard_back.png" onclick="requestClosedCard()"/>
+        </div>
+    </div>
+    <!--    <img class="cardsBackground" src="images/decorations/cards-support-Blue.png">-->
 
-            <img class="dockDecoration" src="images/decorations/dock-Green.png" />
-      </div>
+    <div class="ownCards" id="ownCardContainer"></div>
 
-      <!-- 3rd party JavaScript Files -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
-            integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo=" crossorigin="anonymous"></script>
-      <script src="javascripts/imageMapResizer.min.js"></script>
-      <script src="https://unpkg.com/merge-images"></script>
+    <img class="dockDecoration" src="images/decorations/dock-Green.png"/></div>
 
-      <!-- Own Javascript Files -->
-      <script src="javascripts/maps.js"></script>
-      <script src="javascripts/trainCards.js"></script>
-      <script src="javascripts/destinations.js"></script>
-      <script src="javascripts/client_game.js"></script>
-      <script>
-            imageMapResize();
-      </script>
+<script src="javascripts/maps.js"></script>
+<script src="javascripts/messages.js"></script>
+<script src="javascripts/trainCards.js"></script>
+<script src="javascripts/client_game.js"></script>
+<script src="javascripts/imageMapResizer.min.js"></script>
+<script>
+    imageMapResize();
+</script>
 </body>
 </html>

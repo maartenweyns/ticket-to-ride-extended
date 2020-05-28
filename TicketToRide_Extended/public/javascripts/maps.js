@@ -1,4 +1,5 @@
 function openCity(evt, mapName) {
+    console.log("showing map");
     // Declare all variables
     var i, tabcontent, tablinks;
 
@@ -17,5 +18,4 @@ function openCity(evt, mapName) {
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(mapName).style.display = "block";
     evt.currentTarget.className += " active";
-    imageMapResize();
 }

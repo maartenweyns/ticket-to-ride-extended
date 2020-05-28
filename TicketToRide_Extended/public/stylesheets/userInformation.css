@@ -1,8 +1,11 @@
 .userPanes {
+    position: absolute;
+    left: 0;
+    top: 0;
     padding: 10px;
-    width: calc(100vw / 8);
-    display: flex;
-    flex-direction: column;
+    float: left;
+    height: calc(100vh - 20px);
+    width: 200px;
 }
 
 .playerBackdrop {
@@ -17,44 +20,47 @@
 .playerName {
     margin: 5px;
     color: white;
-    font-size: 1.5vw;
+    font-size: 18px;
     position: absolute;
-    top: 5%;
-    left: 7%;
+    top: 9px;
+    left: 16px;
     font-family: 'Arapey', serif;
+}
+
+.numberOfCarts {
+    position: absolute;
+    top: -5px;
+    right: -5px;
 }
 
 .numberOfCartsText {
     color: black;
     font-family: 'Arapey', serif;
     position: absolute;
-    font-size: 1.2vw;
-    top: 26%;
-    right: 10%;
-    margin: 0;
+    font-size: 20px;
+    top: 16px;
+    right: 25px;
 }
 
-.numberOfTrainCardsText {
+.numberOfTrainCards {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+}
+
+.numberOfTrainCardsText, .numberOfRouteCardsText {
     color: white;
     font-family: 'Arapey', serif;
-    font-size: 1.5vw;
+    font-size: 14px;
     position: absolute;
-    top: 48%;
-    left: 35%;
-    margin: 0;
+    bottom: -2px;
+    left: 45px;
 }
 
-.numberOfRouteCardsText {
-    color: white;
-    font-family: 'Arapey', serif;
-    font-size: 1.5vw;
+.numberOfRouteCards {
+    height: fit-content;
+    width: fit-content;
     position: absolute;
-    top: 48%;
-    left: 73%;
-    margin: 0;
-}
-
-.currentPlayer {
-    filter: drop-shadow(0px 0px 6px #fff);
-    -webkit-filter: drop-shadow(0px 0px 6px #fff);
+    bottom: 15px;
+    left: 90px;
 }
