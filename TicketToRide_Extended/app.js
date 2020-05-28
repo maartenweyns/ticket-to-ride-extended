@@ -6,11 +6,25 @@ var http = require("http");
 var Player = require('./player');
 var Route = require('./route');
 var Game = require("./game");
+var Imagery = require('./imagery');
 
 var port = process.argv[2];
 var app = express();
 
 const ShortUniqueId = require('short-unique-id').default;
+const {auth} = require('express-openid-connect');
+
+// Auth0 authentication details
+const authConfig = {
+    required: false,
+    auth0Logout: true,
+    appSession: {
+      secret: 'ddfed8c9943958ab4d14e63fa780e3c2d168c9c8496219701f9910d759510483'
+    },
+    baseURL: 'https://tickettoride.mawey.be',
+    clientID: '6536rh17o9VD1KkqEvz02Rz4vECMnwR5',
+    issuerBaseURL: 'https://dev-osfslp4f.eu.auth0.com'
+};
 
 // instantiate uid
 const uid = new ShortUniqueId();
@@ -19,6 +33,7 @@ const uid = new ShortUniqueId();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(auth(authConfig));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
@@ -33,6 +48,7 @@ var connectionID = 0;
 var playerColors = ["yellow", "lightblue", "grey", "purple", "red", "green", "brightyellow", "blue"];
 
 var game = new Game(uid.randomUUID(8));
+var imagery = new Imagery(game.gameID);
 console.log('[START] Game started with ID ' + game.gameID);
 
 io.on('connection', (socket) => {
@@ -78,13 +94,7 @@ io.on('connection', (socket) => {
             socket.emit('own-cards', game.getPersonalCards(pid));
             socket.emit('own-destinations', {uncompleted: game["player" + pid].destinations, completed: game["player" + pid].completedDestinations});
 
-            let trains = [];
-            for(let i = 0; i < 8; i++) {
-                if (game["player" + i] !== null) {
-                    game["player" + i].routeIDs.forEach(element => trains.push([game["player" + i].color, element]));
-                }
-            }
-            socket.emit('existing-trains', trains);
+            socket.emit('existing-trains', {eu: imagery.euWagonImage, us: imagery.usWagonImage});
         }
 
         if (game.gameState === 'routes') {
@@ -227,8 +237,7 @@ io.on('connection', (socket) => {
         let ret = game.checkEligibility(data.pid, data.color, data.route, data.continent);
 
         if (ret.status) {
-            io.in(game.gameID).emit('route-claim', {status: true, pid: data.pid, route: data.route, pcol: game["player" + data.pid].color, 
-            color: ret.color, continent: data.continent});
+            imagery.computeWagons(data.continent, data.route, game["player" + data.pid].color, io, game.gameID);
 
             game["player" + data.pid].routeIDs.push([data.continent, data.route]);
             game["player" + data.pid][data.color] -= ret.amount;
@@ -237,6 +246,7 @@ io.on('connection', (socket) => {
             game["player" + data.pid].numberOfTrainCards -= game.getRouteRequirements(data.route, data.continent).length;
             
             io.in(game.gameID).emit('player-overview', game.getUserProperties());
+            socket.emit('route-claim', {status: true, continent: data.continent});
             
             let routeMap = data.continent + "Routes";
             game.userClaimedRoute(data.pid, game[routeMap].get(data.route));
@@ -256,7 +266,7 @@ io.on('connection', (socket) => {
                 socket.emit('player-completed-route', desti.continent + "-" + desti.stationA + "-" + desti.stationB);
             }
         } else {
-            socket.emit('route-claim', {pid: data.pid, status: false});
+            socket.emit('route-claim', {status: false});
         }
     });
 

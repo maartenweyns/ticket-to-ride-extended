@@ -108,11 +108,6 @@ li:nth-child(even) {
     align-items: center;
 }
 
-.transition-fade {
-    transition: 0.4s;
-    opacity: 1;
-}
-
 .warning {
     box-shadow: 0 0 20px red;
 }
@@ -126,10 +121,6 @@ li:nth-child(even) {
     display: flex;
     flex-direction: column;
 }
-  
-html.is-animating .transition-fade {
-    opacity: 0;
-}  
 
 #playername {
     font-size: 2em;

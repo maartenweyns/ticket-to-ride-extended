@@ -3,6 +3,8 @@ var playerID;
 var gameID;
 var currentMove;
 
+const swup = new Swup();
+
 var music = new Audio("../sounds/america.mp3");
 var startsound = new Audio("../sounds/startGame.mp3");
 var buzz = new Audio("../sounds/IG_F_Cant.mp3");
@@ -141,40 +143,48 @@ socket = io(location.host);
         }
     });
 
-    socket.on('route-claim', (data) => {
-        if (JSON.parse(data.status)) {
-            let imageLocation = document.getElementById(data.continent);
-            let linkToTrainsToAdd = "images/trainsOnMap/" + data.continent + "/" + data.route + ".png";
+    socket.on('wagonimage', (data) => {
+        let imageLocation = document.getElementById(data.continent);
 
-            let carts = document.createElement('img');
-            carts.src = linkToTrainsToAdd;
-            carts.classList.add("carts");
-            carts.classList.add(data.pcol + "Wagons");
-            carts.classList.add(data.pcol + "CartsBlinking");
+        // Construct HTML elements
+        let carts = document.createElement('img');
+        carts.src = `data:image/png;base64,${data.image}`;
+        carts.classList.add(`${data.continent}Wagons`);
+        carts.classList.add('cartsBlinking');
+        setTimeout(function() {
+            carts.classList.remove('cartsBlinking');
+        }, 4000);
+        imageLocation.append(carts);
+
+        // Merge the image and remove it once the animation is done
+        if (document.getElementsByClassName(`${data.continent}Wagons`).length > 1) {
+            mergeImages([document.getElementsByClassName(`${data.continent}Wagons`)[0].src, document.getElementsByClassName(`${data.continent}Wagons`)[1].src])
+                .then(b64 => document.getElementsByClassName(`${data.continent}Wagons`)[0].src = b64);
             setTimeout(function() {
-                carts.classList.remove(data.pcol + "CartsBlinking");
+                imageLocation.removeChild(carts);
             }, 4000);
-            imageLocation.append(carts);
+        }
 
-            if (document.getElementById(data.continent).style.display === "block") {
-                cashRegister.play();
-            } else {
-                differentContinent.play();
-                let tab = document.getElementById(data.continent + "tab");
-                tab.classList.add("flashingFlag");
-                setTimeout(function () {
-                    tab.classList.remove("flashingFlag");
-                }, 1600)
-            }
+        // Play the cash register sound
+        if (document.getElementById(data.continent).style.display === "block") {
+            cashRegister.play();
+        } else {
+            differentContinent.play();
+            let tab = document.getElementById(data.continent + "tab");
+            tab.classList.add("flashingFlag");
+            setTimeout(function () {
+                tab.classList.remove("flashingFlag");
+            }, 1600)
+        }
+    });
 
-            if (data.pid === playerID) {
-                document.getElementById(data.continent).classList.add("disabled");
-                document.getElementById("generalCards").classList.add("disabled");
-                document.getElementById("endTurn").style.display = "block";
-            }
+    socket.on('route-claim', (data) => {
+        if(data.status){
+            document.getElementById(data.continent).classList.add("disabled");
+            document.getElementById("generalCards").classList.add("disabled");
+            document.getElementById("endTurn").style.display = "block";
         } else {
             buzz.play();
-
             let card = document.getElementsByClassName("activatedCard")[0];
             card.classList.add("cantCard");
             setTimeout(function () {
@@ -189,7 +199,8 @@ socket = io(location.host);
     });
 
     socket.on('existing-trains', (data) => {
-        drawExistingTrains(data);
+        drawExistingTrains(data.eu, 'eu');
+        drawExistingTrains(data.us, 'us');
     });
 
     socket.on('player-destination', (data) => {
@@ -223,11 +234,11 @@ function addUsers(users) {
         let user = users.pop();
         let userEntry = document.createElement('div');
         userEntry.classList.add("playerBackdrop");
+        userEntry.id = "p" + user.id;
 
         let userBackdrop = document.createElement('img');
         userBackdrop.src = 'images/playerInformation/playerBackdrop/support-opponent-' + user.color + '.png';
         userBackdrop.classList.add("playerBackdropImage");
-        userBackdrop.id = "p" + user.id;
 
         let playerName = document.createElement('p');
         playerName.innerText = user.name + "(" + user.score + ")";
@@ -293,8 +304,8 @@ function claimUsRoute(routeID) {
 
 function markCurrentPlayer(pid) {
     for (let i = 0; i < 8; i++) {
-        if (document.getElementById("p" + pid) !== null) {
-            document.getElementById("p" + pid).classList.remove("currentPlayer");
+        if (document.getElementById("p" + i) !== null) {
+            document.getElementById("p" + i).classList.remove("currentPlayer");
         }
     }
     document.getElementById("p" + pid).classList.add("currentPlayer");
@@ -322,17 +333,14 @@ function endTurn() {
     }
 }
 
-function drawExistingTrains(trains) {
-    for (array of trains) {
-        let imageLocation = document.getElementById(array[1][0]);
-        let linkToTrainsToAdd = "images/trainsOnMap/" + array[1][0] + "/" + array[1][1] + ".png";
+function drawExistingTrains(trains, continent) {
+    let imageLocation = document.getElementById(continent);
 
-        let carts = document.createElement('img');
-        carts.src = linkToTrainsToAdd;
-        carts.classList.add("carts");
-        carts.classList.add(array[0] + "Wagons");
-        imageLocation.append(carts);
-    }
+    // Construct HTML elements
+    let carts = document.createElement('img');
+    carts.src = `data:image/png;base64,${trains}`;
+    carts.classList.add(`${continent}Wagons`);
+    imageLocation.append(carts);
 }
 
 function getCookie(cname) {
