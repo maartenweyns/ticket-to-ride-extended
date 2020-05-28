@@ -161,6 +161,32 @@ body {
     -webkit-animation: flashingDone 1s infinite;
 }
 
+.alert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: calc(100vw - 10px);
+    height: 25px;
+    line-height: 30px;
+    border: solid 5px;
+    background-color: #fff12b;
+    border-color: #787000;
+    font-size: 25px;
+    text-align: center;
+    z-index: 99;
+    animation: showAlert 4s;
+    -webkit-animation: showAlert 4s;
+    font-family: 'Passion One';
+    color: #292600;
+}
+
+@keyframes showAlert {
+    0% {transform: translateY(-35px); -webkit-transform: translateY(-35px);}
+    13% {transform: translateY(0); -webkit-transform: translateY(0);}
+    87% {transform: translateY(0); -webkit-transform: translateY(0);}
+    100% {transform: translateY(-35px); -webkit-transform: translateY(-35px);}
+}
+
 @keyframes flashingDone {
     0% {transform: scale(1); -webkit-transform: scale(1);}
     50% {transform: scale(1.5); -webkit-transform: scale(1.5);}

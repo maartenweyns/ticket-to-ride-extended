@@ -39,7 +39,7 @@ socket = io(location.host);
         music.play();
         audioUnlocked = true;
     }).catch(function (){
-        alert("To unlock your audio, please press your own player on the left side of the screen!");
+        showAlert('To unlock your audio, please press your own player on the left side of the screen!');
     });
 
     socket.on('connect', () => {
@@ -223,7 +223,7 @@ socket = io(location.host);
 
     socket.on('disconnect', () => {
         console.log('Disconnected from server');
-        alert('You are disconnected. The app will try to reconnect automatically');
+        showAlert('You are disconnected. The app will try to reconnect automatically');
     });
 })();
 
@@ -289,7 +289,7 @@ function claimEuRoute(routeID) {
         let color = document.getElementsByClassName("activatedCard")[0].id;
         socket.emit('route-claim', {pid: playerID, color: color, route: routeID, continent: "eu"});
     } else {
-        alert("Select cards from your collection first!");
+        showAlert("Select cards from your collection first!");
     }
 }
 
@@ -298,7 +298,7 @@ function claimUsRoute(routeID) {
         let color = document.getElementsByClassName("activatedCard")[0].id; 
         socket.emit('route-claim', {pid: playerID, color: color, route: routeID, continent: "us"});
     } else {
-        alert("Select cards from your collection first!");
+        showAlert("Select cards from your collection first!");
     }
 }
 
@@ -320,10 +320,10 @@ function unlockaudio() {
 
     music.loop = true;
     music.play().then(function() {
-        alert("Audio unlocked!");
+        showAlert("Audio unlocked!");
         audioUnlocked = true;
     }).catch(function(){
-        alert("Audio could not be unlocked. Maybe try again? :)");
+        showAlert("Audio could not be unlocked. Maybe try again? :)");
     })
 }
 
@@ -357,4 +357,16 @@ function getCookie(cname) {
         }
     }
     return "";
+}
+
+function showAlert(message) {
+    if (document.getElementsByClassName('alert').length === 0) {
+        let div = document.createElement('div');
+        div.innerText = message;
+        div.classList.add('alert');
+        document.body.appendChild(div);
+        setTimeout(() => {
+            document.body.removeChild(div);
+        }, 4000);
+    }
 }
