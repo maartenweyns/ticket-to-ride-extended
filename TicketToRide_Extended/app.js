@@ -121,6 +121,15 @@ io.on('connection', (socket) => {
         }
     });
 
+    socket.on('request-scoring', (data) => {
+        if (data.gameID === game.gameID) {
+            socket.emit('player-overview', game.getUserProperties());
+            socket.emit('final-score', game.calculateScore());
+        } else {
+            socket.emit('lobby');
+        }
+    });
+
     socket.on('accepted-destination', (data) => {
         let pid = data.pid;
         let routeID = data.rid.split("-");
@@ -199,6 +208,9 @@ io.on('connection', (socket) => {
         socket.emit('own-cards', game.getPersonalCards(pid));
         if (game.checkGameEnd()) {
             game.sendStationsMessage(io);
+            if (game.allPlayersReady()) {
+                io.in(game.gameID).emit('game-end');
+            };
         } else {
             io.in(game.gameID).emit('player-round', game.getPlayerRound());
         }
@@ -221,6 +233,9 @@ io.on('connection', (socket) => {
 
         if (game.checkGameEnd()) {
             game.sendStationsMessage(io);
+            if (game.allPlayersReady()) {
+                io.in(game.gameID).emit('game-end');
+            };
         } else {
             io.in(game.gameID).emit('player-round', game.getPlayerRound());
         }
@@ -250,6 +265,9 @@ io.on('connection', (socket) => {
             socket.emit('own-cards', game.getPersonalCards(data.pid));
             if (game.checkGameEnd()) {
                 game.sendStationsMessage(io);
+                if (game.allPlayersReady()) {
+                    io.in(game.gameID).emit('game-end');
+                };
             } else {
                 io.in(game.gameID).emit('player-round', game.getPlayerRound());
             }
@@ -277,11 +295,18 @@ io.on('connection', (socket) => {
     socket.on('confirmed-stations', (data) => {
         for (let route of data.routes) {
             game.userClaimedRoute(data.pid, route);
+            game[`player${data.pid}`].routeIDs.push([data.continent, `${route.stationA}-${route.stationB}`]);
         }
-        
+
         for (let desti of game.checkContinuity(data.pid)) {
             socket.emit('player-completed-route', desti.continent + "-" + desti.stationA + "-" + desti.stationB);
         }
+    
+        game[`player${data.pid}`].ready = true;
+
+        if (game.allPlayersReady()) {
+            io.in(game.gameID).emit('game-end');
+        };
     })
 
     socket.on('player-destination', (pid) => {
@@ -300,6 +325,9 @@ io.on('connection', (socket) => {
             game.nextPlayerRound();
             if (game.checkGameEnd()) {
                 game.sendStationsMessage(io);
+                if (game.allPlayersReady()) {
+                    io.in(game.gameID).emit('game-end');
+                };
             } else {
                 io.in(game.gameID).emit('player-round', game.getPlayerRound());
             }

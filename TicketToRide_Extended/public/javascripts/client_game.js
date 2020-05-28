@@ -377,9 +377,12 @@ function showStationMenu(data) {
     menu.style.display = "flex";
 
     if (data.stations.length === 0) {
-        let message = document.createElement('p');
-        message.innerText = 'Waiting for other players...';
-        menu.appendChild(message);
+        let statbox = document.createElement('div');
+        statbox.classList.add('stationChoiceDiv');
+        let stattext = document.createElement('p');
+        stattext.innerText = `Waiting for other players...`;
+        stattext.style.margin = 0;
+        menu.appendChild(statbox);
     } else {
         for (let station of data.stations) {
             let statbox = document.createElement('div');
@@ -398,11 +401,11 @@ function showStationMenu(data) {
             statbox.append(stattext, selector);
             menu.append(statbox);
         }
-        let confirm = document.createElement('button').innerText = 'Confirm!';
+        let confirm = document.createElement('button');
+        confirm.innerText = "Confirm!";
         confirm.onclick = function () {
             confirmStations();
         }
-        confirm.style.height = "25%";
         menu.append(confirm);
     }
 }
@@ -411,7 +414,7 @@ function confirmStations() {
     let stations = document.getElementsByClassName('stationChoiceDiv');
     let routes = [];
     for (let station of stations) {
-        routes.push({stationA: station.id, stationB: station.children[1].value, continent: "eu"});
+        routes.push({stationA: station.id.split('Choice')[0], stationB: station.children[1].value, variant: 1, continent: "eu"});
     }
     socket.emit('confirmed-stations', {routes: routes, pid: playerID});
 }

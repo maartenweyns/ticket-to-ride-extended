@@ -692,6 +692,9 @@ game.prototype.sendStationsMessage = function (io) {
                 }
                 neighbors.push(ret);
             }
+            if (this[`player${i}`].stations.length !== 0) {
+                this[`player${i}`].ready = false;
+            }
             let sendObj = {stations: this[`player${i}`].stations, options: neighbors};
             io.to(this[`player${i}`].socketID).emit('stations', sendObj);
         }

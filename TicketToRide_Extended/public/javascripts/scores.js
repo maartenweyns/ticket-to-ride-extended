@@ -21,7 +21,7 @@ socket = io(location.host);
 
     socket.on('connect', () => {
         console.log("Connceted to server");
-        socket.emit('player-ingame-join', {playerID: playerID, gameID: gameID});
+        socket.emit('request-scoring', {gameID: gameID});
     });
 
     socket.on('player-overview', (players) => {
@@ -214,7 +214,7 @@ function showWinning() {
     let scores = document.getElementsByClassName('playerscore');
     let highestscore = -Infinity;
     let highestpid;
-    for (score of scores) {
+    for (let score of scores) {
         let actual = parseInt(score.innerText.split("Score: ")[1]);
         if (actual > highestscore) {
             highestpid = parseInt(score.id.split("score")[1]);
