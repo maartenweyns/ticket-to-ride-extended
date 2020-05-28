@@ -1,22 +1,39 @@
 var indexRouter = require('./routes/index');
-
 var express = require('express');
-var websocket = require("ws");
-var messages = require("./public/javascripts/messages");
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var http = require("http");
 var Player = require('./player');
 var Route = require('./route');
 var Game = require("./game");
+var Imagery = require('./imagery');
 
 var port = process.argv[2];
 var app = express();
+
+const ShortUniqueId = require('short-unique-id').default;
+const {auth} = require('express-openid-connect');
+
+// Auth0 authentication details
+const authConfig = {
+    required: false,
+    auth0Logout: true,
+    appSession: {
+      secret: 'ddfed8c9943958ab4d14e63fa780e3c2d168c9c8496219701f9910d759510483'
+    },
+    baseURL: 'https://tickettoride.mawey.be',
+    clientID: '6536rh17o9VD1KkqEvz02Rz4vECMnwR5',
+    issuerBaseURL: 'https://dev-osfslp4f.eu.auth0.com'
+};
+
+// instantiate uid
+const uid = new ShortUniqueId();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(auth(authConfig));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
@@ -25,158 +42,257 @@ app.use(express.static(__dirname + "/public"));
 app.use('/', indexRouter);
 
 var server = http.createServer(app);
-const wss = new websocket.Server({server});
+const io = require('socket.io')(server);
 
 var connectionID = 0;
-var websockets = {};
-var playerColors = ["brightyellow", "red", "purple", "green", "blue", "grey", "lightblue", "yellow"];
+var playerColors = ["yellow", "lightblue", "grey", "purple", "red", "green", "brightyellow", "blue"];
 
-var game = new Game();
-game.setupEuRoutes();
+var game = new Game(uid.randomUUID(8));
+var imagery = new Imagery(game.gameID);
+console.log('[START] Game started with ID ' + game.gameID);
 
-wss.on("connection", function connection(ws) {
-    if (connectionID === 0) {
-        game.setOpenCards();
-    }
-    let con = ws;
-    con.id = connectionID++;
-    websockets[con.id] = ws;
+io.on('connection', (socket) => {
+    socket.on('player-name', (name) => {
+        socket.join(game.gameID);
+        socket.emit('information', {playerID: connectionID, gameID: game.gameID});
+        game["player" + connectionID] = new Player(connectionID, name, playerColors.pop(), socket.id);
+        console.log("[INFO] Player " + connectionID + " has been created: " + name + " with socketid " + socket.id);
+        connectionID++;
+        game.amountOfPlayers++;
+        io.in(game.gameID).emit('player-overview', game.getUserProperties());
+    });
 
-    console.log("A player has joined the game");
+    socket.on('start-game', (data) => {
+        console.log('[STARTGAME] The game has been started by id ' + socket.id);
+        game.gameState = 'routes';
+        io.in(game.gameID).emit('start-game');
+    });
 
-    // Send the player number to the player.
-    let msg1 = messages.O_PLAYER_NAME;
-    msg1.data = con.id;
-    con.send(JSON.stringify(msg1));
+    socket.on('player-ingame-join', (info) =>  {
 
-    // Send the open cards to the player that just connected.
-    let msg2 = messages.O_OPEN_CARDS;
-    msg2.data = {cards: game.getOpenCards(), shuffle: false};
-    con.send(JSON.stringify(msg2));
-
-    con.on("message", function incoming(message) {
-        let oMsg = JSON.parse(message);
-        console.log("message from " + con.id + ": " + oMsg.data);
-
-        if (oMsg.type === messages.T_PLAYER_NAME) {
-            let pid = oMsg.data.pID;
-            game["player" + pid] = new Player(pid, oMsg.data.pName, playerColors.pop(), websockets[pid]);
-
-            let msg1 = messages.O_PLAYER_OVERVIEW;
-            msg1.data = game.getUserProperties();
-            game.sendToAll(msg1);
+        if (info.gameID !== game.gameID) {
+            socket.emit('lobby');
+            return;
         }
 
-        if (oMsg.type === messages.T_PLAYER_EXISTING_ID) {
-            let pid = oMsg.data.pid;
-            game["player" + pid].updatewebsocket(websockets[oMsg.data.conId]);
-            console.log("User " + pid + " updated his websocket connection.");
+        // Put the socket in the game room
+        socket.join(game.gameID);
 
-            let msg1 = messages.O_PLAYER_OVERVIEW;
-            msg1.data = game.getUserProperties();
-            game.sendToAll(msg1);
+        let pid = info.playerID;
 
-            let msg2 = messages.O_PLAYER_ROUND;
-            msg2.data = {pid: game.currentRound, thing: game.thingsDone};
-            game.sendToAll(msg2);
+        // Send open cards
+        socket.emit('open-cards', {cards: game.getOpenCards(), shuffle: false});
+
+        // Send player info
+        socket.emit('player-overview', game.getUserProperties());
+
+        console.log("[UPGRADE] Player " + pid + " updated his socketID to " + socket.id);
+        game["player" + pid].socketID = socket.id;
+
+        if (game.gameState === 'ongoing') {
+            io.in(game.gameID).emit('player-round', game.getPlayerRound());
+            socket.emit('own-cards', game.getPersonalCards(pid));
+            socket.emit('own-destinations', {uncompleted: game["player" + pid].destinations, completed: game["player" + pid].completedDestinations});
+
+            socket.emit('existing-trains', {eu: imagery.euWagonImage, us: imagery.usWagonImage});
         }
 
-        if (oMsg.type === messages.T_GAME_START) {
-            let msg = messages.O_GAME_START;
-            game.sendToAll(msg);
-        }
+        if (game.gameState === 'routes') {
+            // Send own tickets
+            let color1 = game.getRandomColor();
+            let color2 = game.getRandomColor();
+            let color3 = game.getRandomColor();
+            let color4 = game.getRandomColor();
+            game["player" + pid][color1]++;
+            game["player" + pid][color2]++;
+            game["player" + pid][color3]++;
+            game["player" + pid][color4]++;
+            game["player" + pid].numberOfTrainCards += 4;
+            socket.emit('own-cards', game.getPersonalCards(pid));
 
-        if (oMsg.type === messages.T_PLAYER_TOOK_OPEN_TRAIN) {
-            console.log("Player " + oMsg.data.pid + " took " + oMsg.data.card);
-            let color = game.getRandomColor();
-            game.openCards[oMsg.data.card] = color;
-
-            let msg = messages.O_NEW_OPEN_CARD;
-            msg.data = {repCard: oMsg.data.card, newColor: color};
-            game.sendToAll(msg);
-
-            if (game.checkNeedForShuffle()) {
-                let msg = messages.O_OPEN_CARDS;
-                game.setOpenCards();
-                msg.data = {cards: game.getOpenCards(), shuffle: true};
-                game.sendToAll(msg);
-            }
-
-            game["player" + oMsg.data.pid].numberOfTrainCards++;
-            game["player" + oMsg.data.pid][oMsg.data.color]++;
-
-            let msgPlayers = messages.O_PLAYER_OVERVIEW;
-            msgPlayers.data = game.getUserProperties();
-            game.sendToAll(msgPlayers);
-
-            game.playerDidSomething();
-
-            let msg2 = messages.O_PLAYER_ROUND;
-            msg2.data = {pid: game.currentRound, thing: game.thingsDone};
-            game.sendToAll(msg2);
-        }
-
-        if (oMsg.type === messages.T_REQUEST_TRAIN) {
-            console.log("Player " + oMsg.data + " requested a closed train.");
-            let color = game.getRandomColor();
-
-            let msgCard = messages.O_REQUEST_TRAIN;
-            msgCard.data = color;
-            game["player" + oMsg.data].sendMessage(msgCard);
-
-            game["player" + oMsg.data].numberOfTrainCards++;
-            game["player" + oMsg.data][color] += 1;
-
-            let msgPlayers = messages.O_PLAYER_OVERVIEW;
-            msgPlayers.data = game.getUserProperties();
-            game.sendToAll(msgPlayers);
-
-            game.playerDidSomething();
-
-            let msg2 = messages.O_PLAYER_ROUND;
-            msg2.data = {pid: game.currentRound, thing: game.thingsDone};
-            game.sendToAll(msg2);
-        }
-
-        if (oMsg.type === messages.T_ROUTE_REQ) {
-            console.log("Player requests route info on " + oMsg.data.route);
-            let ret = game.getRouteRequirements(oMsg.data.route);
-            let msg = messages.O_ROUTE_REQ;
-            msg.data = ret;
-            game["player" + oMsg.data.pid].sendMessage(msg);
-        }
-
-        if (oMsg.type === messages.T_ROUTE_CLAIM) {
-            console.log("A user requested a route");
-            let ret = game.checkEligibility(oMsg.data.pid, oMsg.data.color, oMsg.data.route);
-            let msg = messages.O_ROUTE_CLAIM;
-
-            if (ret.status) {
-                msg.data = {status: true, pid: oMsg.data.pid, route: oMsg.data.route, pcol: game["player" + oMsg.data.pid].color,
-                color: ret.color, amount: ret.amount, locos: ret.locos};
-                game.sendToAll(msg);
-                game["player" + oMsg.data.pid][oMsg.data.color] -= ret.amount;
-                game["player" + oMsg.data.pid].loco -= ret.locos;
-                game["player" + oMsg.data.pid].numberOfTrains -= game.getRouteRequirements(oMsg.data.route).length;
-                game["player" + oMsg.data.pid].numberOfTrainCards -= game.getRouteRequirements(oMsg.data.route).length;
-                let msgPlayers = messages.O_PLAYER_OVERVIEW;
-                msgPlayers.data = game.getUserProperties();
-                game.sendToAll(msgPlayers);
-
-                game.playerDidSomething();
-
-                let msg2 = messages.O_PLAYER_ROUND;
-                msg2.data = {pid: game.currentRound, thing: game.thingsDone};
-                game.sendToAll(msg2);
+            let routes;
+            let longdesti = game.longStack.pop();
+            if (longdesti[1].continent === "eu") {
+                routes = {0: longdesti, 1: game.getEuDestination(), 2: game.getUsDestination(), 3: game.getUsDestination()}
             } else {
-                msg.data = {pid: oMsg.data.pid, status: false};
-                game["player" + oMsg.data.pid].sendMessage(msg);
+                routes = {0: game.getEuDestination(), 1: game.getEuDestination(), 2: longdesti, 3: game.getUsDestination()}
+            }
+            socket.emit('initial-routes', routes);
+        }
+    });
+
+    socket.on('accepted-destination', (data) => {
+        let pid = data.pid;
+        let routeID = data.rid.split("-");
+        continent = routeID[0];
+        destinationMap = continent + "Desti";
+
+        if (game[destinationMap].get(routeID[1] + "-" + routeID[2]) !== undefined) {
+            game["player" + pid].destinations.push(game[destinationMap].get(routeID[1] + "-" + routeID[2]));
+        } else {
+            game["player" + pid].destinations.push(game["long" + destinationMap].get(routeID[1] + "-" + routeID[2]));
+        }
+        
+        game["player" + pid].numberOfRoutes++;
+
+        game.checkContinuity(pid);
+        io.in(game.gameID).emit('player-overview', game.getUserProperties());
+
+        if (game.gameState === "routes") {
+            console.log('[INFO] Player ' + pid + ' is now ready!')
+            game["player" + pid].ready = true;
+
+            if (game.allPlayersReady()) {
+                game.currentRound = Math.ceil(Math.random() * game.amountOfPlayers) - 1;
+
+                io.in(game.gameID).emit('player-round', game.getPlayerRound());
+
+                game.mergeAllDestinations();
+                console.log('[INFO] The game is now in the ongoing state.');
+                game.gameState = 'ongoing';
             }
         }
     });
 
-    con.on("close", function (code) {
+    socket.on('rejected-destination', (data) => {
+        let routeID = data.split("-");
+        continent = routeID[0];
+        destinationMap = continent + "Desti";
+        if (game[destinationMap].get(routeID[1] + "-" + routeID[2]) === undefined) {
+            console.log("[INFO] A player rejected a long route");
+            game[continent + "Stack"].push([routeID[1] + "-" + routeID[2], game["long" + destinationMap].get(routeID[1] + "-" + routeID[2])]);
+            game.shuffleDestis();
+        } else {
+            console.log("[INFO] A player rejected a short route");
+            game[continent + "Stack"].push([routeID[1] + "-" + routeID[2], game[destinationMap].get(routeID[1] + "-" + routeID[2])]);
+            game.shuffleDestis();
+        }
+    });
 
+    socket.on('open-train', (data) => {
+        let pid = data.pid;
+        console.log("[INFO] Player " + pid + " took an open train.");
+
+        let color = game.getRandomColor();
+        let oldColor = game.openCards[data.card];
+        game.openCards[data.card] = color;
+
+        io.in(game.gameID).emit('new-open-card', {repCard: data.card, newColor: color});
+
+        if (game.checkNeedForShuffle()) {
+            game.setOpenCards();
+            io.in(game.gameID).emit('open-cards', {cards: game.getOpenCards(), shuffle: true});
+        }
+
+        game["player" + pid].numberOfTrainCards++;
+        game["player" + pid][data.color]++;
+
+        if (oldColor === "loco") {
+            game["player" + pid][game.getRandomColor()]++;
+            game["player" + pid].numberOfTrainCards++;
+            game.nextPlayerRound();
+        } else {
+            game.playerDidSomething();
+        }
+
+        io.in(game.gameID).emit('player-overview', game.getUserProperties());
+        socket.emit('own-cards', game.getPersonalCards(pid));
+        if (game.checkGameEnd()) {
+            io.in(game.gameID).emit('game-end');
+            setTimeout(function() {
+                io.in(game.gameID).emit('final-score', game.calculateScore());
+            }, 1000);
+        } else {
+            io.in(game.gameID).emit('player-round', game.getPlayerRound());
+        }
+    });
+
+    socket.on('closed-train', (pid) => {
+        console.log("[INFO] Player " + pid + " requested a closed train.");
+        let color = game.getRandomColor();
+
+        socket.emit('closed-train', color);
+
+        game["player" + pid].numberOfTrainCards++;
+        game["player" + pid][color]++;
+
+        game.playerDidSomething();
+
+        io.in(game.gameID).emit('player-overview', game.getUserProperties());
+        socket.to(game.gameID).emit('closed-move', {pid: pid, move: "TRAIN-CARD"});
+        socket.emit('own-cards', game.getPersonalCards(pid));
+
+        if (game.checkGameEnd()) {
+            io.in(game.gameID).emit('game-end');
+            setTimeout(function() {
+                io.in(game.gameID).emit('final-score', game.calculateScore());
+            }, 1000);
+        } else {
+            io.in(game.gameID).emit('player-round', game.getPlayerRound());
+        }
+    });
+
+    socket.on('route-claim', (data) => {
+        console.log("[INFO] Player " + data.pid + " requested a route.");
+        let ret = game.checkEligibility(data.pid, data.color, data.route, data.continent);
+
+        if (ret.status) {
+            imagery.computeWagons(data.continent, data.route, game["player" + data.pid].color, io, game.gameID);
+
+            game["player" + data.pid].routeIDs.push([data.continent, data.route]);
+            game["player" + data.pid][data.color] -= ret.amount;
+            game["player" + data.pid].loco -= ret.locos;
+            game["player" + data.pid].numberOfTrains -= game.getRouteRequirements(data.route, data.continent).length;
+            game["player" + data.pid].numberOfTrainCards -= game.getRouteRequirements(data.route, data.continent).length;
+            
+            io.in(game.gameID).emit('player-overview', game.getUserProperties());
+            socket.emit('route-claim', {status: true, continent: data.continent});
+            
+            let routeMap = data.continent + "Routes";
+            game.userClaimedRoute(data.pid, game[routeMap].get(data.route));
+
+            game.playerPutRoute();
+
+            socket.emit('own-cards', game.getPersonalCards(data.pid));
+            if (game.checkGameEnd()) {
+                io.in(game.gameID).emit('game-end');
+                setTimeout(function() {
+                    io.in(game.gameID).emit('final-score', game.calculateScore());
+                }, 1000);
+            } else {
+                io.in(game.gameID).emit('player-round', game.getPlayerRound());
+            }
+            for (let desti of game.checkContinuity(data.pid)) {
+                socket.emit('player-completed-route', desti.continent + "-" + desti.stationA + "-" + desti.stationB);
+            }
+        } else {
+            socket.emit('route-claim', {status: false});
+        }
+    });
+
+    socket.on('player-destination', (pid) => {
+        let random = Math.random();
+        if (random < 0.5) {
+            socket.emit('player-destination', {0: game.getEuDestination(), 1: game.getUsDestination(), 2: game.getUsDestination()});
+        } else {
+            socket.emit('player-destination', {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getUsDestination()});
+        }
+
+        socket.to(game.gameID).emit('closed-move', {pid: pid, move: "ROUTE-CARD"});
+    });
+
+    socket.on('player-finished', () => {
+        if (game.gameState === "ongoing") {
+            game.nextPlayerRound();
+            if (game.checkGameEnd()) {
+                io.in(game.gameID).emit('game-end');
+                setTimeout(function() {
+                    io.in(game.gameID).emit('final-score', game.calculateScore());
+                }, 1000);
+            } else {
+                io.in(game.gameID).emit('player-round', game.getPlayerRound());
+            }
+        }
     });
 });
 

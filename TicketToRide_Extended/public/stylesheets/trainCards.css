@@ -1,18 +1,64 @@
-.cardContainer {
-    position: relative;
-}
-
 .cardCounter {
     position: absolute;
-    top: -50px;
-    right: 40px;
+    top: 15px;
+    right: 15px;
     z-index: 99;
-    font-size: 30px;
+    font-size: 4em;
     font-weight: bold;
     color: white;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    margin: 0;
+    padding: 5px;
 }
 
-.activatedCard {
-    box-shadow: 0 0 10px 4px rgba(0, 255, 0, 1);
+.cardContainer {
+    height: 100%;
+    width: calc(100% / 10);
+    display: inline-block;
+    position: relative;
+    flex-shrink: 1;
+    overflow-y: hidden;
+    overflow-x: visible;
+}
+
+.activatedCard, .activatedDestiCard {
+    -webkit-appearance: none;
+    -webkit-box-shadow: 0 -10px 15px rgb(0,255,0);
+    box-shadow: 0 -10px 15px rgb(0,255,0);
+    z-index: 100;
+}
+
+.cardTaken {
+    transition: 1000ms;
+    transform: translateX(-100vw);
+    opacity: 0;
+}
+
+.cardTakenSelf {
+    transition: 1000ms;
+    transform: translate(-50vw, 50vh);
+    opacity: 0;
+}
+
+.disabledLoco {
+    transition: 100ms;
+    transform: translateX(50px);
+    pointer-events: none;
+}
+
+.cantCard {
+    animation: cant 100ms 4 linear;
+}
+
+.ownCard {
+    width: 100%;
+}
+
+@keyframes cant {
+    0% {transform: translateX(0) translateY(0);}
+    20% {transform: translateX(-5px) translateY(5px);}
+    40% {transform: translateX(5px) translateY(-5px);}
+    60% {transform: translateX(5px) translateY(5px);}
+    80% {transform: translateX(-5px) translateY(-5px);}
+    100% {transform: translateX(0) translateY(0);}
 }
