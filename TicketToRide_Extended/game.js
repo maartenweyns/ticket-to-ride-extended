@@ -654,7 +654,7 @@ game.prototype.checkContinuity = function (playerID) {
 
 game.prototype.allPlayersReady = function () {
     for (let i = 0; i < this.amountOfPlayers; i++) {
-        if (this["player" + i].ready === null) {
+        if (!this["player" + i].ready) {
             return false;
         }
     }
@@ -672,6 +672,30 @@ game.prototype.getPlayerRound = function () {
         }
     }
     return {pid: this.currentRound, thing: this.thingsDone, lastRound: false};
+}
+
+game.prototype.sendStationsMessage = function (io) {
+    for (let i = 0; i < 8; i++) {
+        if (this[`player${i}`] !== null) {
+            let neighbors = [];
+            for (let city of this[`player${i}`].stations) {
+                let ret = [];
+                for (let routeID of this.claimedRoutes) {
+                    let stations = routeID.split('-');
+                    if (stations[0] === city || stations[1] === city) {
+                        if (stations[0] === city) {
+                            ret.push(stations[1]);
+                        } else {
+                            ret.push(stations[0]);
+                        }
+                    }
+                }
+                neighbors.push(ret);
+            }
+            let sendObj = {stations: this[`player${i}`].stations, options: neighbors};
+            io.to(this[`player${i}`].socketID).emit('stations', sendObj);
+        }
+    }
 }
 
 game.prototype.calculateScore = function () {

@@ -198,10 +198,7 @@ io.on('connection', (socket) => {
         io.in(game.gameID).emit('player-overview', game.getUserProperties());
         socket.emit('own-cards', game.getPersonalCards(pid));
         if (game.checkGameEnd()) {
-            io.in(game.gameID).emit('game-end');
-            setTimeout(function() {
-                io.in(game.gameID).emit('final-score', game.calculateScore());
-            }, 1000);
+            game.sendStationsMessage(io);
         } else {
             io.in(game.gameID).emit('player-round', game.getPlayerRound());
         }
@@ -223,10 +220,7 @@ io.on('connection', (socket) => {
         socket.emit('own-cards', game.getPersonalCards(pid));
 
         if (game.checkGameEnd()) {
-            io.in(game.gameID).emit('game-end');
-            setTimeout(function() {
-                io.in(game.gameID).emit('final-score', game.calculateScore());
-            }, 1000);
+            game.sendStationsMessage(io);
         } else {
             io.in(game.gameID).emit('player-round', game.getPlayerRound());
         }
@@ -255,10 +249,7 @@ io.on('connection', (socket) => {
 
             socket.emit('own-cards', game.getPersonalCards(data.pid));
             if (game.checkGameEnd()) {
-                io.in(game.gameID).emit('game-end');
-                setTimeout(function() {
-                    io.in(game.gameID).emit('final-score', game.calculateScore());
-                }, 1000);
+                game.sendStationsMessage(io);
             } else {
                 io.in(game.gameID).emit('player-round', game.getPlayerRound());
             }
@@ -283,6 +274,16 @@ io.on('connection', (socket) => {
         }
     });
 
+    socket.on('confirmed-stations', (data) => {
+        for (let route of data.routes) {
+            game.userClaimedRoute(data.pid, route);
+        }
+        
+        for (let desti of game.checkContinuity(data.pid)) {
+            socket.emit('player-completed-route', desti.continent + "-" + desti.stationA + "-" + desti.stationB);
+        }
+    })
+
     socket.on('player-destination', (pid) => {
         let random = Math.random();
         if (random < 0.5) {
@@ -298,10 +299,7 @@ io.on('connection', (socket) => {
         if (game.gameState === "ongoing") {
             game.nextPlayerRound();
             if (game.checkGameEnd()) {
-                io.in(game.gameID).emit('game-end');
-                setTimeout(function() {
-                    io.in(game.gameID).emit('final-score', game.calculateScore());
-                }, 1000);
+                game.sendStationsMessage(io);
             } else {
                 io.in(game.gameID).emit('player-round', game.getPlayerRound());
             }

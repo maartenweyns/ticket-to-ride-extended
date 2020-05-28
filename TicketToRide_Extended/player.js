@@ -4,7 +4,7 @@ const player = function (id, playerName, playerColor, socketID) {
     this.color = playerColor;
     this.score = 0;
 
-    this.numberOfTrains = 50;
+    this.numberOfTrains = 10;
     this.numberOfTrainCards = 0;
     this.numberOfRoutes = 0;
     this.numberofStations = 3;
@@ -21,7 +21,7 @@ const player = function (id, playerName, playerColor, socketID) {
     this.white = 0;
     this.yellow = 0;
 
-    this.ready = null;
+    this.ready = false;
 
     this.routes = new Map();
     this.stations = [];

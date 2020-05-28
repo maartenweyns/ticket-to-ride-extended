@@ -147,6 +147,23 @@ body {
     height: 15%;
 }
 
+.stationMenu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 15%;
+}
+
+.stationChoiceDiv {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    font-size: 2em;
+    font-family: 'Permanent Marker', cursive;
+    height: 25%;
+}
+
 .destiDeckCard {
     height: 100%;
 }

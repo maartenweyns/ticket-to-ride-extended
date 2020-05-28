@@ -203,6 +203,10 @@ socket = io(location.host);
         completedRoute(data);
     });
 
+    socket.on('stations', (data) => {
+        showStationMenu(data);
+    })
+
     socket.on('game-end', () => {
         window.location.pathname = '/score';
     });
@@ -364,6 +368,52 @@ function showAlert(message) {
             document.body.removeChild(div);
         }, 4000);
     }
+}
+
+function showStationMenu(data) {
+    let cardsContainer = document.getElementById("ownCardContainer");
+    let menu = document.getElementById("stationMenu");
+    cardsContainer.style.display = "none";
+    menu.style.display = "flex";
+
+    if (data.stations.length === 0) {
+        let message = document.createElement('p');
+        message.innerText = 'Waiting for other players...';
+        menu.appendChild(message);
+    } else {
+        for (let station of data.stations) {
+            let statbox = document.createElement('div');
+            statbox.id = `${station}Choice`;
+            statbox.classList.add('stationChoiceDiv');
+            let stattext = document.createElement('p');
+            stattext.innerText = `Use the station in ${station} to go to: `;
+            stattext.style.margin = 0;
+            let selector = document.createElement('select');
+            for (let desti of data.options[data.stations.indexOf(station)]) {
+                let option = document.createElement('option');
+                option.value = desti;
+                option.innerText = desti;
+                selector.appendChild(option);
+            }
+            statbox.append(stattext, selector);
+            menu.append(statbox);
+        }
+        let confirm = document.createElement('button').innerText = 'Confirm!';
+        confirm.onclick = function () {
+            confirmStations();
+        }
+        confirm.style.height = "25%";
+        menu.append(confirm);
+    }
+}
+
+function confirmStations() {
+    let stations = document.getElementsByClassName('stationChoiceDiv');
+    let routes = [];
+    for (let station of stations) {
+        routes.push({stationA: station.id, stationB: station.children[1].value, continent: "eu"});
+    }
+    socket.emit('confirmed-stations', {routes: routes, pid: playerID});
 }
 
 function hideLoadingScreen() {
