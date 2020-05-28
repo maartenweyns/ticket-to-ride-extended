@@ -133,7 +133,7 @@ socket = io(location.host);
         }
     });
 
-    socket.on('wagonimage', (data) => {
+    socket.on('mapitem', (data) => {
         let imageLocation = document.getElementById(data.continent);
 
         // Construct HTML elements
@@ -281,6 +281,11 @@ function claimEuRoute(routeID) {
     } else {
         showAlert("Select cards from your collection first!");
     }
+}
+
+function claimEuStation(city) {
+    let color = document.getElementsByClassName("activatedCard")[0].id;
+    socket.emit('station-claim', {pid: playerID, color: color, city: city, continent: "eu" });
 }
 
 function claimUsRoute(routeID) {

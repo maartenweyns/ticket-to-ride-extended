@@ -3,10 +3,14 @@ const player = function (id, playerName, playerColor, socketID) {
     this.name = playerName;
     this.color = playerColor;
     this.score = 0;
+
     this.numberOfTrains = 50;
-    this.socketID = socketID;
     this.numberOfTrainCards = 0;
     this.numberOfRoutes = 0;
+    this.numberofStations = 3;
+
+    this.socketID = socketID;
+
     this.black = 0;
     this.blue = 0;
     this.brown = 0;
@@ -20,6 +24,7 @@ const player = function (id, playerName, playerColor, socketID) {
     this.ready = null;
 
     this.routes = new Map();
+    this.stations = [];
     this.destinations = [];
     this.completedDestinations = [];
 

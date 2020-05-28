@@ -237,7 +237,7 @@ io.on('connection', (socket) => {
         let ret = game.checkEligibility(data.pid, data.color, data.route, data.continent);
 
         if (ret.status) {
-            imagery.computeWagons(data.continent, data.route, game["player" + data.pid].color, io, game.gameID);
+            imagery.computeWagons(data.continent, data.route, game["player" + data.pid].color, io);
 
             game["player" + data.pid].routeIDs.push([data.continent, data.route]);
             game["player" + data.pid][data.color] -= ret.amount;
@@ -267,6 +267,19 @@ io.on('connection', (socket) => {
             }
         } else {
             socket.emit('route-claim', {status: false});
+        }
+    });
+
+    socket.on('station-claim', (data) => {
+        console.log(`[INFO] Player ${data.pid} requested a station on ${data.city}`);
+        let result = game.requestStation(data.pid, data.city, data.color);
+        socket.emit('station-claim', result);
+
+        if (result) {
+            imagery.computeStations(data.continent, data.city, game[`player${data.pid}`].color, io);
+
+            socket.emit('own-cards', game.getPersonalCards(data.pid));
+            io.in(game.gameID).emit('player-round', game.getPlayerRound());
         }
     });
 

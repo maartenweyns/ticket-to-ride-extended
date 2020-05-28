@@ -46,6 +46,7 @@ const game = function (gameID) {
     this.longStack = shuffleArray(Array.from(this.longeuDesti).concat(Array.from(this.longusDesti)));
 
     this.claimedRoutes = [];
+    this.claimedCities = [];
 
     this.gameState = "lobby";
 };
@@ -500,6 +501,18 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
     }
 };
 
+game.prototype.requestStation = function (playerID, city, color) {
+    if (this[`player${playerID}`].numberofStations >= 1 && !this.claimedCities.includes(city) && this[`player${playerID}`][color] >= 1){
+        this[`player${playerID}`].numberofStations--;
+        this[`player${playerID}`].stations.push(city);
+        this[`player${playerID}`][color]--;
+        this.claimedCities.push(city);
+        return true;
+    } else {
+        return false;
+    }
+}
+
 game.prototype.playerDidSomething = function () {
     this.thingsDone++;
     if (this.thingsDone > 2) {
@@ -514,6 +527,14 @@ game.prototype.playerPutRoute = function () {
         this.nextPlayerRound();
     }
 };
+
+game.prototype.playerClaimedStation = function () {
+    this.thingsDone++;
+    this.routesLayed++;
+    if (this.routesLayed > 1) {
+        this.nextPlayerRound();
+    }
+}
 
 game.prototype.checkGameEnd = function() {
     return this.endGameNow;
