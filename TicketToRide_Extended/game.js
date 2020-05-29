@@ -111,7 +111,7 @@ game.prototype.getUserProperties = function () {
                 color: this[`player${i}`].color, numberOfTrains: this[`player${i}`].numberOfTrains,
                 numberOfTrainCards: this[`player${i}`].numberOfTrainCards,
                 numberOfRoutes: this[`player${i}`].numberOfRoutes,
-                numberOfStations: this[`player${i}`].numberofStations
+                numberOfStations: this[`player${i}`].numberOfStations
             };
             returnObject.push(player);
         }
@@ -504,8 +504,8 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
 };
 
 game.prototype.requestStation = function (playerID, city, color) {
-    if (this[`player${playerID}`].numberofStations >= 1 && !this.claimedCities.includes(city) && this[`player${playerID}`][color] >= 1){
-        this[`player${playerID}`].numberofStations--;
+    if (this[`player${playerID}`].numberOfStations >= 1 && !this.claimedCities.includes(city) && this[`player${playerID}`][color] >= 1){
+        this[`player${playerID}`].numberOfStations--;
         this[`player${playerID}`].stations.push(city);
         this[`player${playerID}`][color]--;
         this.claimedCities.push(city);
@@ -714,7 +714,8 @@ game.prototype.calculateScore = function () {
                 score: this["player" + i].score,
                 color: this["player" + i].color,
                 destinations: this["player" + i].destinations,
-                completedDestinations: this["player" + i].completedDestinations
+                completedDestinations: this["player" + i].completedDestinations,
+                stations: this[`player${i}`].numberOfStations
             };
             returnObject.push(player);
         }

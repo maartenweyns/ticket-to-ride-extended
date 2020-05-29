@@ -7,7 +7,7 @@ const player = function (id, playerName, playerColor, socketID) {
     this.numberOfTrains = 10;
     this.numberOfTrainCards = 0;
     this.numberOfRoutes = 0;
-    this.numberofStations = 3;
+    this.numberOfStations = 3;
 
     this.socketID = socketID;
 
