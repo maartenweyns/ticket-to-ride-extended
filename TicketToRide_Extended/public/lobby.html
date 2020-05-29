@@ -1,32 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Ticket To Ride XTended</title>
-    <link href="images/favicon/game-icon.png" rel="icon">
-    <link href="stylesheets/style.css" rel="stylesheet" type="text/css"/>
-    <link href="stylesheets/lobby.css" rel="stylesheet" type="text/css"/>
+    <link href="images/logos/game-icon.png" rel="icon">
+    <link href="stylesheets/style.css" rel="stylesheet" type="text/css" />
+    <link href="stylesheets/lobby.css" rel="stylesheet" type="text/css" />
+    <link href="stylesheets/transitions.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <!-- Matomo -->
+    <script type="text/javascript">
+        var _paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function () {
+            var u = "https://matomo.mawey.be/";
+            _paq.push(['setTrackerUrl', u + 'matomo.php']);
+            _paq.push(['setSiteId', '2']);
+            var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+            g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
+        })();
+    </script>
 </head>
-<body id="swup" class="transition-fade">
-<div id="particles-js"></div>
-<div class="content"> 
-    <div>
-        <ul class="circles"></ul>
-    </div>
 
-    <div class="join" style="text-align:center;">
-        <input type="text" id="playername" placeholder="Your name here!" maxlength="10" />
-        <button class="startButton" id="startbutton" onclick="setup()">JOIN GAME</button>
-        <p class="infoText" id="cookieMessage">By clicking "Join Game", you agree to the use of cookies.</p>
-        <p class="infoText">Created by <strong>Maarten Weyns</strong></p>
-    </div>
-</div>
-<p class="versioninfo">Version 0.1.3</p>
+<body>
+    <div id="particles-js"></div>
+    <div class="content">
+        <div>
+            <ul class="circles"></ul>
+        </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js" integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo=" crossorigin="anonymous"></script>
-<script src="javascripts/particles.js"></script>
-<script src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>
-<script src="javascripts/lobby.js"></script>
+        <div class="join" style="text-align:center;">
+
+            <div class="userLogin">
+                <input type="text" id="playername" placeholder="Your name here!" autocomplete="off" maxlength="10"/>
+                <p class="or">OR</p>
+                <a href="/login"><button class="loginButton">LOGIN</button></a>
+            </div>
+            <button class="startButton" id="startbutton" onclick="setup()">JOIN GAME</button>
+            <p class="infoText" id="cookieMessage">By clicking "Join Game", you agree to the use of cookies.</p>
+            <p class="infoText">Created by <strong>Maarten Weyns</strong></p>
+            <img class="mwglogo" src="images/logos/mawey-games-bluedrop.svg">
+        </div>
+    </div>
+    <p class="versioninfo">Version 0.2</p>
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
+        integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo=" crossorigin="anonymous"></script>
+    <script defer src="javascripts/particles.js"></script>
+    <script defer src="https://unpkg.com/swup@latest/dist/swup.min.js"></script>
+    <script defer src="javascripts/lobby.js"></script>
 </body>
+
 </html>

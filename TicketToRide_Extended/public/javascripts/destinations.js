@@ -78,13 +78,13 @@ function confirmDestis(initialRound) {
         }
     
         if (! (eu && us)) {
-            alert("You must choose two routes, at least one from Europe and one from America!");
+            showAlert("You must choose two routes, at least one from Europe and one from America!");
             return;
         }
     }
 
     if (!(chosenDestinaions.length >= minimalAmount)) {
-        alert("You should pick at least " + minimalAmount + " destination(s)!");
+        showAlert("You should pick at least " + minimalAmount + " destination(s)!");
         return;
     }
 

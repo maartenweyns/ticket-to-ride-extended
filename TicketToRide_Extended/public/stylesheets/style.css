@@ -74,7 +74,7 @@ body {
 .destiCards {
     position: relative;
     background-image: url("../images/decorations/TicketSupport_RH.png");
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     height: 100%;
     display: flex;
@@ -131,6 +131,23 @@ body {
     height: 15%;
 }
 
+.stationMenu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 15%;
+}
+
+.stationChoiceDiv {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    font-size: 2em;
+    font-family: 'Permanent Marker', cursive;
+    height: 25%;
+}
+
 .destiDeckCard {
     height: 100%;
 }
@@ -147,11 +164,6 @@ body {
     width: 100vw;
 }
 
-.currentPlayer {
-    filter: drop-shadow(0px 0px 15px #fff);
-    -webkit-filter: drop-shadow(0px 0px 15px #fff);
-}
-
 .disabled {
     pointer-events: none;
 }
@@ -164,6 +176,32 @@ body {
 .donebutton {
     animation: flashingDone 1s infinite;
     -webkit-animation: flashingDone 1s infinite;
+}
+
+.alert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: calc(100vw - 10px);
+    height: 25px;
+    line-height: 30px;
+    border: solid 5px;
+    background-color: #fff12b;
+    border-color: #787000;
+    font-size: 25px;
+    text-align: center;
+    z-index: 99;
+    animation: showAlert 4s;
+    -webkit-animation: showAlert 4s;
+    font-family: 'Passion One';
+    color: #292600;
+}
+
+@keyframes showAlert {
+    0% {transform: translateY(-35px); -webkit-transform: translateY(-35px);}
+    13% {transform: translateY(0); -webkit-transform: translateY(0);}
+    87% {transform: translateY(0); -webkit-transform: translateY(0);}
+    100% {transform: translateY(-35px); -webkit-transform: translateY(-35px);}
 }
 
 @keyframes flashingDone {

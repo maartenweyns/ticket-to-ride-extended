@@ -30,6 +30,7 @@ const game = function (gameID) {
     this.currentRound = null;
     this.thingsDone = 0;
     this.routesLayed = 0;
+    this.lastContinentRoutePut = null;
 
     this.lastRoundPlayer = null;
     this.endGameNow = false;
@@ -46,6 +47,7 @@ const game = function (gameID) {
     this.longStack = shuffleArray(Array.from(this.longeuDesti).concat(Array.from(this.longusDesti)));
 
     this.claimedRoutes = [];
+    this.claimedCities = [];
 
     this.gameState = "lobby";
 };
@@ -65,11 +67,11 @@ game.prototype.getOpenCards = function () {
 game.prototype.checkNeedForShuffle = function () {
     let amountOfLocos = 0;
     for (let i = 0; i < 5; i++) {
-        if (this.openCards["Card" + i] === "loco") {
+        if (this.openCards[`Card${i}`] === "loco") {
             amountOfLocos++;
         }
     }
-    console.log("[INFO] The amount of open locomotives is " + amountOfLocos);
+    console.log(`[INFO] The amount of open locomotives is ${amountOfLocos}`);
     return amountOfLocos >= 3;
 };
 
@@ -102,13 +104,14 @@ game.prototype.getRandomColor = function () {
 game.prototype.getUserProperties = function () {
     let returnObject = [];
     for (let i = 0; i < 8; i++) {
-        if (this["player" + i] !== null) {
+        if (this[`player${i}`] !== null) {
             let player = {
                 id: i,
-                name: this["player" + i].name, score: this["player" + i].score,
-                color: this["player" + i].color, numberOfTrains: this["player" + i].numberOfTrains,
-                numberOfTrainCards: this["player" + i].numberOfTrainCards,
-                numberOfRoutes: this["player" + i].numberOfRoutes
+                name: this[`player${i}`].name, score: this[`player${i}`].score,
+                color: this[`player${i}`].color, numberOfTrains: this[`player${i}`].numberOfTrains,
+                numberOfTrainCards: this[`player${i}`].numberOfTrainCards,
+                numberOfRoutes: this[`player${i}`].numberOfRoutes,
+                numberOfStations: this[`player${i}`].numberOfStations
             };
             returnObject.push(player);
         }
@@ -411,7 +414,7 @@ game.prototype.setupUsDestinations = function () {
 
 game.prototype.getRouteRequirements = function (routeID, continent) {
     let routeMap = continent + "Routes";
-    console.log("Getting route from " + routeMap);
+    // console.log("Getting route from " + routeMap);
     let route = this[routeMap].get(routeID);
     if (route !== undefined) {
         return {color: route.color, length: route.length, locos: route.locoReq};
@@ -420,7 +423,7 @@ game.prototype.getRouteRequirements = function (routeID, continent) {
 };
 
 game.prototype.checkEligibility = function (pid, color, routeID, continent) {
-    console.log("[INFO] Checking if the user can claim " + routeID + " in " + continent);
+    console.log(`[INFO] Checking if the user can claim ${routeID} in  ${continent}`);
     let routeRequirements = this.getRouteRequirements(routeID, continent);
     let points;
 
@@ -432,7 +435,7 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
         return false;
     }
 
-    if (this["player" + pid].numberOfTrains < routeRequirements.length) {
+    if (this[`player${pid}`].numberOfTrains < routeRequirements.length) {
         return false;
     }
 
@@ -451,45 +454,45 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
     }
 
 
-    if (this["player" + pid][color] >= routeRequirements.length) {
+    if (this[`player${pid}`][color] >= routeRequirements.length) {
         if (routeRequirements.color === "any") {
             this.claimedRoutes.push(routeID);
-            this["player" + pid].score += points;
+            this[`player${pid}`].score += points;
             return {status: true, color: color, amount: routeRequirements.length, locos: 0};
         } else {
             if (color === routeRequirements.color) {
                 this.claimedRoutes.push(routeID);
-                this["player" + pid].score += points;
+                this[`player${pid}`].score += points;
                 return {status: true, color: color, amount: routeRequirements.length, locos: 0};
             } else {
                 if (color === "loco") {
                     this.claimedRoutes.push(routeID);
-                    this["player" + pid].score += points;
+                    this[`player${pid}`].score += points;
                     return {status: true, color: color, amount: 0, locos: routeRequirements.length};
                 } else {
                     return {status: false}
                 }
             }
         }
-    } else if ((this["player" + pid][color] + this["player" + pid].loco) >= routeRequirements.length) {
+    } else if ((this[`player${pid}`][color] + this[`player${pid}`].loco) >= routeRequirements.length) {
         if (routeRequirements.color === "any") {
             this.claimedRoutes.push(routeID);
-            this["player" + pid].score += points;
+            this[`player${pid}`].score += points;
             return {
                 status: true,
                 color: color,
-                amount: this["player" + pid][color],
-                locos: (routeRequirements.length - this["player" + pid][color])
+                amount: this[`player${pid}`][color],
+                locos: (routeRequirements.length - this[`player${pid}`][color])
             };
         } else {
             if (color === routeRequirements.color) {
                 this.claimedRoutes.push(routeID);
-                this["player" + pid].score += points;
+                this[`player${pid}`].score += points;
                 return {
                     status: true,
                     color: color,
-                    amount: this["player" + pid][color],
-                    locos: (routeRequirements.length - this["player" + pid][color])
+                    amount: this[`player${pid}`][color],
+                    locos: (routeRequirements.length - this[`player${pid}`][color])
                 };
             } else {
                 return {status: false};
@@ -500,6 +503,18 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
     }
 };
 
+game.prototype.requestStation = function (playerID, city, color) {
+    if (this[`player${playerID}`].numberOfStations >= 1 && !this.claimedCities.includes(city) && this[`player${playerID}`][color] >= 1){
+        this[`player${playerID}`].numberOfStations -= 1;
+        this[`player${playerID}`].stations.push(city);
+        this[`player${playerID}`][color]--;
+        this.claimedCities.push(city);
+        return true;
+    } else {
+        return false;
+    }
+}
+
 game.prototype.playerDidSomething = function () {
     this.thingsDone++;
     if (this.thingsDone > 2) {
@@ -507,13 +522,22 @@ game.prototype.playerDidSomething = function () {
     }
 };
 
-game.prototype.playerPutRoute = function () {
+game.prototype.playerPutRoute = function (continent) {
+    this.thingsDone++;
+    this.routesLayed++;
+    this.lastContinentRoutePut = continent;
+    if (this.routesLayed > 1) {
+        this.nextPlayerRound();
+    }
+};
+
+game.prototype.playerClaimedStation = function () {
     this.thingsDone++;
     this.routesLayed++;
     if (this.routesLayed > 1) {
         this.nextPlayerRound();
     }
-};
+}
 
 game.prototype.checkGameEnd = function() {
     return this.endGameNow;
@@ -526,6 +550,7 @@ game.prototype.nextPlayerRound = function () {
 
     this.thingsDone = 0;
     this.routesLayed = 0;
+    this.lastContinentRoutePut = null;
     let nextPlayer = this.currentRound + 1;
 
     if (this["player" + nextPlayer] === null) {
@@ -633,8 +658,7 @@ game.prototype.checkContinuity = function (playerID) {
 
 game.prototype.allPlayersReady = function () {
     for (let i = 0; i < this.amountOfPlayers; i++) {
-        if (this["player" + i].ready === null) {
-            console.log("Nope");
+        if (!this["player" + i].ready) {
             return false;
         }
     }
@@ -654,6 +678,34 @@ game.prototype.getPlayerRound = function () {
     return {pid: this.currentRound, thing: this.thingsDone, lastRound: false};
 }
 
+game.prototype.sendStationsMessage = function (io) {
+    this.currentRound = 8;
+    for (let i = 0; i < 8; i++) {
+        if (this[`player${i}`] !== null) {
+            let neighbors = [];
+            for (let city of this[`player${i}`].stations) {
+                let ret = [];
+                for (let routeID of this.claimedRoutes) {
+                    let stations = routeID.split('-');
+                    if (stations[0] === city || stations[1] === city) {
+                        if (stations[0] === city) {
+                            ret.push(stations[1]);
+                        } else {
+                            ret.push(stations[0]);
+                        }
+                    }
+                }
+                neighbors.push(ret);
+            }
+            if (this[`player${i}`].stations.length !== 0) {
+                this[`player${i}`].ready = false;
+            }
+            let sendObj = {stations: this[`player${i}`].stations, options: neighbors};
+            io.to(this[`player${i}`].socketID).emit('stations', sendObj);
+        }
+    }
+}
+
 game.prototype.calculateScore = function () {
     let returnObject = [];
     for (let i = 0; i < 8; i++) {
@@ -663,7 +715,8 @@ game.prototype.calculateScore = function () {
                 score: this["player" + i].score,
                 color: this["player" + i].color,
                 destinations: this["player" + i].destinations,
-                completedDestinations: this["player" + i].completedDestinations
+                completedDestinations: this["player" + i].completedDestinations,
+                stations: this[`player${i}`].numberOfStations
             };
             returnObject.push(player);
         }

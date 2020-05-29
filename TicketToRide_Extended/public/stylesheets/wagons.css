@@ -1,44 +1,4 @@
-.blueWagons {
-    filter: drop-shadow(0 0 1px black);
-    -webkit-filter: drop-shadow(0 0 1px black);
-}
-
-.yellowWagons {
-    filter: hue-rotate(180deg) drop-shadow(0 0 1px black);
-    -webkit-filter: hue-rotate(180deg) drop-shadow(0 0 1px black);
-}
-
-.redWagons {
-    filter: hue-rotate(140deg) brightness(1.4) drop-shadow(0 0 1px black);
-    -webkit-filter: hue-rotate(140deg) brightness(1.4) drop-shadow(0 0 1px black);
-}
-
-.greyWagons {
-    filter: saturate(0) drop-shadow(0 0 1px black) brightness(1.4);
-    -webkit-filter: saturate(0) drop-shadow(0 0 1px black) brightness(1.4);
-}
-
-.lightblueWagons {
-    filter: hue-rotate(-35deg) brightness(1.7) drop-shadow(0 0 1px black);
-    -webkit-filter: hue-rotate(-35deg) brightness(1.7) drop-shadow(0 0 1px black);
-}
-
-.brightyellowWagons {
-    filter: hue-rotate(-168deg) saturate(2) brightness(4) drop-shadow(0 0 1px black);
-    -webkit-filter: hue-rotate(-168deg) saturate(2) brightness(4) drop-shadow(0 0 1px black);
-}
-
-.greenWagons {
-    filter: hue-rotate(-100deg) brightness(1.6) drop-shadow(0 0 1px black);
-    -webkit-filter: hue-rotate(-100deg) brightness(1.6) drop-shadow(0 0 1px black);
-}
-
-.purpleWagons {
-    filter: hue-rotate(76deg) drop-shadow(0 0 1px black);
-    -webkit-filter: hue-rotate(76deg) drop-shadow(0 0 1px black);
-}
-
-.carts {
+.usWagons, .euWagons {
     position: absolute;
     top: 0;
     left: 0;
@@ -47,106 +7,50 @@
     pointer-events: none;
 }
 
-.blueCartsBlinking {
-    animation: blueBlink 4s linear;
+.yellowWagons {
+    filter: hue-rotate(180deg);
+    -webkit-filter: hue-rotate(180deg);
 }
 
-.yellowCartsBlinking {
-    animation: yellowBlink 4s linear;
+.redWagons {
+    filter: hue-rotate(140deg) brightness(1.4);
+    -webkit-filter: hue-rotate(140deg) brightness(1.4);
 }
 
-.redCartsBlinking {
-    animation: redBlink 4s linear;
+.greyWagons {
+    filter: saturate(0) brightness(1.4);
+    -webkit-filter: saturate(0) brightness(1.4);
 }
 
-.greyCartsBlinking {
-    animation: greyBlink 4s linear;
+.lightblueWagons {
+    filter: hue-rotate(-35deg) brightness(1.7);
+    -webkit-filter: hue-rotate(-35deg) brightness(1.7);
 }
 
-.lightblueCartsBlinking {
-    animation: lightblueBlink 4s linear;
+.brightyellowWagons {
+    filter: hue-rotate(-168deg) saturate(2) brightness(4);
+    -webkit-filter: hue-rotate(-168deg) saturate(2) brightness(4);
 }
 
-.brightyellowCartsBlinking {
-    animation: brightyellowBlink 4s linear;
+.greenWagons {
+    filter: hue-rotate(-100deg) brightness(1.6);
+    -webkit-filter: hue-rotate(-100deg) brightness(1.6);
 }
 
-.greenCartsBlinking {
-    animation: greenBlink 4s linear;
+.purpleWagons {
+    filter: hue-rotate(76deg);
+    -webkit-filter: hue-rotate(76deg);
 }
 
-.purpleCartsBlinking {
-    animation: purpleBlink 4s linear;
+.cartsBlinking {
+    animation: blink 4s linear;
 }
 
-@keyframes blueBlink {
-    0% {filter: brightness(8); -webkit-filter: brightness(8);}
+@keyframes blink {
+    0% {filter: brightness(6.5); -webkit-filter: brightness(6.5);}
     20% {filter: brightness(1); -webkit-filter: brightness(1);}
-    40% {filter: brightness(8); -webkit-filter: brightness(8);}
+    40% {filter: brightness(6.5); -webkit-filter: brightness(6.5);}
     60% {filter: brightness(1); -webkit-filter: brightness(1);}
-    80% {filter: brightness(8); -webkit-filter: brightness(8);}
+    6.50% {filter: brightness(6.5); -webkit-filter: brightness(6.5);}
     100% {filter: brightness(1); -webkit-filter: brightness(1);}
-}
-
-@keyframes yellowBlink {
-    0% {filter: hue-rotate(180deg) brightness(8); -webkit-filter: hue-rotate(180deg) brightness(8);}
-    20% {filter: hue-rotate(180deg) brightness(1); -webkit-filter: hue-rotate(180deg) brightness(1);}
-    40% {filter: hue-rotate(180deg) brightness(8); -webkit-filter: hue-rotate(180deg) brightness(8);}
-    60% {filter: hue-rotate(180deg) brightness(1); -webkit-filter: hue-rotate(180deg) brightness(1);}
-    80% {filter: hue-rotate(180deg) brightness(8); -webkit-filter: hue-rotate(180deg) brightness(8);}
-    100% {filter: hue-rotate(180deg) brightness(1); -webkit-filter: hue-rotate(180deg) brightness(1);}
-}
-
-@keyframes redBlink {
-    0% {filter: hue-rotate(140deg) brightness(8); -webkit-filter: hue-rotate(140deg) brightness(8);}
-    20% {filter: hue-rotate(140deg) brightness(1.4); -webkit-filter: hue-rotate(140deg) brightness(1.4);}
-    40% {filter: hue-rotate(140deg) brightness(8); -webkit-filter: hue-rotate(140deg) brightness(8);}
-    60% {filter: hue-rotate(140deg) brightness(1.4); -webkit-filter: hue-rotate(140deg) brightness(1.4);}
-    80% {filter: hue-rotate(140deg) brightness(8); -webkit-filter: hue-rotate(140deg) brightness(8);}
-    100% {filter: hue-rotate(140deg) brightness(1.4); -webkit-filter: hue-rotate(140deg) brightness(1.4);}
-}
-
-@keyframes greyBlink {
-    0% {filter: saturate(0) brightness(8); -webkit-filter: saturate(0) brightness(8);}
-    20% {filter: saturate(0) brightness(1.4); -webkit-filter: saturate(0) brightness(1.4);}
-    40% {filter: saturate(0) brightness(8); -webkit-filter: saturate(0) brightness(8);}
-    60% {filter: saturate(0) brightness(1.4); -webkit-filter: saturate(0) brightness(1.4);}
-    80% {filter: saturate(0) brightness(8); -webkit-filter: saturate(0) brightness(8);}
-    100% {filter: saturate(0) brightness(1.4); -webkit-filter: saturate(0) brightness(1.4);}
-}
-
-@keyframes lightblueBlink {
-    0% {filter: hue-rotate(-35deg) brightness(8); -webkit-filter: hue-rotate(-35deg) brightness(8);}
-    20% {filter: hue-rotate(-35deg) brightness(1.7); -webkit-filter: hue-rotate(-35deg) brightness(1.7);}
-    40% {filter: hue-rotate(-35deg) brightness(8); -webkit-filter: hue-rotate(-35deg) brightness(8);}
-    60% {filter: hue-rotate(-35deg) brightness(1.7); -webkit-filter: hue-rotate(-35deg) brightness(1.7);}
-    80% {filter: hue-rotate(-35deg) brightness(8); -webkit-filter: hue-rotate(-35deg) brightness(8);}
-    100% {filter: hue-rotate(-35deg) brightness(1.7); -webkit-filter: hue-rotate(-35deg) brightness(1.7);}
-}
-
-@keyframes brightyellowBlink {
-    0% {filter: hue-rotate(-168deg) saturate(2) brightness(8); -webkit-filter: hue-rotate(-168deg) saturate(2) brightness(8);}
-    20% {filter: hue-rotate(-168deg) saturate(2) brightness(4); -webkit-filter: hue-rotate(-168deg) saturate(2) brightness(4);}
-    40% {filter: hue-rotate(-168deg) saturate(2) brightness(8); -webkit-filter: hue-rotate(-168deg) saturate(2) brightness(8);}
-    60% {filter: hue-rotate(-168deg) saturate(2) brightness(4); -webkit-filter: hue-rotate(-168deg) saturate(2) brightness(4);}
-    80% {filter: hue-rotate(-168deg) saturate(2) brightness(8); -webkit-filter: hue-rotate(-168deg) saturate(2) brightness(8);}
-    100% {filter: hue-rotate(-168deg) saturate(2) brightness(4); -webkit-filter: hue-rotate(-168deg) saturate(2) brightness(4);}
-}
-
-@keyframes greenBlink {
-    0% {filter: hue-rotate(-100deg) brightness(8); -webkit-filter: hue-rotate(-100deg) brightness(8);}
-    20% {filter: hue-rotate(-100deg) brightness(1.6); -webkit-filter: hue-rotate(-100deg) brightness(1.6);}
-    40% {filter: hue-rotate(-100deg) brightness(8); -webkit-filter: hue-rotate(-100deg) brightness(8);}
-    60% {filter: hue-rotate(-100deg) brightness(1.6); -webkit-filter: hue-rotate(-100deg) brightness(1.6);}
-    80% {filter: hue-rotate(-100deg) brightness(8); -webkit-filter: hue-rotate(-100deg) brightness(8);}
-    100% {filter: hue-rotate(-100deg) brightness(1.6); -webkit-filter: hue-rotate(-100deg) brightness(1.6);}
-}
-
-@keyframes purpleBlink {
-    0% {filter: hue-rotate(76deg) brightness(8); -webkit-filter: hue-rotate(76deg) brightness(8);}
-    20% {filter: hue-rotate(76deg) brightness(1); -webkit-filter: hue-rotate(76deg) brightness(1);}
-    40% {filter: hue-rotate(76deg) brightness(8); -webkit-filter: hue-rotate(76deg) brightness(8);}
-    60% {filter: hue-rotate(76deg) brightness(1); -webkit-filter: hue-rotate(76deg) brightness(1);}
-    80% {filter: hue-rotate(76deg) brightness(8); -webkit-filter: hue-rotate(76deg) brightness(8);}
-    100% {filter: hue-rotate(76deg) brightness(1); -webkit-filter: hue-rotate(76deg) brightness(1);}
 }

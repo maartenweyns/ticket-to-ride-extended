@@ -15,9 +15,11 @@ function setOpenTickets(openTickets) {
     }
 }
 
-function replaceCard(cardId, newColor) {
+function replaceCard(cardId, newColor, self) {
     let oldcard = document.getElementById(cardId);
-    if (!oldcard.classList.contains("cardTakenSelf")) {
+    if (self) {
+        oldcard.classList.add("cardTakenSelf", "disabled");
+    } else {
         oldcard.classList.add("cardTaken", "disabled");
     }
     cardDeal.play();
@@ -54,15 +56,6 @@ function shufflecards(openTickets) {
 
 function takeCard(cardID) {
     socket.emit('open-train', {card: cardID, pid: playerID, color: document.getElementById(cardID).classList[1]});
-
-    if (document.getElementById(cardID).classList[1] !== "loco") {
-        disableOtherPlayerActions();
-    }
-
-    document.getElementById(cardID).classList.add("cardTakenSelf", "disabled");
-    setTimeout(function () {
-        document.getElementById("closedCard").classList.remove("cardTaken", "disabled")
-    }, 1000);
 }
 
 function addCardToCollection(color, amount) {
@@ -107,24 +100,11 @@ function addCardToCollection(color, amount) {
 }
 
 function requestClosedCard() {
-    disableOtherPlayerActions();
+    disableLocomotives();
     socket.emit('closed-train', playerID);
 }
 
-function disableOtherPlayerActions() {
-    let openCards = document.getElementById("openCardsBox").children;
-    document.getElementById("routeCard").classList.add("disabled");
-    document.getElementsByClassName("tabcontent")[0].classList.add("disabled");
-    document.getElementsByClassName("tabcontent")[1].classList.add("disabled");
-
-    for (let i = 0; i < openCards.length; i++) {
-        if (openCards[i].classList.contains("loco")) {
-            openCards[i].classList.add("disabledLoco");
-        }
-    }
-}
-
-function disableLocomotive() {
+function disableLocomotives() {
     let openCards = document.getElementById("openCardsBox").children;
 
     for (let i = 0; i < openCards.length; i++) {
@@ -134,7 +114,7 @@ function disableLocomotive() {
     }
 }
 
-function enableLocomotive() {
+function enableLocomotives() {
     let openCards = document.getElementById("openCardsBox").children;
 
     for (let i = 0; i < openCards.length; i++) {

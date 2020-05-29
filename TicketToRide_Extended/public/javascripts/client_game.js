@@ -27,18 +27,6 @@ socket = io(location.host);
     // Disable game elements from users
     document.getElementById("eutab").click();
     document.getElementById("endTurn").style.display = "none";
-    document.getElementById("ownCardContainer").classList.add("disabled");
-    document.getElementById("generalCards").classList.add("disabled");
-    document.getElementsByClassName("tabcontent")[0].classList.add("disabled");
-    document.getElementsByClassName("tabcontent")[1].classList.add("disabled");
-
-    music.loop = true;
-    startsound.play().then(function () {
-        music.play();
-        audioUnlocked = true;
-    }).catch(function (){
-        alert("To unlock your audio, please press your own player on the left side of the screen!");
-    });
 
     socket.on('connect', () => {
         console.log("Connceted to server");
@@ -81,42 +69,34 @@ socket = io(location.host);
 
         if (!lastRoundShown && round.lastRound) {
             lastRoundShown = true;
-            alert("A player has less than 3 wagons. This is the last round!");
+            showAlert("A player has less than 3 wagons! This is the last round!");
         }
 
         currentMove = parseInt(round.thing);
         markCurrentPlayer(player);
 
         if (currentMove === 0) {
-            enableLocomotive();
+            enableLocomotives();
             document.getElementById("endTurn").style.display = "none";
-        }
-
-        if (player !== playerID) {
-            document.getElementById("ownCardContainer").classList.add("disabled");
-            document.getElementById("generalCards").classList.add("disabled");
-            document.getElementsByClassName("tabcontent")[0].classList.add("disabled");
-            document.getElementsByClassName("tabcontent")[1].classList.add("disabled");
         }
 
         if (player === playerID && currentMove === 0) {
             trainHorn.play();
-            document.getElementById("ownCardContainer").classList.remove("disabled");
-            document.getElementById("generalCards").classList.remove("disabled");
-            document.getElementsByClassName("tabcontent")[0].classList.remove("disabled");
-            document.getElementsByClassName("tabcontent")[1].classList.remove("disabled");
-            document.getElementById("routeCard").classList.remove("disabled");
         }
     });
 
     socket.on('new-open-card', (data) => {
-        replaceCard(data.repCard, data.newColor);
+        if (data.pid === playerID) {
+            replaceCard(data.repCard, data.newColor, true);
+        } else {
+            replaceCard(data.repCard, data.newColor, false);
+        }
         if (!document.getElementById(data.repCard).classList.contains("loco")) {
-            disableLocomotive();
+            disableLocomotives();
         }
     });
 
-    socket.on('closed-train', (color) => {
+    socket.on('closed-train', () => {
         cardDeal.play();
         document.getElementById("closedCard").classList.add("cardTakenSelf", "disabled");
         setTimeout(function () {
@@ -141,47 +121,61 @@ socket = io(location.host);
         }
     });
 
-    socket.on('route-claim', (data) => {
-        if (JSON.parse(data.status)) {
-            let imageLocation = document.getElementById(data.continent);
-            let linkToTrainsToAdd = "images/trainsOnMap/" + data.continent + "/" + data.route + ".png";
+    socket.on('mapitem', (data) => {
+        let imageLocation = document.getElementById(data.continent);
 
-            let carts = document.createElement('img');
-            carts.src = linkToTrainsToAdd;
-            carts.classList.add("carts");
-            carts.classList.add(data.pcol + "Wagons");
-            carts.classList.add(data.pcol + "CartsBlinking");
+        // Construct HTML elements
+        let carts = document.createElement('img');
+        carts.src = `data:image/png;base64,${data.image}`;
+        carts.classList.add(`${data.continent}Wagons`);
+        carts.classList.add('cartsBlinking');
+        setTimeout(function() {
+            carts.classList.remove('cartsBlinking');
+        }, 4000);
+        imageLocation.append(carts);
+
+        // Merge the image and remove it once the animation is done
+        if (document.getElementsByClassName(`${data.continent}Wagons`).length > 1) {
+            mergeImages([document.getElementsByClassName(`${data.continent}Wagons`)[0].src, document.getElementsByClassName(`${data.continent}Wagons`)[1].src])
+                .then(b64 => document.getElementsByClassName(`${data.continent}Wagons`)[0].src = b64);
             setTimeout(function() {
-                carts.classList.remove(data.pcol + "CartsBlinking");
+                imageLocation.removeChild(carts);
             }, 4000);
-            imageLocation.append(carts);
+        }
 
-            if (document.getElementById(data.continent).style.display === "block") {
-                cashRegister.play();
-            } else {
-                differentContinent.play();
-                let tab = document.getElementById(data.continent + "tab");
-                tab.classList.add("flashingFlag");
-                setTimeout(function () {
-                    tab.classList.remove("flashingFlag");
-                }, 1600)
-            }
-
-            if (data.pid === playerID) {
-                document.getElementById(data.continent).classList.add("disabled");
-                document.getElementById("generalCards").classList.add("disabled");
-                document.getElementById("endTurn").style.display = "block";
-            }
+        // Play the cash register sound
+        if (document.getElementById(data.continent).style.display === "block") {
+            cashRegister.play();
         } else {
-            buzz.play();
+            differentContinent.play();
+            let tab = document.getElementById(data.continent + "tab");
+            tab.classList.add("flashingFlag");
+            setTimeout(function () {
+                tab.classList.remove("flashingFlag");
+            }, 1600)
+        }
+    });
 
+    socket.on('route-claim', (data) => {
+        if (data.status === 'accepted') {
+            document.getElementById("endTurn").style.display = 'block';
+        } else if (data.status === 'alreadyClaimedThis'){
+            showAlert(`You cannot do an action on ${data.continent} anymore!`);
+        } else if (data.status === 'cant') {
+            buzz.play();
             let card = document.getElementsByClassName("activatedCard")[0];
             card.classList.add("cantCard");
             setTimeout(function () {
                 card.classList.remove("cantCard");
             }, 400);
+        } else if (data.status === 'notYourTurn') {
+            showAlert('It is currently not your turn!');
         }
     });
+
+    socket.on('invalidmove', (data) => {
+        showAlert(data.message);
+    })
 
     socket.on('own-destinations', (data) => {
         drawOwnDestinations(data.uncompleted, false);
@@ -189,7 +183,8 @@ socket = io(location.host);
     });
 
     socket.on('existing-trains', (data) => {
-        drawExistingTrains(data);
+        drawExistingTrains(data.eu, 'eu');
+        drawExistingTrains(data.us, 'us');
     });
 
     socket.on('player-destination', (data) => {
@@ -202,6 +197,20 @@ socket = io(location.host);
         completedRoute(data);
     });
 
+    socket.on('station-claim', (result) => {
+        if (result) {
+            document.getElementById("endTurn").style.display = 'block';
+        } else {
+            showAlert('You cannot place a station here!');
+        }
+    })
+
+    socket.on('stations', (data) => {
+        document.getElementById("endTurn").style.display = 'none';
+        document.getElementById('generalCards').classList.add('generalCardsAway');
+        showStationMenu(data);
+    });
+
     socket.on('game-end', () => {
         window.location.pathname = '/score';
     });
@@ -212,7 +221,7 @@ socket = io(location.host);
 
     socket.on('disconnect', () => {
         console.log('Disconnected from server');
-        alert('You are disconnected. The app will try to reconnect automatically');
+        showAlert('You are disconnected. The app will try to reconnect automatically');
     });
 })();
 
@@ -223,11 +232,11 @@ function addUsers(users) {
         let user = users.pop();
         let userEntry = document.createElement('div');
         userEntry.classList.add("playerBackdrop");
+        userEntry.id = "p" + user.id;
 
         let userBackdrop = document.createElement('img');
-        userBackdrop.src = 'images/playerInformation/playerBackdrop/support-opponent-' + user.color + '.png';
+        userBackdrop.src = 'images/playerInformation/' + user.color + '.png';
         userBackdrop.classList.add("playerBackdropImage");
-        userBackdrop.id = "p" + user.id;
 
         let playerName = document.createElement('p');
         playerName.innerText = user.name + "(" + user.score + ")";
@@ -236,6 +245,10 @@ function addUsers(users) {
         let numberOfCartsText = document.createElement('p');
         numberOfCartsText.classList.add("numberOfCartsText");
         numberOfCartsText.innerText = user.numberOfTrains;
+
+        let numberOfStationsText = document.createElement('p');
+        numberOfStationsText.classList.add("numberOfStationsText");
+        numberOfStationsText.innerText = user.numberOfStations;
 
         let numberOfTrainCardsText = document.createElement('p');
         numberOfTrainCardsText.classList.add("numberOfTrainCardsText");
@@ -248,6 +261,7 @@ function addUsers(users) {
         userEntry.append(userBackdrop);
         userEntry.append(playerName);
         userEntry.append(numberOfCartsText);
+        userEntry.append(numberOfStationsText);
         userEntry.append(numberOfTrainCardsText);
         userEntry.append(numberOfRoutesText);
         if (user.id === playerID && !audioUnlocked) {
@@ -278,8 +292,13 @@ function claimEuRoute(routeID) {
         let color = document.getElementsByClassName("activatedCard")[0].id;
         socket.emit('route-claim', {pid: playerID, color: color, route: routeID, continent: "eu"});
     } else {
-        alert("Select cards from your collection first!");
+        showAlert("Select cards from your collection first!");
     }
+}
+
+function claimEuStation(city) {
+    let color = document.getElementsByClassName("activatedCard")[0].id;
+    socket.emit('station-claim', {pid: playerID, color: color, city: city, continent: "eu" });
 }
 
 function claimUsRoute(routeID) {
@@ -287,14 +306,14 @@ function claimUsRoute(routeID) {
         let color = document.getElementsByClassName("activatedCard")[0].id; 
         socket.emit('route-claim', {pid: playerID, color: color, route: routeID, continent: "us"});
     } else {
-        alert("Select cards from your collection first!");
+        showAlert("Select cards from your collection first!");
     }
 }
 
 function markCurrentPlayer(pid) {
     for (let i = 0; i < 8; i++) {
-        if (document.getElementById("p" + pid) !== null) {
-            document.getElementById("p" + pid).classList.remove("currentPlayer");
+        if (document.getElementById("p" + i) !== null) {
+            document.getElementById("p" + i).classList.remove("currentPlayer");
         }
     }
     document.getElementById("p" + pid).classList.add("currentPlayer");
@@ -309,10 +328,10 @@ function unlockaudio() {
 
     music.loop = true;
     music.play().then(function() {
-        alert("Audio unlocked!");
+        showAlert("Audio unlocked!");
         audioUnlocked = true;
     }).catch(function(){
-        alert("Audio could not be unlocked. Maybe try again? :)");
+        showAlert("Audio could not be unlocked. Maybe try again? :)");
     })
 }
 
@@ -322,17 +341,14 @@ function endTurn() {
     }
 }
 
-function drawExistingTrains(trains) {
-    for (let array of trains) {
-        let imageLocation = document.getElementById(array[1][0]);
-        let linkToTrainsToAdd = "images/trainsOnMap/" + array[1][0] + "/" + array[1][1] + ".png";
+function drawExistingTrains(trains, continent) {
+    let imageLocation = document.getElementById(continent);
 
-        let carts = document.createElement('img');
-        carts.src = linkToTrainsToAdd;
-        carts.classList.add("carts");
-        carts.classList.add(array[0] + "Wagons");
-        imageLocation.append(carts);
-    }
+    // Construct HTML elements
+    let carts = document.createElement('img');
+    carts.src = `data:image/png;base64,${trains}`;
+    carts.classList.add(`${continent}Wagons`);
+    imageLocation.append(carts);
 }
 
 function getCookie(cname) {
@@ -349,4 +365,83 @@ function getCookie(cname) {
         }
     }
     return "";
+}
+
+function showAlert(message) {
+    if (document.getElementsByClassName('alert').length === 0) {
+        let div = document.createElement('div');
+        div.innerText = message;
+        div.classList.add('alert');
+        document.body.appendChild(div);
+        setTimeout(() => {
+            document.body.removeChild(div);
+        }, 4000);
+    }
+}
+
+function showStationMenu(data) {
+    let cardsContainer = document.getElementById("ownCardContainer");
+    let menu = document.getElementById("stationMenu");
+    cardsContainer.style.display = "none";
+    menu.style.display = "flex";
+
+    if (data.stations.length === 0) {
+        let statbox = document.createElement('div');
+        statbox.classList.add('stationChoiceDiv');
+        let stattext = document.createElement('p');
+        stattext.innerText = `Waiting for other players...`;
+        stattext.style.margin = 0;
+        statbox.append(stattext);
+        menu.appendChild(statbox);
+    } else {
+        for (let station of data.stations) {
+            let statbox = document.createElement('div');
+            statbox.id = `${station}Choice`;
+            statbox.classList.add('stationChoiceDiv');
+            let stattext = document.createElement('p');
+            stattext.innerText = `Use the station in ${station} to go to: `;
+            stattext.style.margin = 0;
+            let selector = document.createElement('select');
+            for (let desti of data.options[data.stations.indexOf(station)]) {
+                let option = document.createElement('option');
+                option.value = desti;
+                option.innerText = desti;
+                selector.appendChild(option);
+            }
+            statbox.append(stattext, selector);
+            menu.append(statbox);
+        }
+        let confirm = document.createElement('button');
+        confirm.innerText = "Confirm!";
+        confirm.onclick = function () {
+            confirmStations();
+        }
+        menu.append(confirm);
+    }
+}
+
+function confirmStations() {
+    let stations = document.getElementsByClassName('stationChoiceDiv');
+    let routes = [];
+    for (let station of stations) {
+        routes.push({stationA: station.id.split('Choice')[0], stationB: station.children[1].value, variant: 1, continent: "eu"});
+    }
+    socket.emit('confirmed-stations', {routes: routes, pid: playerID});
+}
+
+function hideLoadingScreen() {
+    document.getElementById('loadingScreen').children[2].innerText = "Loaded!";
+    setTimeout(() => {
+        document.getElementById('loadingScreen').style.opacity = 0;
+        music.loop = true;
+        startsound.play().then(function () {
+            music.play();
+            audioUnlocked = true;
+        }).catch(function (){
+            showAlert('To unlock your audio, please press your own player on the left side of the screen!');
+        });
+        setTimeout(() => {
+            document.body.removeChild(document.getElementById('loadingScreen'));
+        }, 1000);
+    }, 1000);
 }
