@@ -28,12 +28,31 @@
                   g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
             })();
       </script>
+
+      <style>
+            #loadingScreen {
+                  width: 100vw;
+                  height: 100vh;
+                  position: fixed;
+                  z-index: 100;
+                  background-color: #004671;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  color: white;
+                  font-size: 2em;
+                  font-family: 'Permanent Marker', cursive;
+                  transition: 1s;
+            }
+      </style>
 </head>
 
 <body>
       <div id="loadingScreen">
             <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_rjtT66.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop  autoplay></lottie-player>
+            <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_rjtT66.json" background="transparent"
+                  speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
             <p>Loading Game...</p>
       </div>
       <div class="playarea">
@@ -321,6 +340,103 @@
                                     <area title="angora-erzurum-1"
                                           coords="3241,2002,3250,2077,3133,2095,3028,2041,3003,2077,3121,2147,3307,2116,3280,1993"
                                           shape="poly" onclick="claimEuRoute(this.title)">
+
+                                    <!-- Station Image Maps (Circles on cities) -->
+                                    <area shape="circle" coords="2544, 1441, 37" title="bucuresti"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="3019, 1492, 39" title="sevastopol"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="3339, 1234, 34" title="rostov"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="3323, 1542, 36" title="sochi"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="3258, 1973, 37" title="erzurum"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="2718, 1867, 41" title="constantinople"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="2981, 2050, 37" title="angora"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="2565, 2137, 37" title="smyrna"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="1683, 2144, 41" title="palermo"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="2274, 2050, 31" title="athina"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="2338, 1660, 34" title="sofia"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="2108, 1629, 35" title="sarajevo"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="1853, 1785, 39" title="brindisi"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="1819, 1430, 38" title="zagreb"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="2029, 1203, 38" title="budapest"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="1861, 1117, 32" title="wein"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="3200, 1054, 41" title="kharkov"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="3250, 537, 36" title="moskva"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="2741, 873, 36" title="kyiv"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="2226, 690, 34" title="warsaw"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="2607, 606, 38" title="wilno"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="2959, 622, 40" title="smolensk"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="2917, 127, 39" title="petrograd"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="2338, 142, 39" title="riga"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="2059, 452, 39" title="danzig"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="1928, 47, 34" title="stockholm"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="1571, 310, 31" title="kopenhagen"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="1246, 1277, 39" title="zurich"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="1530, 1387, 32" title="venice"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="1557, 1695, 32" title="rome"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="1151, 1597, 35" title="marseille"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="631, 1611, 34" title="pamplona"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="675, 1926, 31" title="barcelona"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="290, 2144, 32" title="cadiz"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="62, 1967, 32" title="lissabon"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="295, 1889, 35" title="madrid"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="1470, 1059, 38" title="munchen"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="1667, 720, 32" title="berlin"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="1276, 909, 31" title="frankfurt"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="1325, 671, 30" title="essen"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="1049, 639, 28" title="amsterdam"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="971, 800, 32" title="brussels"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="851, 1085, 34" title="paris"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="680, 937, 33" title="dieppe"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="375, 1035, 32" title="brest"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="718, 628, 28" title="londen"
+                                          onclick="claimEuStation(this.title)" />
+                                    <area shape="circle" coords="492, 116, 31" title="edinburgh"
+                                          onclick="claimEuStation(this.title)" />
+
                               </map>
                         </div>
 
@@ -564,7 +680,8 @@
                         </div>
                   </div>
                   <div class="ownCards" id="ownCardContainer"></div>
-                  <div class="destiDeck" id="destiCardsChoosingPanel" style="display: none"></div>
+                  <div class="destiDeck" id="destiCardsChoosingPanel" style="display: none;"></div>
+                  <div class="stationMenu" id="stationMenu" style="display: none;"></div>
             </div>
 
             <div class="cards" id="cardContainer">
@@ -600,9 +717,10 @@
       <script src="javascripts/client_game.js"></script>
       <script>
             imageMapResize();
-            window.onload = function() {
+            window.onload = function () {
                   hideLoadingScreen();
             }
       </script>
 </body>
+
 </html>

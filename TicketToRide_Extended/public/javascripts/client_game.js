@@ -27,10 +27,6 @@ socket = io(location.host);
     // Disable game elements from users
     document.getElementById("eutab").click();
     document.getElementById("endTurn").style.display = "none";
-    document.getElementById("ownCardContainer").classList.add("disabled");
-    document.getElementById("generalCards").classList.add("disabled");
-    document.getElementsByClassName("tabcontent")[0].classList.add("disabled");
-    document.getElementsByClassName("tabcontent")[1].classList.add("disabled");
 
     socket.on('connect', () => {
         console.log("Connceted to server");
@@ -73,42 +69,34 @@ socket = io(location.host);
 
         if (!lastRoundShown && round.lastRound) {
             lastRoundShown = true;
-            alert("A player has less than 3 wagons. This is the last round!");
+            showAlert("A player has less than 3 wagons! This is the last round!");
         }
 
         currentMove = parseInt(round.thing);
         markCurrentPlayer(player);
 
         if (currentMove === 0) {
-            enableLocomotive();
+            enableLocomotives();
             document.getElementById("endTurn").style.display = "none";
-        }
-
-        if (player !== playerID) {
-            document.getElementById("ownCardContainer").classList.add("disabled");
-            document.getElementById("generalCards").classList.add("disabled");
-            document.getElementsByClassName("tabcontent")[0].classList.add("disabled");
-            document.getElementsByClassName("tabcontent")[1].classList.add("disabled");
         }
 
         if (player === playerID && currentMove === 0) {
             trainHorn.play();
-            document.getElementById("ownCardContainer").classList.remove("disabled");
-            document.getElementById("generalCards").classList.remove("disabled");
-            document.getElementsByClassName("tabcontent")[0].classList.remove("disabled");
-            document.getElementsByClassName("tabcontent")[1].classList.remove("disabled");
-            document.getElementById("routeCard").classList.remove("disabled");
         }
     });
 
     socket.on('new-open-card', (data) => {
-        replaceCard(data.repCard, data.newColor);
+        if (data.pid === playerID) {
+            replaceCard(data.repCard, data.newColor, true);
+        } else {
+            replaceCard(data.repCard, data.newColor, false);
+        }
         if (!document.getElementById(data.repCard).classList.contains("loco")) {
             disableLocomotive();
         }
     });
 
-    socket.on('closed-train', (color) => {
+    socket.on('closed-train', () => {
         cardDeal.play();
         document.getElementById("closedCard").classList.add("cardTakenSelf", "disabled");
         setTimeout(function () {
@@ -133,7 +121,7 @@ socket = io(location.host);
         }
     });
 
-    socket.on('wagonimage', (data) => {
+    socket.on('mapitem', (data) => {
         let imageLocation = document.getElementById(data.continent);
 
         // Construct HTML elements
@@ -169,19 +157,25 @@ socket = io(location.host);
     });
 
     socket.on('route-claim', (data) => {
-        if(data.status){
-            document.getElementById(data.continent).classList.add("disabled");
-            document.getElementById("generalCards").classList.add("disabled");
-            document.getElementById("endTurn").style.display = "block";
-        } else {
+        if (data.status === 'accepted') {
+            document.getElementById("endTurn").style.display = 'block';
+        } else if (data.status === 'alreadyClaimedThis'){
+            showAlert(`You cannot do an action on ${data.continent} anymore!`);
+        } else if (data.status === 'cant') {
             buzz.play();
             let card = document.getElementsByClassName("activatedCard")[0];
             card.classList.add("cantCard");
             setTimeout(function () {
                 card.classList.remove("cantCard");
             }, 400);
+        } else if (data.status === 'notYourTurn') {
+            showAlert('It is currently not your turn!');
         }
     });
+
+    socket.on('invalidmove', (data) => {
+        showAlert(data.message);
+    })
 
     socket.on('own-destinations', (data) => {
         drawOwnDestinations(data.uncompleted, false);
@@ -201,6 +195,18 @@ socket = io(location.host);
     socket.on('player-completed-route', (data) => {
         ticketCompleted.play();
         completedRoute(data);
+    });
+
+    socket.on('station-claim', (result) => {
+        if (result) {
+            document.getElementById("endTurn").style.display = 'block';
+        } else {
+            showAlert('You cannot place a station here!');
+        }
+    })
+
+    socket.on('stations', (data) => {
+        showStationMenu(data);
     });
 
     socket.on('game-end', () => {
@@ -227,7 +233,7 @@ function addUsers(users) {
         userEntry.id = "p" + user.id;
 
         let userBackdrop = document.createElement('img');
-        userBackdrop.src = 'images/playerInformation/playerBackdrop/support-opponent-' + user.color + '.png';
+        userBackdrop.src = 'images/playerInformation/' + user.color + '.png';
         userBackdrop.classList.add("playerBackdropImage");
 
         let playerName = document.createElement('p');
@@ -237,6 +243,10 @@ function addUsers(users) {
         let numberOfCartsText = document.createElement('p');
         numberOfCartsText.classList.add("numberOfCartsText");
         numberOfCartsText.innerText = user.numberOfTrains;
+
+        let numberOfStationsText = document.createElement('p');
+        numberOfStationsText.classList.add("numberOfStationsText");
+        numberOfStationsText.innerText = user.numberOfStations;
 
         let numberOfTrainCardsText = document.createElement('p');
         numberOfTrainCardsText.classList.add("numberOfTrainCardsText");
@@ -249,6 +259,7 @@ function addUsers(users) {
         userEntry.append(userBackdrop);
         userEntry.append(playerName);
         userEntry.append(numberOfCartsText);
+        userEntry.append(numberOfStationsText);
         userEntry.append(numberOfTrainCardsText);
         userEntry.append(numberOfRoutesText);
         if (user.id === playerID && !audioUnlocked) {
@@ -281,6 +292,11 @@ function claimEuRoute(routeID) {
     } else {
         showAlert("Select cards from your collection first!");
     }
+}
+
+function claimEuStation(city) {
+    let color = document.getElementsByClassName("activatedCard")[0].id;
+    socket.emit('station-claim', {pid: playerID, color: color, city: city, continent: "eu" });
 }
 
 function claimUsRoute(routeID) {
@@ -359,6 +375,56 @@ function showAlert(message) {
             document.body.removeChild(div);
         }, 4000);
     }
+}
+
+function showStationMenu(data) {
+    let cardsContainer = document.getElementById("ownCardContainer");
+    let menu = document.getElementById("stationMenu");
+    cardsContainer.style.display = "none";
+    menu.style.display = "flex";
+
+    if (data.stations.length === 0) {
+        let statbox = document.createElement('div');
+        statbox.classList.add('stationChoiceDiv');
+        let stattext = document.createElement('p');
+        stattext.innerText = `Waiting for other players...`;
+        stattext.style.margin = 0;
+        statbox.append(stattext);
+        menu.appendChild(statbox);
+    } else {
+        for (let station of data.stations) {
+            let statbox = document.createElement('div');
+            statbox.id = `${station}Choice`;
+            statbox.classList.add('stationChoiceDiv');
+            let stattext = document.createElement('p');
+            stattext.innerText = `Use the station in ${station} to go to: `;
+            stattext.style.margin = 0;
+            let selector = document.createElement('select');
+            for (let desti of data.options[data.stations.indexOf(station)]) {
+                let option = document.createElement('option');
+                option.value = desti;
+                option.innerText = desti;
+                selector.appendChild(option);
+            }
+            statbox.append(stattext, selector);
+            menu.append(statbox);
+        }
+        let confirm = document.createElement('button');
+        confirm.innerText = "Confirm!";
+        confirm.onclick = function () {
+            confirmStations();
+        }
+        menu.append(confirm);
+    }
+}
+
+function confirmStations() {
+    let stations = document.getElementsByClassName('stationChoiceDiv');
+    let routes = [];
+    for (let station of stations) {
+        routes.push({stationA: station.id.split('Choice')[0], stationB: station.children[1].value, variant: 1, continent: "eu"});
+    }
+    socket.emit('confirmed-stations', {routes: routes, pid: playerID});
 }
 
 function hideLoadingScreen() {

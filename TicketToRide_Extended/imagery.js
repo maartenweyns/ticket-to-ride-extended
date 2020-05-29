@@ -16,12 +16,11 @@ const imagery = function(gameID) {
     this.yellowModulation = {hue: 140, brightness: 2, saturation: 2};
 }
 
-imagery.prototype.computeWagons = function(continent, route, color, io, gameID) {
+imagery.prototype.computeWagons = function(continent, route, color, io) {
 
     console.log(`[INFO] Drawing wagons for ${continent} ${route}`);
 
     let wagonspath = `./public/images/trainsOnMap/${continent}/${route}.png`;
-    let oldimage = Buffer.from(this[`${continent}WagonImage`], 'base64');
 
     sharp(wagonspath)
         .modulate(this[`${color}Modulation`])
@@ -29,16 +28,56 @@ imagery.prototype.computeWagons = function(continent, route, color, io, gameID) 
         .then(data => {
             let b64 = data.toString('base64');
             console.log(`[INFO] Finished drawing wagons.`);
-            io.in(gameID).emit('wagonimage', {image: b64, continent: continent});
-
+            io.in(this.gameID).emit('mapitem', {image: b64, continent: continent});
+            
+            let oldimage = Buffer.from(this[`${continent}WagonImage`], 'base64');
             sharp(data)
                 .composite([{input: oldimage}])
                 .toFormat('png')
                 .toBuffer()
                 .then(combined => {
                     this[`${continent}WagonImage`] = combined.toString('base64');
-                    console.log(`[INFO] Finished combining old and new wagon images.`);
+                    console.log(`[INFO] Finished combining old and new images.`);
                 });
+        });
+}
+
+imagery.prototype.computeStations = function(continent, city, color, io) {
+
+    console.log(`[INFO] Drawing station on ${city}`);
+
+    let stationpath = `./public/images/stations/${city}.png`;
+
+    sharp(stationpath)
+        .modulate(this[`${color}Modulation`])
+        .toBuffer()
+        .then(data => {
+            let b64 = data.toString('base64');
+            console.log(`[INFO] Finished drawing station.`);
+            io.in(this.gameID).emit('mapitem', {image: b64, continent: continent});
+            
+            let oldimage = Buffer.from(this[`${continent}WagonImage`], 'base64');
+            sharp(data)
+                .composite([{input: oldimage}])
+                .toFormat('png')
+                .toBuffer()
+                .then(combined => {
+                    this[`${continent}WagonImage`] = combined.toString('base64');
+                    console.log(`[INFO] Finished combining old and new images.`);
+                });
+        });
+}
+
+function savenew(data, continent) {
+    let oldimage = Buffer.from(this[`${continent}WagonImage`], 'base64');
+
+    sharp(data)
+        .composite([{input: oldimage}])
+        .toFormat('png')
+        .toBuffer()
+        .then(combined => {
+            this[`${continent}WagonImage`] = combined.toString('base64');
+            console.log(`[INFO] Finished combining old and new images.`);
         });
 }
 

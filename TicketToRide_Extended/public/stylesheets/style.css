@@ -13,22 +13,6 @@ body {
     align-items: center;
 }
 
-#loadingScreen {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    z-index: 100;
-    background-color: #004671;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 2em;
-    font-family: 'Permanent Marker', cursive;
-    transition: 1s;
-}
-
 .playarea {
     display: flex;
     justify-content: space-between;
@@ -145,6 +129,23 @@ body {
     justify-content: center;
     align-items: center;
     height: 15%;
+}
+
+.stationMenu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 15%;
+}
+
+.stationChoiceDiv {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    font-size: 2em;
+    font-family: 'Permanent Marker', cursive;
+    height: 25%;
 }
 
 .destiDeckCard {

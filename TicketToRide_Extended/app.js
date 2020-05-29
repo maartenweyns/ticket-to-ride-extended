@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var http = require("http");
 var Player = require('./player');
-var Route = require('./route');
 var Game = require("./game");
 var Imagery = require('./imagery');
 
@@ -121,6 +120,15 @@ io.on('connection', (socket) => {
         }
     });
 
+    socket.on('request-scoring', (data) => {
+        if (data.gameID === game.gameID) {
+            socket.emit('player-overview', game.getUserProperties());
+            socket.emit('final-score', game.calculateScore());
+        } else {
+            socket.emit('lobby');
+        }
+    });
+
     socket.on('accepted-destination', (data) => {
         let pid = data.pid;
         let routeID = data.rid.split("-");
@@ -173,11 +181,21 @@ io.on('connection', (socket) => {
         let pid = data.pid;
         console.log("[INFO] Player " + pid + " took an open train.");
 
+        if (game.currentRound !== pid) {
+            socket.emit('invalidmove', {message: 'It is currently not your turn!'});
+            return;
+        }
+
+        if (game.routesLayed !== 0) {
+            socket.emit('invalidmove', {message: 'You cannot pick cards after claiming a route!'});
+            return;
+        }
+
         let color = game.getRandomColor();
         let oldColor = game.openCards[data.card];
         game.openCards[data.card] = color;
 
-        io.in(game.gameID).emit('new-open-card', {repCard: data.card, newColor: color});
+        io.in(game.gameID).emit('new-open-card', {repCard: data.card, newColor: color, pid: pid});
 
         if (game.checkNeedForShuffle()) {
             game.setOpenCards();
@@ -198,10 +216,10 @@ io.on('connection', (socket) => {
         io.in(game.gameID).emit('player-overview', game.getUserProperties());
         socket.emit('own-cards', game.getPersonalCards(pid));
         if (game.checkGameEnd()) {
-            io.in(game.gameID).emit('game-end');
-            setTimeout(function() {
-                io.in(game.gameID).emit('final-score', game.calculateScore());
-            }, 1000);
+            game.sendStationsMessage(io);
+            if (game.allPlayersReady()) {
+                io.in(game.gameID).emit('game-end');
+            };
         } else {
             io.in(game.gameID).emit('player-round', game.getPlayerRound());
         }
@@ -209,6 +227,17 @@ io.on('connection', (socket) => {
 
     socket.on('closed-train', (pid) => {
         console.log("[INFO] Player " + pid + " requested a closed train.");
+
+        if (game.currentRound !== pid) {
+            socket.emit('invalidmove', {message: 'It is currently not your turn!'});
+            return;
+        }
+
+        if (game.routesLayed !== 0) {
+            socket.emit('invalidmove', {message: 'You cannot pick cards after claiming a route!'});
+            return;
+        }
+
         let color = game.getRandomColor();
 
         socket.emit('closed-train', color);
@@ -223,10 +252,10 @@ io.on('connection', (socket) => {
         socket.emit('own-cards', game.getPersonalCards(pid));
 
         if (game.checkGameEnd()) {
-            io.in(game.gameID).emit('game-end');
-            setTimeout(function() {
-                io.in(game.gameID).emit('final-score', game.calculateScore());
-            }, 1000);
+            game.sendStationsMessage(io);
+            if (game.allPlayersReady()) {
+                io.in(game.gameID).emit('game-end');
+            };
         } else {
             io.in(game.gameID).emit('player-round', game.getPlayerRound());
         }
@@ -234,10 +263,26 @@ io.on('connection', (socket) => {
 
     socket.on('route-claim', (data) => {
         console.log("[INFO] Player " + data.pid + " requested a route.");
+
+        if (data.pid !== game.currentRound) {
+            socket.emit('route-claim', {status: 'notYourTurn'});
+            return;
+        }
+
+        if (game.routesLayed === 0 && game.thingsDone !== 0) {
+            socket.emit('invalidmove', {message: 'You cannot claim a route after picking cards!'});
+            return;
+        }
+
+        if (game.lastContinentRoutePut === data.continent) {
+            socket.emit('route-claim', {status: 'alreadyClaimedThis', continent: data.continent});
+            return;
+        }
+
         let ret = game.checkEligibility(data.pid, data.color, data.route, data.continent);
 
         if (ret.status) {
-            imagery.computeWagons(data.continent, data.route, game["player" + data.pid].color, io, game.gameID);
+            imagery.computeWagons(data.continent, data.route, game["player" + data.pid].color, io);
 
             game["player" + data.pid].routeIDs.push([data.continent, data.route]);
             game["player" + data.pid][data.color] -= ret.amount;
@@ -246,19 +291,19 @@ io.on('connection', (socket) => {
             game["player" + data.pid].numberOfTrainCards -= game.getRouteRequirements(data.route, data.continent).length;
             
             io.in(game.gameID).emit('player-overview', game.getUserProperties());
-            socket.emit('route-claim', {status: true, continent: data.continent});
+            socket.emit('route-claim', {status: 'accepted', continent: data.continent});
             
             let routeMap = data.continent + "Routes";
             game.userClaimedRoute(data.pid, game[routeMap].get(data.route));
 
-            game.playerPutRoute();
+            game.playerPutRoute(data.continent);
 
             socket.emit('own-cards', game.getPersonalCards(data.pid));
             if (game.checkGameEnd()) {
-                io.in(game.gameID).emit('game-end');
-                setTimeout(function() {
-                    io.in(game.gameID).emit('final-score', game.calculateScore());
-                }, 1000);
+                game.sendStationsMessage(io);
+                if (game.allPlayersReady()) {
+                    io.in(game.gameID).emit('game-end');
+                };
             } else {
                 io.in(game.gameID).emit('player-round', game.getPlayerRound());
             }
@@ -266,11 +311,63 @@ io.on('connection', (socket) => {
                 socket.emit('player-completed-route', desti.continent + "-" + desti.stationA + "-" + desti.stationB);
             }
         } else {
-            socket.emit('route-claim', {status: false});
+            socket.emit('route-claim', {status: 'cant'});
         }
     });
 
+    socket.on('station-claim', (data) => {
+        console.log(`[INFO] Player ${data.pid} requested a station on ${data.city}`);
+
+        if (game.currentRound !== data.pid) {
+            socket.emit('invalidmove', {message: 'It is currently not your turn!'});
+            return;
+        }
+
+        if (game.routesLayed === 0 && game.thingsDone !== 0) {
+            socket.emit('invalidmove', {message: 'You cannot claim a station after picking cards!'});
+            return;
+        }
+
+        let result = game.requestStation(data.pid, data.city, data.color);
+        socket.emit('station-claim', result);
+
+        if (result) {
+            imagery.computeStations(data.continent, data.city, game[`player${data.pid}`].color, io);
+
+            game.playerPutRoute('eu');
+            socket.emit('own-cards', game.getPersonalCards(data.pid));
+            io.in(game.gameID).emit('player-round', game.getPlayerRound());
+        }
+    });
+
+    socket.on('confirmed-stations', (data) => {
+        for (let route of data.routes) {
+            game.userClaimedRoute(data.pid, route);
+            game[`player${data.pid}`].routeIDs.push([data.continent, `${route.stationA}-${route.stationB}`]);
+        }
+
+        for (let desti of game.checkContinuity(data.pid)) {
+            socket.emit('player-completed-route', desti.continent + "-" + desti.stationA + "-" + desti.stationB);
+        }
+    
+        game[`player${data.pid}`].ready = true;
+
+        if (game.allPlayersReady()) {
+            io.in(game.gameID).emit('game-end');
+        };
+    })
+
     socket.on('player-destination', (pid) => {
+        if (game.currentRound !== pid) {
+            socket.emit('invalidmove', {message: 'It is currently not your turn!'});
+            return;
+        }
+
+        if (game.thingsDone !== 0) {
+            socket.emit('invalidmove', {message: 'You can only pick routes at the beginning of your turn!'});
+            return;
+        }
+
         let random = Math.random();
         if (random < 0.5) {
             socket.emit('player-destination', {0: game.getEuDestination(), 1: game.getUsDestination(), 2: game.getUsDestination()});
@@ -285,10 +382,10 @@ io.on('connection', (socket) => {
         if (game.gameState === "ongoing") {
             game.nextPlayerRound();
             if (game.checkGameEnd()) {
-                io.in(game.gameID).emit('game-end');
-                setTimeout(function() {
-                    io.in(game.gameID).emit('final-score', game.calculateScore());
-                }, 1000);
+                game.sendStationsMessage(io);
+                if (game.allPlayersReady()) {
+                    io.in(game.gameID).emit('game-end');
+                };
             } else {
                 io.in(game.gameID).emit('player-round', game.getPlayerRound());
             }

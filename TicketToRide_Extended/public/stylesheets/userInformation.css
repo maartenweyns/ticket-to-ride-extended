@@ -34,6 +34,16 @@
     margin: 0;
 }
 
+.numberOfStationsText {
+    color: black;
+    font-family: 'Arapey', serif;
+    position: absolute;
+    font-size: 1vw;
+    top: 60%;
+    right: 7.5%;
+    margin: 0;
+}
+
 .numberOfTrainCardsText {
     color: white;
     font-family: 'Arapey', serif;

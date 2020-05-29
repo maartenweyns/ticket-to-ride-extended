@@ -21,7 +21,7 @@ socket = io(location.host);
 
     socket.on('connect', () => {
         console.log("Connceted to server");
-        socket.emit('player-ingame-join', {playerID: playerID, gameID: gameID});
+        socket.emit('request-scoring', {gameID: gameID});
     });
 
     socket.on('player-overview', (players) => {
@@ -115,7 +115,7 @@ function showScoresNew (data) {
                 document.getElementById("infodiv" + player.id).append(routecard);
 
                 document.getElementById("score" + player.id).innerText = "Score: " + score;
-                document.getElementById("scoreTrain" + player.id).style.transform = "translateX(calc(-100% + " + 0.5*score + "%))";
+                document.getElementById("scoreTrain" + player.id).style.transform = "translateX(calc(-100% + " + score + "%))";
 
                 vapeur.play();
                 movingTrain.play();
@@ -142,7 +142,32 @@ function showScoresNew (data) {
                 document.getElementById("infodiv" + player.id).append(routecard);
 
                 document.getElementById("score" + player.id).innerText = "Score: " + score;
-                document.getElementById("scoreTrain" + player.id).style.transform = "translateX(calc(-100% + " + 0.5*score + "%))";
+                document.getElementById("scoreTrain" + player.id).style.transform = "translateX(calc(-100% + " + score + "%))";
+
+                vapeur.play();
+                movingTrain.play();
+            }, 2000 * wait++); 
+        }
+
+        for (let k = 0; k < player.stations; k++) {
+            setTimeout(() => {
+                let score = parseInt(document.getElementById("score" + player.id).innerText.split("Score: ")[1]);
+                score += 4;
+
+                // let routecard = document.createElement('div');
+                // let overlay = document.createElement('img');
+                // overlay.src = './images/decorations/ticket-ToDoFrame.png';
+                // overlay.classList.add('overlay');
+                // let cardimage = document.createElement('img');
+                // cardimage.src = './images/routeCards/' + destination.continent + '-' + destination.stationA + '-' + destination.stationB + '.png';
+                // cardimage.classList.add('routecardimage');
+                // routecard.classList.add('routeCard');
+                // routecard.append(cardimage, overlay);
+
+                // document.getElementById("infodiv" + player.id).append(routecard);
+
+                document.getElementById("score" + player.id).innerText = "Score: " + score;
+                document.getElementById("scoreTrain" + player.id).style.transform = "translateX(calc(-100% + " + score + "%))";
 
                 vapeur.play();
                 movingTrain.play();
@@ -164,57 +189,11 @@ function showScoresNew (data) {
     }
 }
 
-function showScores(data) {
-    for (let i = 0; i < data.length; i++) {
-        let last = false;
-        let player = data[i];
-        if (i === data.length - 1) {
-            last = true;
-        }
-
-        setTimeout(function() {
-            let score = parseInt(document.getElementById("score" + player.id).innerText.split("Score: ")[1]);
-
-            for (let destination of player.completedDestinations) {
-                score += destination.points;
-            }
-    
-            for (let destination of player.destinations) {
-                score -= destination.points;
-            }
-            document.getElementById("score" + player.id).innerText = "Score: " + score;
-            document.getElementById("scoreTrain" + player.id).style.transform = "translateX(calc(-100% + " + 0.5*score + "%))";
-
-            document.getElementById("completed" + player.id).innerText = "Routes completed: " + player.completedDestinations.length;
-            document.getElementById("uncompleted" + player.id).innerText = "Routes  not completed: " + player.destinations.length;
-
-            vapeur.play()
-            movingTrain.play();
-
-            document.getElementById("box" + player.id).classList.remove("currentlyCalculating");
-
-            if (!last) {
-                document.getElementById("box" + (player.id + 1)).classList.add("currentlyCalculating");
-            } else {
-                setTimeout(function () {
-                    showWinning();
-                    music.pause();
-                    winning.play();
-                    winning.onended = function() {
-                        happymusic.loop = true;
-                        happymusic.play();
-                    }
-                }, 1000);
-            }
-        }, 3500*(i + 1));
-    }
-}
-
 function showWinning() {
     let scores = document.getElementsByClassName('playerscore');
     let highestscore = -Infinity;
     let highestpid;
-    for (score of scores) {
+    for (let score of scores) {
         let actual = parseInt(score.innerText.split("Score: ")[1]);
         if (actual > highestscore) {
             highestpid = parseInt(score.id.split("score")[1]);
