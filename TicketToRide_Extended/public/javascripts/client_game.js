@@ -80,7 +80,7 @@ socket = io(location.host);
         markCurrentPlayer(player);
 
         if (currentMove === 0) {
-            enableLocomotive();
+            enableLocomotives();
             document.getElementById("endTurn").style.display = "none";
         }
 
@@ -102,7 +102,11 @@ socket = io(location.host);
     });
 
     socket.on('new-open-card', (data) => {
-        replaceCard(data.repCard, data.newColor);
+        if (data.pid === playerID) {
+            replaceCard(data.repCard, data.newColor, true);
+        } else {
+            replaceCard(data.repCard, data.newColor, false);
+        }
         if (!document.getElementById(data.repCard).classList.contains("loco")) {
             disableLocomotive();
         }
@@ -169,19 +173,25 @@ socket = io(location.host);
     });
 
     socket.on('route-claim', (data) => {
-        if(data.status){
-            document.getElementById(data.continent).classList.add("disabled");
-            document.getElementById("generalCards").classList.add("disabled");
-            document.getElementById("endTurn").style.display = "block";
-        } else {
+        if (data.status === 'accepted') {
+            document.getElementById("endTurn").style.display = 'block';
+        } else if (data.status === 'alreadyClaimedThis'){
+            showAlert(`You cannot do an action on ${data.continent} anymore!`);
+        } else if (data.status === 'cant') {
             buzz.play();
             let card = document.getElementsByClassName("activatedCard")[0];
             card.classList.add("cantCard");
             setTimeout(function () {
                 card.classList.remove("cantCard");
             }, 400);
+        } else if (data.status === 'notYourTurn') {
+            showAlert('It is currently not your turn!');
         }
     });
+
+    socket.on('invalidmove', (data) => {
+        showAlert(data.message);
+    })
 
     socket.on('own-destinations', (data) => {
         drawOwnDestinations(data.uncompleted, false);
@@ -382,6 +392,7 @@ function showStationMenu(data) {
         let stattext = document.createElement('p');
         stattext.innerText = `Waiting for other players...`;
         stattext.style.margin = 0;
+        statbox.append(stattext);
         menu.appendChild(statbox);
     } else {
         for (let station of data.stations) {
