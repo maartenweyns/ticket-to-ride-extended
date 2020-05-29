@@ -27,10 +27,6 @@ socket = io(location.host);
     // Disable game elements from users
     document.getElementById("eutab").click();
     document.getElementById("endTurn").style.display = "none";
-    document.getElementById("ownCardContainer").classList.add("disabled");
-    document.getElementById("generalCards").classList.add("disabled");
-    document.getElementsByClassName("tabcontent")[0].classList.add("disabled");
-    document.getElementsByClassName("tabcontent")[1].classList.add("disabled");
 
     socket.on('connect', () => {
         console.log("Connceted to server");
@@ -84,20 +80,8 @@ socket = io(location.host);
             document.getElementById("endTurn").style.display = "none";
         }
 
-        if (player !== playerID) {
-            document.getElementById("ownCardContainer").classList.add("disabled");
-            document.getElementById("generalCards").classList.add("disabled");
-            document.getElementsByClassName("tabcontent")[0].classList.add("disabled");
-            document.getElementsByClassName("tabcontent")[1].classList.add("disabled");
-        }
-
         if (player === playerID && currentMove === 0) {
             trainHorn.play();
-            document.getElementById("ownCardContainer").classList.remove("disabled");
-            document.getElementById("generalCards").classList.remove("disabled");
-            document.getElementsByClassName("tabcontent")[0].classList.remove("disabled");
-            document.getElementsByClassName("tabcontent")[1].classList.remove("disabled");
-            document.getElementById("routeCard").classList.remove("disabled");
         }
     });
 
@@ -213,9 +197,15 @@ socket = io(location.host);
         completedRoute(data);
     });
 
+    socket.on('station-claim', (result) => {
+        if (result) {
+            document.getElementById("endTurn").style.display = 'block';
+        }
+    })
+
     socket.on('stations', (data) => {
         showStationMenu(data);
-    })
+    });
 
     socket.on('game-end', () => {
         window.location.pathname = '/score';

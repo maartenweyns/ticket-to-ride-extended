@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var http = require("http");
 var Player = require('./player');
-var Route = require('./route');
 var Game = require("./game");
 var Imagery = require('./imagery');
 
@@ -182,6 +181,11 @@ io.on('connection', (socket) => {
         let pid = data.pid;
         console.log("[INFO] Player " + pid + " took an open train.");
 
+        if (game.currentRound !== pid) {
+            socket.emit('invalidmove', {message: 'It is currently not your turn!'});
+            return;
+        }
+
         if (game.routesLayed !== 0) {
             socket.emit('invalidmove', {message: 'You cannot pick cards after claiming a route!'});
             return;
@@ -223,6 +227,11 @@ io.on('connection', (socket) => {
 
     socket.on('closed-train', (pid) => {
         console.log("[INFO] Player " + pid + " requested a closed train.");
+
+        if (game.currentRound !== pid) {
+            socket.emit('invalidmove', {message: 'It is currently not your turn!'});
+            return;
+        }
 
         if (game.routesLayed !== 0) {
             socket.emit('invalidmove', {message: 'You cannot pick cards after claiming a route!'});
@@ -309,6 +318,11 @@ io.on('connection', (socket) => {
     socket.on('station-claim', (data) => {
         console.log(`[INFO] Player ${data.pid} requested a station on ${data.city}`);
 
+        if (game.currentRound !== data.pid) {
+            socket.emit('invalidmove', {message: 'It is currently not your turn!'});
+            return;
+        }
+
         if (game.routesLayed === 0 && game.thingsDone !== 0) {
             socket.emit('invalidmove', {message: 'You cannot claim a station after picking cards!'});
             return;
@@ -344,6 +358,16 @@ io.on('connection', (socket) => {
     })
 
     socket.on('player-destination', (pid) => {
+        if (game.currentRound !== pid) {
+            socket.emit('invalidmove', {message: 'It is currently not your turn!'});
+            return;
+        }
+
+        if (game.thingsDone !== 0) {
+            socket.emit('invalidmove', {message: 'You can only pick routes at the beginning of your turn!'});
+            return;
+        }
+
         let random = Math.random();
         if (random < 0.5) {
             socket.emit('player-destination', {0: game.getEuDestination(), 1: game.getUsDestination(), 2: game.getUsDestination()});
