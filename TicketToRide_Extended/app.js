@@ -191,6 +191,11 @@ io.on('connection', (socket) => {
             return;
         }
 
+        if (game.thingsDone !== 0 && data.color === 'loco') {
+            socket.emit('invalidmove', {message: 'You cannot pick a locomotive at the beginning of your turn!'});
+            return;
+        }
+
         let color = game.getRandomColor();
         let oldColor = game.openCards[data.card];
         game.openCards[data.card] = color;

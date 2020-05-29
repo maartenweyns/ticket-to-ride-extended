@@ -41,7 +41,7 @@
 }
 
 .disabledLoco {
-    transition: 100ms;
+    transition: 300ms;
     transform: translateX(50px);
     pointer-events: none;
 }

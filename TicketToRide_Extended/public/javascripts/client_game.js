@@ -92,7 +92,7 @@ socket = io(location.host);
             replaceCard(data.repCard, data.newColor, false);
         }
         if (!document.getElementById(data.repCard).classList.contains("loco")) {
-            disableLocomotive();
+            disableLocomotives();
         }
     });
 
