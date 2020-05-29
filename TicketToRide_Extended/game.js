@@ -679,6 +679,7 @@ game.prototype.getPlayerRound = function () {
 }
 
 game.prototype.sendStationsMessage = function (io) {
+    this.currentRound = 8;
     for (let i = 0; i < 8; i++) {
         if (this[`player${i}`] !== null) {
             let neighbors = [];
