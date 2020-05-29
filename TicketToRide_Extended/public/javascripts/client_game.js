@@ -69,7 +69,7 @@ socket = io(location.host);
 
         if (!lastRoundShown && round.lastRound) {
             lastRoundShown = true;
-            alert("A player has less than 3 wagons. This is the last round!");
+            showAlert("A player has less than 3 wagons! This is the last round!");
         }
 
         currentMove = parseInt(round.thing);
@@ -200,6 +200,8 @@ socket = io(location.host);
     socket.on('station-claim', (result) => {
         if (result) {
             document.getElementById("endTurn").style.display = 'block';
+        } else {
+            showAlert('You cannot place a station here!');
         }
     })
 
