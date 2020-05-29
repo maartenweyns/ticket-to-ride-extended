@@ -146,7 +146,7 @@ function cycleBetweenRouteCards() {
 
 function drawOwnDestinations(data, completed) {
     let container = document.getElementsByClassName("destiCards")[0];
-    for (destination of data) {
+    for (let destination of data) {
         let routeCardContainer = document.createElement('div');
         routeCardContainer.id = destination.continent + "-" + destination.stationA + "-" + destination.stationB;
 
