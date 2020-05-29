@@ -111,7 +111,7 @@ game.prototype.getUserProperties = function () {
                 color: this[`player${i}`].color, numberOfTrains: this[`player${i}`].numberOfTrains,
                 numberOfTrainCards: this[`player${i}`].numberOfTrainCards,
                 numberOfRoutes: this[`player${i}`].numberOfRoutes,
-                numberOfStations: this[`player${i}`].numberOfStations
+                numberOfStations: this[`player${i}`].numberofStations
             };
             returnObject.push(player);
         }

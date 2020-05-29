@@ -96,7 +96,7 @@ socket = io(location.host);
         }
     });
 
-    socket.on('closed-train', (color) => {
+    socket.on('closed-train', () => {
         cardDeal.play();
         document.getElementById("closedCard").classList.add("cardTakenSelf", "disabled");
         setTimeout(function () {
@@ -233,7 +233,7 @@ function addUsers(users) {
         userEntry.id = "p" + user.id;
 
         let userBackdrop = document.createElement('img');
-        userBackdrop.src = 'images/playerInformation/playerBackdrop/support-opponent-' + user.color + '.png';
+        userBackdrop.src = 'images/playerInformation/' + user.color + '.png';
         userBackdrop.classList.add("playerBackdropImage");
 
         let playerName = document.createElement('p');
@@ -243,6 +243,10 @@ function addUsers(users) {
         let numberOfCartsText = document.createElement('p');
         numberOfCartsText.classList.add("numberOfCartsText");
         numberOfCartsText.innerText = user.numberOfTrains;
+
+        let numberOfStationsText = document.createElement('p');
+        numberOfStationsText.classList.add("numberOfStationsText");
+        numberOfStationsText.innerText = user.numberOfStations;
 
         let numberOfTrainCardsText = document.createElement('p');
         numberOfTrainCardsText.classList.add("numberOfTrainCardsText");
@@ -255,6 +259,7 @@ function addUsers(users) {
         userEntry.append(userBackdrop);
         userEntry.append(playerName);
         userEntry.append(numberOfCartsText);
+        userEntry.append(numberOfStationsText);
         userEntry.append(numberOfTrainCardsText);
         userEntry.append(numberOfRoutesText);
         if (user.id === playerID && !audioUnlocked) {
