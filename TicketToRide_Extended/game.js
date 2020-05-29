@@ -505,7 +505,7 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
 
 game.prototype.requestStation = function (playerID, city, color) {
     if (this[`player${playerID}`].numberOfStations >= 1 && !this.claimedCities.includes(city) && this[`player${playerID}`][color] >= 1){
-        this[`player${playerID}`].numberOfStations--;
+        this[`player${playerID}`].numberOfStations -= 1;
         this[`player${playerID}`].stations.push(city);
         this[`player${playerID}`][color]--;
         this.claimedCities.push(city);

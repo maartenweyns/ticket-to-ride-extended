@@ -341,6 +341,7 @@ io.on('connection', (socket) => {
 
             game.playerPutRoute('eu');
             socket.emit('own-cards', game.getPersonalCards(data.pid));
+            io.in(game.gameID).emit('player-overview', game.getUserProperties());
             io.in(game.gameID).emit('player-round', game.getPlayerRound());
         }
     });
