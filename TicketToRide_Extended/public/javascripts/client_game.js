@@ -92,7 +92,7 @@ socket = io(location.host);
             replaceCard(data.repCard, data.newColor, false);
         }
         if (!document.getElementById(data.repCard).classList.contains("loco")) {
-            disableLocomotive();
+            disableLocomotives();
         }
     });
 
@@ -206,6 +206,8 @@ socket = io(location.host);
     })
 
     socket.on('stations', (data) => {
+        document.getElementById("endTurn").style.display = 'none';
+        document.getElementById('generalCards').classList.add('generalCardsAway');
         showStationMenu(data);
     });
 

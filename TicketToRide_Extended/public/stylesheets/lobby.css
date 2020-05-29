@@ -16,6 +16,7 @@ body {
     text-decoration: none;
     padding: 10px;
     background-color: #68381a;
+    transition: background-color 500ms;
     color: white;
     border-radius: 10px;
     border-style: solid;

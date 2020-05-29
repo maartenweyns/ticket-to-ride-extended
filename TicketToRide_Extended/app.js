@@ -191,6 +191,11 @@ io.on('connection', (socket) => {
             return;
         }
 
+        if (game.thingsDone !== 0 && data.color === 'loco') {
+            socket.emit('invalidmove', {message: 'You cannot pick a locomotive at the beginning of your turn!'});
+            return;
+        }
+
         let color = game.getRandomColor();
         let oldColor = game.openCards[data.card];
         game.openCards[data.card] = color;
@@ -336,6 +341,7 @@ io.on('connection', (socket) => {
 
             game.playerPutRoute('eu');
             socket.emit('own-cards', game.getPersonalCards(data.pid));
+            io.in(game.gameID).emit('player-overview', game.getUserProperties());
             io.in(game.gameID).emit('player-round', game.getPlayerRound());
         }
     });

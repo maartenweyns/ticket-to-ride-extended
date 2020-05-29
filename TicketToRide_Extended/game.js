@@ -505,7 +505,7 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
 
 game.prototype.requestStation = function (playerID, city, color) {
     if (this[`player${playerID}`].numberOfStations >= 1 && !this.claimedCities.includes(city) && this[`player${playerID}`][color] >= 1){
-        this[`player${playerID}`].numberOfStations--;
+        this[`player${playerID}`].numberOfStations -= 1;
         this[`player${playerID}`].stations.push(city);
         this[`player${playerID}`][color]--;
         this.claimedCities.push(city);
@@ -679,6 +679,7 @@ game.prototype.getPlayerRound = function () {
 }
 
 game.prototype.sendStationsMessage = function (io) {
+    this.currentRound = 8;
     for (let i = 0; i < 8; i++) {
         if (this[`player${i}`] !== null) {
             let neighbors = [];
