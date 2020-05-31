@@ -68,17 +68,4 @@ imagery.prototype.computeStations = function(continent, city, color, io) {
         });
 }
 
-function savenew(data, continent) {
-    let oldimage = Buffer.from(this[`${continent}WagonImage`], 'base64');
-
-    sharp(data)
-        .composite([{input: oldimage}])
-        .toFormat('png')
-        .toBuffer()
-        .then(combined => {
-            this[`${continent}WagonImage`] = combined.toString('base64');
-            console.log(`[INFO] Finished combining old and new images.`);
-        });
-}
-
 module.exports = imagery;

@@ -508,6 +508,7 @@ game.prototype.requestStation = function (playerID, city, color) {
         this[`player${playerID}`].numberOfStations -= 1;
         this[`player${playerID}`].stations.push(city);
         this[`player${playerID}`][color]--;
+        this[`player${playerID}`].numberOfTrainCards--;
         this.claimedCities.push(city);
         return true;
     } else {
