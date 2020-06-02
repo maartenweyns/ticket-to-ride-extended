@@ -32,7 +32,7 @@ function setup() {
         document.cookie = "gameID=" + gameID + "; expires=" + expires;
 
         // Setup the lobby
-        document.getElementById('playername').style.display = 'none';
+        document.getElementById('playerLogin').style.display = 'none';
         document.getElementById('startbutton').innerText = 'START GAME';
         document.getElementById('startbutton').onclick = function() {
             startGame();

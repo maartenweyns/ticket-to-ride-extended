@@ -1,0 +1,1906 @@
+[START] Game started with ID bNP5uKsH
+[INFO] Player 0 has been created: DonF with socketid omcvJVqlTbUgXMHAAAAB
+[INFO] Player 1 has been created: Laura with socketid G1GUR3WvfN8xSSg4AAAC
+[INFO] Player 2 has been created: Valerie with socketid WJ1mwtNbeMrMO0QlAAAD
+[INFO] Player 3 has been created: Arnoud with socketid 5VkRQzBGSkugWJ3nAAAE
+[INFO] Player 4 has been created: Maarten with socketid iIwhh2SwB2OWx7FhAAAF
+[INFO] Player 5 has been created: Ilseke with socketid O0_IUc5Mv1tLrbzSAAAG
+[INFO] Player 6 has been created: CrashBoy with socketid rq5pE56S96BKeQLCAAAH
+[STARTGAME] The game has been started by id iIwhh2SwB2OWx7FhAAAF
+[UPGRADE] Player 4 updated his socketID to kxjTQe_GYa4ZG7h3AAAJ
+[UPGRADE] Player 3 updated his socketID to 8A6YG7tkp-xCnxWnAAAI
+[UPGRADE] Player 2 updated his socketID to QVA-z6d6D3ZEiVMCAAAK
+[UPGRADE] Player 0 updated his socketID to gKaC2BxzlhIVa2VZAAAM
+[UPGRADE] Player 6 updated his socketID to MzdQab8nKPcxc_IgAAAL
+[UPGRADE] Player 1 updated his socketID to TV39Zub-XW0ehU6EAAAN
+[UPGRADE] Player 5 updated his socketID to K8GKCfhKUu0hj8vIAAAO
+[INFO] Player 4 is now ready!
+[INFO] Player 4 is now ready!
+[INFO] Player 4 is now ready!
+[INFO] A player rejected a short route
+[INFO] Player 2 is now ready!
+[INFO] A player rejected a short route
+[INFO] A player rejected a short route
+[INFO] Player 2 is now ready!
+[INFO] Player 0 is now ready!
+[INFO] A player rejected a short route
+[INFO] Player 0 is now ready!
+[INFO] Player 0 is now ready!
+[INFO] Player 1 is now ready!
+[INFO] Player 1 is now ready!
+[INFO] Player 1 is now ready!
+[INFO] A player rejected a short route
+[INFO] Player 6 is now ready!
+[INFO] Player 6 is now ready!
+[INFO] Player 6 is now ready!
+[INFO] A player rejected a short route
+[INFO] Player 5 is now ready!
+[INFO] A player rejected a short route
+[INFO] Player 5 is now ready!
+[INFO] Player 5 is now ready!
+[INFO] A player rejected a long route
+[INFO] Player 3 is now ready!
+[INFO] Merged Destinations
+[INFO] The game is now in the ongoing state.
+[INFO] Player 1 requested a closed train.
+[INFO] Player 1 requested a closed train.
+[INFO] Player 1 requested a closed train.
+[INFO] Player 2 requested a closed train.
+[INFO] Player 2 requested a closed train.
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 3
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 1 requested a closed train.
+[INFO] Player 1 requested a closed train.
+[INFO] Player 1 requested a closed train.
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 4 requested a closed train.
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 3
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 3
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 2 took an open train.
+[INFO] Player 3 requested a route.
+[INFO] Checking if the user can claim losangeles-sanfrancisco-2 in  us
+[INFO] Drawing wagons for us losangeles-sanfrancisco-2
+All routes from sanfrancisco: 1
+Checking losangeles to sanfrancisco
+All routes from losangeles: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 3 requested a route.
+[INFO] Checking if the user can claim venice-zagreb-1 in  eu
+[INFO] Drawing wagons for eu venice-zagreb-1
+All routes from venice: 1
+Checking venice to zagreb
+All routes from zagreb: 1
+All routes from sanfrancisco: 1
+Checking losangeles to sanfrancisco
+All routes from losangeles: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 4 requested a closed train.
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 6 requested a route.
+[INFO] Checking if the user can claim venice-zurich-1 in  eu
+[INFO] Drawing wagons for eu venice-zurich-1
+All routes from zurich: 1
+Checking venice to zurich
+All routes from venice: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim amsterdam-frankfurt-1 in  eu
+[INFO] Drawing wagons for eu amsterdam-frankfurt-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim littlerock-neworleans-1 in  us
+[INFO] Drawing wagons for us littlerock-neworleans-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 1 requested a route.
+[INFO] Checking if the user can claim wein-zagreb-1 in  eu
+[INFO] Drawing wagons for eu wein-zagreb-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 1 requested a route.
+[INFO] Checking if the user can claim chicago-omaha-1 in  us
+[INFO] Drawing wagons for us chicago-omaha-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 2 requested a closed train.
+[INFO] Player 2 requested a closed train.
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 4 requested a route.
+[INFO] Checking if the user can claim pittsburgh-saintlouis-1 in  us
+[INFO] Drawing wagons for us pittsburgh-saintlouis-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 4 requested a route.
+[INFO] Checking if the user can claim berlin-essen-1 in  eu
+[INFO] Drawing wagons for eu berlin-essen-1
+All routes from essen: 1
+Checking berlin to essen
+All routes from berlin: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim amsterdam-brussels-1 in  eu
+[INFO] Drawing wagons for eu amsterdam-brussels-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim portland-seattle-2 in  us
+[INFO] Drawing wagons for us portland-seattle-2
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 6 requested a route.
+[INFO] Checking if the user can claim rome-venice-1 in  eu
+[INFO] Drawing wagons for eu rome-venice-1
+All routes from zurich: 1
+Checking venice to zurich
+All routes from venice: 2
+Checking rome to venice
+All routes from rome: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 3
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 1 requested a closed train.
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 2 requested a closed train.
+[INFO] Player 3 requested a route.
+[INFO] Checking if the user can claim houston-neworleans-1 in  us
+[INFO] Drawing wagons for us houston-neworleans-1
+All routes from venice: 1
+Checking venice to zagreb
+All routes from zagreb: 1
+All routes from sanfrancisco: 1
+Checking losangeles to sanfrancisco
+All routes from losangeles: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 3 requested a route.
+[INFO] Checking if the user can claim sarajevo-sofia-1 in  eu
+[INFO] Drawing wagons for eu sarajevo-sofia-1
+All routes from venice: 1
+Checking venice to zagreb
+All routes from zagreb: 1
+All routes from sanfrancisco: 1
+Checking losangeles to sanfrancisco
+All routes from losangeles: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 4 requested a route.
+[INFO] Checking if the user can claim newyork-pittsburgh-1 in  us
+[INFO] Drawing wagons for us newyork-pittsburgh-1
+All routes from essen: 1
+Checking berlin to essen
+All routes from berlin: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 4 requested a route.
+[INFO] Checking if the user can claim berlin-warsaw-1 in  eu
+[INFO] Drawing wagons for eu berlin-warsaw-1
+All routes from essen: 1
+Checking berlin to essen
+All routes from berlin: 2
+Checking berlin to warsaw
+All routes from warsaw: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 5 requested a closed train.
+[INFO] Player 5 requested a closed train.
+[INFO] Player 6 requested a route.
+[INFO] Checking if the user can claim brindisi-rome-1 in  eu
+[INFO] Drawing wagons for eu brindisi-rome-1
+All routes from zurich: 1
+Checking venice to zurich
+All routes from venice: 2
+Checking rome to venice
+All routes from rome: 2
+Checking brindisi to rome
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim frankfurt-munchen-1 in  eu
+[INFO] Drawing wagons for eu frankfurt-munchen-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim chicago-duluth-1 in  us
+[INFO] Drawing wagons for us chicago-duluth-1
+All routes from chicago: 1
+Checking chicago to duluth
+All routes from duluth: 1
+All routes from duluth: 1
+Checking chicago to duluth
+All routes from chicago: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 3 requested a closed train.
+[INFO] Player 3 requested a closed train.
+[INFO] Player 4 requested a closed train.
+[INFO] Player 4 requested a closed train.
+[INFO] Player 4 requested a closed train.
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim amsterdam-essen-1 in  eu
+[INFO] Drawing wagons for eu amsterdam-essen-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim seattle-vancouver-2 in  us
+[INFO] Drawing wagons for us seattle-vancouver-2
+All routes from vancouver: 1
+Checking seattle to vancouver
+All routes from seattle: 2
+Checking portland to seattle
+All routes from portland: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 6 requested a route.
+[INFO] Checking if the user can claim athina-brindisi-1 in  eu
+[INFO] Drawing wagons for eu athina-brindisi-1
+All routes from athina: 1
+Checking athina to brindisi
+All routes from brindisi: 2
+Checking brindisi to rome
+All routes from rome: 2
+Checking rome to venice
+All routes from venice: 2
+Checking venice to zurich
+All routes from zurich: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 1 requested a closed train.
+[INFO] Player 1 requested a closed train.
+[INFO] Player 1 requested a closed train.
+[INFO] Player 2 requested a route.
+[INFO] Checking if the user can claim petrograd-stockholm-1 in  eu
+[INFO] Drawing wagons for eu petrograd-stockholm-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 2 requested a route.
+[INFO] Checking if the user can claim kansascity-oklahomacity-2 in  us
+[INFO] Drawing wagons for us kansascity-oklahomacity-2
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 1 requested a route.
+[INFO] Checking if the user can claim warsaw-wilno-1 in  eu
+[INFO] Drawing wagons for eu warsaw-wilno-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 2 requested a route.
+[INFO] Checking if the user can claim kopenhagen-stockholm-2 in  eu
+[INFO] Drawing wagons for eu kopenhagen-stockholm-2
+All routes from kopenhagen: 1
+Checking kopenhagen to stockholm
+All routes from stockholm: 2
+Checking petrograd to stockholm
+All routes from petrograd: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 2 requested a route.
+[INFO] Checking if the user can claim kansascity-omaha-1 in  us
+[INFO] Drawing wagons for us kansascity-omaha-1
+All routes from kopenhagen: 1
+Checking kopenhagen to stockholm
+All routes from stockholm: 2
+Checking petrograd to stockholm
+All routes from petrograd: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 4 requested a closed train.
+[INFO] Player 4 requested a closed train.
+[INFO] Player 4 requested a closed train.
+[INFO] Player 3 took an open train.
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 6 requested a route.
+[INFO] Checking if the user can claim angora-smyrna-1 in  eu
+[INFO] Drawing wagons for eu angora-smyrna-1
+All routes from athina: 1
+Checking athina to brindisi
+All routes from brindisi: 2
+Checking brindisi to rome
+All routes from rome: 2
+Checking rome to venice
+All routes from venice: 2
+Checking venice to zurich
+All routes from zurich: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 3
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 2 requested a closed train.
+[INFO] Player 2 requested a closed train.
+[INFO] Player 2 requested a closed train.
+[INFO] Player 3 requested a route.
+[INFO] Checking if the user can claim sarajevo-zagreb-1 in  eu
+[INFO] Drawing wagons for eu sarajevo-zagreb-1
+All routes from venice: 1
+Checking venice to zagreb
+All routes from zagreb: 2
+Checking sarajevo to zagreb
+All routes from sarajevo: 2
+Checking sarajevo to sofia
+All routes from sofia: 1
+All routes from sanfrancisco: 1
+Checking losangeles to sanfrancisco
+All routes from losangeles: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 3 requested a route.
+[INFO] Checking if the user can claim elpaso-losangeles-1 in  us
+[INFO] Drawing wagons for us elpaso-losangeles-1
+All routes from venice: 1
+Checking venice to zagreb
+All routes from zagreb: 2
+Checking sarajevo to zagreb
+All routes from sarajevo: 2
+Checking sarajevo to sofia
+All routes from sofia: 1
+All routes from sanfrancisco: 1
+Checking losangeles to sanfrancisco
+All routes from losangeles: 2
+Checking elpaso to losangeles
+All routes from elpaso: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 3
+[INFO] Player 4 requested a closed train.
+[INFO] Player 4 requested a closed train.
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 2 requested a closed train.
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 3 requested a closed train.
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim kopenhagen-stockholm-1 in  eu
+[INFO] Drawing wagons for eu kopenhagen-stockholm-1
+All routes from vancouver: 1
+Checking seattle to vancouver
+All routes from seattle: 2
+Checking portland to seattle
+All routes from portland: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 6 took an open train.
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim portland-saltlakecity-1 in  us
+[INFO] Drawing wagons for us portland-saltlakecity-1
+All routes from vancouver: 1
+Checking seattle to vancouver
+All routes from seattle: 2
+Checking portland to seattle
+All routes from portland: 2
+Checking portland to saltlakecity
+All routes from saltlakecity: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 6 requested a closed train.
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim palermo-smyrna-1 in  eu
+[INFO] Drawing wagons for eu palermo-smyrna-1
+All routes from chicago: 1
+Checking chicago to duluth
+All routes from duluth: 1
+All routes from duluth: 1
+Checking chicago to duluth
+All routes from chicago: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim denver-omaha-1 in  us
+[INFO] Drawing wagons for us denver-omaha-1
+All routes from chicago: 1
+Checking chicago to duluth
+All routes from duluth: 1
+All routes from duluth: 1
+Checking chicago to duluth
+All routes from chicago: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 1 requested a route.
+[INFO] Checking if the user can claim kansascity-omaha-2 in  us
+[INFO] Drawing wagons for us kansascity-omaha-2
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 1 requested a route.
+[INFO] Checking if the user can claim brest-paris-1 in  eu
+[INFO] Drawing wagons for eu brest-paris-1
+All routes from brest: 1
+Checking brest to paris
+All routes from paris: 1
+All routes from paris: 1
+Checking brest to paris
+All routes from brest: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 2 requested a route.
+[INFO] Checking if the user can claim moskva-petrograd-1 in  eu
+[INFO] Drawing wagons for eu moskva-petrograd-1
+All routes from kopenhagen: 1
+Checking kopenhagen to stockholm
+All routes from stockholm: 2
+Checking petrograd to stockholm
+All routes from petrograd: 2
+Checking moskva to petrograd
+All routes from moskva: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 2 requested a route.
+[INFO] Checking if the user can claim dallas-houston-1 in  us
+[INFO] Drawing wagons for us dallas-houston-1
+All routes from kopenhagen: 1
+Checking kopenhagen to stockholm
+All routes from stockholm: 2
+Checking petrograd to stockholm
+All routes from petrograd: 2
+Checking moskva to petrograd
+All routes from moskva: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 4 requested a route.
+[INFO] Checking if the user can claim kansascity-oklahomacity-2 in  us
+[INFO] Player 4 requested a route.
+[INFO] Checking if the user can claim kansascity-oklahomacity-1 in  us
+[INFO] Drawing wagons for us kansascity-oklahomacity-1
+All routes from essen: 1
+Checking berlin to essen
+All routes from berlin: 2
+Checking berlin to warsaw
+All routes from warsaw: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 1 requested a route.
+[INFO] Checking if the user can claim denver-phoenix-1 in  us
+[INFO] Drawing wagons for us denver-phoenix-1
+All routes from brest: 1
+Checking brest to paris
+All routes from paris: 1
+All routes from paris: 1
+Checking brest to paris
+All routes from brest: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 1 requested a route.
+[INFO] Checking if the user can claim frankfurt-paris-2 in  eu
+[INFO] Drawing wagons for eu frankfurt-paris-2
+All routes from brest: 1
+Checking brest to paris
+All routes from paris: 2
+Checking frankfurt to paris
+All routes from frankfurt: 1
+All routes from paris: 2
+Checking brest to paris
+All routes from brest: 1
+Checking frankfurt to paris
+All routes from frankfurt: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 2 requested a route.
+[INFO] Checking if the user can claim kharkov-moskva-1 in  eu
+[INFO] Drawing wagons for eu kharkov-moskva-1
+All routes from kopenhagen: 1
+Checking kopenhagen to stockholm
+All routes from stockholm: 2
+Checking petrograd to stockholm
+All routes from petrograd: 2
+Checking moskva to petrograd
+All routes from moskva: 2
+Checking kharkov to moskva
+All routes from kharkov: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 2 requested a route.
+[INFO] Checking if the user can claim dallas-oklahomacity-1 in  us
+[INFO] Drawing wagons for us dallas-oklahomacity-1
+All routes from kopenhagen: 1
+Checking kopenhagen to stockholm
+All routes from stockholm: 2
+Checking petrograd to stockholm
+All routes from petrograd: 2
+Checking moskva to petrograd
+All routes from moskva: 2
+Checking kharkov to moskva
+All routes from kharkov: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 3 requested a closed train.
+[INFO] Player 3 requested a closed train.
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim palermo-rome-1 in  eu
+[INFO] Drawing wagons for eu palermo-rome-1
+All routes from chicago: 1
+Checking chicago to duluth
+All routes from duluth: 1
+All routes from duluth: 1
+Checking chicago to duluth
+All routes from chicago: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim littlerock-saintlouis-1 in  us
+[INFO] Drawing wagons for us littlerock-saintlouis-1
+All routes from chicago: 1
+Checking chicago to duluth
+All routes from duluth: 1
+All routes from duluth: 1
+Checking chicago to duluth
+All routes from chicago: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 2 requested a closed train.
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 4 requested a route.
+[INFO] Checking if the user can claim phoenix-losangeles-1 in  us
+[INFO] Drawing wagons for us phoenix-losangeles-1
+All routes from essen: 1
+Checking berlin to essen
+All routes from berlin: 2
+Checking berlin to warsaw
+All routes from warsaw: 1
+All routes from losangeles: 1
+Checking phoenix to losangeles
+All routes from phoenix: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 4 requested a route.
+[INFO] Checking if the user can claim kyiv-warsaw-1 in  eu
+[INFO] Drawing wagons for eu kyiv-warsaw-1
+All routes from essen: 1
+Checking berlin to essen
+All routes from berlin: 2
+Checking berlin to warsaw
+All routes from warsaw: 2
+Checking kyiv to warsaw
+All routes from losangeles: 1
+Checking phoenix to losangeles
+All routes from phoenix: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim pamplona-paris-2 in  eu
+[INFO] Drawing wagons for eu pamplona-paris-2
+All routes from vancouver: 1
+Checking seattle to vancouver
+All routes from seattle: 2
+Checking portland to seattle
+All routes from portland: 2
+Checking portland to saltlakecity
+All routes from saltlakecity: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim denver-saltlakecity-1 in  us
+[INFO] Drawing wagons for us denver-saltlakecity-1
+All routes from vancouver: 1
+Checking seattle to vancouver
+All routes from seattle: 2
+Checking portland to seattle
+All routes from portland: 2
+Checking portland to saltlakecity
+All routes from saltlakecity: 2
+Checking denver to saltlakecity
+All routes from denver: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 6 requested a route.
+[INFO] Checking if the user can claim athina-smyrna-1 in  eu
+[INFO] Drawing wagons for eu athina-smyrna-1
+All routes from athina: 2
+Checking athina to brindisi
+All routes from brindisi: 2
+Checking brindisi to rome
+All routes from rome: 2
+Checking rome to venice
+All routes from venice: 2
+Checking venice to zurich
+All routes from zurich: 1
+Checking athina to smyrna
+All routes from smyrna: 2
+Checking angora to smyrna
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 6 requested a route.
+[INFO] Checking if the user can claim saultstmarie-winnipeg-1 in  us
+[INFO] Drawing wagons for us saultstmarie-winnipeg-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 1 requested a route.
+[INFO] Checking if the user can claim warsaw-wein-1 in  eu
+[INFO] Drawing wagons for eu warsaw-wein-1
+All routes from brest: 1
+Checking brest to paris
+All routes from paris: 2
+Checking frankfurt to paris
+All routes from frankfurt: 1
+All routes from paris: 2
+Checking brest to paris
+All routes from brest: 1
+Checking frankfurt to paris
+All routes from frankfurt: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 1 requested a route.
+[INFO] Checking if the user can claim lasvegas-losangeles-1 in  us
+[INFO] Drawing wagons for us lasvegas-losangeles-1
+All routes from brest: 1
+Checking brest to paris
+All routes from paris: 2
+Checking frankfurt to paris
+All routes from frankfurt: 1
+All routes from paris: 2
+Checking brest to paris
+All routes from brest: 1
+Checking frankfurt to paris
+All routes from frankfurt: 1
+All routes from losangeles: 1
+Checking lasvegas to losangeles
+All routes from lasvegas: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 2 requested a closed train.
+[INFO] Player 3 requested a route.
+[INFO] Checking if the user can claim constantinople-sofia-1 in  eu
+[INFO] Drawing wagons for eu constantinople-sofia-1
+All routes from venice: 1
+Checking venice to zagreb
+All routes from zagreb: 2
+Checking sarajevo to zagreb
+All routes from sarajevo: 2
+Checking sarajevo to sofia
+All routes from sofia: 2
+Checking constantinople to sofia
+All routes from sanfrancisco: 1
+Checking losangeles to sanfrancisco
+All routes from losangeles: 2
+Checking elpaso to losangeles
+All routes from elpaso: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 3 requested a route.
+[INFO] Checking if the user can claim elpaso-houston-1 in  us
+[INFO] Drawing wagons for us elpaso-houston-1
+All routes from sanfrancisco: 1
+Checking losangeles to sanfrancisco
+All routes from losangeles: 2
+Checking elpaso to losangeles
+All routes from elpaso: 2
+Checking elpaso to houston
+All routes from houston: 2
+Checking houston to neworleans
+All routes from neworleans: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 3
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 2 requested a closed train.
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 3 requested a closed train.
+[INFO] Player 3 requested a closed train.
+[INFO] Player 4 requested a route.
+[INFO] Checking if the user can claim elpaso-oklahomacity-1 in  us
+[INFO] Drawing wagons for us elpaso-oklahomacity-1
+All routes from losangeles: 1
+Checking phoenix to losangeles
+All routes from phoenix: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 5 requested a closed train.
+[INFO] Player 6 requested a closed train.
+[INFO] Player 6 requested a closed train.
+[INFO] Player 6 requested a closed train.
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 2 requested a route.
+[INFO] Checking if the user can claim erzurum-sochi-1 in  eu
+[INFO] Drawing wagons for eu erzurum-sochi-1
+All routes from kopenhagen: 1
+Checking kopenhagen to stockholm
+All routes from stockholm: 2
+Checking petrograd to stockholm
+All routes from petrograd: 2
+Checking moskva to petrograd
+All routes from moskva: 2
+Checking kharkov to moskva
+All routes from kharkov: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 2 requested a route.
+[INFO] Checking if the user can claim duluth-omaha-1 in  us
+[INFO] Drawing wagons for us duluth-omaha-1
+All routes from kopenhagen: 1
+Checking kopenhagen to stockholm
+All routes from stockholm: 2
+Checking petrograd to stockholm
+All routes from petrograd: 2
+Checking moskva to petrograd
+All routes from moskva: 2
+Checking kharkov to moskva
+All routes from kharkov: 1
+All routes from duluth: 1
+Checking duluth to omaha
+All routes from omaha: 2
+Checking kansascity to omaha
+All routes from kansascity: 2
+Checking kansascity to oklahomacity
+All routes from oklahomacity: 2
+Checking dallas to oklahomacity
+All routes from dallas: 2
+Checking dallas to houston
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 3
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 4
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim brussels-paris-1 in  eu
+[INFO] Drawing wagons for eu brussels-paris-1
+All routes from vancouver: 1
+Checking seattle to vancouver
+All routes from seattle: 2
+Checking portland to seattle
+All routes from portland: 2
+Checking portland to saltlakecity
+All routes from saltlakecity: 2
+Checking denver to saltlakecity
+All routes from denver: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim denver-santafe-1 in  us
+[INFO] Drawing wagons for us denver-santafe-1
+All routes from vancouver: 1
+Checking seattle to vancouver
+All routes from seattle: 2
+Checking portland to seattle
+All routes from portland: 2
+Checking portland to saltlakecity
+All routes from saltlakecity: 2
+Checking denver to saltlakecity
+All routes from denver: 2
+Checking denver to santafe
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim duluth-omaha-2 in  us
+[INFO] Drawing wagons for us duluth-omaha-2
+All routes from chicago: 1
+Checking chicago to duluth
+All routes from duluth: 2
+Checking duluth to omaha
+All routes from omaha: 2
+Checking denver to omaha
+All routes from denver: 1
+All routes from duluth: 2
+Checking chicago to duluth
+All routes from chicago: 1
+Checking duluth to omaha
+All routes from omaha: 2
+Checking denver to omaha
+All routes from denver: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim marseille-rome-1 in  eu
+[INFO] Drawing wagons for eu marseille-rome-1
+All routes from chicago: 1
+Checking chicago to duluth
+All routes from duluth: 2
+Checking duluth to omaha
+All routes from omaha: 2
+Checking denver to omaha
+All routes from denver: 1
+All routes from duluth: 2
+Checking chicago to duluth
+All routes from chicago: 1
+Checking duluth to omaha
+All routes from omaha: 2
+Checking denver to omaha
+All routes from denver: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 1 requested a closed train.
+[INFO] Player 1 requested a closed train.
+[INFO] Player 2 requested a route.
+[INFO] Checking if the user can claim kharkov-rostov-1 in  eu
+[INFO] Drawing wagons for eu kharkov-rostov-1
+All routes from kopenhagen: 1
+Checking kopenhagen to stockholm
+All routes from stockholm: 2
+Checking petrograd to stockholm
+All routes from petrograd: 2
+Checking moskva to petrograd
+All routes from moskva: 2
+Checking kharkov to moskva
+All routes from kharkov: 2
+Checking kharkov to rostov
+All routes from rostov: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 3 requested a route.
+[INFO] Checking if the user can claim atlanta-raleigh-1 in  us
+[INFO] Drawing wagons for us atlanta-raleigh-1
+All routes from sanfrancisco: 1
+Checking losangeles to sanfrancisco
+All routes from losangeles: 2
+Checking elpaso to losangeles
+All routes from elpaso: 2
+Checking elpaso to houston
+All routes from houston: 2
+Checking houston to neworleans
+All routes from neworleans: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 4 requested a route.
+[INFO] Checking if the user can claim kansascity-saintlouis-2 in  us
+[INFO] Drawing wagons for us kansascity-saintlouis-2
+All routes from losangeles: 1
+Checking phoenix to losangeles
+All routes from phoenix: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim madrid-pamplona-2 in  eu
+[INFO] Drawing wagons for eu madrid-pamplona-2
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim calgary-vancouver-1 in  us
+[INFO] Drawing wagons for us calgary-vancouver-1
+All routes from calgary: 1
+Checking calgary to vancouver
+All routes from vancouver: 2
+Checking seattle to vancouver
+All routes from seattle: 2
+Checking portland to seattle
+All routes from portland: 2
+Checking portland to saltlakecity
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 6 requested a closed train.
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim marseille-zurich-1 in  eu
+[INFO] Drawing wagons for eu marseille-zurich-1
+All routes from chicago: 1
+Checking chicago to duluth
+All routes from duluth: 2
+Checking duluth to omaha
+All routes from omaha: 2
+Checking denver to omaha
+All routes from denver: 1
+All routes from duluth: 2
+Checking chicago to duluth
+All routes from chicago: 1
+Checking duluth to omaha
+All routes from omaha: 2
+Checking denver to omaha
+All routes from denver: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim elpaso-santafe-1 in  us
+[INFO] Drawing wagons for us elpaso-santafe-1
+All routes from chicago: 1
+Checking chicago to duluth
+All routes from duluth: 2
+Checking duluth to omaha
+All routes from omaha: 2
+Checking denver to omaha
+All routes from denver: 1
+All routes from duluth: 2
+Checking chicago to duluth
+All routes from chicago: 1
+Checking duluth to omaha
+All routes from omaha: 2
+Checking denver to omaha
+All routes from denver: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 2 requested a route.
+[INFO] Checking if the user can claim rostov-sochi-1 in  eu
+[INFO] Drawing wagons for eu rostov-sochi-1
+All routes from kopenhagen: 1
+Checking kopenhagen to stockholm
+All routes from stockholm: 2
+Checking petrograd to stockholm
+All routes from petrograd: 2
+Checking moskva to petrograd
+All routes from moskva: 2
+Checking kharkov to moskva
+All routes from kharkov: 2
+Checking kharkov to rostov
+All routes from rostov: 2
+Checking rostov to sochi
+All routes from sochi: 2
+Checking erzurum to sochi
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 3 requested a closed train.
+[INFO] Player 4 requested a route.
+[INFO] Checking if the user can claim elpaso-phoenix-1 in  us
+[INFO] Drawing wagons for us elpaso-phoenix-1
+All routes from losangeles: 1
+Checking phoenix to losangeles
+All routes from phoenix: 2
+Checking elpaso to phoenix
+All routes from elpaso: 2
+Checking elpaso to oklahomacity
+All routes from oklahomacity: 2
+Checking kansascity to oklahomacity
+All routes from kansascity: 2
+Checking kansascity to saintlouis
+All routes from saintlouis: 2
+Checking pittsburgh to saintlouis
+All routes from pittsburgh: 2
+Checking newyork to pittsburgh
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 6 requested a closed train.
+[INFO] Player 6 requested a closed train.
+[INFO] Player 6 requested a closed train.
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 0 requested a closed train.
+[INFO] Player 1 requested a route.
+[INFO] Checking if the user can claim denver-saltlakecity-2 in  us
+[INFO] Drawing wagons for us denver-saltlakecity-2
+All routes from brest: 1
+Checking brest to paris
+All routes from paris: 2
+Checking frankfurt to paris
+All routes from frankfurt: 1
+All routes from paris: 2
+Checking brest to paris
+All routes from brest: 1
+Checking frankfurt to paris
+All routes from frankfurt: 1
+All routes from losangeles: 1
+Checking lasvegas to losangeles
+All routes from lasvegas: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 1 requested a route.
+[INFO] Checking if the user can claim berlin-wein-1 in  eu
+[INFO] Drawing wagons for eu berlin-wein-1
+All routes from brest: 1
+Checking brest to paris
+All routes from paris: 2
+Checking frankfurt to paris
+All routes from frankfurt: 1
+All routes from paris: 2
+Checking brest to paris
+All routes from brest: 1
+Checking frankfurt to paris
+All routes from frankfurt: 1
+All routes from losangeles: 1
+Checking lasvegas to losangeles
+All routes from lasvegas: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] A player rejected a short route
+[INFO] A player rejected a short route
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 4 requested a closed train.
+[INFO] Player 4 requested a closed train.
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 6 requested a closed train.
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 1 requested a closed train.
+[INFO] Player 1 requested a closed train.
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 3
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 3 requested a closed train.
+[INFO] Player 3 requested a closed train.
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 4 requested a closed train.
+[INFO] A player rejected a short route
+[INFO] A player rejected a long route
+[INFO] Player 6 requested a route.
+[INFO] Checking if the user can claim montreal-saultstmarie-1 in  us
+[INFO] Drawing wagons for us montreal-saultstmarie-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim munchen-zurich-1 in  eu
+[INFO] Drawing wagons for eu munchen-zurich-1
+All routes from chicago: 1
+Checking chicago to duluth
+All routes from duluth: 2
+Checking duluth to omaha
+All routes from omaha: 2
+Checking denver to omaha
+All routes from denver: 1
+All routes from duluth: 2
+Checking chicago to duluth
+All routes from chicago: 1
+Checking duluth to omaha
+All routes from omaha: 2
+Checking denver to omaha
+All routes from denver: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim oklahomacity-santafe-1 in  us
+[INFO] Drawing wagons for us oklahomacity-santafe-1
+All routes from chicago: 1
+Checking chicago to duluth
+All routes from duluth: 2
+Checking duluth to omaha
+All routes from omaha: 2
+Checking denver to omaha
+All routes from denver: 1
+All routes from duluth: 2
+Checking chicago to duluth
+All routes from chicago: 1
+Checking duluth to omaha
+All routes from omaha: 2
+Checking denver to omaha
+All routes from denver: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 2 requested a route.
+[INFO] Checking if the user can claim duluth-saultstmarie-1 in  us
+[INFO] Drawing wagons for us duluth-saultstmarie-1
+All routes from saultstmarie: 1
+Checking duluth to saultstmarie
+All routes from duluth: 2
+Checking duluth to omaha
+All routes from omaha: 2
+Checking kansascity to omaha
+All routes from kansascity: 2
+Checking kansascity to oklahomacity
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 3 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 3 requested a closed train.
+[INFO] Player 3 requested a closed train.
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim essen-kopenhagen-1 in  eu
+[INFO] Drawing wagons for eu essen-kopenhagen-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 6 requested a route.
+[INFO] Checking if the user can claim calgary-seattle-1 in  us
+[INFO] Drawing wagons for us calgary-seattle-1
+All routes from seattle: 1
+Checking calgary to seattle
+All routes from calgary: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 1 requested a route.
+[INFO] Checking if the user can claim berlin-frankfurt-1 in  eu
+[INFO] Drawing wagons for eu berlin-frankfurt-1
+All routes from brest: 1
+Checking brest to paris
+All routes from paris: 2
+Checking frankfurt to paris
+All routes from frankfurt: 2
+Checking berlin to frankfurt
+All routes from berlin: 2
+Checking berlin to wein
+All routes from wein: 3
+Checking wein to zagreb
+All routes from zagreb: 1
+Checking warsaw to wein
+All routes from warsaw: 2
+Checking warsaw to wilno
+All routes from wilno: 1
+All routes from paris: 2
+Checking brest to paris
+All routes from brest: 1
+Checking frankfurt to paris
+All routes from frankfurt: 2
+Checking berlin to frankfurt
+All routes from berlin: 2
+Checking berlin to wein
+All routes from wein: 3
+Checking wein to zagreb
+All routes from losangeles: 1
+Checking lasvegas to losangeles
+All routes from lasvegas: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 1 requested a route.
+[INFO] Checking if the user can claim denver-kansascity-2 in  us
+[INFO] Drawing wagons for us denver-kansascity-2
+All routes from brest: 1
+Checking brest to paris
+All routes from paris: 2
+Checking frankfurt to paris
+All routes from frankfurt: 2
+Checking berlin to frankfurt
+All routes from berlin: 2
+Checking berlin to wein
+All routes from wein: 3
+Checking wein to zagreb
+All routes from zagreb: 1
+Checking warsaw to wein
+All routes from warsaw: 2
+Checking warsaw to wilno
+All routes from wilno: 1
+All routes from losangeles: 1
+Checking lasvegas to losangeles
+All routes from lasvegas: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 2 requested a route.
+[INFO] Checking if the user can claim essen-kopenhagen-2 in  eu
+[INFO] Drawing wagons for eu essen-kopenhagen-2
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 3 requested a route.
+[INFO] Checking if the user can claim atlanta-neworleans-1 in  us
+[INFO] Drawing wagons for us atlanta-neworleans-1
+All routes from sanfrancisco: 1
+Checking losangeles to sanfrancisco
+All routes from losangeles: 2
+Checking elpaso to losangeles
+All routes from elpaso: 2
+Checking elpaso to houston
+All routes from houston: 2
+Checking houston to neworleans
+All routes from neworleans: 2
+Checking atlanta to neworleans
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 4 requested a route.
+[INFO] Checking if the user can claim bucuresti-sofia-1 in  eu
+[INFO] Drawing wagons for eu bucuresti-sofia-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim cadiz-madrid-1 in  eu
+[INFO] Drawing wagons for eu cadiz-madrid-1
+All routes from cadiz: 1
+Checking cadiz to madrid
+All routes from madrid: 2
+Checking madrid to pamplona
+All routes from pamplona: 2
+Checking pamplona to paris
+All routes from paris: 2
+Checking brussels to paris
+All routes from brussels: 2
+Checking amsterdam to brussels
+All routes from amsterdam: 2
+Checking amsterdam to essen
+All routes from essen: 2
+Checking essen to kopenhagen
+All routes from kopenhagen: 2
+Checking kopenhagen to stockholm
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim seattle-vancouver-1 in  us
+[INFO] Drawing wagons for us seattle-vancouver-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 6 requested a route.
+[INFO] Checking if the user can claim calgary-winnipeg-1 in  us
+[INFO] Drawing wagons for us calgary-winnipeg-1
+All routes from seattle: 1
+Checking calgary to seattle
+All routes from calgary: 2
+Checking calgary to winnipeg
+All routes from winnipeg: 2
+Checking saultstmarie to winnipeg
+All routes from saultstmarie: 2
+Checking montreal to saultstmarie
+All routes from montreal: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim chicago-saintlouis-2 in  us
+[INFO] Drawing wagons for us chicago-saintlouis-2
+All routes from chicago: 2
+Checking chicago to duluth
+All routes from duluth: 2
+Checking duluth to omaha
+All routes from omaha: 2
+Checking denver to omaha
+All routes from denver: 1
+Checking chicago to saintlouis
+All routes from saintlouis: 2
+Checking littlerock to saintlouis
+All routes from littlerock: 2
+Checking littlerock to neworleans
+All routes from duluth: 2
+Checking chicago to duluth
+All routes from chicago: 2
+Checking chicago to saintlouis
+All routes from saintlouis: 2
+Checking littlerock to saintlouis
+All routes from littlerock: 2
+Checking littlerock to neworleans
+All routes from neworleans: 1
+Checking duluth to omaha
+All routes from omaha: 2
+Checking denver to omaha
+All routes from denver: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim amsterdam-londen-1 in  eu
+[INFO] Drawing wagons for eu amsterdam-londen-1
+All routes from duluth: 2
+Checking chicago to duluth
+All routes from chicago: 2
+Checking chicago to saintlouis
+All routes from saintlouis: 2
+Checking littlerock to saintlouis
+All routes from littlerock: 2
+Checking littlerock to neworleans
+All routes from neworleans: 1
+Checking duluth to omaha
+All routes from omaha: 2
+Checking denver to omaha
+All routes from denver: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 1 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 1 requested a closed train.
+[INFO] Player 1 requested a closed train.
+[INFO] Player 2 requested a closed train.
+[INFO] Player 2 requested a closed train.
+[INFO] Player 2 requested a closed train.
+[INFO] Player 3 requested a route.
+[INFO] Checking if the user can claim montreal-newyork-1 in  us
+[INFO] Drawing wagons for us montreal-newyork-1
+All routes from montreal: 1
+Checking montreal to newyork
+All routes from newyork: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 4 requested a route.
+[INFO] Checking if the user can claim bucuresti-budapest-1 in  eu
+[INFO] Drawing wagons for eu bucuresti-budapest-1
+All routes from budapest: 1
+Checking bucuresti to budapest
+All routes from bucuresti: 2
+Checking bucuresti to sofia
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 4 requested a route.
+[INFO] Checking if the user can claim atlanta-nashville-1 in  us
+[INFO] Drawing wagons for us atlanta-nashville-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim barcelona-pamplona-1 in  eu
+[INFO] Drawing wagons for eu barcelona-pamplona-1
+All routes from barcelona: 1
+Checking barcelona to pamplona
+All routes from pamplona: 3
+Checking pamplona to paris
+All routes from paris: 2
+Checking brussels to paris
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 2 requested a closed train.
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim dallas-houston-2 in  us
+[INFO] Drawing wagons for us dallas-houston-2
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 6 requested a route.
+[INFO] Checking if the user can claim boston-newyork-1 in  us
+[INFO] Drawing wagons for us boston-newyork-1
+All routes from seattle: 1
+Checking calgary to seattle
+All routes from calgary: 2
+Checking calgary to winnipeg
+All routes from winnipeg: 2
+Checking saultstmarie to winnipeg
+All routes from saultstmarie: 2
+Checking montreal to saultstmarie
+All routes from montreal: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 1 requested a closed train.
+[INFO] Player 1 requested a closed train.
+[INFO] Player 1 requested a closed train.
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 2 requested a closed train.
+[INFO] Player 2 requested a closed train.
+[INFO] Player 3 requested a route.
+[INFO] Checking if the user can claim newyork-washington-1 in  us
+[INFO] Drawing wagons for us newyork-washington-1
+All routes from montreal: 1
+Checking montreal to newyork
+All routes from newyork: 2
+Checking newyork to washington
+All routes from washington: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 0
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 4 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 6 requested a route.
+[INFO] Checking if the user can claim boston-montreal-1 in  us
+[INFO] Drawing wagons for us boston-montreal-1
+All routes from seattle: 1
+Checking calgary to seattle
+All routes from calgary: 2
+Checking calgary to winnipeg
+All routes from winnipeg: 2
+Checking saultstmarie to winnipeg
+All routes from saultstmarie: 2
+Checking montreal to saultstmarie
+All routes from montreal: 2
+Checking boston to montreal
+All routes from boston: 2
+Checking boston to newyork
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 1 requested a route.
+[INFO] Checking if the user can claim petrograd-wilno-1 in  eu
+[INFO] Drawing wagons for eu petrograd-wilno-1
+All routes from brest: 1
+Checking brest to paris
+All routes from paris: 2
+Checking frankfurt to paris
+All routes from frankfurt: 2
+Checking berlin to frankfurt
+All routes from berlin: 2
+Checking berlin to wein
+All routes from wein: 3
+Checking wein to zagreb
+All routes from zagreb: 1
+Checking warsaw to wein
+All routes from warsaw: 2
+Checking warsaw to wilno
+All routes from wilno: 2
+Checking petrograd to wilno
+All routes from losangeles: 1
+Checking lasvegas to losangeles
+All routes from lasvegas: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 1 requested a route.
+[INFO] Checking if the user can claim lasvegas-saltlakecity-1 in  us
+[INFO] Drawing wagons for us lasvegas-saltlakecity-1
+All routes from losangeles: 1
+Checking lasvegas to losangeles
+All routes from lasvegas: 2
+Checking lasvegas to saltlakecity
+All routes from saltlakecity: 2
+Checking denver to saltlakecity
+All routes from denver: 3
+Checking denver to phoenix
+All routes from phoenix: 1
+Checking denver to kansascity
+All routes from kansascity: 2
+Checking kansascity to omaha
+All routes from omaha: 2
+Checking chicago to omaha
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 3
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 2 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 3 requested a route.
+[INFO] Checking if the user can claim raleigh-washington-1 in  us
+[INFO] Drawing wagons for us raleigh-washington-1
+All routes from montreal: 1
+Checking montreal to newyork
+All routes from newyork: 2
+Checking newyork to washington
+All routes from washington: 2
+Checking raleigh to washington
+All routes from raleigh: 2
+Checking atlanta to raleigh
+All routes from atlanta: 2
+Checking atlanta to neworleans
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 4 requested a route.
+[INFO] Checking if the user can claim frankfurt-paris-1 in  eu
+[INFO] Drawing wagons for eu frankfurt-paris-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 4 requested a route.
+[INFO] Checking if the user can claim portland-seattle-1 in  us
+[INFO] Drawing wagons for us portland-seattle-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 5 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 5 requested a closed train.
+[INFO] Player 5 requested a closed train.
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 6 took an open train.
+[INFO] The amount of open locomotives is 2
+[INFO] Player 0 took an open train.
+[INFO] The amount of open locomotives is 1
+[INFO] Player 1 requested a route.
+[INFO] Checking if the user can claim brindisi-palermo-1 in  eu
+[INFO] Drawing wagons for eu brindisi-palermo-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 2 requested a route.
+[INFO] Checking if the user can claim angora-erzurum-1 in  eu
+[INFO] Drawing wagons for eu angora-erzurum-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 2 requested a route.
+[INFO] Checking if the user can claim saultstmarie-toronto-1 in  us
+[INFO] Drawing wagons for us saultstmarie-toronto-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 3 requested a route.
+[INFO] Checking if the user can claim toronto-montreal-1 in  us
+[INFO] Drawing wagons for us toronto-montreal-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 4 requested a closed train.
+[INFO] Player 4 requested a closed train.
+[INFO] Player 4 requested a closed train.
+[INFO] Player 5 requested a route.
+[INFO] Checking if the user can claim brest-pamplona-1 in  eu
+[INFO] Drawing wagons for eu brest-pamplona-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 6 requested a route.
+[INFO] Checking if the user can claim bucuresti-kyiv-1 in  eu
+[INFO] Drawing wagons for eu bucuresti-kyiv-1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim edinburgh-londen-2 in  eu
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim edinburgh-londen-1 in  eu
+[INFO] Drawing wagons for eu edinburgh-londen-1
+All routes from edinburgh: 1
+Checking edinburgh to londen
+All routes from londen: 2
+Checking amsterdam to londen
+All routes from amsterdam: 2
+Checking amsterdam to frankfurt
+All routes from frankfurt: 2
+Checking frankfurt to munchen
+All routes from munchen: 2
+Checking munchen to zurich
+All routes from zurich: 2
+Checking marseille to zurich
+All routes from marseille: 2
+Checking marseille to rome
+All routes from rome: 2
+Checking palermo to rome
+All routes from palermo: 2
+Checking palermo to smyrna
+All routes from smyrna: 1
+All routes from duluth: 2
+Checking chicago to duluth
+All routes from chicago: 2
+Checking chicago to saintlouis
+All routes from saintlouis: 2
+Checking littlerock to saintlouis
+All routes from littlerock: 2
+Checking littlerock to neworleans
+All routes from neworleans: 1
+Checking duluth to omaha
+All routes from omaha: 2
+Checking denver to omaha
+All routes from denver: 1
+[INFO] Finished drawing wagons.
+[INFO] Finished combining old and new images.
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim kansascity-oklahomacity-2 in  us
+[INFO] Player 0 requested a route.
+[INFO] Checking if the user can claim kansascity-oklahomacity-2 in  us
+[INFO] Player 1 requested a closed train.
+[INFO] Player 1 requested a closed train.
+[INFO] Player 1 requested a closed train.
