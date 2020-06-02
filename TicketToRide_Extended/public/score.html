@@ -25,9 +25,33 @@
         })();
     </script>
     <!-- End Matomo Code -->
+
+    <style>
+        #loadingScreen {
+              width: 100vw;
+              height: 100vh;
+              position: fixed;
+              z-index: 100;
+              background-color: #004671;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              color: white;
+              font-size: 2em;
+              font-family: 'Permanent Marker', cursive;
+              transition: 1s;
+        }
+  </style>
 </head>
 
 <body>
+    <div id="loadingScreen">
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_rjtT66.json" background="transparent"
+              speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+        <p>Loading Scores...</p>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
         integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo=" crossorigin="anonymous"></script>
     <script src="./javascripts/scores.js"></script>
