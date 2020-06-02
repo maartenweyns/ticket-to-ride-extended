@@ -33,6 +33,7 @@ socket = io(location.host);
 
     socket.on('final-score', (data) => {
         if (!scoresDrawn) {
+            document.body.removeChild(document.getElementById('loadingScreen'));
             showScoresNew(data);
             scoresDrawn = true;
         }
