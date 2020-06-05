@@ -9,6 +9,7 @@
     <link href="stylesheets/lobby.css" rel="stylesheet" type="text/css" />
     <link href="stylesheets/transitions.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
     <!-- Matomo -->
     <script type="text/javascript">
@@ -36,11 +37,14 @@
         <div class="join" style="text-align:center;">
 
             <div class="userLogin" id="playerLogin">
-                <input type="text" id="playername" placeholder="Your name here!" autocomplete="off" maxlength="10"/>
+                <input type="text" id="playername" placeholder="Your name here!" autocomplete="off" maxlength="10" required="true"/>
                 <p class="or">OR</p>
                 <a href="/login"><button class="loginButton">LOGIN</button></a>
             </div>
-            <button class="startButton" id="startbutton" onclick="setup()">JOIN GAME</button>
+            <hr>
+            <input type=text id="gameID" placeholder="Game ID" autocomplete="off" maxlength="8"/>
+            <button class="startButton" id="startbutton" onclick="setup(false)">JOIN GAME</button>
+            <button class="startButton" id="createbutton" onclick="setup(true)">CREATE GAME</button>
             <p class="infoText" id="cookieMessage">By clicking "Join Game", you agree to the use of cookies.</p>
             <p class="infoText">Created by <strong>Maarten Weyns</strong></p>
             <img class="mwglogo" src="images/logos/mawey-games-bluedrop.svg">

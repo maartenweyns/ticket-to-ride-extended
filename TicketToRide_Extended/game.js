@@ -1,8 +1,11 @@
 var route = require("./route");
 var destination = require("./destination");
+var Imagery = require('./imagery');
 
 const game = function (gameID) {
     this.gameID = gameID;
+
+    this.imagery = new Imagery(this.gameID);
 
     this.player0 = null;
     this.player1 = null;

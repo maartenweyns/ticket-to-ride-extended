@@ -9,16 +9,28 @@ document.getElementById('playername').addEventListener("keyup", function(event) 
     }
 });
 
-function setup() {
+function setup(creating) {
     if (document.getElementById('playername').value === "") {
-        document.getElementById('playername').classList.add("warning");
+        showAlert('Please fill in your name!')
         return;
     }
 
     // Setup the socket.io connection
     socket = io(location.host);
-    // Send the player's name to the server
-    socket.emit('player-name', document.getElementById('playername').value);
+
+    if (creating) {
+        console.log('Creating an awesome game!');
+        socket.emit('create-game');
+    } else {
+        console.log('Joining your friends!');
+        // Send the player's name to the server
+        socket.emit('player-name', {name: document.getElementById('playername').value, gid: document.getElementById('gameID').value});
+    }
+
+    socket.on('join', (gid) => {
+        // Send the player's name to the server
+        socket.emit('player-name', {name: document.getElementById('playername').value, gid: gid});
+    })
 
     socket.on('information', (data) => {
         playerID = data.playerID;
@@ -33,13 +45,15 @@ function setup() {
 
         // Setup the lobby
         document.getElementById('playerLogin').style.display = 'none';
+        document.getElementById('gameID').style.display = 'none';
+        document.getElementById('createbutton').style.display = 'none';
         document.getElementById('startbutton').innerText = 'START GAME';
         document.getElementById('startbutton').onclick = function() {
             startGame();
         }
-        let audio = new Audio("sounds/MenuMusic.mp3");
-        audio.loop = true;
-        audio.play();
+        // let audio = new Audio("sounds/MenuMusic.mp3");
+        // audio.loop = true;
+        // audio.play();
     });
 
     socket.on('player-overview', (players) => {
@@ -49,6 +63,14 @@ function setup() {
     socket.on('start-game', () => {
         window.location.pathname = '/play';
     });
+
+    socket.on('game-ongoing', () => {
+		showAlert('This game has already started!');
+    });
+
+	socket.on('invalid-game', () => {
+		showAlert('That game does not exist!');
+	});
 }
 
 function addUsers(users) {
@@ -69,6 +91,18 @@ function startGame() {
 particlesJS.load('particles-js', '../config/particles.json', function() {
     console.log('callback - particles.js config loaded');
 });
+
+function showAlert(message) {
+    if (document.getElementsByClassName('alert').length === 0) {
+        let div = document.createElement('div');
+        div.innerText = message;
+        div.classList.add('alert');
+        document.body.appendChild(div);
+        setTimeout(() => {
+            document.body.removeChild(div);
+        }, 4000);
+    }
+}
 
 function getCookie(cname) {
     var name = cname + "=";
