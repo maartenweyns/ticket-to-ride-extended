@@ -53,6 +53,8 @@ const game = function (gameID) {
     this.claimedCities = [];
 
     this.gameState = "lobby";
+
+    this.playerColors = ["yellow", "lightblue", "grey", "purple", "red", "green", "brightyellow", "blue"];
 };
 
 game.prototype.setOpenCards = function () {

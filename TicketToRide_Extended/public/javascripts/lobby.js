@@ -70,7 +70,11 @@ function setup(creating) {
 
 	socket.on('invalid-game', () => {
 		showAlert('That game does not exist!');
-	});
+    });
+    
+    socket.on('game-full', () => {
+        showAlert('That game is already full!');
+    });
 }
 
 function addUsers(users) {
@@ -91,31 +95,3 @@ function startGame() {
 particlesJS.load('particles-js', '../config/particles.json', function() {
     console.log('callback - particles.js config loaded');
 });
-
-function showAlert(message) {
-    if (document.getElementsByClassName('alert').length === 0) {
-        let div = document.createElement('div');
-        div.innerText = message;
-        div.classList.add('alert');
-        document.body.appendChild(div);
-        setTimeout(() => {
-            document.body.removeChild(div);
-        }, 4000);
-    }
-}
-
-function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}

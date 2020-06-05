@@ -42,8 +42,6 @@ app.use('/', indexRouter);
 var server = http.createServer(app);
 const io = require('socket.io')(server);
 
-var playerColors = ["yellow", "lightblue", "grey", "purple", "red", "green", "brightyellow", "blue"];
-
 let games = new Map();
 
 io.on('connection', (socket) => {
@@ -67,10 +65,16 @@ io.on('connection', (socket) => {
 		if (game.gameState !== 'lobby') {
 		    socket.emit('game-ongoing');
 		    return;
-		}	
+        }
+        
+        if (game.amountOfPlayers > 7) {
+            socket.emit('game-full');
+            return;
+        }
+
         socket.join(game.gameID);
         socket.emit('information', {playerID: game.amountOfPlayers, gameID: game.gameID});
-        game["player" + game.amountOfPlayers] = new Player(game.amountOfPlayers, name, playerColors.pop(), socket.id);
+        game["player" + game.amountOfPlayers] = new Player(game.amountOfPlayers, name, game.playerColors.pop(), socket.id);
         console.log("[INFO] Player " + game.amountOfPlayers + " has been created: " + name + " with socketid " + socket.id);
         game.amountOfPlayers++;
         io.in(game.gameID).emit('player-overview', game.getUserProperties());
@@ -142,10 +146,14 @@ io.on('connection', (socket) => {
     });
 
     socket.on('request-scoring', (data) => {
-        let game = games.get(Object.keys(socket.rooms)[1]);
-        if (data.gameID === game.gameID) {
-            socket.emit('player-overview', game.getUserProperties());
-            socket.emit('final-score', game.calculateScore());
+        let game = games.get(data.gameID);
+        if (game !== undefined) {
+            if (game.endGameNow) {
+                socket.emit('player-overview', game.getUserProperties());
+                socket.emit('final-score', game.calculateScore());
+            } else {
+                socket.emit('play');
+            }
         } else {
             socket.emit('lobby');
         }
