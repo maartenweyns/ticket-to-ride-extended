@@ -6,7 +6,6 @@ var http = require("http");
 var Player = require('./player');
 var Game = require("./game");
 
-var port = process.argv[2];
 var app = express();
 
 const {auth} = require('express-openid-connect');
@@ -433,6 +432,6 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(port);
+server.listen(3200);
 
 module.exports = app;
