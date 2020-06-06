@@ -9,7 +9,6 @@ var Game = require("./game");
 var port = process.argv[2];
 var app = express();
 
-const ShortUniqueId = require('short-unique-id').default;
 const {auth} = require('express-openid-connect');
 
 // Auth0 authentication details
@@ -23,10 +22,6 @@ const authConfig = {
     clientID: '6536rh17o9VD1KkqEvz02Rz4vECMnwR5',
     issuerBaseURL: 'https://dev-osfslp4f.eu.auth0.com'
 };
-
-// instantiate uid
-const uid = new ShortUniqueId();
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -47,7 +42,7 @@ let games = new Map();
 io.on('connection', (socket) => {
 
     socket.on('create-game', () => {
-		let gid = uid.randomUUID(8);
+		let gid = `TTR${Math.floor(Math.random() * 100000000)}`;
 		games.set(gid, new Game(gid));
         socket.emit('join', gid);
         console.log(`[CREATEGAME] Game with id ${gid} created!`);
@@ -80,7 +75,7 @@ io.on('connection', (socket) => {
         io.in(game.gameID).emit('player-overview', game.getUserProperties());
     });
 
-    socket.on('start-game', (data) => {
+    socket.on('start-game', () => {
 		let game = games.get(Object.keys(socket.rooms)[1]);
 		if (game === undefined) {
 	    	socket.emit('invalid-game');

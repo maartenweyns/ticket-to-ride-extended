@@ -2,17 +2,22 @@ var socket;
 var playerID;
 var gameID;
 
-document.getElementById('playername').addEventListener("keyup", function(event) {
-    // Number 13 is the "Enter" key on the keyboard
-    if (event.keyCode === 13) {
-        setup();
-    }
-});
-
 function setup(creating) {
-    if (document.getElementById('playername').value === "") {
-        showAlert('Please fill in your name!')
-        return;
+    let nameEntered;
+    if (creating) {
+        if (document.getElementById('createName').value === "") {
+            showAlert('Please fill in your name!')
+            return;
+        } else {
+            nameEntered = document.getElementById('createName').value.toUpperCase();
+        }
+    } else {
+        if (document.getElementById('joinName').value === "") {
+            showAlert('Please fill in your name!')
+            return;
+        } else {
+            nameEntered = document.getElementById('joinName').value.toUpperCase();
+        }
     }
 
     // Setup the socket.io connection
@@ -24,17 +29,18 @@ function setup(creating) {
     } else {
         console.log('Joining your friends!');
         // Send the player's name to the server
-        socket.emit('player-name', {name: document.getElementById('playername').value, gid: document.getElementById('gameID').value});
+        socket.emit('player-name', {name: nameEntered, gid: document.getElementById('gameID').value.toUpperCase()});
     }
 
     socket.on('join', (gid) => {
         // Send the player's name to the server
-        socket.emit('player-name', {name: document.getElementById('playername').value, gid: gid});
+        socket.emit('player-name', {name: nameEntered, gid: gid});
     })
 
     socket.on('information', (data) => {
         playerID = data.playerID;
         gameID = data.gameID;
+        document.getElementById('gidDisplay').innerText = `You are in game ${gameID}`;
 
         // Setup the cookies
         let expires = new Date();
@@ -44,16 +50,13 @@ function setup(creating) {
         document.cookie = "gameID=" + gameID + "; expires=" + expires;
 
         // Setup the lobby
-        document.getElementById('playerLogin').style.display = 'none';
-        document.getElementById('gameID').style.display = 'none';
-        document.getElementById('createbutton').style.display = 'none';
-        document.getElementById('startbutton').innerText = 'START GAME';
-        document.getElementById('startbutton').onclick = function() {
-            startGame();
+        document.getElementById('joinWindow').style.display = 'none';
+        document.getElementById('createWindow').style.display = 'none';
+        document.getElementById('options').style.display = 'none';
+        document.getElementById('players').style.display = 'block';
+        if (playerID === 0) {
+            document.getElementById('startGame').style.display = 'block';
         }
-        // let audio = new Audio("sounds/MenuMusic.mp3");
-        // audio.loop = true;
-        // audio.play();
     });
 
     socket.on('player-overview', (players) => {
@@ -75,6 +78,16 @@ function setup(creating) {
     socket.on('game-full', () => {
         showAlert('That game is already full!');
     });
+}
+
+function join() {
+    document.getElementById('options').style.display = 'none';
+    document.getElementById('joinWindow').style.display = 'flex';
+}
+
+function create() {
+    document.getElementById('options').style.display = 'none';
+    document.getElementById('createWindow').style.display = 'flex';
 }
 
 function addUsers(users) {
