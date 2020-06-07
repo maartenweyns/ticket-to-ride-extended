@@ -2,27 +2,45 @@ var socket;
 var playerID;
 var gameID;
 
-document.getElementById('playername').addEventListener("keyup", function(event) {
-    // Number 13 is the "Enter" key on the keyboard
-    if (event.keyCode === 13) {
-        setup();
-    }
-});
-
-function setup() {
-    if (document.getElementById('playername').value === "") {
-        document.getElementById('playername').classList.add("warning");
-        return;
+function setup(creating) {
+    let nameEntered;
+    if (creating) {
+        if (document.getElementById('createName').value === "") {
+            showAlert('Please fill in your name!')
+            return;
+        } else {
+            nameEntered = document.getElementById('createName').value.toUpperCase();
+        }
+    } else {
+        if (document.getElementById('joinName').value === "") {
+            showAlert('Please fill in your name!')
+            return;
+        } else {
+            nameEntered = document.getElementById('joinName').value.toUpperCase();
+        }
     }
 
     // Setup the socket.io connection
     socket = io(location.host);
-    // Send the player's name to the server
-    socket.emit('player-name', document.getElementById('playername').value);
+
+    if (creating) {
+        console.log('Creating an awesome game!');
+        socket.emit('create-game');
+    } else {
+        console.log('Joining your friends!');
+        // Send the player's name to the server
+        socket.emit('player-name', {name: nameEntered, gid: document.getElementById('gameID').value.toUpperCase()});
+    }
+
+    socket.on('join', (gid) => {
+        // Send the player's name to the server
+        socket.emit('player-name', {name: nameEntered, gid: gid});
+    })
 
     socket.on('information', (data) => {
         playerID = data.playerID;
         gameID = data.gameID;
+        document.getElementById('gidDisplay').innerText = `You are in game ${gameID}`;
 
         // Setup the cookies
         let expires = new Date();
@@ -32,14 +50,13 @@ function setup() {
         document.cookie = "gameID=" + gameID + "; expires=" + expires;
 
         // Setup the lobby
-        document.getElementById('playerLogin').style.display = 'none';
-        document.getElementById('startbutton').innerText = 'START GAME';
-        document.getElementById('startbutton').onclick = function() {
-            startGame();
+        document.getElementById('joinWindow').style.display = 'none';
+        document.getElementById('createWindow').style.display = 'none';
+        document.getElementById('options').style.display = 'none';
+        document.getElementById('players').style.display = 'block';
+        if (playerID === 0) {
+            document.getElementById('startGame').style.display = 'block';
         }
-        let audio = new Audio("sounds/MenuMusic.mp3");
-        audio.loop = true;
-        audio.play();
     });
 
     socket.on('player-overview', (players) => {
@@ -49,6 +66,28 @@ function setup() {
     socket.on('start-game', () => {
         window.location.pathname = '/play';
     });
+
+    socket.on('game-ongoing', () => {
+		showAlert('This game has already started!');
+    });
+
+	socket.on('invalid-game', () => {
+		showAlert('That game does not exist!');
+    });
+    
+    socket.on('game-full', () => {
+        showAlert('That game is already full!');
+    });
+}
+
+function join() {
+    document.getElementById('options').style.display = 'none';
+    document.getElementById('joinWindow').style.display = 'flex';
+}
+
+function create() {
+    document.getElementById('options').style.display = 'none';
+    document.getElementById('createWindow').style.display = 'flex';
 }
 
 function addUsers(users) {
@@ -69,19 +108,3 @@ function startGame() {
 particlesJS.load('particles-js', '../config/particles.json', function() {
     console.log('callback - particles.js config loaded');
 });
-
-function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}

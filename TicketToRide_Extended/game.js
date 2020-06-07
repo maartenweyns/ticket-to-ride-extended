@@ -1,8 +1,11 @@
 var route = require("./route");
 var destination = require("./destination");
+var Imagery = require('./imagery');
 
 const game = function (gameID) {
     this.gameID = gameID;
+
+    this.imagery = new Imagery(this.gameID);
 
     this.player0 = null;
     this.player1 = null;
@@ -50,6 +53,8 @@ const game = function (gameID) {
     this.claimedCities = [];
 
     this.gameState = "lobby";
+
+    this.playerColors = ["yellow", "lightblue", "grey", "purple", "red", "green", "brightyellow", "blue"];
 };
 
 game.prototype.setOpenCards = function () {

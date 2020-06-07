@@ -42,6 +42,10 @@ socket = io(location.host);
     socket.on('lobby', () => {
         window.location.pathname = '/';
     });
+
+    socket.on('play', () => {
+        window.location.pathname = '/play';
+    })
 })();
 
 function createPlayers(data) {
