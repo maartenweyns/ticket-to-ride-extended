@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var http = require("http");
 var Player = require('./player');
 var Game = require("./game");
+var Utilities = require('./utilities');
 
 var app = express();
 
@@ -109,24 +110,15 @@ io.on('connection', (socket) => {
 
         if (game.gameState === 'ongoing') {
             io.in(game.gameID).emit('player-round', game.getPlayerRound());
-            socket.emit('own-cards', game.getPersonalCards(pid));
+            socket.emit('own-cards', game["player" + pid].getTrainCards());
             socket.emit('own-destinations', {uncompleted: game["player" + pid].destinations, completed: game["player" + pid].completedDestinations});
 
             socket.emit('existing-trains', {eu: game.imagery.euWagonImage, us: game.imagery.usWagonImage});
         }
 
         if (game.gameState === 'routes') {
-            // Send own tickets
-            let color1 = game.getRandomColor();
-            let color2 = game.getRandomColor();
-            let color3 = game.getRandomColor();
-            let color4 = game.getRandomColor();
-            game["player" + pid][color1]++;
-            game["player" + pid][color2]++;
-            game["player" + pid][color3]++;
-            game["player" + pid][color4]++;
-            game["player" + pid].numberOfTrainCards += 4;
-            socket.emit('own-cards', game.getPersonalCards(pid));
+            game["player" + pid].getInitialTrainCards();
+            socket.emit('own-cards', game["player" + pid].getTrainCards());
 
             let routes;
             let longdesti = game.longStack.pop();
@@ -223,7 +215,7 @@ io.on('connection', (socket) => {
             return;
         }
 
-        let color = game.getRandomColor();
+        let color = Utilities.getRandomColor();
         let oldColor = game.openCards[data.card];
         game.openCards[data.card] = color;
 
@@ -234,19 +226,16 @@ io.on('connection', (socket) => {
             io.in(game.gameID).emit('open-cards', {cards: game.getOpenCards(), shuffle: true});
         }
 
-        game["player" + pid].numberOfTrainCards++;
-        game["player" + pid][data.color]++;
+        game["player" + pid].takeTrain(data.color, true);
 
         if (oldColor === "loco") {
-            game["player" + pid][game.getRandomColor()]++;
-            game["player" + pid].numberOfTrainCards++;
             game.nextPlayerRound();
         } else {
             game.playerDidSomething();
         }
 
         io.in(game.gameID).emit('player-overview', game.getUserProperties());
-        socket.emit('own-cards', game.getPersonalCards(pid));
+        socket.emit('own-cards', game["player" + pid].getTrainCards());
         if (game.checkGameEnd()) {
             game.sendStationsMessage(io);
             if (game.allPlayersReady()) {
@@ -271,18 +260,16 @@ io.on('connection', (socket) => {
             return;
         }
 
-        let color = game.getRandomColor();
+        let color = Utilities.getRandomColor();
 
         socket.emit('closed-train', color);
 
-        game["player" + pid].numberOfTrainCards++;
-        game["player" + pid][color]++;
-
+        game["player" + pid].takeTrain(color, false);
         game.playerDidSomething();
 
         io.in(game.gameID).emit('player-overview', game.getUserProperties());
         socket.to(game.gameID).emit('closed-move', {pid: pid, move: "TRAIN-CARD"});
-        socket.emit('own-cards', game.getPersonalCards(pid));
+        socket.emit('own-cards', game["player" + pid].getTrainCards());
 
         if (game.checkGameEnd()) {
             game.sendStationsMessage(io);
@@ -332,7 +319,7 @@ io.on('connection', (socket) => {
 
             game.playerPutRoute(data.continent);
 
-            socket.emit('own-cards', game.getPersonalCards(data.pid));
+            socket.emit('own-cards', game["player" + data.pid].getTrainCards());
             if (game.checkGameEnd()) {
                 game.sendStationsMessage(io);
                 if (game.allPlayersReady()) {
@@ -370,7 +357,7 @@ io.on('connection', (socket) => {
             game.imagery.computeStations(data.continent, data.city, game[`player${data.pid}`].color, io);
 
             game.playerPutRoute('eu');
-            socket.emit('own-cards', game.getPersonalCards(data.pid));
+            socket.emit('own-cards', game["player" + data.pid].getTrainCards());
             io.in(game.gameID).emit('player-overview', game.getUserProperties());
             io.in(game.gameID).emit('player-round', game.getPlayerRound());
         }

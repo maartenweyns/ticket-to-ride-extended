@@ -1,6 +1,7 @@
 var route = require("./route");
 var destination = require("./destination");
 var Imagery = require('./imagery');
+var Utilities = require('./utilities');
 
 const game = function (gameID) {
     this.gameID = gameID;
@@ -614,21 +615,6 @@ function shuffleArray(array) {
 game.prototype.shuffleDestis = function () {
     this.euStack = shuffleArray(this.euStack);
     this.usStack = shuffleArray(this.usStack);
-};
-
-game.prototype.getPersonalCards = function (pid) {
-    let data = {
-        black: this["player" + pid].black,
-        blue: this["player" + pid].blue,
-        brown: this["player" + pid].brown,
-        green: this["player" + pid].green,
-        purple: this["player" + pid].purple,
-        red: this["player" + pid].red,
-        white: this["player" + pid].white,
-        yellow: this["player" + pid].yellow,
-        loco: this["player" + pid].loco
-    };
-    return data;
 };
 
 game.prototype.userClaimedRoute = function (playerID, route) {
