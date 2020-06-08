@@ -59,11 +59,11 @@ const game = function (gameID) {
 };
 
 game.prototype.setOpenCards = function () {
-    this.openCards.Card0 = this.getRandomColor();
-    this.openCards.Card1 = this.getRandomColor();
-    this.openCards.Card2 = this.getRandomColor();
-    this.openCards.Card3 = this.getRandomColor();
-    this.openCards.Card4 = this.getRandomColor();
+    this.openCards.Card0 = Utilities.getRandomColor();
+    this.openCards.Card1 = Utilities.getRandomColor();
+    this.openCards.Card2 = Utilities.getRandomColor();
+    this.openCards.Card3 = Utilities.getRandomColor();
+    this.openCards.Card4 = Utilities.getRandomColor();
 };
 
 game.prototype.getOpenCards = function () {
@@ -79,32 +79,6 @@ game.prototype.checkNeedForShuffle = function () {
     }
     console.log(`[INFO] The amount of open locomotives is ${amountOfLocos}`);
     return amountOfLocos >= 3;
-};
-
-game.prototype.getRandomColor = function () {
-    var number1 = Math.random();
-    if (number1 < 0.87) {
-        var number = Math.random();
-        if (number < 0.125) {
-            return "black";
-        } else if (number < 0.25) {
-            return "blue";
-        } else if (number < 0.375) {
-            return "brown";
-        } else if (number < 0.5) {
-            return "green";
-        } else if (number < 0.625) {
-            return "purple";
-        } else if (number < 0.75) {
-            return "red";
-        } else if (number < 0.875) {
-            return "white";
-        } else {
-            return "yellow";
-        }
-    } else {
-        return "loco";
-    }
 };
 
 game.prototype.getUserProperties = function () {
@@ -445,68 +419,11 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
         return false;
     }
 
-    if (routeRequirements.length < 3) {
-        points = routeRequirements.length;
-    } else if (routeRequirements.length === 3) {
-        points = 4;
-    } else if (routeRequirements.length === 4) {
-        points = 7;
-    } else if (routeRequirements.length === 5) {
-        points = 10;
-    } else if (routeRequirements.length === 6) {
-        points = 15;
-    } else {
-        points = 21;
+    if (this[`player${pid}`].checkEligibility(color, routeRequirements)){
+        this.claimedRoutes.push(routeID);
+        return true;
     }
-
-
-    if (this[`player${pid}`][color] >= routeRequirements.length) {
-        if (routeRequirements.color === "any") {
-            this.claimedRoutes.push(routeID);
-            this[`player${pid}`].score += points;
-            return {status: true, color: color, amount: routeRequirements.length, locos: 0};
-        } else {
-            if (color === routeRequirements.color) {
-                this.claimedRoutes.push(routeID);
-                this[`player${pid}`].score += points;
-                return {status: true, color: color, amount: routeRequirements.length, locos: 0};
-            } else {
-                if (color === "loco") {
-                    this.claimedRoutes.push(routeID);
-                    this[`player${pid}`].score += points;
-                    return {status: true, color: color, amount: 0, locos: routeRequirements.length};
-                } else {
-                    return {status: false}
-                }
-            }
-        }
-    } else if ((this[`player${pid}`][color] + this[`player${pid}`].loco) >= routeRequirements.length) {
-        if (routeRequirements.color === "any") {
-            this.claimedRoutes.push(routeID);
-            this[`player${pid}`].score += points;
-            return {
-                status: true,
-                color: color,
-                amount: this[`player${pid}`][color],
-                locos: (routeRequirements.length - this[`player${pid}`][color])
-            };
-        } else {
-            if (color === routeRequirements.color) {
-                this.claimedRoutes.push(routeID);
-                this[`player${pid}`].score += points;
-                return {
-                    status: true,
-                    color: color,
-                    amount: this[`player${pid}`][color],
-                    locos: (routeRequirements.length - this[`player${pid}`][color])
-                };
-            } else {
-                return {status: false};
-            }
-        }
-    } else {
-        return {status: false};
-    }
+    return false;
 };
 
 game.prototype.requestStation = function (playerID, city, color) {

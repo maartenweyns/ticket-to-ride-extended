@@ -302,14 +302,10 @@ io.on('connection', (socket) => {
 
         let ret = game.checkEligibility(data.pid, data.color, data.route, data.continent);
 
-        if (ret.status) {
+        if (ret) {
             game.imagery.computeWagons(data.continent, data.route, game["player" + data.pid].color, io);
 
             game["player" + data.pid].routeIDs.push([data.continent, data.route]);
-            game["player" + data.pid][data.color] -= ret.amount;
-            game["player" + data.pid].loco -= ret.locos;
-            game["player" + data.pid].numberOfTrains -= game.getRouteRequirements(data.route, data.continent).length;
-            game["player" + data.pid].numberOfTrainCards -= game.getRouteRequirements(data.route, data.continent).length;
             
             io.in(game.gameID).emit('player-overview', game.getUserProperties());
             socket.emit('route-claim', {status: 'accepted', continent: data.continent});

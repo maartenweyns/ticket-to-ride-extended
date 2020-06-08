@@ -25,5 +25,21 @@ module.exports = {
         }
     },
 
-    allColorsArray: ['black', 'blue', 'brown', 'green', 'purple', 'red', 'white', 'yellow', 'loco'],
-}
+    allColorsArray: ["black", "blue", "brown", "green", "purple", "red", "white", "yellow", "loco"],
+
+    getScoreFromLength: function (length) {
+        if (length < 3) {
+            return length;
+        } else if (length === 3) {
+            return 4;
+        } else if (length === 4) {
+            return 7;
+        } else if (length === 5) {
+            return 10;
+        } else if (length === 6) {
+            return 15;
+        } else {
+            return 21;
+        }
+    },
+};

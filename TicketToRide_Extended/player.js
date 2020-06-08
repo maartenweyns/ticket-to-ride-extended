@@ -1,4 +1,4 @@
-const Utilities = require('./utilities');
+const Utilities = require("./utilities");
 
 const player = function (id, playerName, playerColor, socketID) {
     this.id = id;
@@ -39,7 +39,7 @@ player.prototype.updatewebsocket = function (socket) {
 
 player.prototype.isReady = function () {
     this.ready = true;
-}
+};
 
 player.prototype.getInitialTrainCards = function () {
     let color1 = Utilities.getRandomColor();
@@ -51,32 +51,32 @@ player.prototype.getInitialTrainCards = function () {
     this[color3]++;
     this[color4]++;
     this.numberOfTrainCards += 4;
-}
+};
 
 player.prototype.acceptedDestination = function () {
     // TODO Refractor code so that accepting destinations can be tested.
-}
+};
 
 /*
     This function adds a specific train color to the user's inventory.
-    If this succeeds, the function returns 1. If it does not, the function returns -1.
+    If this succeeds, the function returns true. If it does not, the function returns false.
 
     The `open` boolean specifies if the player took an open card or not.
 */
 player.prototype.takeTrain = function (color, open) {
     if (!Utilities.allColorsArray.includes(color)) {
-        return -1;
+        return false;
     }
     this[color]++;
     this.numberOfTrainCards++;
     if (open) {
-        if (color === 'loco') {
+        if (color === "loco") {
             this[Utilities.getRandomColor()]++;
             this.numberOfTrainCards++;
         }
     }
-    return 1;
-}
+    return true;
+};
 
 player.prototype.getTrainCards = function () {
     let data = {
@@ -88,9 +88,59 @@ player.prototype.getTrainCards = function () {
         red: this.red,
         white: this.white,
         yellow: this.yellow,
-        loco: this.loco
+        loco: this.loco,
     };
     return data;
-}
+};
+
+player.prototype.checkEligibility = function (color, routeRequirements) {
+    if (this.numberOfTrains < routeRequirements.length) {
+        return false;
+    }
+    let points = Utilities.getScoreFromLength(routeRequirements.length);
+    if (this[color] >= routeRequirements.length) {
+        if (routeRequirements.color === "any") {
+            this.routeClaimed(points, color, routeRequirements.length, 0);
+            return true;
+        } else {
+            if (color === routeRequirements.color) {
+                this.routeClaimed(points, color, routeRequirements.length, 0);
+                return true;
+            } else {
+                if (color === "loco") {
+                    this.routeClaimed(points, color, 0, routeRequirements.length);
+                    return {
+                        status: true,
+                        color: color,
+                        amount: 0,
+                        locos: routeRequirements.length,
+                    };
+                } else {
+                    return false;
+                }
+            }
+        }
+    } else if (this[color] + this.loco >= routeRequirements.length) {
+        if (routeRequirements.color === "any" || color === routeRequirements.color) {
+            let amount = this[color];
+            let locos = routeRequirements.length - this[color];
+            this.routeClaimed(points, color, amount, locos);
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+};
+
+player.prototype.routeClaimed = function (points, color, amount, locos) {
+    this.score += points;
+    this[color] -= amount;
+    this.loco -= locos;
+
+    this.numberOfTrainCards -= amount + locos;
+    this.numberOfTrains -= amount + locos;
+};
 
 module.exports = player;
