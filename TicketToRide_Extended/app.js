@@ -6,9 +6,9 @@ var http = require("http");
 var Player = require('./player');
 var Game = require("./game");
 var Utilities = require('./utilities');
-
 var app = express();
 
+require('dotenv').config({path: './auth.env'});
 const {auth} = require('express-openid-connect');
 
 // Auth0 authentication details
@@ -16,7 +16,7 @@ const authConfig = {
     required: false,
     auth0Logout: true,
     appSession: {
-      secret: 'ddfed8c9943958ab4d14e63fa780e3c2d168c9c8496219701f9910d759510483'
+      secret: process.env.AUTH_SECRET
     },
     baseURL: 'https://tickettoride.mawey.be',
     clientID: '6536rh17o9VD1KkqEvz02Rz4vECMnwR5',
