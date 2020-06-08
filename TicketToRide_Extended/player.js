@@ -143,4 +143,17 @@ player.prototype.routeClaimed = function (points, color, amount, locos) {
     this.numberOfTrains -= amount + locos;
 };
 
+player.prototype.getPlayerProperties = function () {
+    return {
+        id: this.id,
+        name: this.name,
+        score: this.score,
+        color: this.color,
+        numberOfTrains: this.numberOfTrains,
+        numberOftrainCards: this.numberOftrainCards,
+        numberOfRoutes: this.numberOfRoutes,
+        numberOfStations: this.numberOfStations
+    };
+};
+
 module.exports = player;

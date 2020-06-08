@@ -1,24 +1,24 @@
-const Player = require("../player");
+const Player = require('../player');
 var player;
 
 beforeEach(() => {
     // Construct a player to test
     let pid = 0;
-    let pname = "John";
-    let pcolor = "blue";
-    let psocketid = "asocketid";
+    let pname = 'John';
+    let pcolor = 'blue';
+    let psocketid = 'asocketid';
 
     player = new Player(pid, pname, pcolor, psocketid);
 });
 
-test("Initial Values", () => {
+test('Initial Values', () => {
     expect(player.numberOfTrains).toBe(50);
     expect(player.numberOfTrainCards).toBe(0);
     expect(player.numberOfRoutes).toBe(0);
     expect(player.numberOfStations).toBe(3);
 });
 
-test("Initial Traincards", () => {
+test('Initial Traincards', () => {
     player.getInitialTrainCards();
     let sum =
         player.black +
@@ -35,9 +35,9 @@ test("Initial Traincards", () => {
     expect(sum).toBe(4);
 });
 
-test("Take Closed Train", () => {
-    let returned1 = player.takeTrain("blue", false);
-    let returned2 = player.takeTrain("loco", false);
+test('Take Closed Train', () => {
+    let returned1 = player.takeTrain('blue', false);
+    let returned2 = player.takeTrain('loco', false);
 
     expect(returned1).toBe(true);
     expect(returned2).toBe(true);
@@ -47,8 +47,8 @@ test("Take Closed Train", () => {
     expect(player.numberOfTrainCards).toBe(2);
 });
 
-test("Take Open Train", () => {
-    let returned = player.takeTrain("loco", true);
+test('Take Open Train', () => {
+    let returned = player.takeTrain('loco', true);
     let sum =
         player.black +
         player.blue +
@@ -67,8 +67,8 @@ test("Take Open Train", () => {
     expect(sum).toBe(2);
 });
 
-test("Take Train Invalid", () => {
-    let returned = player.takeTrain("orange", true);
+test('Take Train Invalid', () => {
+    let returned = player.takeTrain('orange', true);
     let sum =
         player.black +
         player.blue +
@@ -85,7 +85,7 @@ test("Take Train Invalid", () => {
     expect(sum).toBe(0);
 });
 
-test("Get Train Cards", () => {
+test('Get Train Cards', () => {
     player.blue = 2;
     player.red = 5;
     player.green = 2;
@@ -106,7 +106,7 @@ test("Get Train Cards", () => {
     expect(player.getTrainCards().toString()).toBe(expected.toString());
 });
 
-test("Check Eligibility True", () => {
+test('Check Eligibility True', () => {
     // Give the player some trainCards
     player.blue = 3;
     player.loco = 2;
@@ -115,13 +115,13 @@ test("Check Eligibility True", () => {
 
     // Make a routeRequirements object
     let routeRequirements = {
-        color: "blue",
+        color: 'blue',
         length: 3,
         locos: 0,
     };
 
     // Check if the player can put said route using his blue cards
-    let returned = player.checkEligibility("blue", routeRequirements);
+    let returned = player.checkEligibility('blue', routeRequirements);
 
     expect(returned).toBe(true);
     expect(player.blue).toBe(0);
@@ -132,7 +132,7 @@ test("Check Eligibility True", () => {
     expect(player.score).toBe(4);
 });
 
-test("Check Eligibility True Locomotives", () => {
+test('Check Eligibility True Locomotives', () => {
     // Give the player some trainCards
     player.blue = 3;
     player.loco = 2;
@@ -141,13 +141,13 @@ test("Check Eligibility True Locomotives", () => {
 
     // Make a routeRequirements object
     let routeRequirements = {
-        color: "blue",
+        color: 'blue',
         length: 4,
         locos: 0,
     };
 
     // Check if the player can put said route using his blue cards
-    let returned = player.checkEligibility("blue", routeRequirements);
+    let returned = player.checkEligibility('blue', routeRequirements);
 
     expect(returned).toBe(true);
     expect(player.blue).toBe(0);
@@ -158,7 +158,7 @@ test("Check Eligibility True Locomotives", () => {
     expect(player.score).toBe(7);
 });
 
-test("Check Eligibility False", () => {
+test('Check Eligibility False', () => {
     // Give the player some trainCards
     player.blue = 3;
     player.loco = 1;
@@ -167,13 +167,13 @@ test("Check Eligibility False", () => {
 
     // Make a routeRequirements object
     let routeRequirements = {
-        color: "blue",
+        color: 'blue',
         length: 5,
         locos: 0,
     };
 
     // Check if the player can put said route using his blue cards
-    let returned = player.checkEligibility("blue", routeRequirements);
+    let returned = player.checkEligibility('blue', routeRequirements);
 
     expect(returned).toBe(false);
     expect(player.blue).toBe(3);
@@ -184,7 +184,7 @@ test("Check Eligibility False", () => {
     expect(player.score).toBe(0);
 });
 
-test("Check Eligibility Not Enough Trains", () => {
+test('Check Eligibility Not Enough Trains', () => {
     // Give the player some trainCards
     player.blue = 6;
     player.loco = 1;
@@ -198,13 +198,13 @@ test("Check Eligibility Not Enough Trains", () => {
 
     // Make a routeRequirements object
     let routeRequirements = {
-        color: "blue",
+        color: 'blue',
         length: 6,
         locos: 0,
     };
 
     // Check if the player can put said route using his blue cards
-    let returned = player.checkEligibility("blue", routeRequirements);
+    let returned = player.checkEligibility('blue', routeRequirements);
 
     expect(returned).toBe(false);
     expect(player.blue).toBe(6);
@@ -213,4 +213,27 @@ test("Check Eligibility Not Enough Trains", () => {
     expect(player.numberOfTrainCards).toBe(10);
     expect(player.numberOfTrains).toBe(5);
     expect(player.score).toBe(0);
+});
+
+test('Get Player Properties', () => {
+    // Give the player some properties
+    player.blue = 5;
+    player.numberOftrainCards = 5;
+    player.numberOfRoutes = 2;
+    player.score = 26;
+
+    let expected = {
+        id: 0,
+        name: 'John',
+        score: 26,
+        color: 'blue',
+        numberOfTrains: 50,
+        numberOftrainCards: 5,
+        numberOfRoutes: 2,
+        numberOfStations: 3
+    };
+
+    let returned = player.getPlayerProperties();
+
+    expect(returned.toString()).toBe(expected.toString());
 });

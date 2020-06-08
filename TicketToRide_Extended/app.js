@@ -51,28 +51,23 @@ io.on('connection', (socket) => {
     socket.on('player-name', (data) => {
 		let name = data.name;
 		let gid = data.gid;
-		let game = games.get(gid);
+        let game = games.get(gid);
+        // Check if the game exists
 		if (game === undefined) {
 		    socket.emit('invalid-game');
 		    return;
 		}
-
-		if (game.gameState !== 'lobby') {
-		    socket.emit('game-ongoing');
-		    return;
+        // Add the player to the game
+        let result = game.addPlayer(name, socket.id);
+        if (result.status) {
+            // Do the neccesary socket operations and communitcations
+            socket.join(game.gameID);
+            socket.emit('information', {playerID: game.amountOfPlayers, gameID: game.gameID});
+            io.in(game.gameID).emit('player-overview', game.getUserProperties());   
+        } else {
+            // Send error to client
+            socket.emit('something-went-wrong', result.message);
         }
-        
-        if (game.amountOfPlayers > 7) {
-            socket.emit('game-full');
-            return;
-        }
-
-        socket.join(game.gameID);
-        socket.emit('information', {playerID: game.amountOfPlayers, gameID: game.gameID});
-        game["player" + game.amountOfPlayers] = new Player(game.amountOfPlayers, name, game.playerColors.pop(), socket.id);
-        console.log("[INFO] Player " + game.amountOfPlayers + " has been created: " + name + " with socketid " + socket.id);
-        game.amountOfPlayers++;
-        io.in(game.gameID).emit('player-overview', game.getUserProperties());
     });
 
     socket.on('start-game', () => {
