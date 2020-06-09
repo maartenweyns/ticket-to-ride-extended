@@ -228,7 +228,7 @@ test('Get Player Properties', () => {
         score: 26,
         color: 'blue',
         numberOfTrains: 50,
-        numberOftrainCards: 5,
+        numberOfTrainCards: 5,
         numberOfRoutes: 2,
         numberOfStations: 3
     };

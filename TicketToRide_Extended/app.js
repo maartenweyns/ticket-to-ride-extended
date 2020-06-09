@@ -62,7 +62,7 @@ io.on('connection', (socket) => {
         if (result.status) {
             // Do the neccesary socket operations and communitcations
             socket.join(game.gameID);
-            socket.emit('information', {playerID: game.amountOfPlayers, gameID: game.gameID});
+            socket.emit('information', {playerID: result.id, gameID: game.gameID});
             io.in(game.gameID).emit('player-overview', game.getUserProperties());   
         } else {
             // Send error to client

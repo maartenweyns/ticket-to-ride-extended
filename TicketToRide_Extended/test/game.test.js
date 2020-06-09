@@ -15,6 +15,8 @@ describe("Tests Without Game Players", () => {
 
         expect(returned).toEqual(expect.objectContaining({ status: true }));
         expect(game.amountOfPlayers).toBe(1);
+        expect(game.player0).not.toBeUndefined();
+        expect(game.player0.id).toBe(0);
         expect(game.isFull()).toBeFalsy();
     });
 

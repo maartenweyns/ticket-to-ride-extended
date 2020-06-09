@@ -150,7 +150,7 @@ player.prototype.getPlayerProperties = function () {
         score: this.score,
         color: this.color,
         numberOfTrains: this.numberOfTrains,
-        numberOftrainCards: this.numberOftrainCards,
+        numberOfTrainCards: this.numberOfTrainCards,
         numberOfRoutes: this.numberOfRoutes,
         numberOfStations: this.numberOfStations
     };

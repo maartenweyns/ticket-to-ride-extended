@@ -94,15 +94,16 @@ game.prototype.addPlayer = function (name, socketid) {
         return { status: false, message: "This game has already started!" };
     }
     // Add the player to the game
-    this[`player${this.amountOfPlayers}`] = new Player(
+    let player = new Player(
         this.amountOfPlayers,
         name,
         this.playerColors.pop(),
         socketid
     );
+    this[`player${this.amountOfPlayers}`] = player;
     this.amountOfPlayers++;
     // console.log(`[INFO] A player joined game ${this.gameID}`);
-    return { status: true };
+    return { status: true, id: player.id};
 };
 
 game.prototype.isFull = function () {
