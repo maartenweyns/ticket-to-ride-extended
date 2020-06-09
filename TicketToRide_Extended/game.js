@@ -18,7 +18,13 @@ const game = function (gameID) {
     this.player6 = null;
     this.player7 = null;
 
-    this.openCards = {};
+    this.openCards = {
+        Card0: undefined,
+        Card1: undefined,
+        Card2: undefined,
+        Card3: undefined,
+        Card4: undefined,
+    };
 
     this.euRoutes = new Map();
     this.euDesti = new Map();
@@ -73,19 +79,19 @@ const game = function (gameID) {
 game.prototype.addPlayer = function (name, socketid) {
     // Check for an empty name ignoring whitespaces
     if (name.replace(/\s+/g, "") === "") {
-        return {status: false, message: 'Your name shoud not be empty!'};
+        return { status: false, message: "Your name shoud not be empty!" };
     }
     // Check for names that are too long
     if (name.length > 10) {
-        return {status: false, message: 'Your name shoud not exceed 10 characters!'};
+        return { status: false, message: "Your name shoud not exceed 10 characters!" };
     }
     // Check if the game is full
     if (this.amountOfPlayers >= 8) {
-        return {status: false, message: 'This game is full!'};
+        return { status: false, message: "This game is full!" };
     }
     // Check if the game is still in the lobby state
-    if (this.gameState !== 'lobby') {
-        return {status: false, message: 'This game has already started!'};
+    if (this.gameState !== "lobby") {
+        return { status: false, message: "This game has already started!" };
     }
     // Add the player to the game
     this[`player${this.amountOfPlayers}`] = new Player(
@@ -95,13 +101,13 @@ game.prototype.addPlayer = function (name, socketid) {
         socketid
     );
     this.amountOfPlayers++;
-    console.log(`[INFO] A player joined game ${this.gameID}`);
-    return {status: true};
+    // console.log(`[INFO] A player joined game ${this.gameID}`);
+    return { status: true };
 };
 
-game.prototype.isFull = function() {
+game.prototype.isFull = function () {
     return this.amountOfPlayers >= 8;
-}
+};
 
 game.prototype.setOpenCards = function () {
     this.openCards.Card0 = Utilities.getRandomColor();
@@ -109,6 +115,10 @@ game.prototype.setOpenCards = function () {
     this.openCards.Card2 = Utilities.getRandomColor();
     this.openCards.Card3 = Utilities.getRandomColor();
     this.openCards.Card4 = Utilities.getRandomColor();
+
+    if (this.checkNeedForShuffle()) {
+        this.setOpenCards();
+    }
 };
 
 game.prototype.getOpenCards = function () {
@@ -565,7 +575,6 @@ game.prototype.getRouteRequirements = function (routeID, continent) {
 game.prototype.checkEligibility = function (pid, color, routeID, continent) {
     console.log(`[INFO] Checking if the user can claim ${routeID} in  ${continent}`);
     let routeRequirements = this.getRouteRequirements(routeID, continent);
-    let points;
 
     if (routeRequirements === undefined) {
         return false;
