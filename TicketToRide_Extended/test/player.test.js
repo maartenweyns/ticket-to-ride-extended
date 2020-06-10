@@ -48,6 +48,26 @@ test('Take Closed Train', () => {
 });
 
 test('Take Open Train', () => {
+    let returned = player.takeTrain('blue', true);
+    let sum =
+        player.black +
+        player.blue +
+        player.brown +
+        player.green +
+        player.loco +
+        player.purple +
+        player.red +
+        player.white +
+        player.yellow;
+
+    expect(returned).toBe(true);
+
+    expect(player.blue).toBe(1);
+    expect(player.numberOfTrainCards).toBe(1);
+    expect(sum).toBe(1);
+});
+
+test('Take Open Train Locomotive', () => {
     let returned = player.takeTrain('loco', true);
     let sum =
         player.black +
@@ -106,113 +126,178 @@ test('Get Train Cards', () => {
     expect(player.getTrainCards().toString()).toBe(expected.toString());
 });
 
-test('Check Eligibility True', () => {
-    // Give the player some trainCards
-    player.blue = 3;
-    player.loco = 2;
-    player.green = 3;
-    player.numberOfTrainCards = 8;
+describe('Eligibility Tests', () => {
+    beforeEach(() => {
+        player.blue = 3;
+        player.loco = 2;
+        player.green = 3;
+        player.numberOfTrainCards = 8;
+    });
 
-    // Make a routeRequirements object
-    let routeRequirements = {
-        color: 'blue',
-        length: 3,
-        locos: 0,
-    };
+    test('Check Eligibility True', () => {
+        // Make a routeRequirements object
+        let routeRequirements = {
+            color: 'blue',
+            length: 3,
+            locos: 0,
+        };
+    
+        // Check if the player can put said route using his blue cards
+        let returned = player.checkEligibility('blue', routeRequirements);
+    
+        expect(returned).toBe(true);
+        expect(player.blue).toBe(0);
+        expect(player.loco).toBe(2);
+        expect(player.green).toBe(3);
+        expect(player.numberOfTrainCards).toBe(5);
+        expect(player.numberOfTrains).toBe(47);
+        expect(player.score).toBe(4);
+    });
+    
+    test('Check Eligibility True Any Color', () => {
+        // Make a routeRequirements object
+        let routeRequirements = {
+            color: 'any',
+            length: 3,
+            locos: 0,
+        };
+    
+        // Check if the player can put said route using his blue cards
+        let returned = player.checkEligibility('blue', routeRequirements);
+    
+        expect(returned).toBe(true);
+        expect(player.blue).toBe(0);
+        expect(player.loco).toBe(2);
+        expect(player.green).toBe(3);
+        expect(player.numberOfTrainCards).toBe(5);
+        expect(player.numberOfTrains).toBe(47);
+        expect(player.score).toBe(4);
+    });
 
-    // Check if the player can put said route using his blue cards
-    let returned = player.checkEligibility('blue', routeRequirements);
+    test('Check Eligibility True Paying With Locomotives', () => {
+        // Make a routeRequirements object
+        let routeRequirements = {
+            color: 'blue',
+            length: 2,
+            locos: 0,
+        };
+    
+        // Check if the player can put said route using his blue cards
+        let returned = player.checkEligibility('loco', routeRequirements);
+    
+        expect(returned).toBe(true);
+        expect(player.blue).toBe(3);
+        expect(player.loco).toBe(0);
+        expect(player.green).toBe(3);
+        expect(player.numberOfTrainCards).toBe(6);
+        expect(player.numberOfTrains).toBe(48);
+        expect(player.score).toBe(2);
+    });
 
-    expect(returned).toBe(true);
-    expect(player.blue).toBe(0);
-    expect(player.loco).toBe(2);
-    expect(player.green).toBe(3);
-    expect(player.numberOfTrainCards).toBe(5);
-    expect(player.numberOfTrains).toBe(47);
-    expect(player.score).toBe(4);
-});
+    test('Check Eligibility False But Enough Cards', () => {
+        // Make a routeRequirements object
+        let routeRequirements = {
+            color: 'blue',
+            length: 3,
+            locos: 0,
+        };
+    
+        // Check if the player can put said route using his blue cards
+        let returned = player.checkEligibility('green', routeRequirements);
+    
+        expect(returned).toBe(false);
+        expect(player.blue).toBe(3);
+        expect(player.loco).toBe(2);
+        expect(player.green).toBe(3);
+        expect(player.numberOfTrainCards).toBe(8);
+        expect(player.numberOfTrains).toBe(50);
+        expect(player.score).toBe(0);
+    });
 
-test('Check Eligibility True Locomotives', () => {
-    // Give the player some trainCards
-    player.blue = 3;
-    player.loco = 2;
-    player.green = 3;
-    player.numberOfTrainCards = 8;
-
-    // Make a routeRequirements object
-    let routeRequirements = {
-        color: 'blue',
-        length: 4,
-        locos: 0,
-    };
-
-    // Check if the player can put said route using his blue cards
-    let returned = player.checkEligibility('blue', routeRequirements);
-
-    expect(returned).toBe(true);
-    expect(player.blue).toBe(0);
-    expect(player.loco).toBe(1);
-    expect(player.green).toBe(3);
-    expect(player.numberOfTrainCards).toBe(4);
-    expect(player.numberOfTrains).toBe(46);
-    expect(player.score).toBe(7);
-});
-
-test('Check Eligibility False', () => {
-    // Give the player some trainCards
-    player.blue = 3;
-    player.loco = 1;
-    player.green = 3;
-    player.numberOfTrainCards = 8;
-
-    // Make a routeRequirements object
-    let routeRequirements = {
-        color: 'blue',
-        length: 5,
-        locos: 0,
-    };
-
-    // Check if the player can put said route using his blue cards
-    let returned = player.checkEligibility('blue', routeRequirements);
-
-    expect(returned).toBe(false);
-    expect(player.blue).toBe(3);
-    expect(player.loco).toBe(1);
-    expect(player.green).toBe(3);
-    expect(player.numberOfTrainCards).toBe(8);
-    expect(player.numberOfTrains).toBe(50);
-    expect(player.score).toBe(0);
-});
-
-test('Check Eligibility Not Enough Trains', () => {
-    // Give the player some trainCards
-    player.blue = 6;
-    player.loco = 1;
-    player.green = 3;
-    player.numberOfTrainCards = 10;
-
-    // Update the amount of trains to be 5
-    player.numberOfTrains = 5;
-
-    // ! This situation should never happen in real life, as the player now has more cards than trains.
-
-    // Make a routeRequirements object
-    let routeRequirements = {
-        color: 'blue',
-        length: 6,
-        locos: 0,
-    };
-
-    // Check if the player can put said route using his blue cards
-    let returned = player.checkEligibility('blue', routeRequirements);
-
-    expect(returned).toBe(false);
-    expect(player.blue).toBe(6);
-    expect(player.loco).toBe(1);
-    expect(player.green).toBe(3);
-    expect(player.numberOfTrainCards).toBe(10);
-    expect(player.numberOfTrains).toBe(5);
-    expect(player.score).toBe(0);
+    test('Check Eligibility False Loco But Enough Cards', () => {
+        // Make a routeRequirements object
+        let routeRequirements = {
+            color: 'blue',
+            length: 4,
+            locos: 0,
+        };
+    
+        // Check if the player can put said route using his blue cards
+        let returned = player.checkEligibility('green', routeRequirements);
+    
+        expect(returned).toBe(false);
+        expect(player.blue).toBe(3);
+        expect(player.loco).toBe(2);
+        expect(player.green).toBe(3);
+        expect(player.numberOfTrainCards).toBe(8);
+        expect(player.numberOfTrains).toBe(50);
+        expect(player.score).toBe(0);
+    });
+    
+    test('Check Eligibility True Locomotives', () => {
+        // Make a routeRequirements object
+        let routeRequirements = {
+            color: 'blue',
+            length: 4,
+            locos: 0,
+        };
+    
+        // Check if the player can put said route using his blue cards
+        let returned = player.checkEligibility('blue', routeRequirements);
+    
+        expect(returned).toBe(true);
+        expect(player.blue).toBe(0);
+        expect(player.loco).toBe(1);
+        expect(player.green).toBe(3);
+        expect(player.numberOfTrainCards).toBe(4);
+        expect(player.numberOfTrains).toBe(46);
+        expect(player.score).toBe(7);
+    });
+    
+    test('Check Eligibility False', () => {
+        // Make a routeRequirements object
+        let routeRequirements = {
+            color: 'blue',
+            length: 6,
+            locos: 0,
+        };
+    
+        // Check if the player can put said route using his blue cards
+        let returned = player.checkEligibility('blue', routeRequirements);
+    
+        expect(returned).toBe(false);
+        expect(player.blue).toBe(3);
+        expect(player.loco).toBe(2);
+        expect(player.green).toBe(3);
+        expect(player.numberOfTrainCards).toBe(8);
+        expect(player.numberOfTrains).toBe(50);
+        expect(player.score).toBe(0);
+    });
+    
+    test('Check Eligibility Not Enough Trains', () => {
+        // Update the amount of trains to be 5
+        player.numberOfTrains = 5;
+    
+        // ! This situation should never happen in real life, as the player now has more cards than trains.
+    
+        // Make a routeRequirements object
+        let routeRequirements = {
+            color: 'blue',
+            length: 6,
+            locos: 0,
+        };
+    
+        // Check if the player can put said route using his blue cards
+        let returned = player.checkEligibility('blue', routeRequirements);
+    
+        expect(returned).toBe(false);
+        expect(player.blue).toBe(3);
+        expect(player.loco).toBe(2);
+        expect(player.green).toBe(3);
+        expect(player.numberOfTrainCards).toBe(8);
+        expect(player.numberOfTrains).toBe(5);
+        expect(player.score).toBe(0);
+    });
 });
 
 test('Get Player Properties', () => {
@@ -236,4 +321,52 @@ test('Get Player Properties', () => {
     let returned = player.getPlayerProperties();
 
     expect(returned.toString()).toBe(expected.toString());
+});
+
+test('Update Websocket Undefined', () => {
+    let newSocket = undefined;
+
+    let returned = player.updatewebsocket(newSocket);
+    expect(returned).toBeFalsy();
+});
+
+
+test('Update Websocket Undefined', () => {
+    let newSocket = {};
+
+    let returned = player.updatewebsocket(newSocket);
+    expect(returned).toBeTruthy();
+});
+
+test('Player Is Ready False', () => {
+    let returned = player.isReady();
+    expect(returned).toBeFalsy();
+});
+
+test('Player Is Ready True', () => {
+    player.ready = true;
+
+    let returned = player.isReady();
+    expect(returned).toBeTruthy();
+});
+
+test('Player Set Ready Invalid', () => {
+    let returned1 = player.setReady('hehe');
+    let returned2 = player.isReady();
+    expect(returned1).toBeFalsy();
+    expect(returned2).toBeFalsy();
+});
+
+test('Player Set Ready Valid True', () => {
+    let returned1 = player.setReady(true);
+    let returned2 = player.isReady();
+    expect(returned1).toBeTruthy();
+    expect(returned2).toBeTruthy();
+});
+
+test('Player Set Ready Valid False', () => {
+    let returned1 = player.setReady(false);
+    let returned2 = player.isReady();
+    expect(returned1).toBeTruthy();
+    expect(returned2).toBeFalsy();
 });

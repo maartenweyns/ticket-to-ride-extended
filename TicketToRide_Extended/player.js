@@ -33,12 +33,16 @@ const player = function (id, playerName, playerColor, socketID) {
     this.routeIDs = [];
 };
 
-player.prototype.updatewebsocket = function (socket) {
-    this.websocket = socket;
+player.prototype.updatewebsocket = function (newSocket) {
+    if (newSocket === undefined) {
+        return false;
+    }
+    this.websocket = newSocket;
+    return true;
 };
 
 player.prototype.isReady = function () {
-    this.ready = true;
+    return this.ready;
 };
 
 player.prototype.getInitialTrainCards = function () {
@@ -109,12 +113,7 @@ player.prototype.checkEligibility = function (color, routeRequirements) {
             } else {
                 if (color === "loco") {
                     this.routeClaimed(points, color, 0, routeRequirements.length);
-                    return {
-                        status: true,
-                        color: color,
-                        amount: 0,
-                        locos: routeRequirements.length,
-                    };
+                    return true;
                 } else {
                     return false;
                 }
@@ -155,5 +154,13 @@ player.prototype.getPlayerProperties = function () {
         numberOfStations: this.numberOfStations
     };
 };
+
+player.prototype.setReady = function (ready) {
+    if (ready === true || ready == false) {
+        this.ready = ready;
+        return true;
+    }
+    return false;
+}
 
 module.exports = player;

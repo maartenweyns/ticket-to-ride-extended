@@ -81,6 +81,8 @@ io.on('connection', (socket) => {
         io.in(game.gameID).emit('start-game');
     });
 
+    // TODO Refractor code so that app.js should not access direct variables anymore
+    // TODO Optimize so that a player can join mid-turn and the end button appears etc..
     socket.on('player-ingame-join', (info) =>  {
         let game = games.get(info.gameID);
 
