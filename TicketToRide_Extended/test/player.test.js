@@ -278,8 +278,6 @@ describe('Eligibility Tests', () => {
         // Update the amount of trains to be 5
         player.numberOfTrains = 5;
     
-        // ! This situation should never happen in real life, as the player now has more cards than trains.
-    
         // Make a routeRequirements object
         let routeRequirements = {
             color: 'blue',

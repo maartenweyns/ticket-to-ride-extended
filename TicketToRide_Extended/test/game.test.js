@@ -133,7 +133,16 @@ describe("Tests With Users In Game", () => {
         game.addPlayer("Lisa", "somesocketid");
     });
 
-    describe("Eligibility EU True test", () => {
+    test('Player Update SocketID Valid', () => {
+        let newid = 'somenewsocketid';
+
+        let returned = game.updatePlayerSocket(0, newid);
+
+        expect(returned).toBeTruthy();
+        expect(game.player0.socketID).toBe(newid);
+    });
+
+    describe("Tests where players have some cards", () => {
         beforeEach(() => {
             // Give the players some cards to play with :)
             game.player0.takeTrain("blue", false);
@@ -143,6 +152,28 @@ describe("Tests With Users In Game", () => {
             game.player0.takeTrain("red", false);
             game.player0.takeTrain("brown", false);
             game.player0.takeTrain("loco", false);
+        });
+
+        test('Get Existing Player Train Cards', () => {
+            let expected = {
+                black: 0,
+                blue: 4,
+                brown: 1,
+                green: 0,
+                purple: 0,
+                red: 1,
+                white: 0,
+                yellow: 0,
+                loco: 1,
+            };
+
+            let returned = game.getPlayerTrainCards(0);
+            expect(returned).toEqual(expected);
+        });
+
+        test('Get Non-Existing Player Train Cards', () => {
+            let returned = game.getPlayerTrainCards(2);
+            expect(returned).toBeFalsy();
         });
 
         test("Check Eligibility Eu True", () => {

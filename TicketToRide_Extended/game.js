@@ -94,16 +94,11 @@ game.prototype.addPlayer = function (name, socketid) {
         return { status: false, message: "This game has already started!" };
     }
     // Add the player to the game
-    let player = new Player(
-        this.amountOfPlayers,
-        name,
-        this.playerColors.pop(),
-        socketid
-    );
+    let player = new Player(this.amountOfPlayers, name, this.playerColors.pop(), socketid);
     this[`player${this.amountOfPlayers}`] = player;
     this.amountOfPlayers++;
     // console.log(`[INFO] A player joined game ${this.gameID}`);
-    return { status: true, id: player.id};
+    return { status: true, id: player.id };
 };
 
 game.prototype.isFull = function () {
@@ -145,6 +140,31 @@ game.prototype.getUserProperties = function () {
         }
     }
     return returnObject;
+};
+
+game.prototype.updatePlayerSocket = function (playerid, socketid) {
+    return this[`player${playerid}`].updatewebsocket(socketid);
+};
+
+game.prototype.createInitialTrianCardsForPlayer = function (playerid) {
+    this[`player${playerid}`].getInitialTrainCards();
+}
+
+game.prototype.getPlayerTrainCards = function (playerid) {
+    if (this[`player${playerid}`] !== null) {
+        return this[`player${playerid}`].getTrainCards();
+    } else {
+        return false;
+    }
+};
+
+// TODO Test this method
+game.prototype.getPlayerDestinations = function (playerid) {
+    if (this[`player${playerid}`] !== null) {
+        return this[`player${playerid}`].getDestinations();
+    } else {
+        return false;
+    }
 };
 
 game.prototype.setupEuRoutes = function () {
@@ -789,6 +809,10 @@ game.prototype.sendStationsMessage = function (io) {
         }
     }
 };
+
+game.prototype.getExistingTrainImages = function () {
+    return {eu: this.imagery.euWagonImage, us: this.imagery.usWagonImage};
+}
 
 game.prototype.calculateScore = function () {
     let returnObject = [];

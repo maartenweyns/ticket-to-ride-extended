@@ -39,10 +39,19 @@ const io = require('socket.io')(server);
 
 let games = new Map();
 
+function getUnusedGameCode() {
+    let gid = `TTR${Math.floor(Math.random() * 10000)}`;
+    if (games.get(gid) !== null) {
+        return gid;
+    } else {
+        return getUnusedGameCode();
+    }
+}
+
 io.on('connection', (socket) => {
 
     socket.on('create-game', () => {
-		let gid = `TTR${Math.floor(Math.random() * 100000000)}`;
+        let gid = getUnusedGameCode();
 		games.set(gid, new Game(gid));
         socket.emit('join', gid);
         console.log(`[CREATEGAME] Game with id ${gid} created!`);
@@ -81,7 +90,6 @@ io.on('connection', (socket) => {
         io.in(game.gameID).emit('start-game');
     });
 
-    // TODO Refractor code so that app.js should not access direct variables anymore
     // TODO Optimize so that a player can join mid-turn and the end button appears etc..
     socket.on('player-ingame-join', (info) =>  {
         let game = games.get(info.gameID);
@@ -103,19 +111,19 @@ io.on('connection', (socket) => {
         socket.emit('player-overview', game.getUserProperties());
 
         console.log("[UPGRADE] Player " + pid + " updated his socketID to " + socket.id);
-        game["player" + pid].socketID = socket.id;
+        game.updatePlayerSocket(pid, socket.id);
 
         if (game.gameState === 'ongoing') {
             io.in(game.gameID).emit('player-round', game.getPlayerRound());
-            socket.emit('own-cards', game["player" + pid].getTrainCards());
-            socket.emit('own-destinations', {uncompleted: game["player" + pid].destinations, completed: game["player" + pid].completedDestinations});
+            socket.emit('own-cards', game.getPlayerTrainCards(pid));
+            socket.emit('own-destinations', game.getPlayerDestinations(pid));
 
-            socket.emit('existing-trains', {eu: game.imagery.euWagonImage, us: game.imagery.usWagonImage});
+            socket.emit('existing-trains', game.getExistingTrainImages);
         }
 
         if (game.gameState === 'routes') {
-            game["player" + pid].getInitialTrainCards();
-            socket.emit('own-cards', game["player" + pid].getTrainCards());
+            game.createInitialTrianCardsForPlayer(pid);
+            socket.emit('own-cards', game.getPlayerTrainCards(pid));
 
             let routes;
             let longdesti = game.longStack.pop();
@@ -372,7 +380,7 @@ io.on('connection', (socket) => {
         if (game.allPlayersReady()) {
             io.in(game.gameID).emit('game-end');
         };
-    })
+    });
 
     socket.on('player-destination', (pid) => {
         let game = games.get(Object.keys(socket.rooms)[1]);
@@ -413,5 +421,6 @@ io.on('connection', (socket) => {
 });
 
 server.listen(3200);
+console.info('[SERVERSTART] Server started!');
 
 module.exports = app;

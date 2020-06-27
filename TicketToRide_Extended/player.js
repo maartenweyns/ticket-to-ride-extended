@@ -23,6 +23,7 @@ const player = function (id, playerName, playerColor, socketID) {
     this.white = 0;
     this.yellow = 0;
 
+    this.initialCardsTaken = false;
     this.ready = false;
 
     this.routes = new Map();
@@ -37,7 +38,7 @@ player.prototype.updatewebsocket = function (newSocket) {
     if (newSocket === undefined) {
         return false;
     }
-    this.websocket = newSocket;
+    this.socketID = newSocket;
     return true;
 };
 
@@ -46,15 +47,18 @@ player.prototype.isReady = function () {
 };
 
 player.prototype.getInitialTrainCards = function () {
-    let color1 = Utilities.getRandomColor();
-    let color2 = Utilities.getRandomColor();
-    let color3 = Utilities.getRandomColor();
-    let color4 = Utilities.getRandomColor();
-    this[color1]++;
-    this[color2]++;
-    this[color3]++;
-    this[color4]++;
-    this.numberOfTrainCards += 4;
+    if (!this.initialCardsTaken) {
+        let color1 = Utilities.getRandomColor();
+        let color2 = Utilities.getRandomColor();
+        let color3 = Utilities.getRandomColor();
+        let color4 = Utilities.getRandomColor();
+        this[color1]++;
+        this[color2]++;
+        this[color3]++;
+        this[color4]++;
+        this.numberOfTrainCards += 4;
+        this.initialCardsTaken = true;
+    }
 };
 
 player.prototype.acceptedDestination = function () {
@@ -151,7 +155,7 @@ player.prototype.getPlayerProperties = function () {
         numberOfTrains: this.numberOfTrains,
         numberOfTrainCards: this.numberOfTrainCards,
         numberOfRoutes: this.numberOfRoutes,
-        numberOfStations: this.numberOfStations
+        numberOfStations: this.numberOfStations,
     };
 };
 
@@ -161,6 +165,13 @@ player.prototype.setReady = function (ready) {
         return true;
     }
     return false;
-}
+};
+
+player.prototype.getDestinations = function () {
+    return {
+        uncompleted: this.destinations,
+        completed: this.completedDestinations,
+    };
+};
 
 module.exports = player;
