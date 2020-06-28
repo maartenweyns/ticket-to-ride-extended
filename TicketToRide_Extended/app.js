@@ -41,10 +41,10 @@ let games = new Map();
 
 function getUnusedGameCode() {
     let gid = `TTR${Math.floor(Math.random() * 10000)}`;
-    if (games.get(gid) !== null) {
-        return gid;
-    } else {
+    if (games.has(gid)) {
         return getUnusedGameCode();
+    } else {
+        return gid;
     }
 }
 
