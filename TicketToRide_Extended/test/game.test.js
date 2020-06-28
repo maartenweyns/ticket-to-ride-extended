@@ -150,6 +150,7 @@ describe("Tests With Users In Game", () => {
             game.player0.takeTrain("blue", false);
             game.player0.takeTrain("blue", false);
             game.player0.takeTrain("red", false);
+            game.player0.takeTrain("red", false);
             game.player0.takeTrain("brown", false);
             game.player0.takeTrain("loco", false);
         });
@@ -161,7 +162,7 @@ describe("Tests With Users In Game", () => {
                 brown: 1,
                 green: 0,
                 purple: 0,
-                red: 1,
+                red: 2,
                 white: 0,
                 yellow: 0,
                 loco: 1,
@@ -206,6 +207,24 @@ describe("Tests With Users In Game", () => {
 
             let returned = game.checkEligibility(0, "purple", routeid, "eu");
             expect(returned).toBeFalsy();
+        });
+
+        test("Check Eligibility Nonexisting Route", () => {
+            let routeid = "this-does-not-exist";
+
+            let returned = game.checkEligibility(0, "purple", routeid, "eu");
+            expect(returned).toBeFalsy();
+        });
+
+        test("Check Eligibility Already Claimed Route", () => {
+            // Requirements are 2 red cards no locomotives
+            let routeid = "brussels-paris-2";
+
+            let returned1 = game.checkEligibility(0, "red", routeid, "eu");
+            expect(returned1).toBeTruthy();
+
+            let returned2 = game.checkEligibility(0, "red", routeid, "eu");
+            expect(returned2).toBeFalsy();
         });
     });
 });

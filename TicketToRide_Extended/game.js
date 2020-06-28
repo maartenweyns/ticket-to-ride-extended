@@ -793,9 +793,13 @@ game.prototype.sendStationsMessage = function (io) {
                     let stations = routeID.split("-");
                     if (stations[0] === city || stations[1] === city) {
                         if (stations[0] === city) {
-                            ret.push(stations[1]);
+                            if (!ret.includes(stations[1])) {
+                                ret.push(stations[1].toUpperCase());
+                            }
                         } else {
-                            ret.push(stations[0]);
+                            if (!ret.includes(stations[0])) {
+                                ret.push(stations[0].toUpperCase());
+                            }
                         }
                     }
                 }
