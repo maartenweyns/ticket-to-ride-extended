@@ -137,10 +137,14 @@ socket = io(location.host);
         // Merge the image and remove it once the animation is done
         if (document.getElementsByClassName(`${data.continent}Wagons`).length > 1) {
             mergeImages([document.getElementsByClassName(`${data.continent}Wagons`)[0].src, document.getElementsByClassName(`${data.continent}Wagons`)[1].src])
-                .then(b64 => document.getElementsByClassName(`${data.continent}Wagons`)[0].src = b64);
-            setTimeout(function() {
-                imageLocation.removeChild(carts);
-            }, 4000);
+                .then(function(b64) {
+                    console.log('Merged images and displaying new wagon image!');
+                    document.getElementsByClassName(`${data.continent}Wagons`)[0].src = b64;
+
+                    setTimeout(function() {
+                        imageLocation.removeChild(carts);
+                    }, 4000);
+                });
         }
 
         // Play the cash register sound
