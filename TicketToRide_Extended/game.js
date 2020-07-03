@@ -128,7 +128,6 @@ game.prototype.checkNeedForShuffle = function () {
             amountOfLocos++;
         }
     }
-    console.log(`[INFO] The amount of open locomotives is ${amountOfLocos}`);
     return amountOfLocos >= 3;
 };
 
@@ -701,8 +700,6 @@ game.prototype.mergeAllDestinations = function () {
     }
     this.euStack = shuffleArray(this.euStack);
     this.usStack = shuffleArray(this.usStack);
-
-    console.log("[INFO] Merged Destinations");
 };
 
 function shuffleArray(array) {
@@ -843,16 +840,12 @@ function checkContinuity(player, stationA, stationB) {
     let recursion = function (startingStation, endingStation) {
         let stationList = map.get(startingStation);
         if (stationList !== undefined) {
-            console.log("All routes from " + startingStation + ": " + stationList.length);
             visited.push(startingStation);
             for (let i = 0; i < stationList.length; i++) {
                 if (
                     !visited.includes(stationList[i].stationA) ||
                     !visited.includes(stationList[i].stationB)
                 ) {
-                    console.log(
-                        "Checking " + stationList[i].stationA + " to " + stationList[i].stationB
-                    );
                     if (
                         stationList[i].stationA === endingStation ||
                         stationList[i].stationB === endingStation

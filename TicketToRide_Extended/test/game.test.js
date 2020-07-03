@@ -61,6 +61,23 @@ describe("Tests Without Game Players", () => {
         expect(returned).toEqual(expect.objectContaining({ status: false }));
         expect(game.isFull()).toBeTruthy();
     });
+
+    test('Merge Destinations Test', () => {
+        let beforeMergeEu = game.euStack.length;
+        let beforeMergeUs = game.usStack.length;
+
+        expect(game.longStack).toHaveLength(10);
+
+        game.mergeAllDestinations();
+
+        expect(game.euStack).toHaveLength(beforeMergeEu + 6);
+        expect(game.usStack).toHaveLength(beforeMergeUs + 4);
+        expect(game.longStack).toHaveLength(0);
+    });
+
+    test('Shuffle Destinations Test', () => {
+
+    });
 });
 
 describe("General Game Function Tests", () => {
@@ -142,7 +159,27 @@ describe("Tests With Users In Game", () => {
         expect(game.player0.socketID).toBe(newid);
     });
 
-    describe("Tests where players have some cards", () => {
+    describe('Players Ready Tests', () => {
+        test('All players ready false none', () => {
+            let returned = game.allPlayersReady();
+            expect(returned).toBeFalsy();
+        });
+
+        test('All Players Ready False One Ready', () => {
+            game.player0.setReady(true);
+            let returned = game.allPlayersReady();
+            expect(returned).toBeFalsy();
+        });
+
+        test('All Players Ready True', () => {
+            game.player0.setReady(true);
+            game.player1.setReady(true);
+            let returned = game.allPlayersReady();
+            expect(returned).toBeTruthy();
+        });
+    });
+
+    describe('Check Eligibility Tests', () => {
         beforeEach(() => {
             // Give the players some cards to play with :)
             game.player0.takeTrain("blue", false);
@@ -192,6 +229,7 @@ describe("Tests With Users In Game", () => {
             // Execute the method and check if the player is able to 'afford' the route
             let returned = game.checkEligibility(0, "blue", routeid, "eu");
             expect(returned).toBeTruthy();
+            expect(game.claimedRoutes).toContain('warsaw-wein-1');
         });
 
         test("Check Eligibility Eu True Locomotive", () => {
@@ -200,6 +238,7 @@ describe("Tests With Users In Game", () => {
 
             let returned = game.checkEligibility(0, "red", routeid, "eu");
             expect(returned).toBeTruthy();
+            expect(game.claimedRoutes).toContain('brussels-paris-2');
         });
 
         test("Check Eligibility Eu False", () => {
@@ -226,5 +265,30 @@ describe("Tests With Users In Game", () => {
             let returned2 = game.checkEligibility(0, "red", routeid, "eu");
             expect(returned2).toBeFalsy();
         });
+    });
+
+    test('Calculate Score Test', () => {
+        let expected = [
+            {
+                id: 0,
+                score: 0,
+                color: 'blue',
+                destinations: [],
+                completedDestinations: [],
+                stations: 3
+            },
+            {
+                id: 1,
+                score: 0,
+                color: 'brightyellow',
+                destinations: [],
+                completedDestinations: [],
+                stations: 3
+            }
+        ]
+
+        let returned = game.calculateScore();
+
+        expect(returned).toEqual(expected);
     });
 });

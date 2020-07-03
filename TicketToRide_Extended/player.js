@@ -101,6 +101,7 @@ player.prototype.getTrainCards = function () {
     return data;
 };
 
+// TODO Add locomotive requirement and bridge support
 player.prototype.checkEligibility = function (color, routeRequirements) {
     if (this.numberOfTrains < routeRequirements.length) {
         return false;
