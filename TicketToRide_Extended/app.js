@@ -420,7 +420,8 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(3200);
+console.info('Starting serever on port ' + process.argv[2]);
+server.listen(process.argv[2]);
 console.info('[SERVERSTART] Server started!');
 
 module.exports = app;

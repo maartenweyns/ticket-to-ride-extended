@@ -3,7 +3,7 @@
   "version": "0.2.1",
   "private": true,
   "scripts": {
-    "start": "node app.js 3200",
+    "start": "node app.js",
     "test": "jest"
   },
   "dependencies": {

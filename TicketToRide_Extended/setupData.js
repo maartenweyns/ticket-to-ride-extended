@@ -1,3 +1,6 @@
+const destination = require("./destination");
+const route = require("./route");
+
 module.exports = {
     setupEuRoutes: function (euRoutes) {
         euRoutes.set("edinburgh-londen-1", new route("edinburgh", "londen", 1, "black", 4, 0));

@@ -19,6 +19,8 @@ var lastRoundShown = false;
 
 socket = io(location.host);
 
+// TODO Fix wagons on reload
+
 (function setup() {
 
     playerID = parseInt(getCookie("playerID"));
