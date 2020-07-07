@@ -85,6 +85,10 @@ socket = io(location.host);
         if (player === playerID && currentMove === 0) {
             trainHorn.play();
         }
+
+        if (player === playerID && currentMove !== 0) {
+            document.getElementById("endTurn").style.display = "block";
+        }
     });
 
     socket.on('new-open-card', (data) => {

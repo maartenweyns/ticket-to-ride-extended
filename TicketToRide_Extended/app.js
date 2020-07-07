@@ -114,7 +114,7 @@ io.on('connection', (socket) => {
         game.updatePlayerSocket(pid, socket.id);
 
         if (game.gameState === 'ongoing') {
-            io.in(game.gameID).emit('player-round', game.getPlayerRound());
+            socket.emit('player-round', game.getPlayerRound());
             socket.emit('own-cards', game.getPlayerTrainCards(pid));
             socket.emit('own-destinations', game.getPlayerDestinations(pid));
 
