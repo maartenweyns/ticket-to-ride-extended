@@ -118,7 +118,7 @@ io.on('connection', (socket) => {
             socket.emit('own-cards', game.getPlayerTrainCards(pid));
             socket.emit('own-destinations', game.getPlayerDestinations(pid));
 
-            socket.emit('existing-trains', game.getExistingTrainImages);
+            socket.emit('existing-trains', game.getExistingTrainImages());
         }
 
         if (game.gameState === 'routes') {
