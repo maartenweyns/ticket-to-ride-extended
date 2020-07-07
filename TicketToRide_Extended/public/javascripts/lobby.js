@@ -67,17 +67,17 @@ function setup(creating) {
         window.location.pathname = '/play';
     });
 
-    socket.on('game-ongoing', () => {
-		showAlert('This game has already started!');
-    });
-
 	socket.on('invalid-game', () => {
 		showAlert('That game does not exist!');
     });
-    
-    socket.on('game-full', () => {
-        showAlert('That game is already full!');
-    });
+
+    socket.on('something-went-wrong', (message) => {
+        if (message === undefined) {
+            showAlert('Oops! Something went wrong! Please try again!');
+        } else {
+            showAlert(message);
+        }
+    })
 }
 
 function join() {

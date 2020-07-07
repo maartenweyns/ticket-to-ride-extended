@@ -60,6 +60,10 @@ socket = io(location.host);
         receivedDestinations(routes, 4, true);
     });
 
+    socket.on('validate-first-destinations', () => {
+        confirmDestis(false);
+    });
+
     socket.on('player-overview', (players) => {
         addUsers(players);
     });
@@ -82,6 +86,10 @@ socket = io(location.host);
 
         if (player === playerID && currentMove === 0) {
             trainHorn.play();
+        }
+
+        if (player === playerID && currentMove !== 0) {
+            document.getElementById("endTurn").style.display = "block";
         }
     });
 
@@ -137,10 +145,14 @@ socket = io(location.host);
         // Merge the image and remove it once the animation is done
         if (document.getElementsByClassName(`${data.continent}Wagons`).length > 1) {
             mergeImages([document.getElementsByClassName(`${data.continent}Wagons`)[0].src, document.getElementsByClassName(`${data.continent}Wagons`)[1].src])
-                .then(b64 => document.getElementsByClassName(`${data.continent}Wagons`)[0].src = b64);
-            setTimeout(function() {
-                imageLocation.removeChild(carts);
-            }, 4000);
+                .then(function(b64) {
+                    console.log('Merged images and displaying new wagon image!');
+                    document.getElementsByClassName(`${data.continent}Wagons`)[0].src = b64;
+
+                    setTimeout(function() {
+                        imageLocation.removeChild(carts);
+                    }, 4000);
+                });
         }
 
         // Play the cash register sound
@@ -157,9 +169,7 @@ socket = io(location.host);
     });
 
     socket.on('route-claim', (data) => {
-        if (data.status === 'accepted') {
-            document.getElementById("endTurn").style.display = 'block';
-        } else if (data.status === 'alreadyClaimedThis'){
+        if (data.status === 'alreadyClaimedThis') {
             showAlert(`You cannot do an action on ${data.continent} anymore!`);
         } else if (data.status === 'cant') {
             buzz.play();
@@ -198,9 +208,7 @@ socket = io(location.host);
     });
 
     socket.on('station-claim', (result) => {
-        if (result) {
-            document.getElementById("endTurn").style.display = 'block';
-        } else {
+        if (!result) {
             showAlert('You cannot place a station here!');
         }
     })
