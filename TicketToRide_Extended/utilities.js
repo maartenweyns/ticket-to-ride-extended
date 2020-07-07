@@ -42,4 +42,26 @@ module.exports = {
             return 21;
         }
     },
+
+    validateFirstRoutesPicked: function (routesArray) {
+        if (routesArray === undefined) {
+            return false;
+        }
+        let eu = false;
+        let us = false;
+    
+        for (let routeid of routesArray) {
+            if (routeid.includes('eu')) {
+                eu = true;
+            }
+            if (routeid.includes('us')) {
+                us = true;
+            }
+        }
+        if (eu && us) {
+            return true;
+        } else {
+            return false;
+        }
+    },
 };

@@ -19,8 +19,6 @@ var lastRoundShown = false;
 
 socket = io(location.host);
 
-// TODO Fix wagons on reload
-
 (function setup() {
 
     playerID = parseInt(getCookie("playerID"));
@@ -60,6 +58,10 @@ socket = io(location.host);
 
     socket.on('initial-routes', (routes) => {
         receivedDestinations(routes, 4, true);
+    });
+
+    socket.on('validate-first-destinations', () => {
+        confirmDestis(false);
     });
 
     socket.on('player-overview', (players) => {

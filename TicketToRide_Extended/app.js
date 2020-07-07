@@ -90,7 +90,6 @@ io.on('connection', (socket) => {
         io.in(game.gameID).emit('start-game');
     });
 
-    // TODO Optimize so that a player can join mid-turn and the end button appears etc..
     socket.on('player-ingame-join', (info) =>  {
         let game = games.get(info.gameID);
 
@@ -147,6 +146,15 @@ io.on('connection', (socket) => {
             }
         } else {
             socket.emit('lobby');
+        }
+    });
+
+    socket.on('validate-first-destinations', (data) => {
+        let result = Utilities.validateFirstRoutesPicked(data);
+        if (result) {
+            socket.emit('validate-first-destinations', true);
+        } else {
+            socket.emit('invalidmove', {message: 'You should pick at least one route from Europe and one from America'});
         }
     });
 

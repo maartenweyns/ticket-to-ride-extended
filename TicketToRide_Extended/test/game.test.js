@@ -74,10 +74,6 @@ describe("Tests Without Game Players", () => {
         expect(game.usStack).toHaveLength(beforeMergeUs + 4);
         expect(game.longStack).toHaveLength(0);
     });
-
-    test('Shuffle Destinations Test', () => {
-
-    });
 });
 
 describe("General Game Function Tests", () => {

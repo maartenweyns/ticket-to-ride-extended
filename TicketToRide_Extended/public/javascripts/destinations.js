@@ -55,68 +55,47 @@ function toggleActivationDestiCard(cardID) {
 }
 
 function confirmDestis(initialRound) {
-    let minimalAmount = 1;
-
     let destinations = document.getElementById("destiCardsChoosingPanel").children;
     let container = document.getElementsByClassName("destiCards")[0];
 
     let chosenDestinaions = document.getElementsByClassName("activatedDestiCard");
 
     if (initialRound) {
-        let us = false;
-        let eu = false;
-
-        minimalAmount = 2;
-
+        let routesArray = [];
         for (let i = 0; i < chosenDestinaions.length; i++) {
-            if (chosenDestinaions[i].id.includes("us")) {
-                us = true;
-            }
-            if (chosenDestinaions[i].id.includes("eu")) {
-                eu = true;
+            routesArray.push(chosenDestinaions[i].id);
+        }
+
+        socket.emit('validate-first-destinations', (routesArray));
+    } else {
+        for (let i = 0; i < destinations.length - 1; i++) {
+            if (destinations[i].classList.contains("activatedDestiCard")) {
+                let routeCardContainer = document.createElement('div');
+                routeCardContainer.id = destinations[i].id;
+
+                let routeCard = document.createElement('img');
+                routeCard.src = "images/routeCards/" + destinations[i].id + ".png";
+                routeCard.onclick = function () {
+                    cycleBetweenRouteCards();
+                }
+                routeCard.classList.add("destiCard");
+
+                routeCardContainer.append(routeCard);
+
+                hideExistingRouteCards();
+
+                container.append(routeCardContainer);
+
+                socket.emit('accepted-destination', {pid: playerID, rid: destinations[i].id});
+            } else {
+                socket.emit('rejected-destination', destinations[i].id);
             }
         }
-    
-        if (! (eu && us)) {
-            showAlert("You must choose two routes, at least one from Europe and one from America!");
-            return;
-        }
+        socket.emit('player-finished');
+        document.getElementById("destiCardsChoosingPanel").innerHTML = '';
+        document.getElementById("destiCardsChoosingPanel").style.display = "none";
+        document.getElementById("ownCardContainer").style.display = "flex";
     }
-
-    if (!(chosenDestinaions.length >= minimalAmount)) {
-        showAlert("You should pick at least " + minimalAmount + " destination(s)!");
-        return;
-    }
-
-    for (let i = 0; i < destinations.length - 1; i++) {
-        if (destinations[i].classList.contains("activatedDestiCard")) {
-            let routeCardContainer = document.createElement('div');
-            routeCardContainer.id = destinations[i].id;
-
-            let routeCard = document.createElement('img');
-            routeCard.src = "images/routeCards/" + destinations[i].id + ".png";
-            routeCard.onclick = function () {
-                cycleBetweenRouteCards();
-            }
-            routeCard.classList.add("destiCard");
-
-            routeCardContainer.append(routeCard);
-
-            hideExistingRouteCards();
-
-            container.append(routeCardContainer);
-
-            socket.emit('accepted-destination', {pid: playerID, rid: destinations[i].id});
-        } else {
-            socket.emit('rejected-destination', destinations[i].id);
-        }
-    }
-
-    socket.emit('player-finished');
-
-    document.getElementById("destiCardsChoosingPanel").innerHTML = '';
-    document.getElementById("destiCardsChoosingPanel").style.display = "none";
-    document.getElementById("ownCardContainer").style.display = "flex";
 }
 
 function hideExistingRouteCards() {
