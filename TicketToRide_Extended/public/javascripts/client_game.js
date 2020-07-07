@@ -167,9 +167,7 @@ socket = io(location.host);
     });
 
     socket.on('route-claim', (data) => {
-        if (data.status === 'accepted') {
-            document.getElementById("endTurn").style.display = 'block';
-        } else if (data.status === 'alreadyClaimedThis'){
+        if (data.status === 'alreadyClaimedThis') {
             showAlert(`You cannot do an action on ${data.continent} anymore!`);
         } else if (data.status === 'cant') {
             buzz.play();
@@ -208,9 +206,7 @@ socket = io(location.host);
     });
 
     socket.on('station-claim', (result) => {
-        if (result) {
-            document.getElementById("endTurn").style.display = 'block';
-        } else {
+        if (!result) {
             showAlert('You cannot place a station here!');
         }
     })
