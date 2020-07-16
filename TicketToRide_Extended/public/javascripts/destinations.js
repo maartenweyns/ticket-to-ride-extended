@@ -1,9 +1,5 @@
 function requestDestination() {
-    let confirmed;
-    confirmed = confirm("Do you really want to pick new destinations?");
-    if (confirmed) {
-        socket.emit('player-destination', playerID);
-    }
+    socket.emit('player-destination', playerID);
 }
 
 function receivedDestinations(data, amountOfCards, initialRound) {
@@ -24,6 +20,7 @@ function receivedDestinations(data, amountOfCards, initialRound) {
     }
     let confirmButton = document.createElement('button');
     confirmButton.innerHTML = "CHOOSE";
+    confirmButton.classList.add('styledButton');
     confirmButton.onclick = function () {
         confirmDestis(initialRound);
     }

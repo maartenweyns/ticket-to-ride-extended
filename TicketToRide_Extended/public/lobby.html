@@ -8,6 +8,7 @@
     <link href="stylesheets/style.css" rel="stylesheet" type="text/css" />
     <link href="stylesheets/lobby.css" rel="stylesheet" type="text/css" />
     <link href="stylesheets/transitions.css" rel="stylesheet" type="text/css" />
+    <link href="stylesheets/paper.min.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
@@ -28,37 +29,39 @@
 </head>
 
 <body>
-    <a href="/login" class="loginButton">LOGIN</a>
+    <button href="/login" class="loginButton" onclick="window.location.pathname = '/login';">LOGIN</button>
     <div id="particles-js"></div>
     <div class="content">
         <div class="options" id="options">
-            <button class="startButton" id="startbutton" onclick="join()">JOIN GAME</button>
-            <button class="startButton" id="createbutton" onclick="create()">CREATE GAME</button>
+            <button class="startButton" id="startbutton" onclick="join();">JOIN GAME</button>
+            <button class="startButton" id="createbutton" onclick="create();">CREATE GAME</button>
         </div>
 
         <div class="players" id="players" style="display: none;">
-            <p class="markerText" id="gidDisplay"></p>
-            <ul class="circles"></ul>
+            <h3 style="margin: 0;">You are in game <span class="badge secondary" id="gidDisplay"></span></h3>
+            <div class="circles"></div>
         </div>
 
         <button class="startButton" id="startGame" onclick="startGame()" style="display: none;">START GAME</button>
 
         <div class="join" id='joinWindow' style="display: none;">
             <input class="styledInput" type="text" id="joinName" placeholder="Your name here!" autocomplete="off" maxlength="10" required="true"/>
-            <input class="styledInput" type=text id="gameID" placeholder="Game ID" autocomplete="off" maxlength="11"/>
+            <input class="styledInput" type=text id="gameID" placeholder="Game ID" autocomplete="off" maxlength="7"/>
             <button class="startButton" id="startbutton" onclick="setup(false)">JOIN GAME</button>
+            <h5 class="infoText" onclick="back();">Back</h5>
         </div>
 
         <div class="create" id="createWindow" style="display: none;">
             <input class="styledInput" type="text" id="createName" placeholder="Your name here!" autocomplete="off" maxlength="10" required="true"/>
             <button class="startButton" id="startbutton" onclick="setup(true)">CREATE GAME</button>
+            <h5 class="infoText" onclick="back();">Back</h5>
         </div>
 
-        <p class="infoText" id="cookieMessage">By using this site, you agree to the use of cookies.</p>
-        <p class="infoText">Created by <strong>Maarten Weyns</strong></p>
+        <h5 class="infoText" id="cookieMessage">By using this site, you agree to the use of cookies.</h5>
+        <h5 class="infoText">Created by <strong>Maarten Weyns</strong></h5>
         <img class="mwglogo" src="images/logos/mawey-games-bluedrop.svg">
     </div>
-    <p class="versioninfo">Version 0.2.1</p>
+    <h5 class="versioninfo">Version 0.3.0B</h5>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
         integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo=" crossorigin="anonymous"></script>

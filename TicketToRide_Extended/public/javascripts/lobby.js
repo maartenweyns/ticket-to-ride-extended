@@ -6,14 +6,14 @@ function setup(creating) {
     let nameEntered;
     if (creating) {
         if (document.getElementById('createName').value === "") {
-            showAlert('Please fill in your name!')
+            showAlert('Please fill in your name!', 'alert')
             return;
         } else {
             nameEntered = document.getElementById('createName').value.toUpperCase();
         }
     } else {
         if (document.getElementById('joinName').value === "") {
-            showAlert('Please fill in your name!')
+            showAlert('Please fill in your name!', 'alert')
             return;
         } else {
             nameEntered = document.getElementById('joinName').value.toUpperCase();
@@ -40,7 +40,7 @@ function setup(creating) {
     socket.on('information', (data) => {
         playerID = data.playerID;
         gameID = data.gameID;
-        document.getElementById('gidDisplay').innerText = `You are in game ${gameID}`;
+        document.getElementById('gidDisplay').innerText = gameID;
 
         // Setup the cookies
         let expires = new Date();
@@ -68,16 +68,22 @@ function setup(creating) {
     });
 
 	socket.on('invalid-game', () => {
-		showAlert('That game does not exist!');
+		showAlert('That game does not exist!', 'alert');
     });
 
     socket.on('something-went-wrong', (message) => {
         if (message === undefined) {
-            showAlert('Oops! Something went wrong! Please try again!');
+            showAlert('Oops! Something went wrong! Please try again!', 'alert');
         } else {
-            showAlert(message);
+            showAlert(message, 'alert');
         }
     })
+}
+
+function back() {
+    document.getElementById('options').style.display = 'flex';
+    document.getElementById('joinWindow').style.display = 'none';
+    document.getElementById('createWindow').style.display = 'none';
 }
 
 function join() {
@@ -95,8 +101,13 @@ function addUsers(users) {
     userBox.innerHTML = '';
     while (users.length !== 0) {
         let user = users.pop();
-        let userEntry = document.createElement('li');
-        userEntry.innerText = user.name;
+        let userEntry = document.createElement('div');
+        let userEntryName = document.createElement('h3');
+        userEntry.classList.add('badge');
+        userEntry.classList.add('playerBubble');
+        userEntryName.classList.add('playerBubbleName');
+        userEntryName.innerText = user.name;
+        userEntry.append(userEntryName);
         userBox.prepend(userEntry);
     }
 }

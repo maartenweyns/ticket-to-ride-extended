@@ -4,13 +4,29 @@ html {
 }
 
 body {
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     margin: 0;
     background-color: #000000;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='charlie-brown' fill='%23515052' fill-opacity='0.4'%3E%3Cpath d='M9.8 12L0 2.2V.8l10 10 10-10v1.4L10.2 12h-.4zm-4 0L0 6.2V4.8L7.2 12H5.8zm8.4 0L20 6.2V4.8L12.8 12h1.4zM9.8 0l.2.2.2-.2h-.4zm-4 0L10 4.2 14.2 0h-1.4L10 2.8 7.2 0H5.8z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+img {
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+.styledButton {
+    padding: 10px;
+    margin: 10px;
+    background-color: #68381a;
+    color: white;
+    border: solid white;
 }
 
 .playarea {
@@ -47,6 +63,7 @@ body {
     left: 0;
     max-height: 100%;
     max-width: 100%;
+    user-select: none;
 }
 
 .dots {
@@ -56,10 +73,6 @@ body {
     max-height: 100%;
     max-width: 100%;
     pointer-events: none;
-}
-
-.pulsatingDots {
-    animation: breathingDots 3s infinite linear;
 }
 
 .cards {
@@ -100,22 +113,6 @@ body {
     display: flex;
 }
 
-.card {
-    max-height: calc(100vh / 9);
-    max-width: 100%;
-    float: right;
-    margin-bottom: 2px;
-    cursor: pointer;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-    z-index: 99;
-}
-
-.card:hover {
-    box-shadow: 0 0 20px 2px rgba(255, 255, 255, 0.5);
-}
-
 .centerContent {
     display: flex;
     flex-direction: column;
@@ -152,10 +149,6 @@ body {
     height: 100%;
 }
 
-.alertShadow {
-    box-shadow: 0 0 46px 2px rgba(255, 0, 0, 1);
-}
-
 .dockDecoration {
     z-index: -99;
     position: fixed;
@@ -178,42 +171,50 @@ body {
     -webkit-animation: flashingDone 1s infinite;
 }
 
-.alert {
+.popup-custom {
     position: fixed;
     top: 0;
     left: 0;
-    width: calc(100vw - 10px);
-    height: 25px;
+    width: calc(100vw);
+    height: 38px;
     line-height: 30px;
-    border: solid 5px;
-    background-color: #fff12b;
-    border-color: #787000;
     font-size: 25px;
     text-align: center;
     z-index: 99;
     animation: showAlert 4s;
     -webkit-animation: showAlert 4s;
     font-family: 'Passion One';
+}
+
+.popup-alert {
+    border: solid 5px #787000;
+    background-color: #fff12b;
     color: #292600;
 }
 
+.popup-info {
+    border: solid 5px   #086972;
+    background-color: #17b978;
+    color: #292600;
+}
+
+.popup-warning {
+    border: solid 5px   #492540;
+    background-color: #c03546;
+    color: white;
+}
+
 @keyframes showAlert {
-    0% {transform: translateY(-35px); -webkit-transform: translateY(-35px);}
+    0% {transform: translateY(-50px); -webkit-transform: translateY(-50px);}
     13% {transform: translateY(0); -webkit-transform: translateY(0);}
     87% {transform: translateY(0); -webkit-transform: translateY(0);}
-    100% {transform: translateY(-35px); -webkit-transform: translateY(-35px);}
+    100% {transform: translateY(-50px); -webkit-transform: translateY(-50px);}
 }
 
 @keyframes flashingDone {
     0% {transform: scale(1); -webkit-transform: scale(1);}
     50% {transform: scale(1.5); -webkit-transform: scale(1.5);}
     100% {transform: scale(1); -webkit-transform: scale(1);}
-}
-
-@keyframes breathingDots {
-    0% {filter: brightness(1) drop-shadow(0px 0px 5px rgba(0,0,255,0)); --webkit-filter: brightness(1) drop-shadow(0px 0px 5px rgba(0,0,255,0));}
-    50% {filter: brightness(3) drop-shadow(0px 0px 5px rgba(0,0,255,1)); --webkit-filter: brightness(3) drop-shadow(0px 0px 5px rgba(0,0,255,1));}
-    100% {filter: brightness(1) drop-shadow(0px 0px 5px rgba(0,0,255,0)); --webkit-filter: brightness(1) drop-shadow(0px 0px 5px rgba(0,0,255,0));}
 }
 
 @keyframes flash {

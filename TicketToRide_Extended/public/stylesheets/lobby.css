@@ -13,20 +13,16 @@ body {
     align-items: center;
 }
 
+h3 {
+    color: white;
+}
+
 .startButton {
-    text-decoration: none;
     padding: 10px;
     margin: 10px;
     background-color: #68381a;
-    transition: background-color 500ms;
     color: white;
-    border-radius: 10px;
-    border: 5px solid #68381a;
-    font-family: 'Permanent Marker', cursive;
-    font-size: 40px;
-    -webkit-box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.75);
+    border: solid white;
 }
 
 .loginButton {
@@ -34,17 +30,10 @@ body {
     top: 10px;
     right: 10px;
     z-index: 99;
-    transition: 500ms;
-    font-size: 2em;
     padding: 10px;
-    background: #846742;
-    border-radius: 50px;
-    border: 2px solid #e9ebec;
+    background: #68381a;
+    border: solid white;
     color: white;
-    font-family: 'Permanent Marker', cursive;
-    -webkit-box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.75);
 }
 
 .markerText {
@@ -63,9 +52,17 @@ body {
     cursor: pointer;
 }
 
-ul.circles {
-    margin: 30px auto 60px;
+.players {
     text-align: center;
+}
+
+.playerBubble {
+    margin: 10px;
+    padding: 10px;
+}
+
+.playerBubbleName {
+    margin: 0;
 }
 
 li {
@@ -77,14 +74,8 @@ li {
     justify-content: center;
     align-items: center;
     margin: 10px;
-    min-width: 200px;
-    border-radius: 50px;
-    border: 2px solid #e9ebec;
+    border-color: white;
     color: white;
-    font-family: 'Permanent Marker', cursive;
-    -webkit-box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.75);
 }
 
 li:nth-child(odd) {
@@ -129,13 +120,14 @@ li:nth-child(even) {
 
 .infoText {
     color: white;
-    font-size: 13px;
     user-select: none;
     margin: 5px;
+    text-align: center;
 }
 
-.mwglogo, .loginlogo {
+.mwglogo {
     height: 30px;
+    border: none;
     transition: 500ms;
 }
 
@@ -151,18 +143,11 @@ li:nth-child(even) {
 
 .styledInput {
     text-transform: uppercase;
-    transition: 500ms;
-    font-size: 2em;
     padding: 10px;
     margin: 10px;
     background: #846742;
-    border-radius: 50px;
-    border: 2px solid #e9ebec;
+    border-color: white;
     color: white;
-    font-family: 'Permanent Marker', cursive;
-    -webkit-box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 29px 0px rgba(0, 0, 0, 0.75);
 }
 
 .styledInput:focus {
@@ -174,8 +159,6 @@ li:nth-child(even) {
     margin: 0;
     right: 10px;
     bottom: 10px;
-    font-size: 1em;
-    font-family: 'Permanent Marker', cursive;
     color: white;
 }
 

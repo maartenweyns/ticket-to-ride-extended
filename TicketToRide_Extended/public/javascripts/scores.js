@@ -58,7 +58,7 @@ function createPlayers(data) {
         let general = document.createElement('div');
         general.classList.add('generalDiv');
 
-        let playername = document.createElement('p');
+        let playername = document.createElement('h2');
         playername.innerText = player.name;
         playername.classList.add("text");
 
@@ -67,7 +67,7 @@ function createPlayers(data) {
         infodiv.id = "infodiv" + player.id;
         // infodiv.append(completedRoutes, uncompletedRoutes);
 
-        let score = document.createElement('p');
+        let score = document.createElement('h2');
         score.innerText = "Score: " + player.score;
         score.id = "score" + player.id;
         score.classList.add("text");

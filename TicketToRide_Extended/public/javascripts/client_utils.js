@@ -1,8 +1,9 @@
-function showAlert(message) {
-    if (document.getElementsByClassName('alert').length === 0) {
+function showAlert(message, type) {
+    if (document.getElementsByClassName('popup-custom').length === 0) {
         let div = document.createElement('div');
         div.innerText = message;
-        div.classList.add('alert');
+        div.classList.add(`popup-custom`);
+        div.classList.add(`popup-${type}`);
         document.body.appendChild(div);
         setTimeout(() => {
             document.body.removeChild(div);

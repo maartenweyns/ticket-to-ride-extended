@@ -19,47 +19,42 @@
     color: white;
     font-size: 1.5vw;
     position: absolute;
-    top: 5%;
+    top: 8%;
     left: 7%;
-    font-family: 'Arapey', serif;
 }
 
 .numberOfCartsText {
     color: black;
-    font-family: 'Arapey', serif;
     position: absolute;
-    font-size: 1.2vw;
-    top: 26%;
-    right: 10%;
+    font-size: 1.1vw;
+    top: 28%;
+    right: 9%;
     margin: 0;
 }
 
 .numberOfStationsText {
     color: black;
-    font-family: 'Arapey', serif;
     position: absolute;
-    font-size: 1vw;
-    top: 60%;
+    font-size: 0.9vw;
+    top: 65%;
     right: 7.5%;
     margin: 0;
 }
 
 .numberOfTrainCardsText {
     color: white;
-    font-family: 'Arapey', serif;
     font-size: 1.5vw;
     position: absolute;
-    top: 48%;
+    top: 57%;
     left: 35%;
     margin: 0;
 }
 
 .numberOfRouteCardsText {
     color: white;
-    font-family: 'Arapey', serif;
     font-size: 1.5vw;
     position: absolute;
-    top: 48%;
+    top: 57%;
     left: 73%;
     margin: 0;
 }
