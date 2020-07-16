@@ -33,6 +33,7 @@ socket = io(location.host);
 
     socket.on('final-score', (data) => {
         if (!scoresDrawn) {
+            document.body.removeChild(document.getElementById('loadingScreen'));
             showScoresNew(data);
             scoresDrawn = true;
         }
@@ -41,6 +42,10 @@ socket = io(location.host);
     socket.on('lobby', () => {
         window.location.pathname = '/';
     });
+
+    socket.on('play', () => {
+        window.location.pathname = '/play';
+    })
 })();
 
 function createPlayers(data) {
@@ -53,7 +58,7 @@ function createPlayers(data) {
         let general = document.createElement('div');
         general.classList.add('generalDiv');
 
-        let playername = document.createElement('p');
+        let playername = document.createElement('h2');
         playername.innerText = player.name;
         playername.classList.add("text");
 
@@ -62,7 +67,7 @@ function createPlayers(data) {
         infodiv.id = "infodiv" + player.id;
         // infodiv.append(completedRoutes, uncompletedRoutes);
 
-        let score = document.createElement('p');
+        let score = document.createElement('h2');
         score.innerText = "Score: " + player.score;
         score.id = "score" + player.id;
         score.classList.add("text");

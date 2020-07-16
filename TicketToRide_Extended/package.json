@@ -1,14 +1,15 @@
 {
   "name": "tickettoride-extended",
-  "version": "0.0.0",
+  "version": "0.3.0B",
   "private": true,
   "scripts": {
-    "start": "node app.js 3200",
+    "start": "node app.js",
     "test": "jest"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
     "ejs": "~2.6.1",
     "express": "~4.17.1",
     "express-openid-connect": "^1.0.2",
@@ -16,7 +17,6 @@
     "morgan": "~1.9.1",
     "particles.js": "^2.0.0",
     "sharp": "^0.25.3",
-    "short-unique-id": "^2.0.7",
     "socket.io": "^2.3.0",
     "ws": "^7.3.0"
   },

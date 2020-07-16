@@ -9,6 +9,7 @@
       <link href="stylesheets/trainCards.css" rel="stylesheet" type="text/css" />
       <link href="stylesheets/wagons.css" rel="stylesheet" type="text/css" />
       <link href="stylesheets/transitions.css" rel="stylesheet" type="text/css" />
+      <link href="stylesheets/paper.min.css" rel="stylesheet" type="text/css" />
       <link href="https://fonts.googleapis.com/css2?family=Arapey&display=swap" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@400&display=swap" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
@@ -41,8 +42,6 @@
                   justify-content: center;
                   align-items: center;
                   color: white;
-                  font-size: 2em;
-                  font-family: 'Permanent Marker', cursive;
                   transition: 1s;
             }
       </style>
@@ -53,7 +52,7 @@
             <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
             <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_rjtT66.json" background="transparent"
                   speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
-            <p>Loading Game...</p>
+            <h3>Loading Game...</h3>
       </div>
       <div class="playarea">
             <div class="userPanes" id="userBox"></div>
@@ -66,7 +65,7 @@
                               <img src="./images/maps/us_flag.png" id="ustab" class="tablinks"
                                     onclick="openCity(event, 'us')">
                               <img src="./images/maps/done.png" id="endTurn" class="tablinks donebutton"
-                                    onclick="endTurn()"></img>
+                                    onclick="document.getElementById('modal-endturn').checked = true;"></img>
                         </div>
 
                         <div id="eu" class="tabcontent">
@@ -687,20 +686,37 @@
             <div class="cards" id="cardContainer">
                   <div class="generalCards" id="generalCards">
                         <div class="routeCards">
-                              <img class="card" src="images/routeCards/ticketBack.png" id="routeCard"
-                                    onclick="requestDestination()" />
+                              <img class="trainCard" src="images/routeCards/ticketBack.png" id="routeCard" onclick=" document.getElementById('modal-claimroutes').checked = true;" />
                         </div>
                         <div class="openWagonCards" id="openCardsBox"></div>
                         <div class="closedWagonCards">
-                              <img class="card" src="images/trainCards/us_WagonCard_back.png" id="closedCard"
+                              <img class="trainCard" src="images/trainCards/us_WagonCard_back.png" id="closedCard"
                                     onclick="requestClosedCard()" />
                         </div>
                   </div>
                   <div class="destiCards">
                   </div>
             </div>
-            <!--    <img class="cardsBackground" src="images/decorations/cards-support-Blue.png">-->
-
+            <input class="modal-state" id="modal-claimroutes" type="checkbox">
+            <div class="modal">
+                  <label class="modal-bg" for="modal-claimroutes"></label>
+                  <div class="modal-body">
+                        <h3 class="modal-title">Request new routes</h3>
+                        <p class="modal-text">Are you sure that you want to take new routes? You will get three routes and you will have to chose at least one!</p>
+                        <label class="paper-btn" for="modal-claimroutes" onclick="requestDestination();">Yes!</label>
+                        <label class="paper-btn" for="modal-claimroutes">No!</label>
+                  </div>
+            </div>
+            <input class="modal-state" id="modal-endturn" type="checkbox">
+            <div class="modal">
+                  <label class="modal-bg" for="modal-endturn"></label>
+                  <div class="modal-body">
+                        <h3 class="modal-title">End your turn</h3>
+                        <p class="modal-text">Are you sure you want to end your turn?</p>
+                        <label class="paper-btn" for="modal-endturn" onclick="endTurn();">Yes!</label>
+                        <label class="paper-btn" for="modal-endturn">No!</label>
+                  </div>
+            </div>
             <img class="dockDecoration" src="images/decorations/dock-Green.png" />
       </div>
 
@@ -714,6 +730,7 @@
       <script src="javascripts/maps.js"></script>
       <script src="javascripts/trainCards.js"></script>
       <script src="javascripts/destinations.js"></script>
+      <script src="javascripts/client_utils.js"></script>
       <script src="javascripts/client_game.js"></script>
       <script>
             imageMapResize();

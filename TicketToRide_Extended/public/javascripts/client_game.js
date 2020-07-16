@@ -60,6 +60,10 @@ socket = io(location.host);
         receivedDestinations(routes, 4, true);
     });
 
+    socket.on('validate-first-destinations', () => {
+        confirmDestis(false);
+    });
+
     socket.on('player-overview', (players) => {
         addUsers(players);
     });
@@ -69,7 +73,7 @@ socket = io(location.host);
 
         if (!lastRoundShown && round.lastRound) {
             lastRoundShown = true;
-            showAlert("A player has less than 3 wagons! This is the last round!");
+            showAlert("A player has less than 3 wagons! This is the last round!", 'alert');
         }
 
         currentMove = parseInt(round.thing);
@@ -82,6 +86,10 @@ socket = io(location.host);
 
         if (player === playerID && currentMove === 0) {
             trainHorn.play();
+        }
+
+        if (player === playerID && currentMove !== 0) {
+            document.getElementById("endTurn").style.display = "block";
         }
     });
 
@@ -137,10 +145,14 @@ socket = io(location.host);
         // Merge the image and remove it once the animation is done
         if (document.getElementsByClassName(`${data.continent}Wagons`).length > 1) {
             mergeImages([document.getElementsByClassName(`${data.continent}Wagons`)[0].src, document.getElementsByClassName(`${data.continent}Wagons`)[1].src])
-                .then(b64 => document.getElementsByClassName(`${data.continent}Wagons`)[0].src = b64);
-            setTimeout(function() {
-                imageLocation.removeChild(carts);
-            }, 4000);
+                .then(function(b64) {
+                    console.log('Merged images and displaying new wagon image!');
+                    document.getElementsByClassName(`${data.continent}Wagons`)[0].src = b64;
+
+                    setTimeout(function() {
+                        imageLocation.removeChild(carts);
+                    }, 4000);
+                });
         }
 
         // Play the cash register sound
@@ -157,10 +169,8 @@ socket = io(location.host);
     });
 
     socket.on('route-claim', (data) => {
-        if (data.status === 'accepted') {
-            document.getElementById("endTurn").style.display = 'block';
-        } else if (data.status === 'alreadyClaimedThis'){
-            showAlert(`You cannot do an action on ${data.continent} anymore!`);
+        if (data.status === 'alreadyClaimedThis') {
+            showAlert(`You cannot do an action on ${data.continent} anymore!`, 'alert');
         } else if (data.status === 'cant') {
             buzz.play();
             let card = document.getElementsByClassName("activatedCard")[0];
@@ -169,12 +179,12 @@ socket = io(location.host);
                 card.classList.remove("cantCard");
             }, 400);
         } else if (data.status === 'notYourTurn') {
-            showAlert('It is currently not your turn!');
+            showAlert('It is currently not your turn!', 'alert');
         }
     });
 
     socket.on('invalidmove', (data) => {
-        showAlert(data.message);
+        showAlert(data.message, 'alert');
     })
 
     socket.on('own-destinations', (data) => {
@@ -198,10 +208,8 @@ socket = io(location.host);
     });
 
     socket.on('station-claim', (result) => {
-        if (result) {
-            document.getElementById("endTurn").style.display = 'block';
-        } else {
-            showAlert('You cannot place a station here!');
+        if (!result) {
+            showAlert('You cannot place a station here!', 'alert');
         }
     })
 
@@ -221,7 +229,17 @@ socket = io(location.host);
 
     socket.on('disconnect', () => {
         console.log('Disconnected from server');
-        showAlert('You are disconnected. The app will try to reconnect automatically');
+        showAlert('You are disconnected. The app will try to reconnect automatically', 'warning');
+    });
+
+    socket.on('reconnect_attempt', () => {
+        console.log('Trying to reconnect');
+        showAlert('Trying to reconnect...', 'info');
+    });
+
+    socket.on('error', () => {
+        console.log('Something went wrong with the connection');
+        showAlert('Something went wrong with the connection! Reloading the page can fix this.', 'warning');
     });
 })();
 
@@ -292,7 +310,7 @@ function claimEuRoute(routeID) {
         let color = document.getElementsByClassName("activatedCard")[0].id;
         socket.emit('route-claim', {pid: playerID, color: color, route: routeID, continent: "eu"});
     } else {
-        showAlert("Select cards from your collection first!");
+        showAlert("Select cards from your collection first!", 'alert');
     }
 }
 
@@ -306,7 +324,7 @@ function claimUsRoute(routeID) {
         let color = document.getElementsByClassName("activatedCard")[0].id; 
         socket.emit('route-claim', {pid: playerID, color: color, route: routeID, continent: "us"});
     } else {
-        showAlert("Select cards from your collection first!");
+        showAlert("Select cards from your collection first!", 'alert');
     }
 }
 
@@ -328,17 +346,15 @@ function unlockaudio() {
 
     music.loop = true;
     music.play().then(function() {
-        showAlert("Audio unlocked!");
+        showAlert("Audio unlocked!", 'alert');
         audioUnlocked = true;
     }).catch(function(){
-        showAlert("Audio could not be unlocked. Maybe try again? :)");
+        showAlert("Audio could not be unlocked. Maybe try again? :)", 'alert');
     })
 }
 
 function endTurn() {
-    if (confirm("Do you want to end your turn?")) {
-        socket.emit('player-finished');
-    }
+    socket.emit('player-finished');
 }
 
 function drawExistingTrains(trains, continent) {
@@ -365,18 +381,6 @@ function getCookie(cname) {
         }
     }
     return "";
-}
-
-function showAlert(message) {
-    if (document.getElementsByClassName('alert').length === 0) {
-        let div = document.createElement('div');
-        div.innerText = message;
-        div.classList.add('alert');
-        document.body.appendChild(div);
-        setTimeout(() => {
-            document.body.removeChild(div);
-        }, 4000);
-    }
 }
 
 function showStationMenu(data) {
@@ -412,6 +416,7 @@ function showStationMenu(data) {
             menu.append(statbox);
         }
         let confirm = document.createElement('button');
+        confirm.classList.add('styledButton');
         confirm.innerText = "Confirm!";
         confirm.onclick = function () {
             confirmStations();
@@ -438,7 +443,7 @@ function hideLoadingScreen() {
             music.play();
             audioUnlocked = true;
         }).catch(function (){
-            showAlert('To unlock your audio, please press your own player on the left side of the screen!');
+            showAlert('To unlock your audio, please press your own player on the left side of the screen!', 'alert');
         });
         setTimeout(() => {
             document.body.removeChild(document.getElementById('loadingScreen'));

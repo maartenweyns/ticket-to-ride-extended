@@ -5,7 +5,7 @@ function setOpenTickets(openTickets) {
         let card = document.createElement('img');
         let color = openTickets["Card" + i];
         card.src = "images/trainCards/us_WagonCard_" + color + ".png";
-        card.classList.add("card");
+        card.classList.add("trainCard");
         card.classList.add(color);
         card.id = "Card" + i;
         card.onclick = function () {
@@ -26,7 +26,7 @@ function replaceCard(cardId, newColor, self) {
     setTimeout(function () {
         let card = document.createElement('img');
         card.src = "images/trainCards/us_WagonCard_" + newColor + ".png";
-        card.classList.add("card");
+        card.classList.add("trainCard");
         card.classList.add(newColor);
         card.id = cardId;
         card.onclick = function () {
