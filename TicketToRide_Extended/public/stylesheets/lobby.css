@@ -168,6 +168,25 @@ li:nth-child(even) {
     flex-direction: row;
 }
 
+.form-group {
+    color: white;
+}
+
+.form-group .paper-check input+span::before {
+    border-color: white;
+}
+
+.game-options {
+    padding: 10px;
+    border-color: white;
+    background-color: #68381a;
+}
+
+.game-options input {
+    border-color: white;
+    color: white;
+}
+
 @-webkit-keyframes float {
     from {
         -webkit-transform: rotate(0deg) translate3d(5px, 0, 0) rotate(0deg);

@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <title>Ticket To Ride XTended</title>
     <link href="images/logos/game-icon.png" rel="icon">
+    <link href="stylesheets/paper.min.css" rel="stylesheet" type="text/css" />
     <link href="stylesheets/style.css" rel="stylesheet" type="text/css" />
     <link href="stylesheets/lobby.css" rel="stylesheet" type="text/css" />
     <link href="stylesheets/transitions.css" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/paper.min.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
@@ -54,6 +54,22 @@
         </div>
 
         <div class="create" id="createWindow" style="display: none;">
+            <div class="game-options border border-primary">
+                <h3 style="margin-top: 0; margin-bottom: 10px;">Game Options</h3>
+                <fieldset class="form-group">
+                    <legend>Choose continents</legend>
+                    <label for="continentEU" class="paper-check">
+                      <input type="checkbox" name="continents" id="continentEU" value="Europe" checked> <span>Europe</span>
+                    </label>
+                    <label for="continentUS" class="paper-check">
+                      <input type="checkbox" name="continents" id="continentUS" value="United States" checked> <span>United States</span>
+                    </label>
+                </fieldset>
+                <div class="form-group">
+                    <label for="amountOfTrains">Amount of trains</label>
+                    <input type="number" id="amountOfTrains" value="50">
+                </div>
+            </div>
             <input class="styledInput" type="text" id="createName" placeholder="Your name here!" autocomplete="off" maxlength="10" required="true"/>
             <button class="startButton" id="startbutton" onclick="setup(true)">CREATE GAME</button>
             <h5 class="infoText" onclick="back();">Back</h5>
