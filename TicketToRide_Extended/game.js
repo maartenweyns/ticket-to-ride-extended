@@ -3,8 +3,10 @@ const Player = require("./player");
 const Utilities = require("./utilities");
 const SetupData = require("./setupData");
 
-const game = function (gameID) {
+const game = function (gameID, withEu, withUs, numTrains) {
     this.gameID = gameID;
+
+    this.options = {eu: withEu, us: withUs, trains: numTrains};
 
     this.imagery = new Imagery(this.gameID);
 
@@ -35,6 +37,8 @@ const game = function (gameID) {
     this.longusDesti = new Map();
     this.usStack = [];
 
+    this.longEuStack = [];
+    this.longUsStack = [];
     this.longStack = [];
 
     this.currentRound = null;
@@ -54,6 +58,13 @@ const game = function (gameID) {
     this.setupUsDestinations();
     this.setOpenCards();
 
+    // Setup long destinations stacks for later use.
+    this.longEuStack = shuffleArray(
+        Array.from(this.longeuDesti)
+    );
+    this.longUsStack = shuffleArray(
+        Array.from(this.longusDesti)
+    );
     this.longStack = shuffleArray(
         Array.from(this.longeuDesti).concat(Array.from(this.longusDesti))
     );
@@ -93,7 +104,7 @@ game.prototype.addPlayer = function (name, socketid) {
         return { status: false, message: "This game has already started!" };
     }
     // Add the player to the game
-    let player = new Player(this.amountOfPlayers, name, this.playerColors.pop(), socketid);
+    let player = new Player(this.amountOfPlayers, name, this.playerColors.pop(), socketid, this.options.trains);
     this[`player${this.amountOfPlayers}`] = player;
     this.amountOfPlayers++;
     // console.log(`[INFO] A player joined game ${this.gameID}`);
@@ -119,6 +130,54 @@ game.prototype.setOpenCards = function () {
 game.prototype.getOpenCards = function () {
     return this.openCards;
 };
+
+game.prototype.getOptions = function () {
+    return this.options;
+};
+
+game.prototype.validateFirstRoutesPicked = function (data) {
+    if (!Utilities.validateFirstRoutesPicked(data, this.options.eu, this.options.us)) {
+        if (this.options.eu && this.options.us) {
+            // Both continents are in the game
+            return {result: false, message: "You should pick at least two routes, one form Europe and one from America."};
+        } else if (!this.options.eu) {
+            // There is only one continent in the game
+            return {result: false, message: "You should pick at least two routes!"};
+        }
+    } else {
+        return {result: true};
+    }
+};
+
+// TODO Test this method
+game.prototype.getInitialDestinations = function (pid) {
+    if (this[`player${pid}`].initialDestinations.length === 0) {
+        if (this.options.eu && this.options.us) {
+            // Both continents are participating in the game. Get  routes from both.
+            let longdesti = this.longStack.pop();
+            if (longdesti[1].continent === "eu") {
+                this[`player${pid}`].initialDestinations = [longdesti, this.getEuDestination(), this.getUsDestination(), this.getUsDestination()]
+            } else {
+                this[`player${pid}`].initialDestinations = [this.getEuDestination(), this.getEuDestination(), longdesti, this.getUsDestination()]
+            }
+        } else {
+            // One continent does not participate in the game. Get routes only from the other continent.
+
+            // Define participating continent
+            let participating = '';
+            if (!this.options.eu) {
+                participating = "Us";
+            } else {
+                participating = "Eu";
+            }
+
+            // Get routes from participating continent
+            let longdesti = this[`long${participating}Stack`].pop();
+            this[`player${pid}`].initialDestinations = [longdesti, this[`get${participating}Destination`](), this[`get${participating}Destination`]()]
+        }
+    }
+    return this[`player${pid}`].initialDestinations;
+}
 
 game.prototype.checkNeedForShuffle = function () {
     let amountOfLocos = 0;
@@ -146,7 +205,7 @@ game.prototype.updatePlayerSocket = function (playerid, socketid) {
 
 game.prototype.createInitialTrianCardsForPlayer = function (playerid) {
     this[`player${playerid}`].getInitialTrainCards();
-}
+};
 
 game.prototype.getPlayerTrainCards = function (playerid) {
     if (this[`player${playerid}`] !== null) {

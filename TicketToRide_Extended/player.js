@@ -1,12 +1,12 @@
 const Utilities = require("./utilities");
 
-const player = function (id, playerName, playerColor, socketID) {
+const player = function (id, playerName, playerColor, socketID, numberOfTrains) {
     this.id = id;
     this.name = playerName;
     this.color = playerColor;
     this.score = 0;
 
-    this.numberOfTrains = 3;
+    this.numberOfTrains = numberOfTrains;
     this.numberOfTrainCards = 0;
     this.numberOfRoutes = 0;
     this.numberOfStations = 3;
@@ -25,6 +25,8 @@ const player = function (id, playerName, playerColor, socketID) {
 
     this.initialCardsTaken = false;
     this.ready = false;
+
+    this.initialDestinations = [];
 
     this.routes = new Map();
     this.stations = [];

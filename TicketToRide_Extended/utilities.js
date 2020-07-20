@@ -43,13 +43,24 @@ module.exports = {
         }
     },
 
-    validateFirstRoutesPicked: function (routesArray) {
+    validateFirstRoutesPicked: function (routesArray, withEu, withUs) {
         if (routesArray === undefined) {
             return false;
         }
+        if (routesArray.length < 2) {
+            return false;
+        }
+
         let eu = false;
         let us = false;
     
+        if (!withEu) {
+            eu = true;
+        }
+        if (!withUs) {
+            us = true;
+        }
+
         for (let routeid of routesArray) {
             if (routeid.includes('eu')) {
                 eu = true;

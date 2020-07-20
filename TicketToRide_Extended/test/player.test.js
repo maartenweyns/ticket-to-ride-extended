@@ -8,7 +8,7 @@ beforeEach(() => {
     let pcolor = 'blue';
     let psocketid = 'asocketid';
 
-    player = new Player(pid, pname, pcolor, psocketid);
+    player = new Player(pid, pname, pcolor, psocketid, 50);
 });
 
 test('Initial Values', () => {

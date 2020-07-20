@@ -50,11 +50,29 @@ function getUnusedGameCode() {
 
 io.on('connection', (socket) => {
 
-    socket.on('create-game', () => {
+    socket.on('create-game', (options) => {
+        if (!options.eu && !options.us) {
+            socket.emit('something-went-wrong', "You should pick at least one continent!");
+            return;
+        }
+        if (options.amount < 10 || options.amount > 99) {
+            socket.emit('something-went-wrong', "You should set the amount of trains between 10 and 99!");
+            return;
+        }
         let gid = getUnusedGameCode();
-		games.set(gid, new Game(gid));
+		games.set(gid, new Game(gid, options.eu, options.us, options.amount));
         socket.emit('join', gid);
-        console.log(`[CREATEGAME] Game with id ${gid} created!`);
+        let logmessage = "";
+        if (options.eu && options.us) {
+            logmessage = "Both continents participate.";
+        }
+        if (options.eu && !options.us) {
+            logmessage = "Only EU participates."
+        }
+        if (!options.eu && options.us) {
+            logmessage = "Only US participates."
+        }
+        console.log(`[CREATEGAME] Game with id ${gid} created! ${logmessage}`);
     });
 
     socket.on('player-name', (data) => {
@@ -103,6 +121,9 @@ io.on('connection', (socket) => {
 
         let pid = info.playerID;
 
+        // Send game options
+        socket.emit('game-options', game.getOptions());
+
         // Send open cards
         socket.emit('open-cards', {cards: game.getOpenCards(), shuffle: false});
 
@@ -124,13 +145,7 @@ io.on('connection', (socket) => {
             game.createInitialTrianCardsForPlayer(pid);
             socket.emit('own-cards', game.getPlayerTrainCards(pid));
 
-            let routes;
-            let longdesti = game.longStack.pop();
-            if (longdesti[1].continent === "eu") {
-                routes = {0: longdesti, 1: game.getEuDestination(), 2: game.getUsDestination(), 3: game.getUsDestination()}
-            } else {
-                routes = {0: game.getEuDestination(), 1: game.getEuDestination(), 2: longdesti, 3: game.getUsDestination()}
-            }
+            let routes = game.getInitialDestinations(pid);
             socket.emit('initial-routes', routes);
         }
     });
@@ -150,11 +165,13 @@ io.on('connection', (socket) => {
     });
 
     socket.on('validate-first-destinations', (data) => {
-        let result = Utilities.validateFirstRoutesPicked(data);
-        if (result) {
+        let game = games.get(Object.keys(socket.rooms)[1]);
+
+        let result = game.validateFirstRoutesPicked(data);
+        if (result.result) {
             socket.emit('validate-first-destinations', true);
         } else {
-            socket.emit('invalidmove', {message: 'You should pick at least one route from Europe and one from America'});
+            socket.emit('invalidmove', {message: result.message});
         }
     });
 
