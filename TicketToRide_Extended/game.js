@@ -135,12 +135,16 @@ game.prototype.getOptions = function () {
     return this.options;
 };
 
+// TODO Test this method
 game.prototype.validateFirstRoutesPicked = function (data) {
+    if (data === undefined) {
+        return {result: false, message: "You should pick at least two routes, one form Europe and one from America."};
+    }
     if (!Utilities.validateFirstRoutesPicked(data, this.options.eu, this.options.us)) {
         if (this.options.eu && this.options.us) {
             // Both continents are in the game
             return {result: false, message: "You should pick at least two routes, one form Europe and one from America."};
-        } else if (!this.options.eu) {
+        } else {
             // There is only one continent in the game
             return {result: false, message: "You should pick at least two routes!"};
         }
@@ -162,7 +166,6 @@ game.prototype.getInitialDestinations = function (pid) {
             }
         } else {
             // One continent does not participate in the game. Get routes only from the other continent.
-
             // Define participating continent
             let participating = '';
             if (!this.options.eu) {
@@ -178,6 +181,32 @@ game.prototype.getInitialDestinations = function (pid) {
     }
     return this[`player${pid}`].initialDestinations;
 }
+
+// TODO Test this method
+game.prototype.getDestination = function () {
+    if (this.options.eu && this.options.us) {
+        // Both continents are participating in the game
+
+        let random = Math.random();
+        if (random < 0.5) {
+            return [this.getEuDestination(), this.getUsDestination(), this.getUsDestination()];
+        } else {
+            return [this.getEuDestination(), this.getEuDestination(), this.getUsDestination()];
+        }
+    } else {
+        // There is only one continent in the game
+        // Define participating continent
+        let participating = '';
+        if (!this.options.eu) {
+            participating = "Us";
+        } else {
+            participating = "Eu";
+        }
+
+        // Get routes from participating continent
+        return [this[`get${participating}Destination`](), this[`get${participating}Destination`](), this[`get${participating}Destination`]()];
+    }
+};
 
 game.prototype.checkNeedForShuffle = function () {
     let amountOfLocos = 0;

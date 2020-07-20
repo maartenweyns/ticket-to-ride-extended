@@ -166,8 +166,8 @@ io.on('connection', (socket) => {
 
     socket.on('validate-first-destinations', (data) => {
         let game = games.get(Object.keys(socket.rooms)[1]);
-
         let result = game.validateFirstRoutesPicked(data);
+        
         if (result.result) {
             socket.emit('validate-first-destinations', true);
         } else {
@@ -418,14 +418,7 @@ io.on('connection', (socket) => {
             socket.emit('invalidmove', {message: 'You can only pick routes at the beginning of your turn!'});
             return;
         }
-
-        let random = Math.random();
-        if (random < 0.5) {
-            socket.emit('player-destination', {0: game.getEuDestination(), 1: game.getUsDestination(), 2: game.getUsDestination()});
-        } else {
-            socket.emit('player-destination', {0: game.getEuDestination(), 1: game.getEuDestination(), 2: game.getUsDestination()});
-        }
-
+        socket.emit('player-destination', game.getDestination());      
         socket.to(game.gameID).emit('closed-move', {pid: pid, move: "ROUTE-CARD"});
     });
 

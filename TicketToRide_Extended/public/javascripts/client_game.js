@@ -258,16 +258,20 @@ function configureGame(options) {
         eutab.parentNode.removeChild(eutab);
 
         document.getElementById("ustab").click();
+        return;
     }
     if (!options.us) {
         let usmap = document.getElementById('us');
-        let ustab = document.getElementById('us');
+        let ustab = document.getElementById('ustab');
 
         usmap.parentNode.removeChild(usmap);
         ustab.parentNode.removeChild(ustab);
 
         document.getElementById("eutab").click();
+        return;
     }
+    // Open EU when both continents are participating
+    document.getElementById("eutab").click();
 }
 
 function addUsers(users) {
