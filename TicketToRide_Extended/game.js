@@ -501,7 +501,18 @@ game.prototype.sendStationsMessage = function (io) {
 };
 
 game.prototype.getExistingTrainImages = function () {
-    return {eu: this.imagery.euWagonImage, us: this.imagery.usWagonImage};
+    if (this.options.eu && this.options.us) {
+        // Both continents are playing
+        return {eu: this.imagery.euWagonImage, us: this.imagery.usWagonImage};
+    } else {
+        // Only one continent is playing
+        // Define participating continent
+        if (!this.options.eu) {
+            return {us: this.imagery.usWagonImage};
+        } else {
+            return {eu: this.imagery.euWagonImage};
+        }
+    }
 }
 
 game.prototype.calculateScore = function () {

@@ -26,7 +26,7 @@ describe('First routes verification tests', () => {
     test('Validate Routes Test True Only EU', () => {
         let routeid1 = 'eu-something-something-1';
 
-        let routearray = [routeid1];
+        let routearray = [routeid1, routeid1];
 
         let returned = utilities.validateFirstRoutesPicked(routearray, true, false);
 
@@ -36,7 +36,7 @@ describe('First routes verification tests', () => {
     test('Validate Routes Test False Only EU', () => {
         let routeid1 = 'us-something-something-1';
 
-        let routearray = [routeid1];
+        let routearray = [routeid1, routeid1];
 
         let returned = utilities.validateFirstRoutesPicked(routearray, true, false);
 
@@ -46,7 +46,7 @@ describe('First routes verification tests', () => {
     test('Validate Routes Test True Only US', () => {
         let routeid1 = 'us-something-something-1';
 
-        let routearray = [routeid1];
+        let routearray = [routeid1, routeid1];
 
         let returned = utilities.validateFirstRoutesPicked(routearray, false, true);
 
@@ -56,7 +56,7 @@ describe('First routes verification tests', () => {
     test('Validate Routes Test False Only US', () => {
         let routeid1 = 'eu-something-something-1';
 
-        let routearray = [routeid1];
+        let routearray = [routeid1, routeid1];
 
         let returned = utilities.validateFirstRoutesPicked(routearray, false, true);
 

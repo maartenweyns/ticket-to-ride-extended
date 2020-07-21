@@ -199,8 +199,10 @@ socket = io(location.host);
     });
 
     socket.on('existing-trains', (data) => {
-        drawExistingTrains(data.eu, 'eu');
-        drawExistingTrains(data.us, 'us');
+        for (let continent in data) {
+            console.log(`Drawing on ${continent}`)
+            drawExistingTrains(data[continent], continent);
+        }
     });
 
     socket.on('player-destination', (data) => {

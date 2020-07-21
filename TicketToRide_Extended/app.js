@@ -90,7 +90,7 @@ io.on('connection', (socket) => {
             // Do the neccesary socket operations and communitcations
             socket.join(game.gameID);
             socket.emit('information', {playerID: result.id, gameID: game.gameID});
-            io.in(game.gameID).emit('player-overview', game.getUserProperties());   
+            io.in(game.gameID).emit('player-overview', game.getUserProperties());
         } else {
             // Send error to client
             socket.emit('something-went-wrong', result.message);
@@ -108,6 +108,7 @@ io.on('connection', (socket) => {
         io.in(game.gameID).emit('start-game');
     });
 
+    // FIXME Reloading on a single map game does not work
     socket.on('player-ingame-join', (info) =>  {
         let game = games.get(info.gameID);
 
@@ -167,7 +168,7 @@ io.on('connection', (socket) => {
     socket.on('validate-first-destinations', (data) => {
         let game = games.get(Object.keys(socket.rooms)[1]);
         let result = game.validateFirstRoutesPicked(data);
-        
+
         if (result.result) {
             socket.emit('validate-first-destinations', true);
         } else {
@@ -187,7 +188,7 @@ io.on('connection', (socket) => {
         } else {
             game["player" + pid].destinations.push(game["long" + destinationMap].get(routeID[1] + "-" + routeID[2]));
         }
-        
+
         game["player" + pid].numberOfRoutes++;
 
         game.checkContinuity(pid);
@@ -336,10 +337,10 @@ io.on('connection', (socket) => {
             game.imagery.computeWagons(data.continent, data.route, game["player" + data.pid].color, io);
 
             game["player" + data.pid].routeIDs.push([data.continent, data.route]);
-            
+
             io.in(game.gameID).emit('player-overview', game.getUserProperties());
             socket.emit('route-claim', {status: 'accepted', continent: data.continent});
-            
+
             let routeMap = data.continent + "Routes";
             game.userClaimedRoute(data.pid, game[routeMap].get(data.route));
 
@@ -399,7 +400,7 @@ io.on('connection', (socket) => {
         for (let desti of game.checkContinuity(data.pid)) {
             socket.emit('player-completed-route', desti.continent + "-" + desti.stationA + "-" + desti.stationB);
         }
-    
+
         game[`player${data.pid}`].ready = true;
 
         if (game.allPlayersReady()) {
@@ -418,7 +419,7 @@ io.on('connection', (socket) => {
             socket.emit('invalidmove', {message: 'You can only pick routes at the beginning of your turn!'});
             return;
         }
-        socket.emit('player-destination', game.getDestination());      
+        socket.emit('player-destination', game.getDestination());
         socket.to(game.gameID).emit('closed-move', {pid: pid, move: "ROUTE-CARD"});
     });
 
