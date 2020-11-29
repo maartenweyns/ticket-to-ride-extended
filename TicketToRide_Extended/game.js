@@ -332,7 +332,7 @@ game.prototype.playerPutRoute = function (continent) {
     this.thingsDone++;
     this.routesLayed++;
     this.lastContinentRoutePut = continent;
-    if (this.routesLayed > 1) {
+    if (!this.options.eu || !this.options.us || this.routesLayed > 1) {
         this.nextPlayerRound();
     }
 };
