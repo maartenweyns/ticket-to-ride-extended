@@ -24,8 +24,13 @@ function setup(creating) {
     socket = io(location.host);
 
     if (creating) {
+        // Get the options defined
+        let euEnabled = document.getElementById('continentEU').checked;
+        let usEnabled = document.getElementById('continentUS').checked;
+        let amountOfTrains = Number(document.getElementById('amountOfTrains').value);
+
         console.log('Creating an awesome game!');
-        socket.emit('create-game');
+        socket.emit('create-game', {eu: euEnabled, us: usEnabled, amount: amountOfTrains});
     } else {
         console.log('Joining your friends!');
         // Send the player's name to the server
