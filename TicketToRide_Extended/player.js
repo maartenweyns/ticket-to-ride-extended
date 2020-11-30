@@ -1,3 +1,4 @@
+const { route } = require("./routes");
 const Utilities = require("./utilities");
 
 const player = function (id, playerName, playerColor, socketID, numberOfTrains) {
@@ -103,13 +104,55 @@ player.prototype.getTrainCards = function () {
     return data;
 };
 
+player.prototype.checkEligibility = function (uColor, routeRequirements) {
+    let lRequired = routeRequirements.locos;
+    let rColor = routeRequirements.color;
+    let rLength = routeRequirements.length;
+    let points = Utilities.getScoreFromLength(routeRequirements.length);
+
+    if (this.numberOfTrains < rLength || this.loco < lRequired) {
+        // The player does not have enough trains or locomotives
+        return false;
+    }
+    if (uColor === "loco") {
+        // The player is claiming the route using only locomotives
+        if (this.loco >= rLength) {
+            this.routeClaimed(points, "loco", rLength, 0);
+            return true;
+        } else {
+            // The player does not have enough locomotives to pay this route
+            return false;
+        }
+    }
+    if (rColor === "any" || uColor == rColor) {
+        // This is a grey route or the selected color of the user matches the color of the route
+        if (this[uColor] >= rLength) {
+            this.routeClaimed(points, uColor, rLength, 0);
+            return true;
+        } else if (this[uColor] + this.loco >= rLength) {
+            // The player is using additional locomotives for this route
+            let lUsed = rLength - this[uColor];
+            this.routeClaimed(points, uColor, this[uColor], lUsed);
+            return true;
+        }
+    }
+
+
+};
+
 // TODO Add locomotive requirement and bridge support
 player.prototype.checkEligibility = function (color, routeRequirements) {
     if (this.numberOfTrains < routeRequirements.length) {
+        // The player does not have enough trains to use this route
+        return false;
+    }
+    if (this.loco < routeRequirements.locos) {
+        // The player does not have enough locomotives to use this route
         return false;
     }
     let points = Utilities.getScoreFromLength(routeRequirements.length);
-    if (this[color] >= routeRequirements.length) {
+    if (this[color] >= routeRequirements.length - routeRequirements.locos && this.loco >= routeRequirements.locos) {
+        // The player can claim the route without the use of additional locomotives
         if (routeRequirements.color === "any") {
             this.routeClaimed(points, color, routeRequirements.length, 0);
             return true;
@@ -127,6 +170,7 @@ player.prototype.checkEligibility = function (color, routeRequirements) {
             }
         }
     } else if (this[color] + this.loco >= routeRequirements.length) {
+        // The player will use locomotives for this route claim
         if (routeRequirements.color === "any" || color === routeRequirements.color) {
             let amount = this[color];
             let locos = routeRequirements.length - this[color];
