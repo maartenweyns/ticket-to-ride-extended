@@ -288,9 +288,10 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
         return false;
     }
 
-    // TODO Add double route checking here. Eg, a person sould not be able to claim two routes next to each other.
-    if (this.claimedRoutes.includes(routeID)) {
-        return false;
+    for (let rid of this.claimedRoutes) {
+        if (rid === routeID || rid.slice(0, rid.length - 2) === routeID.slice(0, routeID.length - 2)) {
+            return false;
+        }
     }
 
     if (this[`player${pid}`].numberOfTrains < routeRequirements.length) {

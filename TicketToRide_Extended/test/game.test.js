@@ -246,6 +246,22 @@ describe("Tests with EU and US", () => {
                 expect(game.claimedRoutes).toContain("brussels-paris-2");
             });
 
+            test("Check Eligibility Double Route Eu False", () => {
+                // Requirements are 2 red cards no locomotives
+                let routeid = "brussels-paris-2";
+
+                let returned = game.checkEligibility(0, "red", routeid, "eu");
+                expect(returned).toBeTruthy();
+                expect(game.claimedRoutes).toContain("brussels-paris-2");
+
+                let routeid2 = "brussels-paris-1";
+
+                let returned2 = game.checkEligibility(0, "red", routeid2, "eu");
+                expect(returned2).toBeFalsy();
+                expect(game.claimedRoutes).not.toContain("brussels-paris-1");
+            });
+
+
             test("Check Eligibility Eu False", () => {
                 let routeid = "berlin-warsaw-1";
 

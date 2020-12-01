@@ -319,7 +319,6 @@ describe('Eligibility Tests', () => {
     });
 
     test('Check Eligibility False Required Locomotives', () => {
-
         // Make a routeRequirements object
         let routeRequirements = {
             color: 'blue',
