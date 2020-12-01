@@ -282,7 +282,6 @@ game.prototype.getRouteRequirements = function (routeID, continent) {
 };
 
 game.prototype.checkEligibility = function (pid, color, routeID, continent) {
-    console.log(`[INFO] Checking if the user can claim ${routeID} in  ${continent}`);
     let routeRequirements = this.getRouteRequirements(routeID, continent);
 
     if (routeRequirements === undefined) {
@@ -293,11 +292,15 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
         return false;
     }
 
+    if (this[`player${pid}`].hasRoute(routeID)) {
+        return false;
+    }
+
     if (this[`player${pid}`].numberOfTrains < routeRequirements.length) {
         return false;
     }
 
-    if (this[`player${pid}`].checkEligibility(color, routeRequirements)) {
+    if (this[`player${pid}`].checkEligibility(color, routeRequirements, routeID)) {
         this.claimedRoutes.push(routeID);
         return true;
     }
