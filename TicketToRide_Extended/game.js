@@ -300,7 +300,7 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
         return false;
     }
 
-    if (this[`player${pid}`].checkEligibility(color, routeRequirements)) {
+    if (this[`player${pid}`].checkEligibility(color, routeRequirements, routeID)) {
         this.claimedRoutes.push(routeID);
         return true;
     }
