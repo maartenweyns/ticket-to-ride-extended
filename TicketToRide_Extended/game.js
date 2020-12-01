@@ -282,13 +282,13 @@ game.prototype.getRouteRequirements = function (routeID, continent) {
 };
 
 game.prototype.checkEligibility = function (pid, color, routeID, continent) {
-    console.log(`[INFO] Checking if the user can claim ${routeID} in  ${continent}`);
     let routeRequirements = this.getRouteRequirements(routeID, continent);
 
     if (routeRequirements === undefined) {
         return false;
     }
 
+    // TODO Add double route checking here. Eg, a person sould not be able to claim two routes next to each other.
     if (this.claimedRoutes.includes(routeID)) {
         return false;
     }

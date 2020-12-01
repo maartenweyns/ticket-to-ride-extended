@@ -296,6 +296,42 @@ describe('Eligibility Tests', () => {
         expect(player.numberOfTrains).toBe(5);
         expect(player.score).toBe(0);
     });
+
+    test('Check Eligibility True Required Locomotives', () => {
+
+        // Make a routeRequirements object
+        let routeRequirements = {
+            color: 'blue',
+            length: 4,
+            locos: 2,
+        };
+    
+        // Check if the player can put said route using his blue cards
+        let returned = player.checkEligibility('blue', routeRequirements);
+    
+        expect(returned).toBeTruthy();
+        expect(player.blue).toBe(1);
+        expect(player.loco).toBe(0);
+        expect(player.green).toBe(3);
+        expect(player.numberOfTrainCards).toBe(4);
+        expect(player.numberOfTrains).toBe(46);
+        expect(player.score).toBe(7);
+    });
+
+    test('Check Eligibility False Required Locomotives', () => {
+
+        // Make a routeRequirements object
+        let routeRequirements = {
+            color: 'blue',
+            length: 4,
+            locos: 3,
+        };
+    
+        // Check if the player can put said route using his blue cards
+        let returned = player.checkEligibility('blue', routeRequirements);
+    
+        expect(returned).toBeFalsy();
+    });
 });
 
 test('Get Player Properties', () => {

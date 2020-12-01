@@ -156,8 +156,8 @@ player.prototype.checkEligibility = function (uColor, routeRequirements) {
         }
         
     }
-
-
+    // All cases fail, the player cannot claim the route
+    return false;
 };
 
 // TODO Add locomotive requirement and bridge support
