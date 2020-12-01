@@ -104,6 +104,15 @@ player.prototype.getTrainCards = function () {
     return data;
 };
 
+player.prototype.hasRoute = function (routeID) {
+    for (let rid of this.routeIDs) {
+        if (rid.slice(0, rid.length - 2) === routeID.slice(0, routeID.length - 2)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 player.prototype.checkEligibility = function (uColor, routeRequirements) {
     let lRequired = routeRequirements.locos;
     let rColor = routeRequirements.color;

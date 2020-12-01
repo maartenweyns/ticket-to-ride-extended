@@ -288,10 +288,12 @@ game.prototype.checkEligibility = function (pid, color, routeID, continent) {
         return false;
     }
 
-    for (let rid of this.claimedRoutes) {
-        if (rid === routeID || rid.slice(0, rid.length - 2) === routeID.slice(0, routeID.length - 2)) {
-            return false;
-        }
+    if (this.claimedRoutes.includes(routeID)) {
+        return false;
+    }
+
+    if (this[`player${pid}`].hasRoute(routeID)) {
+        return false;
     }
 
     if (this[`player${pid}`].numberOfTrains < routeRequirements.length) {

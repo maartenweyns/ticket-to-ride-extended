@@ -126,6 +126,16 @@ test('Get Train Cards', () => {
     expect(player.getTrainCards().toString()).toBe(expected.toString());
 });
 
+test('Player Has Route Test True', () => {
+    player.routeIDs.push("brussels-paris-1");
+    expect(player.hasRoute("brussels-paris-2")).toBeTruthy();
+});
+
+test('Player Has Route Test False', () => {
+    player.routeIDs.push("brussels-paris-1");
+    expect(player.hasRoute("brussels-frankfurt-1")).toBeFalsy();
+});
+
 describe('Eligibility Tests', () => {
     beforeEach(() => {
         player.blue = 3;
