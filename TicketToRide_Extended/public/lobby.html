@@ -5,13 +5,17 @@
     <meta charset="UTF-8">
     <title>Ticket To Ride XTended</title>
     <link href="images/logos/game-icon.png" rel="icon">
+    <link href="stylesheets/paper.min.css" rel="stylesheet" type="text/css" />
     <link href="stylesheets/style.css" rel="stylesheet" type="text/css" />
     <link href="stylesheets/lobby.css" rel="stylesheet" type="text/css" />
     <link href="stylesheets/transitions.css" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/paper.min.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <!-- Matomo -->
     <script type="text/javascript">
         var _paq = window._paq || [];
@@ -26,6 +30,9 @@
             g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
         })();
     </script>
+    
+    <!-- Adsense (I'm sorry) -->
+    <script data-ad-client="ca-pub-8001293479642411" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
 <body>
@@ -52,6 +59,22 @@
         </div>
 
         <div class="create" id="createWindow" style="display: none;">
+            <div class="game-options border border-primary">
+                <h3 style="margin-top: 0; margin-bottom: 10px;">Game Options</h3>
+                <fieldset class="form-group">
+                    <legend>Choose continents</legend>
+                    <label for="continentEU" class="paper-check">
+                      <input type="checkbox" name="continents" id="continentEU" value="Europe" checked> <span>Europe</span>
+                    </label>
+                    <label for="continentUS" class="paper-check">
+                      <input type="checkbox" name="continents" id="continentUS" value="United States" checked> <span>United States</span>
+                    </label>
+                </fieldset>
+                <div class="form-group">
+                    <label for="amountOfTrains">Amount of trains</label>
+                    <input type="number" id="amountOfTrains" placeholder="10~99" value="50">
+                </div>
+            </div>
             <input class="styledInput" type="text" id="createName" placeholder="Your name here!" autocomplete="off" maxlength="10" required="true"/>
             <button class="startButton" id="startbutton" onclick="setup(true)">CREATE GAME</button>
             <h5 class="infoText" onclick="back();">Back</h5>

@@ -8,7 +8,7 @@ beforeEach(() => {
     let pcolor = 'blue';
     let psocketid = 'asocketid';
 
-    player = new Player(pid, pname, pcolor, psocketid);
+    player = new Player(pid, pname, pcolor, psocketid, 50);
 });
 
 test('Initial Values', () => {
@@ -124,6 +124,16 @@ test('Get Train Cards', () => {
     };
 
     expect(player.getTrainCards().toString()).toBe(expected.toString());
+});
+
+test('Player Has Route Test True', () => {
+    player.routeIDs.push("brussels-paris-1");
+    expect(player.hasRoute("brussels-paris-2")).toBeTruthy();
+});
+
+test('Player Has Route Test False', () => {
+    player.routeIDs.push("brussels-paris-1");
+    expect(player.hasRoute("brussels-frankfurt-1")).toBeFalsy();
 });
 
 describe('Eligibility Tests', () => {
@@ -295,6 +305,41 @@ describe('Eligibility Tests', () => {
         expect(player.numberOfTrainCards).toBe(8);
         expect(player.numberOfTrains).toBe(5);
         expect(player.score).toBe(0);
+    });
+
+    test('Check Eligibility True Required Locomotives', () => {
+
+        // Make a routeRequirements object
+        let routeRequirements = {
+            color: 'blue',
+            length: 4,
+            locos: 2,
+        };
+    
+        // Check if the player can put said route using his blue cards
+        let returned = player.checkEligibility('blue', routeRequirements);
+    
+        expect(returned).toBeTruthy();
+        expect(player.blue).toBe(1);
+        expect(player.loco).toBe(0);
+        expect(player.green).toBe(3);
+        expect(player.numberOfTrainCards).toBe(4);
+        expect(player.numberOfTrains).toBe(46);
+        expect(player.score).toBe(7);
+    });
+
+    test('Check Eligibility False Required Locomotives', () => {
+        // Make a routeRequirements object
+        let routeRequirements = {
+            color: 'blue',
+            length: 4,
+            locos: 3,
+        };
+    
+        // Check if the player can put said route using his blue cards
+        let returned = player.checkEligibility('blue', routeRequirements);
+    
+        expect(returned).toBeFalsy();
     });
 });
 

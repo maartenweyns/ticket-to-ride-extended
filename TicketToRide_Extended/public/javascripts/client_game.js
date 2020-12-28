@@ -17,6 +17,8 @@ var allAudio = [music, startsound, buzz, cardDeal, cardShuffle, cashRegister, ti
 var audioUnlocked = false;
 var lastRoundShown = false;
 
+var gameoptions = undefined;
+
 socket = io(location.host);
 
 (function setup() {
@@ -25,7 +27,6 @@ socket = io(location.host);
     gameID = getCookie("gameID");
 
     // Disable game elements from users
-    document.getElementById("eutab").click();
     document.getElementById("endTurn").style.display = "none";
 
     socket.on('connect', () => {
@@ -56,8 +57,13 @@ socket = io(location.host);
         addCardToCollection("loco", cards.loco);
     });
 
+    socket.on('game-options', (options) => {
+        gameoptions = options;
+        configureGame(options);
+    });
+
     socket.on('initial-routes', (routes) => {
-        receivedDestinations(routes, 4, true);
+        receivedDestinations(routes, routes.length, true);
     });
 
     socket.on('validate-first-destinations', () => {
@@ -193,8 +199,10 @@ socket = io(location.host);
     });
 
     socket.on('existing-trains', (data) => {
-        drawExistingTrains(data.eu, 'eu');
-        drawExistingTrains(data.us, 'us');
+        for (let continent in data) {
+            console.log(`Drawing on ${continent}`)
+            drawExistingTrains(data[continent], continent);
+        }
     });
 
     socket.on('player-destination', (data) => {
@@ -242,6 +250,31 @@ socket = io(location.host);
         showAlert('Something went wrong with the connection! Reloading the page can fix this.', 'warning');
     });
 })();
+
+function configureGame(options) {
+    if (!options.eu) {
+        let eumap = document.getElementById('eu');
+        let eutab = document.getElementById('eutab');
+
+        eumap.parentNode.removeChild(eumap);
+        eutab.parentNode.removeChild(eutab);
+
+        document.getElementById("ustab").click();
+        return;
+    }
+    if (!options.us) {
+        let usmap = document.getElementById('us');
+        let ustab = document.getElementById('ustab');
+
+        usmap.parentNode.removeChild(usmap);
+        ustab.parentNode.removeChild(ustab);
+
+        document.getElementById("eutab").click();
+        return;
+    }
+    // Open EU when both continents are participating
+    document.getElementById("eutab").click();
+}
 
 function addUsers(users) {
     let userBox = document.getElementById("userBox");
