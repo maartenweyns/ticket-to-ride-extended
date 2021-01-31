@@ -5,11 +5,25 @@ var socket;
 var playersDrawn = false;
 var scoresDrawn = false;
 
-var movingTrain = new Audio("./sounds/movingTrain_1s.mp3");
-var music = new Audio("./sounds/lastTurnMusic.mp3");
-var happymusic = new Audio("./sounds/germanMusic.mp3");
-var winning = new Audio("./sounds/victoryJingle.mp3");
-var vapeur = new Audio("./sounds/Vapeur.mp3");
+var movingTrain = new Howl({
+    src: ["./sounds/movingTrain_1s.mp3"],
+});
+var music = new Howl({
+    src: ["./sounds/lastTurnMusic.mp3"],
+});
+var happymusic = new Howl({
+    loop: true,
+    src: ["./sounds/germanMusic.mp3"],
+});
+var winning = new Howl({
+    src: ["./sounds/victoryJingle.mp3"],
+    onend: function() {
+        happymusic.play();
+    }
+});
+var vapeur = new Howl({
+    src: ["./sounds/Vapeur.mp3"],
+});
 
 socket = io(location.host);
 
@@ -184,10 +198,6 @@ function showScoresNew (data) {
                 showWinning();
                 music.pause();
                 winning.play();
-                winning.onended = function() {
-                    happymusic.loop = true;
-                    happymusic.play();
-                }
             }, 2000 * wait);
         }
 
