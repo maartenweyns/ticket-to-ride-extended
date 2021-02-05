@@ -1,4 +1,5 @@
 const Player = require('../player');
+const Route = require('../route');
 var player;
 
 beforeEach(() => {
@@ -412,4 +413,91 @@ test('Player Set Ready Valid False', () => {
     let returned2 = player.isReady();
     expect(returned1).toBeTruthy();
     expect(returned2).toBeFalsy();
+});
+
+test('Player Longest Route single Route', () => {
+    let route = new Route("a", "b", 1, "blue", 3, 0);
+    let routearray = [];
+    routearray.push(route);
+    player.routes.set('a', routearray);
+    player.routes.set('b', routearray);
+
+    let returned = player.findLongestRoute();
+
+    expect(returned).toBe(3);
+});
+
+test('Player Longest Route two Routes', () => {
+    let route = new Route("a", "b", 1, "blue", 3, 0);
+    let route2 = new Route("b", "c", 1, "blue", 4, 0);
+    player.routes.set('a', [route]);
+    player.routes.set('b', [route, route2]);
+    player.routes.set('c', [route2])
+
+    let returned = player.findLongestRoute();
+
+    expect(returned).toBe(7);
+});
+
+test('Player Longest Route four Routes', () => {
+    let route = new Route("a", "b", 1, "blue", 3, 0);
+    let route3 = new Route("b", "d", 1, "blue", 4, 0);
+    let route4 = new Route("d", "e", 1, "blue", 2, 0);
+    let route2 = new Route("b", "c", 1, "blue", 4, 0);
+
+    player.routes.set('a', [route]);
+    player.routes.set('b', [route, route3, route2]);
+    player.routes.set('c', [route2]);
+    player.routes.set('d', [route3, route4])
+    player.routes.set('e', [route4]);
+
+    let returned = player.findLongestRoute();
+
+    expect(returned).toBe(9);
+});
+
+test('Player Longest Route Complicated Variant 1', () => {
+    let route1 = new Route("a", "b", 1, "blue", 2, 0);
+    let route2 = new Route("b", "c", 1, "blue", 1, 0);
+    let route3 = new Route("b", "d", 1, "blue", 4, 0);
+    let route4 = new Route("c", "d", 1, "blue", 2, 0);
+    let route5 = new Route("c", "e", 1, "blue", 3, 0);
+    let route6 = new Route("f", "g", 1, "blue", 5, 0);
+    let route7 = new Route("f", "h", 1, "blue", 2, 0);
+
+    player.routes.set('a', [route1]);
+    player.routes.set('b', [route1, route2, route3]);
+    player.routes.set('c', [route2, route4, route5]);
+    player.routes.set('d', [route3, route4]);
+    player.routes.set('e', [route5]);
+    player.routes.set('f', [route6, route7]);
+    player.routes.set('g', [route6]);
+    player.routes.set('h', [route7]);
+
+    let returned = player.findLongestRoute();
+
+    expect(returned).toBe(11);
+});
+
+test('Player Longest Route Complicated Variant 2', () => {
+    let route1 = new Route("a", "b", 1, "blue", 2, 0);
+    let route2 = new Route("b", "c", 1, "blue", 1, 0);
+    let route3 = new Route("b", "d", 1, "blue", 4, 0);
+    let route4 = new Route("c", "d", 1, "blue", 2, 0);
+    let route5 = new Route("c", "e", 1, "blue", 3, 0);
+    let route6 = new Route("f", "g", 1, "blue", 5, 0);
+    let route7 = new Route("f", "h", 1, "blue", 8, 0);
+
+    player.routes.set('a', [route1]);
+    player.routes.set('b', [route1, route2, route3]);
+    player.routes.set('c', [route2, route4, route5]);
+    player.routes.set('d', [route3, route4]);
+    player.routes.set('e', [route5]);
+    player.routes.set('f', [route6, route7]);
+    player.routes.set('g', [route6]);
+    player.routes.set('h', [route7]);
+
+    let returned = player.findLongestRoute();
+
+    expect(returned).toBe(13);
 });

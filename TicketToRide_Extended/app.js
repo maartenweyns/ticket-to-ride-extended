@@ -62,17 +62,7 @@ io.on('connection', (socket) => {
         let gid = getUnusedGameCode();
 		games.set(gid, new Game(gid, options.eu, options.us, options.amount));
         socket.emit('join', gid);
-        let logmessage = "";
-        if (options.eu && options.us) {
-            logmessage = "Both continents participate.";
-        }
-        if (options.eu && !options.us) {
-            logmessage = "Only EU participates."
-        }
-        if (!options.eu && options.us) {
-            logmessage = "Only US participates."
-        }
-        console.log(`[CREATEGAME] Game with id ${gid} created! ${logmessage}`);
+        console.log(`[CREATEGAME] Game with id ${gid} created!`);
     });
 
     socket.on('player-name', (data) => {
