@@ -1,5 +1,5 @@
 const Game = require("../game");
-const Player = require("../player");
+const Route = require("../route");
 var game;
 
 describe("Tests with EU and US", () => {
@@ -312,5 +312,41 @@ describe("Tests with EU and US", () => {
 
             expect(returned).toEqual(expected);
         });
+    });
+
+    describe("Tests with Users with Routes In Game", () => {
+        beforeEach(() => {
+            game.addPlayer("John", "somesocketid");
+            game.addPlayer("Lisa", "somesocketid");
+
+            let route1 = new Route("a", "b", 1, "blue", 2, 0);
+            let route2 = new Route("b", "c", 1, "blue", 1, 0);
+            let route3 = new Route("b", "d", 1, "blue", 4, 0);
+            let route4 = new Route("c", "d", 1, "blue", 2, 0);
+            let route5 = new Route("c", "e", 1, "blue", 3, 0);
+            let route6 = new Route("f", "g", 1, "blue", 5, 0);
+            let route7 = new Route("f", "h", 1, "blue", 2, 0);
+
+            game.userClaimedRoute(0, route1);
+            game.userClaimedRoute(0, route2);
+            game.userClaimedRoute(0, route3);
+            game.userClaimedRoute(0, route4);
+            game.userClaimedRoute(1, route4);
+            game.userClaimedRoute(1, route5);
+            game.userClaimedRoute(1, route6);
+            game.userClaimedRoute(1, route7);
+            game.userClaimedRoute(1, route2);
+        });
+
+        test("Test Player 0 Longest Train", () => {
+            expect(game.getPlayersWithLongestTrain()).toEqual([0]);
+        });
+
+        test("Test Players Equal Longest Train", () => {
+            game.userClaimedRoute(1, new Route("b", "d", 1, "blue", 3, 0));
+            
+            expect(game.getPlayersWithLongestTrain()).toEqual([0, 1]);
+        });
+
     });
 });

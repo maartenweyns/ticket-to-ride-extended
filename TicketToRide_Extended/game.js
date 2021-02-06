@@ -536,6 +536,27 @@ game.prototype.calculateScore = function () {
     return returnObject;
 };
 
+/**
+ * This function will return an array with the player IDs of the players that have the longest train
+ * @returns An array of player IDs
+ */
+game.prototype.getPlayersWithLongestTrain = function () {
+    let players = [0];
+    let length = this.player0.findLongestRoute();
+
+    for (let i = 1; i < this.amountOfPlayers; i++) {
+        tlength = this[`player${i}`].findLongestRoute();
+        if (tlength > length) {
+            players = [i];
+            length = tlength
+        } else if (tlength === length) {
+            players.push(i);
+        }
+    }
+
+    return players;
+}
+
 function checkContinuity(player, stationA, stationB) {
     let map = player.routes;
     let visited = [];
