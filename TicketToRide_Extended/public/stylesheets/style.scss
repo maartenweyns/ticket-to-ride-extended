@@ -1,0 +1,221 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    background-color: #000000;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='charlie-brown' fill='%23515052' fill-opacity='0.4'%3E%3Cpath d='M9.8 12L0 2.2V.8l10 10 10-10v1.4L10.2 12h-.4zm-4 0L0 6.2V4.8L7.2 12H5.8zm8.4 0L20 6.2V4.8L12.8 12h1.4zM9.8 0l.2.2.2-.2h-.4zm-4 0L10 4.2 14.2 0h-1.4L10 2.8 7.2 0H5.8z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+.styledButton {
+    padding: 10px;
+    margin: 10px;
+    background-color: #68381a;
+    color: white;
+    border: solid white;
+}
+
+.playarea {
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Style the tab */
+.tab {
+    z-index: 10;
+}
+
+/* Style the tab content */
+.tabcontent {
+    position: relative;
+    height: 100%;
+    width: calc(100% - 50px);
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.tablinks {
+    display: block;
+    width: 50px;
+    margin-bottom: 20px;
+}
+
+.map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-height: 100%;
+    max-width: 100%;
+    user-select: none;
+}
+
+.dots {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-height: 100%;
+    max-width: 100%;
+    pointer-events: none;
+}
+
+.cards {
+    height: calc(100vh - 10px);
+    width: calc(100vw / 8);
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.destiCards {
+    position: relative;
+    background-image: url("../images/decorations/TicketSupport_RH.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.destiCard {
+    width: 100%;
+    cursor: pointer;
+}
+
+.destiSupport {
+    width: 100%;
+}
+
+.maps {
+    top: 0;
+    height: 100%;
+    display: flex;
+}
+
+.centerContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.ownCards, .destiDeck {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 15%;
+}
+
+.stationMenu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 15%;
+}
+
+.stationChoiceDiv {
+    display: flex;
+    flex-direction: row;
+    color: white;
+    font-size: 2em;
+    font-family: 'Permanent Marker', cursive;
+    height: 25%;
+}
+
+.destiDeckCard {
+    height: 100%;
+}
+
+.dockDecoration {
+    z-index: -99;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+}
+
+.disabled {
+    pointer-events: none;
+}
+
+.flashingFlag {
+    animation: flash 200ms 4 linear;
+    -webkit-animation: flash 400ms 4 linear;
+}
+
+.donebutton {
+    animation: flashingDone 1s infinite;
+    -webkit-animation: flashingDone 1s infinite;
+}
+
+.popup-custom {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: calc(100vw);
+    height: 38px;
+    line-height: 30px;
+    font-size: 25px;
+    text-align: center;
+    z-index: 99;
+    animation: showAlert 4s;
+    -webkit-animation: showAlert 4s;
+    font-family: 'Passion One';
+}
+
+.popup-alert {
+    border: solid 5px #787000;
+    background-color: #fff12b;
+    color: #292600;
+}
+
+.popup-info {
+    border: solid 5px   #086972;
+    background-color: #17b978;
+    color: #292600;
+}
+
+.popup-warning {
+    border: solid 5px   #492540;
+    background-color: #c03546;
+    color: white;
+}
+
+@keyframes showAlert {
+    0% {transform: translateY(-50px); -webkit-transform: translateY(-50px);}
+    13% {transform: translateY(0); -webkit-transform: translateY(0);}
+    87% {transform: translateY(0); -webkit-transform: translateY(0);}
+    100% {transform: translateY(-50px); -webkit-transform: translateY(-50px);}
+}
+
+@keyframes flashingDone {
+    0% {transform: scale(1); -webkit-transform: scale(1);}
+    50% {transform: scale(1.5); -webkit-transform: scale(1.5);}
+    100% {transform: scale(1); -webkit-transform: scale(1);}
+}
+
+@keyframes flash {
+    0% {filter: brightness(1); --webkit-filter: brightness(1); transform: scale(1); -webkit-transform: scale(1);}
+    50% {filter: brightness(3); --webkit-filter: brightness(3); transform: scale(1.3); -webkit-transform: scale(1.3);}
+    100% {filter: brightness(1); --webkit-filter: brightness(1); transform: scale(1); -webkit-transform: scale(1);}
+}

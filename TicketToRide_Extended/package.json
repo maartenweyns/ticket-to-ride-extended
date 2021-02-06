@@ -1,6 +1,6 @@
 {
   "name": "tickettoride-extended",
-  "version": "0.3.0B",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node app.js",

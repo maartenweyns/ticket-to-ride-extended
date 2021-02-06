@@ -15,7 +15,7 @@ var music = new Howl({
 });
 var startsound = new Howl({
     src: ["../sounds/startGame.mp3"],
-    onend: function () {
+    onplay: function () {
         music.play();
         audioUnlocked = true;
     },

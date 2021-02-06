@@ -416,6 +416,11 @@ game.prototype.shuffleDestis = function () {
     this.usStack = shuffleArray(this.usStack);
 };
 
+/**
+ * This function will add a route to the players inventory.
+ * @param {number} playerID The id of the player that claimed the route
+ * @param {Route} route The route object the user claimed
+ */
 game.prototype.userClaimedRoute = function (playerID, route) {
     if (this["player" + playerID].routes.get(route.stationA) === undefined) {
         this["player" + playerID].routes.set(route.stationA, [route]);
