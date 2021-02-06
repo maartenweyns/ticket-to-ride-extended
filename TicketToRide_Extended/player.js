@@ -208,84 +208,85 @@ player.prototype.getDestinations = function () {
     };
 };
 
-// player.prototype.createRouteGraph = function () {
-//     let nodes = new Map();
-
-//     // Add all stations this user connects to to a map object
-//     for (let routeID in this.routeIDs) {
-//         let stations = routeID.split("-");
-//         if (!nodes.has(stations[0])) {
-//             nodes.set(stations[0], new Node(stations[0]));
-//         }
-//         if (!nodes.has(stations[1])) {
-//             nodes.set(stations[1], new Node(stations[1]));
-//         }
-//     }
-
-//     // Create edges for all routes this user has
-//     for (let routeID in this.routeIDs) {
-//         let stations = routeID.split("-");
-//         let length = this.routes.get()
-
-//         let stationA = nodes.get(stations[0]);
-//         stationA.addEdge(stations[1], )
-//     }
-// }
-
 player.prototype.findLongestRoute = function () {
     let longestRoute = 0;
 
-    for (let routearray of this.routes.values()) {
-        console.log('BEGIN');
-        rlength = 0;
-        lengthSinceDecision = 0;
+    let looseRoutes = [];
+    for (let station of this.routes.keys()) {
+        if (this.routes.get(station).length === 1) {
+            looseRoutes.push(this.routes.get(station)[0]);
+        }
+    }
+
+    if (looseRoutes.length === 0) {
+        for (routeArray of this.routes.values()) {
+            looseRoutes = looseRoutes.concat(routeArray);
+        }
+    }
+
+    for (let route of looseRoutes) {
+        // console.log('BEGIN');
+        let rlength = 0;
+        let lengthSinceDecision = 0;
+
+        let countFrom = route.stationA;
+        if (this.routes.get(route.stationA).length === 1) {
+            countFrom = route.stationB;
+        }
 
         let visited = [];
-        let stack = [];
-
-        stack = [].concat(routearray);
+        let stack = [route];
 
         while (stack.length > 0) {
             let currentRoute = stack.pop();
-            visited.push(currentRoute);
-            rlength += currentRoute.length;
-            lengthSinceDecision += currentRoute.length;
 
-            console.log("Current route")
-            console.log(currentRoute);
+            if (!visited.includes(currentRoute)) {
+                visited.push(currentRoute);
+                rlength += currentRoute.length;
+                lengthSinceDecision += currentRoute.length;
 
-            added = 0;
+                // console.log("Current route")
+                // console.log(currentRoute);
 
-            for (let nextRoute of this.routes.get(currentRoute.stationB)) {
-                // console.log("Next Up");
-                // console.log(nextRoute);
-                if (!visited.includes(nextRoute)) {
-                    added++;
-                    stack = stack.concat([nextRoute]);
-                    // console.log("Added");
+                // console.log("Count from: " + countFrom);
+
+                goTo = currentRoute.stationA;
+
+                let added = 0;
+
+                for (let nextRoute of this.routes.get(countFrom)) {
+                    if (!visited.includes(nextRoute)) {
+                        added++;
+                        stack.push(nextRoute);
+                        if (nextRoute.stationA === countFrom) {
+                            goTo = nextRoute.stationB;
+                        } else {
+                            goTo = nextRoute.stationA;
+                        }
+                    }
                 }
-            }
 
-            if (added === 0) {
-                // We did not add any route to the stack. We will begin to go back
-                if (rlength > longestRoute) {
-                    longestRoute = rlength;
+                countFrom = goTo;
+
+                if (added === 0) {
+                    // We did not add any route to the stack. We will begin to go back
+                    if (rlength > longestRoute) {
+                        longestRoute = rlength;
+                    }
+                    // console.log("Going back. Current longest = " + longestRoute);
+                    rlength -= lengthSinceDecision;
+                    lengthSinceDecision = 0;
+                } else if (added > 1) {
+                    // console.log("Resetting LsD. Added was greater than 1");    
+                    lengthSinceDecision = 0;
                 }
-                console.log("Backtracing... Current longest = " + longestRoute);
-                rlength -= lengthSinceDecision;
-                lengthSinceDecision = 0;
-            } else if (added > 1) {
-                console.log("Had to decide -> reset LSD")
-                lengthSinceDecision = 0;
+
+                // console.log("Stack")
+                // console.log(stack);
+
+                // console.log("LsD");
+                // console.log(lengthSinceDecision);
             }
-
-            console.log("Stack")
-            console.log(stack);
-
-            // stack = stack.concat(this.routes.get(currentRoute.stationA));
-
-            // console.log(stack);
-            // console.log(rlength);
         }
     }
 
