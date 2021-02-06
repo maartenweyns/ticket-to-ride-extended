@@ -220,10 +220,8 @@ game.prototype.checkNeedForShuffle = function () {
 
 game.prototype.getUserProperties = function () {
     let returnObject = [];
-    for (let i = 0; i < 8; i++) {
-        if (this[`player${i}`] !== null) {
-            returnObject.push(this[`player${i}`].getPlayerProperties());
-        }
+    for (let i = 0; i < this.amountOfPlayers; i++) {
+        returnObject.push(this[`player${i}`].getPlayerProperties());
     }
     return returnObject;
 };
@@ -473,33 +471,31 @@ game.prototype.getPlayerRound = function () {
 
 game.prototype.sendStationsMessage = function (io) {
     this.currentRound = 8;
-    for (let i = 0; i < 8; i++) {
-        if (this[`player${i}`] !== null) {
-            let neighbors = [];
-            for (let city of this[`player${i}`].stations) {
-                let ret = [];
-                for (let routeID of this.claimedRoutes) {
-                    let stations = routeID.split("-");
-                    if (stations[0] === city || stations[1] === city) {
-                        if (stations[0] === city) {
-                            if (!ret.includes(stations[1])) {
-                                ret.push(stations[1].toUpperCase());
-                            }
-                        } else {
-                            if (!ret.includes(stations[0])) {
-                                ret.push(stations[0].toUpperCase());
-                            }
+    for (let i = 0; i < this.amountOfPlayers; i++) {
+        let neighbors = [];
+        for (let city of this[`player${i}`].stations) {
+            let ret = [];
+            for (let routeID of this.claimedRoutes) {
+                let stations = routeID.split("-");
+                if (stations[0] === city || stations[1] === city) {
+                    if (stations[0] === city) {
+                        if (!ret.includes(stations[1])) {
+                            ret.push(stations[1].toUpperCase());
+                        }
+                    } else {
+                        if (!ret.includes(stations[0])) {
+                            ret.push(stations[0].toUpperCase());
                         }
                     }
                 }
-                neighbors.push(ret);
             }
-            if (this[`player${i}`].stations.length !== 0) {
-                this[`player${i}`].ready = false;
-            }
-            let sendObj = { stations: this[`player${i}`].stations, options: neighbors };
-            io.to(this[`player${i}`].socketID).emit("stations", sendObj);
+            neighbors.push(ret);
         }
+        if (this[`player${i}`].stations.length !== 0) {
+            this[`player${i}`].ready = false;
+        }
+        let sendObj = { stations: this[`player${i}`].stations, options: neighbors };
+        io.to(this[`player${i}`].socketID).emit("stations", sendObj);
     }
 };
 
@@ -520,18 +516,16 @@ game.prototype.getExistingTrainImages = function () {
 
 game.prototype.calculateScore = function () {
     let returnObject = [];
-    for (let i = 0; i < 8; i++) {
-        if (this["player" + i] !== null) {
-            let player = {
-                id: i,
-                score: this["player" + i].score,
-                color: this["player" + i].color,
-                destinations: this["player" + i].destinations,
-                completedDestinations: this["player" + i].completedDestinations,
-                stations: this[`player${i}`].numberOfStations,
-            };
-            returnObject.push(player);
-        }
+    for (let i = 0; i < this.amountOfPlayers; i++) {
+        let player = {
+            id: i,
+            score: this["player" + i].score,
+            color: this["player" + i].color,
+            destinations: this["player" + i].destinations,
+            completedDestinations: this["player" + i].completedDestinations,
+            stations: this[`player${i}`].numberOfStations,
+        };
+        returnObject.push(player);
     }
     return returnObject;
 };
