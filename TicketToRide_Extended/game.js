@@ -520,8 +520,14 @@ game.prototype.getExistingTrainImages = function () {
 }
 
 game.prototype.calculateScore = function () {
+    let playersWithLongestTrain = this.getPlayersWithLongestTrain();
     let returnObject = [];
     for (let i = 0; i < this.amountOfPlayers; i++) {
+        let longestTrain = false;
+        if (playersWithLongestTrain.includes(i)) {
+            longestTrain = true;
+        }
+        
         let player = {
             id: i,
             score: this["player" + i].score,
@@ -529,6 +535,7 @@ game.prototype.calculateScore = function () {
             destinations: this["player" + i].destinations,
             completedDestinations: this["player" + i].completedDestinations,
             stations: this[`player${i}`].numberOfStations,
+            longestTrain: longestTrain,
         };
         returnObject.push(player);
     }

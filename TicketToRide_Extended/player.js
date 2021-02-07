@@ -1,6 +1,4 @@
 const Utilities = require("./utilities");
-const Node = require("./graph/node");
-const Edge = require("./graph/edge");
 
 const player = function (id, playerName, playerColor, socketID, numberOfTrains) {
     this.id = id;

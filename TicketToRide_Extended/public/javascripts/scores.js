@@ -193,6 +193,19 @@ function showScoresNew (data) {
             }, 2000 * wait++); 
         }
 
+        if (player.longestTrain) {
+            setTimeout(() => {
+                let score = parseInt(document.getElementById("score" + player.id).innerText.split("Score: ")[1]);
+                score += 10;
+
+                document.getElementById("score" + player.id).innerText = "Score: " + score;
+                document.getElementById("scoreTrain" + player.id).style.transform = "translateX(calc(-100% + " + score + "%))";
+
+                vapeur.play();
+                movingTrain.play();
+            }, 2000 * wait++); 
+        }
+
         if (last) {
             setTimeout(function () {
                 showWinning();
