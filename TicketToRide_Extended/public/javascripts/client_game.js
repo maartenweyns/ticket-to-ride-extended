@@ -9,7 +9,7 @@ var cardDeal = new Howl({
 var music = new Howl({
     src: ["../sounds/america.mp3"],
     loop: true,
-    onend: function () {
+    onplay: function () {
         audioUnlocked = true;
     },
 });

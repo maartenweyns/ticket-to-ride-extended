@@ -2,6 +2,19 @@ var socket;
 var playerID;
 var gameID;
 
+var ticketsound = new Howl({
+    src: ["../sounds/PunchTicket.mp3"],
+    onplay: () => {
+        showMuteButton();
+        changeMuteButton(true);
+    },
+    onend: () => {
+        music.play();
+    }
+});
+
+var music;
+
 function setup(creating) {
     let nameEntered;
     if (creating) {
@@ -19,6 +32,32 @@ function setup(creating) {
             nameEntered = document.getElementById('joinName').value.toUpperCase();
         }
     }
+
+    let winter = new Date("2021-03-20");
+    let now = new Date();
+
+    if (now > winter) {
+        particlesJS.load('particles-js', '../config/particles.json', function() {
+            music = new Howl({
+                src: ["../sounds/Menu.mp3"],
+                loop: true
+            });
+        });
+    } else {
+        particlesJS.load('particles-js', '../config/particles-snow.json', function() {
+            music = new Howl({
+                src: ["../sounds/WinterMenu.mp3"],
+                loop: true
+            });
+        });
+    }
+
+    // Play the music
+    ticketsound.play();
+
+    // Change the lobby background
+    document.body.style.background = "url('../images/lobby/bg-station.jpg') no-repeat center center";
+    document.body.style.backgroundSize = "cover";
 
     // Setup the socket.io connection
     socket = io(location.host);
@@ -121,6 +160,30 @@ function startGame() {
     socket.emit('start-game');
 }
 
-particlesJS.load('particles-js', '../config/particles.json', function() {
-    console.log('callback - particles.js config loaded');
-});
+function showMuteButton() {
+    let mutediv = document.getElementById("mute");
+    mutediv.style.display = "block";
+}
+
+/**
+ * This function will change the mute button. True is on, false is off
+ */
+function changeMuteButton(status) {
+    let mutebutton = document.getElementById("mutebtn");
+
+    if (status) {
+        mutebutton.src = "../images/buttons/sound/button-music-On.png";
+    } else {
+        mutebutton.src = "../images/buttons/sound/button-music-Off.png";
+    }
+}
+
+function mute() {
+    if (music.playing()) {
+        changeMuteButton(false);
+        music.stop()
+    } else {
+        changeMuteButton(true);
+        music.play();
+    }
+}

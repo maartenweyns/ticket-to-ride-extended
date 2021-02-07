@@ -1,0 +1,234 @@
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: url("../images/lobby/bg-splash.jpg") no-repeat center center;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 750ms;
+}
+
+h3 {
+    color: white;
+}
+
+.startButton {
+    padding: 10px;
+    margin: 10px;
+    background-color: #68381a;
+    color: white;
+    border: solid white;
+}
+
+.loginButton {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 99;
+    padding: 10px;
+    background: #68381a;
+    border: solid white;
+    color: white;
+}
+
+.markerText {
+    color: white;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 40px;
+    user-select: none;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.startButton:hover, .loginButton:hover {
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.players {
+    text-align: center;
+}
+
+.playerBubble {
+    margin: 10px;
+    padding: 10px;
+}
+
+.playerBubbleName {
+    margin: 0;
+}
+
+li {
+    font-size: 2em;
+    padding: 10px;
+    list-style: none;
+    background: #846742;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    border-color: white;
+    color: white;
+}
+
+li:nth-child(odd) {
+    -webkit-animation: float 8.7s infinite linear;
+    animation: float 8.7s infinite linear;
+}
+
+li:nth-child(even) {
+    -webkit-animation: float 4.8s infinite linear;
+    animation: float 4.8s infinite linear;
+}
+
+.subpixel > li {
+    -webkit-animation-name: float-subpixel;
+    animation-name: float-subpixel;
+}
+
+#particles-js {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-size: cover;
+}
+
+.content {
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+}
+
+.warning {
+    box-shadow: 0 0 20px red;
+}
+
+.infoText {
+    color: white;
+    user-select: none;
+    margin: 5px;
+    text-align: center;
+}
+
+.mwglogo {
+    height: 30px;
+    border: none;
+    transition: 500ms;
+}
+
+.mwglogo:hover {
+    transform: scale(1.3);
+    -webkit-transform: scale(1.3);
+}
+
+.join, .create {
+    display: flex;
+    flex-direction: column;
+}
+
+.styledInput {
+    text-transform: uppercase;
+    padding: 10px;
+    margin: 10px;
+    background: #846742;
+    border-color: white;
+    color: white;
+}
+
+.styledInput:focus {
+    outline: none;
+}
+
+.versioninfo {
+    position: fixed;
+    margin: 0;
+    right: 10px;
+    bottom: 10px;
+    color: white;
+}
+
+.userLogin {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.form-group {
+    color: white;
+}
+
+.form-group .paper-check input+span::before {
+    border-color: white;
+}
+
+.game-options {
+    padding: 10px;
+    border-color: white;
+    background-color: #68381a;
+}
+
+.game-options input {
+    border-color: white;
+    color: white;
+}
+
+.mute {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    height: 50px;
+
+    img {
+        height: 100%;
+        cursor: pointer;
+    }
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: lightgrey;
+    opacity: 1; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: lightgrey;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: lightgrey;
+  }
+
+@-webkit-keyframes float {
+    from {
+        -webkit-transform: rotate(0deg) translate3d(5px, 0, 0) rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg) translate3d(5px, 0, 0) rotate(-360deg);
+    }
+}
+
+@keyframes float {
+    from {
+        transform: rotate(0deg) translate3d(5px, 0, 0) rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg) translate3d(5px, 0, 0) rotate(-360deg);
+    }
+}
