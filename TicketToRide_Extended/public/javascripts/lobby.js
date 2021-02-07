@@ -9,7 +9,7 @@ var ticketsound = new Howl({
     src: ["../sounds/PunchTicket.mp3"],
     onplay: () => {
         showMuteButton();
-        changeMuteButton(true);
+        changeMuteButton(false);
     },
     onend: () => {
         music.play();
@@ -43,14 +43,20 @@ function setup(creating) {
         particlesJS.load('particles-js', '../config/particles.json', function() {
             music = new Howl({
                 src: ["../sounds/Menu.mp3"],
-                loop: true
+                loop: true,
+                onplay: () => {
+                    changeMuteButton(true);
+                },
             });
         });
     } else {
         particlesJS.load('particles-js', '../config/particles-snow.json', function() {
             music = new Howl({
                 src: ["../sounds/WinterMenu.mp3"],
-                loop: true
+                loop: true,
+                onplay: () => {
+                    changeMuteButton(true);
+                },
             });
         });
     }
