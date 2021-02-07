@@ -28,7 +28,6 @@ imagery.prototype.computeWagons = function(continent, route, color, io) {
         .then(data => {
             let b64 = data.toString('base64');
             console.log(`[INFO] Finished drawing wagons.`);
-            io.in(this.gameID).emit('mapitem', {image: b64, continent: continent});
             
             let oldimage = Buffer.from(this[`${continent}WagonImage`], 'base64');
             sharp(data)
@@ -38,6 +37,7 @@ imagery.prototype.computeWagons = function(continent, route, color, io) {
                 .then(combined => {
                     this[`${continent}WagonImage`] = combined.toString('base64');
                     console.log(`[INFO] Finished combining old and new images.`);
+                    io.in(this.gameID).emit('mapitem', {image: this[`${continent}WagonImage`], continent: continent});
                 });
         });
 }
@@ -54,7 +54,6 @@ imagery.prototype.computeStations = function(continent, city, color, io) {
         .then(data => {
             let b64 = data.toString('base64');
             console.log(`[INFO] Finished drawing station.`);
-            io.in(this.gameID).emit('mapitem', {image: b64, continent: continent});
             
             let oldimage = Buffer.from(this[`${continent}WagonImage`], 'base64');
             sharp(data)
@@ -64,6 +63,7 @@ imagery.prototype.computeStations = function(continent, city, color, io) {
                 .then(combined => {
                     this[`${continent}WagonImage`] = combined.toString('base64');
                     console.log(`[INFO] Finished combining old and new images.`);
+                    io.in(this.gameID).emit('mapitem', {image: this[`${continent}WagonImage`], continent: continent});
                 });
         });
 }

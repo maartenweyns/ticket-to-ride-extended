@@ -182,38 +182,26 @@ socket = io(location.host);
     });
 
     socket.on("mapitem", (data) => {
-        let imageLocation = document.getElementById(data.continent);
-
-        // Construct HTML elements
-        let carts = document.createElement("img");
-        carts.src = `data:image/png;base64,${data.image}`;
-        carts.classList.add(`${data.continent}Wagons`);
-        carts.classList.add("cartsBlinking");
-        setTimeout(function () {
-            carts.classList.remove("cartsBlinking");
-        }, 4000);
-        imageLocation.append(carts);
-
-        // Merge the image and remove it once the animation is done
-        if (
-            document.getElementsByClassName(`${data.continent}Wagons`).length >
-            1
-        ) {
-            mergeImages([
-                document.getElementsByClassName(`${data.continent}Wagons`)[0]
-                    .src,
-                document.getElementsByClassName(`${data.continent}Wagons`)[1]
-                    .src,
-            ]).then(function (b64) {
-                console.log("Merged images and displaying new wagon image!");
-                document.getElementsByClassName(
-                    `${data.continent}Wagons`
-                )[0].src = b64;
-
-                setTimeout(function () {
-                    imageLocation.removeChild(carts);
-                }, 4000);
-            });
+        if (document.getElementsByClassName(`${data.continent}Wagons`).length < 1) {
+            // There is no existing wagon image
+            let imageLocation = document.getElementById(data.continent);
+            // Construct HTML elements
+            let carts = document.createElement("img");
+            carts.src = `data:image/png;base64,${data.image}`;
+            carts.classList.add(`${data.continent}Wagons`);
+            carts.classList.add("cartsBlinking");
+            setTimeout(function () {
+                carts.classList.remove("cartsBlinking");
+            }, 4000);
+            imageLocation.append(carts);
+        } else {
+            // Set the new image
+            let carts = document.getElementsByClassName(`${data.continent}Wagons`)[0];
+            carts.src = `data:image/png;base64,${data.image}`;
+            carts.classList.add("cartsBlinking");
+            setTimeout(function () {
+                carts.classList.remove("cartsBlinking");
+            }, 4000);
         }
 
         // Play the cash register sound
