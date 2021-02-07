@@ -65,8 +65,7 @@ function setup(creating) {
     ticketsound.play();
 
     // Change the lobby background
-    document.body.style.background = "url('../images/lobby/bg-station.jpg') no-repeat center center";
-    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundPosition = "0 100%";
 
     // Setup the socket.io connection
     socket = io(location.host);

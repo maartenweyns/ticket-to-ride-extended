@@ -4,14 +4,15 @@ html, body {
 }
 
 body {
-    background: url("../images/lobby/bg-splash.jpg") no-repeat center center;
-    background-size: cover;
+    background: url("../images/lobby/sprite-vertical.jpg") no-repeat center center;
+    background-size: auto 200vh;
+    background-position: 0 0;
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 750ms;
+    // transition: 750ms;
 }
 
 h3 {
