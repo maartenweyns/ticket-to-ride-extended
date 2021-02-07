@@ -2,9 +2,6 @@ var socket;
 var playerID;
 var gameID;
 
-var bgstation = new Image();
-bgstation.src = "../images/lobby/bg-station.jpg";
-
 var ticketsound = new Howl({
     src: ["../sounds/PunchTicket.mp3"],
     onplay: () => {
