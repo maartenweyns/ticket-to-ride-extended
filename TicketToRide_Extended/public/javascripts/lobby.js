@@ -2,14 +2,17 @@ var socket;
 var playerID;
 var gameID;
 
+ismuted = false;
+
 var ticketsound = new Howl({
     src: ["../sounds/PunchTicket.mp3"],
     onplay: () => {
         showMuteButton();
-        changeMuteButton(false);
     },
     onend: () => {
-        music.play();
+        if (!music.playing() && !ismuted) {
+            music.play();
+        }
     }
 });
 
@@ -57,9 +60,6 @@ function setup(creating) {
             });
         });
     }
-
-    // Play the music
-    ticketsound.play();
 
     // Change the lobby background
     document.body.style.backgroundPosition = "0 100%";
@@ -109,6 +109,7 @@ function setup(creating) {
     });
 
     socket.on('player-overview', (players) => {
+        ticketsound.play();
         addUsers(players);
     });
 
@@ -186,9 +187,11 @@ function changeMuteButton(status) {
 function mute() {
     if (music.playing()) {
         changeMuteButton(false);
-        music.stop()
+        music.stop();
+        ismuted = true;
     } else {
         changeMuteButton(true);
         music.play();
+        ismuted = false;
     }
 }
