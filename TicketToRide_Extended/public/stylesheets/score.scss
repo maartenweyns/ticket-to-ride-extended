@@ -1,0 +1,110 @@
+html {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+
+    margin: 0;
+    padding: 10px 10px 0 10px;
+    
+    display: flex;
+    flex-direction: column;
+
+    background-image: url("../images/scoring/scoring-bg.png");
+    background-size: cover;
+
+    .playerDiv {
+        margin-bottom: 10px;
+
+        background-color: rgba(0,0,0,0.9);
+
+        overflow: hidden;
+    
+        flex-grow: 1;
+        border-style: solid;
+        border-width: 5px;
+        border-color: white;
+        padding: 10px;
+    
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        justify-content: center;
+    
+        user-select: none;
+        pointer-events: none;
+    }
+
+    .winningPlayer {
+        border-color: rgb(252, 147, 0) !important;
+        box-shadow: 0 0 10px 5px rgba(249,150,16,0.5) !important;
+        background-color:  rgba(53, 33, 6, 0.9) !important;
+    }
+}
+
+.generalDiv {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.trainDiv {
+    width: 100%;
+}
+
+.text {
+    /* font-family: 'Permanent Marker', cursive; */
+    color: white;
+    /* font-size: 50px; */
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.smallInfo {
+    font-family: 'Arapey', serif;
+    color: white;
+    font-size: 20px;
+    margin: 0;
+}
+
+.infodiv {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width: 100%;
+    height: max-content;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.routeCard {
+    position: relative;
+    height: 100%;
+}
+
+.routecardimage, .overlay {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.scoreTrain {
+    transition: 1s;
+    transform: translateX(-100%);
+}
