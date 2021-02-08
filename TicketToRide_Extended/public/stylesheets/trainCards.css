@@ -11,20 +11,9 @@
   pointer-events: none;
 }
 
-.cardContainer {
-  height: 100%;
-  width: calc(100% / 10);
-  display: inline-block;
-  position: relative;
-  -ms-flex-negative: 1;
-      flex-shrink: 1;
-  overflow-x: visible;
-}
-
 .activatedCard, .activatedDestiCard {
   -webkit-box-shadow: 0 -10px 15px lime;
           box-shadow: 0 -10px 15px lime;
-  z-index: 100;
 }
 
 .activatedDestiCard {
@@ -76,24 +65,11 @@
   z-index: 99;
 }
 
-.ownCard {
-  width: 100%;
-  -webkit-transition: 75ms;
-  transition: 75ms;
-  z-index: 98;
-}
-
 .trainCard:hover {
   -webkit-box-shadow: 0 0 20px 2px black;
           box-shadow: 0 0 20px 2px black;
   -webkit-transform: translateX(-20px);
           transform: translateX(-20px);
-}
-
-.ownCard:hover {
-  -webkit-transform: translateY(-20px);
-          transform: translateY(-20px);
-  z-index: 99;
 }
 
 .generalCardsAway {

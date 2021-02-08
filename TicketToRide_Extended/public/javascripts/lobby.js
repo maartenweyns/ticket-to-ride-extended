@@ -2,10 +2,10 @@ var socket;
 var playerID;
 var gameID;
 
-ismuted = false;
+var ismuted = false;
 
 var ticketsound = new Howl({
-    src: ["../sounds/PunchTicket.mp3"],
+    src: ["../sounds/lobby/PunchTicket.mp3"],
     onplay: () => {
         showMuteButton();
     },
@@ -36,13 +36,14 @@ function setup(creating) {
         }
     }
 
-    let winter = new Date("2021-03-20");
+    let startWinter = new Date(`${new Date().getFullYear()}-03-20`);
+    let endWinter = new Date(`${new Date().getFullYear()}-03-20`);
     let now = new Date();
 
-    if (now > winter) {
+    if (now > endWinter || now > startWinter) {
         particlesJS.load('particles-js', '../config/particles.json', function() {
             music = new Howl({
-                src: ["../sounds/Menu.mp3"],
+                src: ["../sounds/lobby/Menu.mp3"],
                 loop: true,
                 onplay: () => {
                     changeMuteButton(true);
@@ -52,7 +53,7 @@ function setup(creating) {
     } else {
         particlesJS.load('particles-js', '../config/particles-snow.json', function() {
             music = new Howl({
-                src: ["../sounds/WinterMenu.mp3"],
+                src: ["../sounds/lobby/WinterMenu.mp3"],
                 loop: true,
                 onplay: () => {
                     changeMuteButton(true);
@@ -61,8 +62,8 @@ function setup(creating) {
         });
     }
 
-    // Change the lobby background
-    document.body.style.backgroundPosition = "0 100%";
+    // Change lobby bg
+    document.getElementById("bg-pale").style.opacity = 0;
 
     // Setup the socket.io connection
     socket = io(location.host);

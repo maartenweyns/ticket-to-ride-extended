@@ -129,7 +129,7 @@ socket = io(location.host);
         }
 
         if (player === playerID && currentMove !== 0) {
-            document.getElementById("endTurn").style.display = "block";
+            document.getElementById("endTurn").style.display = "flex";
         }
     });
 

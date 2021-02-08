@@ -4,9 +4,6 @@ html, body {
 }
 
 body {
-  background: url("../images/lobby/sprite-vertical.jpg") no-repeat center center;
-  background-size: auto 200vh;
-  background-position: 0 0;
   width: 100vw;
   height: 100vh;
   display: -webkit-box;
@@ -18,6 +15,41 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+body .bg-pale {
+  z-index: 0;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: url("../images/lobby/bg-splash.jpg") no-repeat center center;
+  background-size: cover;
+  opacity: 1;
+  -webkit-transition: 750ms;
+  transition: 750ms;
+}
+
+body .bg-colorful {
+  z-index: -2;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: url("../images/lobby/bg-station.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+body #particles-js {
+  z-index: -1;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-size: cover;
 }
 
 h3 {
@@ -105,15 +137,6 @@ li:nth-child(even) {
 .subpixel > li {
   -webkit-animation-name: float-subpixel;
   animation-name: float-subpixel;
-}
-
-#particles-js {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  background-size: cover;
 }
 
 .content {
