@@ -2,6 +2,7 @@ const Imagery = require("./imagery");
 const Player = require("./player");
 const Utilities = require("./utilities");
 const SetupData = require("./setupData");
+const Route = require("./route");
 
 const game = function (gameID, withEu, withUs, numTrains) {
     this.gameID = gameID;
@@ -422,21 +423,38 @@ game.prototype.shuffleDestis = function () {
  * @param {Route} route The route object the user claimed
  */
 game.prototype.userClaimedRoute = function (playerID, route) {
-    if (this["player" + playerID].routes.get(route.stationA) === undefined) {
-        this["player" + playerID].routes.set(route.stationA, [route]);
+    // Define the player variable
+    let player = this[`player${playerID}`];
+    if (player.routes.get(route.stationA) === undefined) {
+        player.routes.set(route.stationA, [route]);
     } else {
-        this["player" + playerID].routes.get(route.stationA).push(route);
+        player.routes.get(route.stationA).push(route);
     }
 
-    if (this["player" + playerID].routes.get(route.stationB) === undefined) {
-        this["player" + playerID].routes.set(route.stationB, [route]);
+    if (player.routes.get(route.stationB) === undefined) {
+        player.routes.set(route.stationB, [route]);
     } else {
-        this["player" + playerID].routes.get(route.stationB).push(route);
+        player.routes.get(route.stationB).push(route);
+    }
+
+    // Add the routeID to the list of routeIDs a user has
+    player.routeIDs.push(`${route.stationA}-${route.stationB}-${route.variant}`);
+};
+
+/**
+ * This function will handle the confirmation of a route of a player.
+ * @param {number} pid The ID of the player that confirmed a station choice
+ * @param {*} routedescs The descriptions of the routes a user gains from confirming stations
+ */
+game.prototype.userConfirmedStation = function (pid, routedescs) {
+    for (let routedesc of routedescs) {
+        let route = new Route(routedesc.stationA, routedesc.stationB, 1, "none", 0, 0);
+        this.userClaimedRoute(pid, route);
     }
 };
 
 game.prototype.checkContinuity = function (playerID) {
-    let destis = this["player" + playerID].destinations;
+    let destis = this[`player${playerID}`].destinations;
     let unfinished = [];
     let returnobject = [];
     for (let desti of destis) {

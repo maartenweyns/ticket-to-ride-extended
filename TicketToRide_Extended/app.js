@@ -3,9 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var http = require("http");
-var Player = require('./player');
-var Game = require("./game");
-var Utilities = require('./utilities');
+
+const Game = require("./game");
+const Utilities = require('./utilities');
+
 var app = express();
 
 require('dotenv').config({path: './auth.env'});
@@ -382,10 +383,7 @@ io.on('connection', (socket) => {
 
     socket.on('confirmed-stations', (data) => {
         let game = games.get(Object.keys(socket.rooms)[1]);
-        for (let route of data.routes) {
-            game.userClaimedRoute(data.pid, route);
-            game[`player${data.pid}`].routeIDs.push([data.continent, `${route.stationA}-${route.stationB}`]);
-        }
+        game.userConfirmedStation(data.pid, data.routes);
 
         for (let desti of game.checkContinuity(data.pid)) {
             socket.emit('player-completed-route', desti.continent + "-" + desti.stationA + "-" + desti.stationB);

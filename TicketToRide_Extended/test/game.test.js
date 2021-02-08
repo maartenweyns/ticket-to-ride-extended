@@ -296,6 +296,7 @@ describe("Tests with EU and US", () => {
                     color: "blue",
                     destinations: [],
                     completedDestinations: [],
+                    longestTrain: true,
                     stations: 3,
                 },
                 {
@@ -304,6 +305,7 @@ describe("Tests with EU and US", () => {
                     color: "brightyellow",
                     destinations: [],
                     completedDestinations: [],
+                    longestTrain: true,
                     stations: 3,
                 },
             ];

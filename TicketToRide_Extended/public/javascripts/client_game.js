@@ -528,8 +528,7 @@ function confirmStations() {
     for (let station of stations) {
         routes.push({
             stationA: station.id.split("Choice")[0],
-            stationB: station.children[1].value,
-            variant: 1,
+            stationB: station.children[1].value.toLowerCase(),
             continent: "eu",
         });
     }
