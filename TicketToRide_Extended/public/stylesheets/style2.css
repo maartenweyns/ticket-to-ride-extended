@@ -191,6 +191,17 @@ body .centerContent .ownCards .cardContainer:hover, body .centerContent .destiDe
   z-index: 99;
 }
 
+body .centerContent .ownCards .destiDeckCard, body .centerContent .destiDeck .destiDeckCard {
+  max-height: 100%;
+  max-width: calc(100% / 5);
+}
+
+body .centerContent .ownCards button, body .centerContent .destiDeck button {
+  -ms-flex-item-align: unset !important;
+      -ms-grid-row-align: unset !important;
+      align-self: unset !important;
+}
+
 body .cards {
   width: 15vw;
   height: 100vh;
@@ -221,16 +232,7 @@ body .cards .destiCards {
           align-items: center;
 }
 
-.dots {
-  position: absolute;
-  top: 0;
-  left: 0;
-  max-height: 100%;
-  max-width: 100%;
-  pointer-events: none;
-}
-
-.destiCard {
+body .cards .destiCards .destiCard {
   width: 100%;
   cursor: pointer;
   position: absolute;
@@ -238,12 +240,13 @@ body .cards .destiCards {
   left: 0;
 }
 
-.destiSupport {
-  width: 100%;
-}
-
-.destiDeckCard {
-  height: 100%;
+.dots {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-height: 100%;
+  max-width: 100%;
+  pointer-events: none;
 }
 
 .disabled {

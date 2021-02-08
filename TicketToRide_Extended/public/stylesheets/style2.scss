@@ -145,6 +145,15 @@ body {
                 transform: translateY(-20px);
                 z-index: 99;
             }
+
+            .destiDeckCard {
+                max-height: 100%;
+                max-width: calc(100% / 5);
+            }
+
+            button {
+                align-self: unset !important;
+            }
         }
     }
 
@@ -159,16 +168,19 @@ body {
 
         .destiCards {
             position: relative;
-
-            // background-image: url("../images/decorations/TicketSupport_RH.png");
-            // background-size: 100% auto;
-            // background-repeat: no-repeat;
-            // background-position: bottom;
             
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
+
+            .destiCard {
+                width: 100%;
+                cursor: pointer;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+            }
         }
     }
 }
@@ -180,29 +192,6 @@ body {
     max-height: 100%;
     max-width: 100%;
     pointer-events: none;
-}
-
-.destiCard {
-    width: 100%;
-    cursor: pointer;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
-
-.destiSupport {
-    width: 100%;
-}
-
-// .centerContent {
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: space-between;
-//     flex-grow: 1;
-// }
-
-.destiDeckCard {
-    height: 100%;
 }
 
 .disabled {
