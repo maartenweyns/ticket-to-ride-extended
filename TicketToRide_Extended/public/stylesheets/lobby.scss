@@ -11,23 +11,6 @@ body {
     justify-content: center;
     align-items: center;
 
-    .bg-pale {
-        z-index: 0;
-
-        position: fixed;
-        
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        
-        background: url("../images/lobby/bg-splash.jpg") no-repeat center center;
-        background-size: cover;
-
-        opacity: 1;
-        transition: 750ms;
-    }
-
     .bg-colorful {
         z-index: -2;
 
@@ -38,7 +21,7 @@ body {
         top: 0;
         left: 0;
         
-        background: url("../images/lobby/bg-station.jpg") no-repeat center center;
+        background: url("../images/lobby/bg-menu-blur.jpg") no-repeat center center;
         background-size: cover;
     }
 

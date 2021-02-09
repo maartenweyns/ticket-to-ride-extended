@@ -62,9 +62,6 @@ function setup(creating) {
         });
     }
 
-    // Change lobby bg
-    document.getElementById("bg-pale").style.opacity = 0;
-
     // Setup the socket.io connection
     socket = io(location.host);
 
