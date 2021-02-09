@@ -22,7 +22,7 @@ function replaceCard(cardId, newColor, self) {
     } else {
         oldcard.classList.add("cardTaken", "disabled");
     }
-    cardDeal.play();
+    if (!sfxmuted) cardDeal.play();
     setTimeout(function () {
         let card = document.createElement('img');
         card.src = "images/trainCards/us_WagonCard_" + newColor + ".png";
@@ -50,7 +50,7 @@ function shufflecards(openTickets) {
     setTimeout(function () {
         openCardsBox.innerHTML = '';
         setOpenTickets(openTickets);
-        cardShuffle.play();
+        if (!sfxmuted) cardShuffle.play();
     }, 1000);
 }
 

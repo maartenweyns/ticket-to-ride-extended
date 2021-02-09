@@ -110,11 +110,10 @@ function cycleBetweenRouteCards() {
             cards[i].style.display = "none";
             if (i < cards.length - 1) {
                 cards[i + 1].style.display = "block";
-                cardDeal.play();
             } else {
                 cards[0].style.display = "block";
-                cardDeal.play();
             }
+            if (!sfxmuted) cardDeal.play();
             break;
         }
     }

@@ -3,21 +3,23 @@ var playerID;
 var gameID;
 var currentMove;
 
+var ismuted = true;
+changeMuteButton(false);
+
+var sfxmuted = true;
+changeSfxMuteButton(false);
+
 var cardDeal = new Howl({
     src: ["../sounds/card_dealt3.mp3"],
 });
 var music = new Howl({
     src: ["../sounds/america.mp3"],
     loop: true,
-    onplay: function () {
-        audioUnlocked = true;
-    },
 });
 var startsound = new Howl({
     src: ["../sounds/startGame.mp3"],
     onplay: function () {
         music.play();
-        audioUnlocked = true;
     },
 });
 var buzz = new Howl({ src: ["../sounds/IG_F_Cant.mp3"] });
@@ -31,19 +33,6 @@ var differentContinent = new Howl({
     src: ["../sounds/differentContinent.mp3"],
 });
 
-var allAudio = [
-    music,
-    startsound,
-    buzz,
-    cardDeal,
-    cardShuffle,
-    cashRegister,
-    ticketCompleted,
-    trainHorn,
-    differentContinent,
-];
-
-var audioUnlocked = false;
 var lastRoundShown = false;
 
 var gameoptions = undefined;
@@ -125,7 +114,7 @@ socket = io(location.host);
         }
 
         if (player === playerID && currentMove === 0) {
-            trainHorn.play();
+            if (!sfxmuted) trainHorn.play();
         }
 
         if (player === playerID && currentMove !== 0) {
@@ -145,7 +134,7 @@ socket = io(location.host);
     });
 
     socket.on("closed-train", () => {
-        cardDeal.play();
+        if (!sfxmuted) cardDeal.play();
         document
             .getElementById("closedCard")
             .classList.add("cardTakenSelf", "disabled");
@@ -158,7 +147,7 @@ socket = io(location.host);
 
     socket.on("closed-move", (data) => {
         if (data.move === "TRAIN-CARD") {
-            cardDeal.play();
+            if (!sfxmuted) cardDeal.play();
             document
                 .getElementById("closedCard")
                 .classList.add("cardTaken", "disabled");
@@ -169,7 +158,7 @@ socket = io(location.host);
             }, 1000);
         }
         if (data.move === "ROUTE-CARD") {
-            cardDeal.play();
+            if (!sfxmuted) cardDeal.play();
             document
                 .getElementById("routeCard")
                 .classList.add("cardTaken", "disabled");
@@ -206,9 +195,9 @@ socket = io(location.host);
 
         // Play the cash register sound
         if (document.getElementById(data.continent).style.display === "block") {
-            cashRegister.play();
+            if (!sfxmuted) cashRegister.play();
         } else {
-            differentContinent.play();
+            if (!sfxmuted) differentContinent.play();
             let tab = document.getElementById(data.continent + "tab");
             tab.classList.add("flashingFlag");
             setTimeout(function () {
@@ -227,7 +216,7 @@ socket = io(location.host);
             );
             document.getElementById("loadingTrains").style.opacity = "0";
         } else if (data.status === "cant") {
-            buzz.play();
+            if (!sfxmuted) buzz.play();
             let card = document.getElementsByClassName("activatedCard")[0];
             card.classList.add("cantCard");
             setTimeout(function () {
@@ -258,12 +247,12 @@ socket = io(location.host);
     });
 
     socket.on("player-destination", (data) => {
-        cardDeal.play();
+        if (!sfxmuted) cardDeal.play();
         receivedDestinations(data, 3, false);
     });
 
     socket.on("player-completed-route", (data) => {
-        ticketCompleted.play();
+        if (!sfxmuted) ticketCompleted.play();
         completedRoute(data);
     });
 
@@ -375,11 +364,6 @@ function addUsers(users) {
         userEntry.append(numberOfStationsText);
         userEntry.append(numberOfTrainCardsText);
         userEntry.append(numberOfRoutesText);
-        if (user.id === playerID && !audioUnlocked) {
-            userEntry.onclick = function () {
-                unlockaudio();
-            };
-        }
         userBox.prepend(userEntry);
     }
 }
@@ -446,17 +430,6 @@ function markCurrentPlayer(pid) {
         }
     }
     document.getElementById("p" + pid).classList.add("currentPlayer");
-}
-
-function unlockaudio() {
-    for (let audio of allAudio) {
-        audio.play();
-        audio.pause();
-        audio.currentTime = 0;
-    }
-
-    music.loop = true;
-    music.play();
 }
 
 function endTurn() {
@@ -549,9 +522,57 @@ function hideLoadingScreen() {
     setTimeout(() => {
         document.getElementById("loadingScreen").style.opacity = 0;
         music.loop = true;
-        startsound.play();
+        if (!sfxmuted) startsound.play();
         setTimeout(() => {
             document.body.removeChild(document.getElementById("loadingScreen"));
         }, 1000);
     }, 1000);
+}
+
+/**
+ * This function will change the mute button. True is on, false is off
+ */
+function changeMuteButton(status) {
+    let mutebutton = document.getElementById("mutebtn");
+
+    if (status) {
+        mutebutton.src = "../images/buttons/sound/button-music-On.png";
+    } else {
+        mutebutton.src = "../images/buttons/sound/button-music-Off.png";
+    }
+}
+
+function mute() {
+    if (music.playing()) {
+        changeMuteButton(false);
+        music.stop();
+        ismuted = true;
+    } else {
+        changeMuteButton(true);
+        music.play();
+        ismuted = false;
+    }
+}
+
+/**
+ * This function will change the mute button. True is on, false is off
+ */
+function changeSfxMuteButton(status) {
+    let mutebutton = document.getElementById("sfxmutebtn");
+
+    if (status) {
+        mutebutton.src = "../images/buttons/sound/button-sound-On.png";
+    } else {
+        mutebutton.src = "../images/buttons/sound/button-sound-Off.png";
+    }
+}
+
+function sfxmute() {
+    if (!sfxmuted) {
+        changeSfxMuteButton(false);
+        sfxmuted = true;
+    } else {
+        changeSfxMuteButton(true);
+        sfxmuted = false;
+    }
 }
