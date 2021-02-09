@@ -427,8 +427,13 @@ io.on('connection', (socket) => {
     });
 });
 
-console.info('Starting serever on port ' + process.argv[2]);
-server.listen(process.argv[2]);
+let port = 3200;
+if (process.argv[2] !== "" && process.argv[2] !== undefined) {
+    port = process.argv[2] !== undefined;
+}
+
+console.info('Starting serever on port ' + port);
+server.listen(port);
 console.info('[SERVERSTART] Server started!');
 
 module.exports = app;

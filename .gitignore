@@ -177,3 +177,4 @@ fabric.properties
 
 .idea/
 TicketToRide_Extended/auth.env
+.vscode/settings.json
