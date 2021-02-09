@@ -20,3 +20,19 @@ a {
     color: white;
     border: solid white;
 }
+
+.mute {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+
+    bottom: 10px;
+    left: 10px;
+    
+    height: 50px;
+
+    img {
+        height: 100%;
+        cursor: pointer;
+    }
+}
