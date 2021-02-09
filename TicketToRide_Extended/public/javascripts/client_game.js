@@ -9,29 +9,35 @@ changeMuteButton(false);
 var sfxmuted = true;
 changeSfxMuteButton(false);
 
-var cardDeal = new Howl({
-    src: ["../sounds/card_dealt3.mp3"],
-});
+var ticketsound = new Howl({ src: ["../sounds/lobby/PunchTicket.mp3"] });
+
+var cardDeal = new Howl({ src: ["../sounds/card_dealt3.mp3"] });
+
 var music = new Howl({
     src: ["../sounds/america.mp3"],
     loop: true,
 });
+
 var startsound = new Howl({
     src: ["../sounds/startGame.mp3"],
     onplay: function () {
         music.play();
     },
 });
+
 var buzz = new Howl({ src: ["../sounds/IG_F_Cant.mp3"] });
 var cardShuffle = new Howl({ src: ["../sounds/card_shuffling3.mp3"] });
 var cashRegister = new Howl({ src: ["../sounds/cash_register3.mp3"] });
+
 var ticketCompleted = new Howl({
     src: ["../sounds/ticketCompletedVictory.mp3"],
+    onplay: function () {
+        ticketsound.play();
+    }
 });
+
 var trainHorn = new Howl({ src: ["../sounds/train_horn2.mp3"] });
-var differentContinent = new Howl({
-    src: ["../sounds/differentContinent.mp3"],
-});
+var differentContinent = new Howl({ src: ["../sounds/differentContinent.mp3"] });
 
 var lastRoundShown = false;
 
@@ -571,8 +577,9 @@ function sfxmute() {
     if (!sfxmuted) {
         changeSfxMuteButton(false);
         sfxmuted = true;
-    } else {
+    } else {    
         changeSfxMuteButton(true);
         sfxmuted = false;
+        ticketsound.play();
     }
 }

@@ -55,6 +55,12 @@
               speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
         <h3>Loading Scores...</h3>
     </div>
+
+    <div class="mute" id="mute">
+        <img id="mutebtn" onclick="mute()" src="./images/buttons/sound/button-music-Off.png"/>
+        <img id="sfxmutebtn" onclick="sfxmute()" src="./images/buttons/sound/button-sound-Off.png"/>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
         integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js"

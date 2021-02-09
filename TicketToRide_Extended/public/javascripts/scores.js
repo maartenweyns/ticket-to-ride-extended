@@ -2,8 +2,14 @@ var playerID;
 var gameID;
 var socket;
 
+var ismuted = false;
+changeMuteButton(true);
+var sfxmuted = false;
+changeSfxMuteButton(true);
+
 var playersDrawn = false;
 var scoresDrawn = false;
+var finalMusic = false;
 
 var movingTrain = new Howl({
     src: ["./sounds/movingTrain_1s.mp3"],
@@ -18,7 +24,7 @@ var happymusic = new Howl({
 var winning = new Howl({
     src: ["./sounds/victoryJingle.mp3"],
     onend: function() {
-        happymusic.play();
+        if (!ismuted) happymusic.play();
     }
 });
 var vapeur = new Howl({
@@ -31,7 +37,8 @@ socket = io(location.host);
 
     playerID = parseInt(getCookie("playerID"));
     gameID = getCookie("gameID");
-    music.play();
+
+    if (!ismuted) music.play();
 
     socket.on('connect', () => {
         console.log("Connceted to server");
@@ -136,8 +143,8 @@ function showScoresNew (data) {
                 document.getElementById("score" + player.id).innerText = "Score: " + score;
                 document.getElementById("scoreTrain" + player.id).style.transform = "translateX(calc(-100% + " + score + "%))";
 
-                vapeur.play();
-                movingTrain.play();
+                if (!sfxmuted) vapeur.play();
+                if (!sfxmuted) movingTrain.play();
 
             }, 2000 * wait++); 
         }
@@ -163,8 +170,8 @@ function showScoresNew (data) {
                 document.getElementById("score" + player.id).innerText = "Score: " + score;
                 document.getElementById("scoreTrain" + player.id).style.transform = "translateX(calc(-100% + " + score + "%))";
 
-                vapeur.play();
-                movingTrain.play();
+                if (!sfxmuted) vapeur.play();
+                if (!sfxmuted) movingTrain.play();
             }, 2000 * wait++); 
         }
 
@@ -188,8 +195,8 @@ function showScoresNew (data) {
                 document.getElementById("score" + player.id).innerText = "Score: " + score;
                 document.getElementById("scoreTrain" + player.id).style.transform = "translateX(calc(-100% + " + score + "%))";
 
-                vapeur.play();
-                movingTrain.play();
+                if (!sfxmuted) vapeur.play();
+                if (!sfxmuted) movingTrain.play();
             }, 2000 * wait++); 
         }
 
@@ -201,16 +208,17 @@ function showScoresNew (data) {
                 document.getElementById("score" + player.id).innerText = "Score: " + score;
                 document.getElementById("scoreTrain" + player.id).style.transform = "translateX(calc(-100% + " + score + "%))";
 
-                vapeur.play();
-                movingTrain.play();
+                if (!sfxmuted) vapeur.play();
+                if (!sfxmuted) movingTrain.play();
             }, 2000 * wait++); 
         }
 
         if (last) {
             setTimeout(function () {
                 showWinning();
-                music.pause();
-                winning.play();
+                music.stop();
+                if (!sfxmuted || !muted) winning.play();
+                finalMusic = true;
             }, 2000 * wait);
         }
 
@@ -246,4 +254,58 @@ function getCookie(cname) {
         }
     }
     return "";
+}
+
+/**
+ * This function will change the mute button. True is on, false is off
+ */
+function changeMuteButton(status) {
+    let mutebutton = document.getElementById("mutebtn");
+
+    if (status) {
+        mutebutton.src = "../images/buttons/sound/button-music-On.png";
+    } else {
+        mutebutton.src = "../images/buttons/sound/button-music-Off.png";
+    }
+}
+
+function mute() {
+    if (music.playing() || happymusic.playing()) {
+        changeMuteButton(false);
+        if (music.playing()) music.pause();
+        if (happymusic.playing()) happymusic.pause();
+        ismuted = true;
+    } else {
+        changeMuteButton(true);
+        if (finalMusic) {
+            happymusic.play();
+        } else {
+            music.play();
+        }
+        ismuted = false;
+    }
+}
+
+
+/**
+ * This function will change the mute button. True is on, false is off
+ */
+function changeSfxMuteButton(status) {
+    let mutebutton = document.getElementById("sfxmutebtn");
+
+    if (status) {
+        mutebutton.src = "../images/buttons/sound/button-sound-On.png";
+    } else {
+        mutebutton.src = "../images/buttons/sound/button-sound-Off.png";
+    }
+}
+
+function sfxmute() {
+    if (!sfxmuted) {
+        changeSfxMuteButton(false);
+        sfxmuted = true;
+    } else {    
+        changeSfxMuteButton(true);
+        sfxmuted = false;
+    }
 }
