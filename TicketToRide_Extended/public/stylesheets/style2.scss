@@ -183,6 +183,27 @@ body {
             }
         }
     }
+
+    .loadingTrains {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-color: rgba(0,0,0,0.9);
+
+        opacity: 0;
+        pointer-events: none;
+
+        color: white;
+
+        z-index: 999;
+
+        transition: 100ms;
+    }
 }
 
 .dots {

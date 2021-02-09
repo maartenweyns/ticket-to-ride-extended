@@ -215,6 +215,8 @@ socket = io(location.host);
                 tab.classList.remove("flashingFlag");
             }, 1600);
         }
+
+        document.getElementById("loadingTrains").style.opacity = "0";
     });
 
     socket.on("route-claim", (data) => {
@@ -223,6 +225,7 @@ socket = io(location.host);
                 `You cannot do an action on ${data.continent} anymore!`,
                 "alert"
             );
+            document.getElementById("loadingTrains").style.opacity = "0";
         } else if (data.status === "cant") {
             buzz.play();
             let card = document.getElementsByClassName("activatedCard")[0];
@@ -230,13 +233,16 @@ socket = io(location.host);
             setTimeout(function () {
                 card.classList.remove("cantCard");
             }, 400);
+            document.getElementById("loadingTrains").style.opacity = "0";
         } else if (data.status === "notYourTurn") {
             showAlert("It is currently not your turn!", "alert");
+            document.getElementById("loadingTrains").style.opacity = "0";
         }
     });
 
     socket.on("invalidmove", (data) => {
         showAlert(data.message, "alert");
+        document.getElementById("loadingTrains").style.opacity = "0";
     });
 
     socket.on("own-destinations", (data) => {
@@ -401,6 +407,7 @@ function claimEuRoute(routeID) {
             route: routeID,
             continent: "eu",
         });
+        document.getElementById("loadingTrains").style.opacity = "1";
     } else {
         showAlert("Select cards from your collection first!", "alert");
     }
@@ -414,6 +421,7 @@ function claimEuStation(city) {
         city: city,
         continent: "eu",
     });
+    document.getElementById("loadingTrains").style.opacity = "1";
 }
 
 function claimUsRoute(routeID) {
@@ -425,6 +433,7 @@ function claimUsRoute(routeID) {
             route: routeID,
             continent: "us",
         });
+        document.getElementById("loadingTrains").style.opacity = "1";
     } else {
         showAlert("Select cards from your collection first!", "alert");
     }

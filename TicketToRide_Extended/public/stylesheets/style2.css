@@ -240,6 +240,28 @@ body .cards .destiCards .destiCard {
   left: 0;
 }
 
+body .loadingTrains {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(0, 0, 0, 0.9);
+  opacity: 0;
+  pointer-events: none;
+  color: white;
+  z-index: 999;
+  -webkit-transition: 100ms;
+  transition: 100ms;
+}
+
 .dots {
   position: absolute;
   top: 0;
