@@ -427,7 +427,7 @@ io.on('connection', (socket) => {
     });
 });
 
-let port = 3200;
+let port = 8080;
 if (process.argv[2] !== "" && process.argv[2] !== undefined) {
     port = process.argv[2] !== undefined;
 }
