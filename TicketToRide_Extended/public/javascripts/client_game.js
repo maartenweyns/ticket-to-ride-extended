@@ -551,7 +551,7 @@ function changeMuteButton(status) {
 function mute() {
     if (music.playing()) {
         changeMuteButton(false);
-        music.stop();
+        music.pause();
         ismuted = true;
     } else {
         changeMuteButton(true);
