@@ -362,19 +362,19 @@ function addUsers(users) {
 
         let numberOfCarts = document.createElement("div");
         numberOfCarts.classList.add("numberOfCarts");
-        numberOfCarts.innerHTML = user.numberOfTrains;
+        numberOfCarts.innerHTML = "<i class='fa fa-train'></i>" + user.numberOfTrains;
 
         let numberOfStations = document.createElement("div");
         numberOfStations.classList.add("numberOfStations");
-        numberOfStations.innerHTML = user.numberOfStations;
+        numberOfStations.innerHTML = "<i class='fa fa-home'></i>" + user.numberOfStations;
 
         let numberOfTrainCards = document.createElement("div");
         numberOfTrainCards.classList.add("numberOfTrainCards");
-        numberOfTrainCards.innerHTML = user.numberOfTrainCards;
+        numberOfTrainCards.innerHTML = "<i class='fa fa-layer-group'></i>" + user.numberOfTrainCards;
 
         let numberOfRoutes = document.createElement("div");
         numberOfRoutes.classList.add("numberOfRouteCards");
-        numberOfRoutes.innerHTML = user.numberOfRoutes;
+        numberOfRoutes.innerHTML = "<i class='fa fa-route'></i>" + user.numberOfRoutes;
 
         // userEntry.append(userBackdrop);
         row1.append(playerName);

@@ -39,6 +39,10 @@
             font-size: 80%;
 
             box-sizing: border-box;
+
+            i {
+                margin-right: 10%;
+            }
         }
     }
 
@@ -48,54 +52,6 @@
 
     .playerScore {
         flex-grow: 1;
-    }
-
-    // .numberOfCarts:before {
-    //     content: '';
-
-    //     background-image: url('../images/playerInformation/wagons/small-wagon.png');
-    //     background-repeat: no-repeat;
-    //     background-size: contain;
-    //     background-position: center;
-
-    //     height: 60%;
-    //     width: 40%;
-    // }
-
-    // .numberOfStations:before {
-    //     content: '';
-
-    //     background-image: url('../images/playerInformation/wagons/player-train-number-Off.png');
-    //     background-repeat: no-repeat;
-    //     background-size: contain;
-    //     background-position: center;
-
-    //     height: 60%;
-    //     width: 40%;
-    // }
-
-    .numberOfTrainCards:before {
-        content: '';
-
-        background-image: url('../images/playerInformation/smallCards/wagons.png');
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
-
-        height: 60%;
-        width: 40%;
-    }
-
-    .numberOfRouteCards:before {
-        content: '';
-
-        background-image: url('../images/playerInformation/smallCards/routes.png');
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
-
-        height: 60%;
-        width: 40%;
     }
 }
 
