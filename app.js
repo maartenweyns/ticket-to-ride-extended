@@ -429,7 +429,7 @@ io.on('connection', (socket) => {
 
 let port = 8080;
 if (process.argv[2] !== "" && process.argv[2] !== undefined) {
-    port = process.argv[2] !== undefined;
+    port = process.argv[2];
 }
 
 console.info('Starting serever on port ' + port);
