@@ -61,10 +61,6 @@
           box-sizing: border-box;
 }
 
-.playerBackdrop div div i {
-  margin-right: 10%;
-}
-
 .playerBackdrop .playerName {
   width: 70%;
 }

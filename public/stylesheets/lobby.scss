@@ -105,26 +105,13 @@ li {
     color: white;
 }
 
-li:nth-child(odd) {
-    -webkit-animation: float 8.7s infinite linear;
-    animation: float 8.7s infinite linear;
-}
-
-li:nth-child(even) {
-    -webkit-animation: float 4.8s infinite linear;
-    animation: float 4.8s infinite linear;
-}
-
-.subpixel > li {
-    -webkit-animation-name: float-subpixel;
-    animation-name: float-subpixel;
-}
-
 .content {
     z-index: 0;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .options {
@@ -203,37 +190,4 @@ li:nth-child(even) {
 .game-options input {
     border-color: white;
     color: white;
-}
-
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: lightgrey;
-    opacity: 1; /* Firefox */
-  }
-  
-  :-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color: lightgrey;
-  }
-  
-  ::-ms-input-placeholder { /* Microsoft Edge */
-    color: lightgrey;
-  }
-
-@-webkit-keyframes float {
-    from {
-        -webkit-transform: rotate(0deg) translate3d(5px, 0, 0) rotate(0deg);
-    }
-
-    to {
-        -webkit-transform: rotate(360deg) translate3d(5px, 0, 0) rotate(-360deg);
-    }
-}
-
-@keyframes float {
-    from {
-        transform: rotate(0deg) translate3d(5px, 0, 0) rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg) translate3d(5px, 0, 0) rotate(-360deg);
-    }
 }

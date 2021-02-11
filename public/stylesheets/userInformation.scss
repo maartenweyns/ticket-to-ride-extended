@@ -7,8 +7,10 @@
 
 .playerBackdrop {
     position: relative;
+    
     width: 100%;
     height: calc(100% / 9);
+
     background-color: #68381a;
 
     margin-bottom: 10px;
@@ -39,10 +41,6 @@
             font-size: 80%;
 
             box-sizing: border-box;
-
-            i {
-                margin-right: 10%;
-            }
         }
     }
 
