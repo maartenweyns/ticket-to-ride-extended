@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/Yiq44zH.png" alt="Ticket To Ride Logo" width="200" style="margin-left: 50%; transform: translateX(-50%)"/>
+<img src="public/images/decorations/title-ticket-to-ride.png" alt="Ticket To Ride Logo" width="200" style="margin-left: 50%; transform: translateX(-50%)"/>
 
 
 # Ticket to Ride Xtended

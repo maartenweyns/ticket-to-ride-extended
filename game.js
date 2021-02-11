@@ -76,13 +76,13 @@ const game = function (gameID, withEu, withUs, numTrains) {
     this.gameState = "lobby";
 
     this.playerColors = [
-        "yellow",
+        "brightyellow",
         "lightblue",
         "grey",
         "purple",
         "red",
         "green",
-        "brightyellow",
+        "yellow",
         "blue",
     ];
 };

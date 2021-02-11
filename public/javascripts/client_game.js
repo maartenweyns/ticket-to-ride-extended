@@ -340,36 +340,52 @@ function addUsers(users) {
         userEntry.classList.add("playerBackdrop");
         userEntry.id = "p" + user.id;
 
-        let userBackdrop = document.createElement("img");
-        userBackdrop.src = "images/playerInformation/" + user.color + ".png";
-        userBackdrop.classList.add("playerBackdropImage");
+        // let userBackdrop = document.createElement("img");
+        // userBackdrop.src = "images/playerInformation/" + user.color + ".png";
+        // userBackdrop.classList.add("playerBackdropImage");
 
-        let playerName = document.createElement("p");
-        playerName.innerText = user.name + "(" + user.score + ")";
+        let row1 = document.createElement('div');
+        let row2 = document.createElement('div');
+        let row3 = document.createElement('div');
+
+        userEntry.append(row1);
+        userEntry.append(row2);
+        userEntry.append(row3);
+
+        let playerName = document.createElement("div");
+        playerName.innerHTML = user.name;
         playerName.classList.add("playerName");
 
-        let numberOfCartsText = document.createElement("p");
-        numberOfCartsText.classList.add("numberOfCartsText");
-        numberOfCartsText.innerText = user.numberOfTrains;
+        let playerScore = document.createElement("div");
+        playerScore.innerHTML = user.score;
+        playerScore.classList.add("playerScore");
 
-        let numberOfStationsText = document.createElement("p");
-        numberOfStationsText.classList.add("numberOfStationsText");
-        numberOfStationsText.innerText = user.numberOfStations;
+        let numberOfCarts = document.createElement("div");
+        numberOfCarts.classList.add("numberOfCarts");
+        numberOfCarts.innerHTML = user.numberOfTrains;
 
-        let numberOfTrainCardsText = document.createElement("p");
-        numberOfTrainCardsText.classList.add("numberOfTrainCardsText");
-        numberOfTrainCardsText.innerText = user.numberOfTrainCards;
+        let numberOfStations = document.createElement("div");
+        numberOfStations.classList.add("numberOfStations");
+        numberOfStations.innerHTML = user.numberOfStations;
 
-        let numberOfRoutesText = document.createElement("p");
-        numberOfRoutesText.classList.add("numberOfRouteCardsText");
-        numberOfRoutesText.innerText = user.numberOfRoutes;
+        let numberOfTrainCards = document.createElement("div");
+        numberOfTrainCards.classList.add("numberOfTrainCards");
+        numberOfTrainCards.innerHTML = user.numberOfTrainCards;
 
-        userEntry.append(userBackdrop);
-        userEntry.append(playerName);
-        userEntry.append(numberOfCartsText);
-        userEntry.append(numberOfStationsText);
-        userEntry.append(numberOfTrainCardsText);
-        userEntry.append(numberOfRoutesText);
+        let numberOfRoutes = document.createElement("div");
+        numberOfRoutes.classList.add("numberOfRouteCards");
+        numberOfRoutes.innerHTML = user.numberOfRoutes;
+
+        // userEntry.append(userBackdrop);
+        row1.append(playerName);
+        row1.append(playerScore);
+
+        row2.append(numberOfCarts);
+        row2.append(numberOfStations);
+
+        row3.append(numberOfTrainCards);
+        row3.append(numberOfRoutes);
+        
         userBox.prepend(userEntry);
     }
 }
