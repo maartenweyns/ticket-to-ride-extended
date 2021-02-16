@@ -65,6 +65,7 @@ function confirmDestis(initialRound) {
 
         socket.emit('validate-first-destinations', (routesArray));
     } else {
+        let routesArray = [];
         for (let i = 0; i < destinations.length - 1; i++) {
             if (destinations[i].classList.contains("activatedDestiCard")) {
                 let routeCardContainer = document.createElement('div');
