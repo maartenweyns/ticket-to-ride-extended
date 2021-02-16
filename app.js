@@ -427,7 +427,7 @@ io.on('connection', (socket) => {
     });
 });
 
-let port = port = process.env.PORT || 8080;
+let port = process.env.PORT || 8080;
 
 console.info('Starting serever on port ' + port);
 server.listen(port);
