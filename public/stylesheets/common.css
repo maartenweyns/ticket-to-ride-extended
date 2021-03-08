@@ -1,0 +1,45 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.styledButton {
+  padding: 10px;
+  margin: 10px;
+  background-color: #68381a;
+  color: white;
+  border: solid white;
+}
+
+.mute {
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  bottom: 10px;
+  left: 10px;
+  height: 5%;
+}
+
+.mute img {
+  height: 100%;
+  cursor: pointer;
+}
+
+i {
+  margin-right: 10%;
+}
+/*# sourceMappingURL=common.css.map */

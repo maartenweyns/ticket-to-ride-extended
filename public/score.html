@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ticket To Ride XTended</title>
+    <link href="stylesheets/score.css" rel="stylesheet" type="text/css" />
+    <link href="stylesheets/common.css" rel="stylesheet" type="text/css" />
+    <link href="stylesheets/wagons.css" rel="stylesheet" type="text/css" />
+    <link href="stylesheets/paper.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Arapey&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="images/logos/game-icon.png" rel="icon">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Matomo -->
+    <script type="text/javascript">
+        var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['requireCookieConsent']);
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+        var u="https://matomo.mawey.be/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '1']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+    <!-- End Matomo Code -->
+
+    <style>
+        #loadingScreen {
+              width: 100vw;
+              height: 100vh;
+
+              position: fixed;
+              top: 0;
+              left: 0;
+
+              z-index: 100;
+              background-color: #004671;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              color: white;
+              transition: 1s;
+        }
+  </style>
+</head>
+
+<body>
+    <div id="loadingScreen">
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_rjtT66.json" background="transparent"
+              speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+        <h3>Loading Scores...</h3>
+    </div>
+
+    <div class="mute" id="mute">
+        <img id="mutebtn" onclick="mute()" src="./images/buttons/sound/button-music-Off.png"/>
+        <img id="sfxmutebtn" onclick="sfxmute()" src="./images/buttons/sound/button-sound-Off.png"/>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
+        integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.1/howler.min.js"
+        integrity="sha512-L6Z/YtIPQ7eU3BProP34WGU5yIRk7tNHk7vaC2dB1Vy1atz6wl9mCkTPPZ2Rn1qPr+vY2mZ9odZLdGYuaBk7dQ==" crossorigin="anonymous"></script>
+    <script src="./javascripts/scores.js"></script>
+</body>
+
+</html>

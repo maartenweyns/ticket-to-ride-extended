@@ -1,0 +1,92 @@
+.userPanes {
+    padding: 10px;
+    width: calc(100vw / 8);
+    display: flex;
+    flex-direction: column;
+}
+
+.playerBackdrop {
+    position: relative;
+    
+    width: 100%;
+    height: calc(100% / 9);
+
+    background-color: #68381a;
+
+    margin-bottom: 10px;
+
+    display: flex;
+    flex-direction: column;
+
+    transition: 100ms;
+    
+    div {
+        height: 33%;
+
+        display: flex;
+        flex-direction: row;
+
+        div {
+            width: 50%;
+            height: 100%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+
+            border: solid white 1px;
+
+            color: white;
+            font-size: 80%;
+
+            box-sizing: border-box;
+        }
+    }
+
+    .playerName {
+        width: 70%;
+    }
+
+    .playerScore {
+        flex-grow: 1;
+    }
+}
+
+.playerBackdrop:nth-child(1) {
+    border-left: solid #003072 5px;
+}
+
+.playerBackdrop:nth-child(2) {
+    border-left: solid #d87502 5px;
+}
+
+.playerBackdrop:nth-child(3) {
+    border-left: solid #055a00 5px;
+}
+
+.playerBackdrop:nth-child(4) {
+    border-left: solid #98000e 5px;
+}
+
+.playerBackdrop:nth-child(5) {
+    border-left: solid #9000a6 5px;
+}
+
+.playerBackdrop:nth-child(6) {
+    border-left: solid #515151 5px;
+}
+
+.playerBackdrop:nth-child(7) {
+    border-left: solid #009a9b 5px;
+}
+
+.playerBackdrop:nth-child(7) {
+    border-left: solid #e2da0c 5px;
+}
+
+.currentPlayer {
+    border-left-width: 10px !important;
+    // filter: drop-shadow(0px 0px 6px #fff);
+    // -webkit-filter: drop-shadow(0px 0px 6px #fff);
+}
