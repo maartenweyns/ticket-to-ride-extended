@@ -302,7 +302,7 @@ describe("Tests with EU and US", () => {
                 {
                     id: 1,
                     score: 0,
-                    color: "brightyellow",
+                    color: "yellow",
                     destinations: [],
                     completedDestinations: [],
                     longestTrain: true,
