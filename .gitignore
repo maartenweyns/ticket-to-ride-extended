@@ -176,5 +176,5 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 .idea/
-TicketToRide_Extended/auth.env
+auth.env
 .vscode/settings.json
