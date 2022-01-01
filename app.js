@@ -13,21 +13,21 @@ require('dotenv').config({path: './auth.env'});
 const {auth} = require('express-openid-connect');
 
 // Auth0 authentication details
-const authConfig = {
-    required: false,
-    auth0Logout: true,
-    appSession: {
-      secret: process.env.AUTH_SECRET
-    },
-    baseURL: 'https://tickettoride.mawey.be',
-    clientID: '6536rh17o9VD1KkqEvz02Rz4vECMnwR5',
-    issuerBaseURL: 'https://dev-osfslp4f.eu.auth0.com'
-};
+// const authConfig = {
+//     required: false,
+//     auth0Logout: true,
+//     appSession: {
+//       secret: process.env.AUTH_SECRET
+//     },
+//     baseURL: 'https://tickettoride.mawey.be',
+//     clientID: '6536rh17o9VD1KkqEvz02Rz4vECMnwR5',
+//     issuerBaseURL: 'https://dev-osfslp4f.eu.auth0.com'
+// };
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(auth(authConfig));
+// app.use(auth(authConfig));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());

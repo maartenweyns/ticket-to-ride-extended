@@ -36,7 +36,7 @@ function setup(creating) {
         }
     }
 
-    let startWinter = new Date(`${new Date().getFullYear()}-03-20`);
+    let startWinter = new Date(`${new Date().getFullYear() - 1}-12-20`);
     let endWinter = new Date(`${new Date().getFullYear()}-03-20`);
     let now = new Date();
 
