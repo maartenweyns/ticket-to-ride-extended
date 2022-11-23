@@ -12,7 +12,7 @@
     "express": "~4.17.1",
     "express-openid-connect": "^1.0.2",
     "sharp": "^0.25.3",
-    "socket.io": "^2.4.0"
+    "socket.io": "^2.5.0"
   },
   "devDependencies": {
     "jest": "^27.4.5"
